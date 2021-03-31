@@ -66,7 +66,7 @@ Logical Programming have to be independet of what programming language you will 
 
 The basic content of a programming logic course consists:
 
-- Introduction: Algorithms, Programming Language, IDE, Compiler and Interpreter, Compiler Installation, IDE Installation and First Program in the Language.
+- Introduction: Algorithms, Programming Language, IDE, Compiler and Interpreter.
 - Sequential Structures: Arithmetic Expressions, Variables, Data Input, Data Processing, Data Output and Mathematical Functions.
 - Conditional Structures: Comparable Expressions, Logical Expressions, Simple Conditional Structure, Compound Conditional Structure and Chaining Conditional Structures.
 - Repetitive Structures: While Repetitive Structure and For Repetitive Structure.
