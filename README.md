@@ -1,4 +1,4 @@
-<h1 align="center"> Logic Programming in Java </h1>
+<h1 align="center"> Logic Programming with Java </h1>
 
 # Content
 
