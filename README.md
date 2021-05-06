@@ -361,7 +361,7 @@ https://unsplash.com/
 [issues-shield]: https://img.shields.io/badge/link-issues-green.svg
 [issues-url]: https://github.com/vitorstabile/logic-programming-with-java-basics/issues
 [license-shield]: https://img.shields.io/badge/license-mit-blue.svg 
-[license-url]: https://github.com/vitorstabile/logic-programming-in-c-basics/blob/master/LICENSE.txt
+[license-url]: https://github.com/vitorstabile/logic-programming-with-java-basics/blob/master/LICENSE.txt
 [logicalcourse-url]: https://www.udemy.com/course/curso-algoritmos-logica-de-programacao/
 [devsuperior-url]: https://www.youtube.com/watch?v=PfYifUFmXk8
 [introduction-url]: https://github.com/vitorstabile/logic-programming-basics
