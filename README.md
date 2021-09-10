@@ -353,7 +353,7 @@ https://unsplash.com/
 [project-shield]: https://img.shields.io/badge/link-project-green.svg
 [project-url]: https://github.com/vitorstabile/logic-programming-with-java-basics
 [linkedin-shield]: https://img.shields.io/badge/my-linkedin-blue.svg 
-[linkedin-url]: https://www.linkedin.com/in/vitor-stabile-garcia-5b151b67
+[linkedin-url]: https://www.linkedin.com/in/vitor-garcia-5b151b67/
 [portfolio-shield]: https://img.shields.io/badge/my-portfolio-red.svg
 [portfolio-url]: https://vitorstabile.github.io
 [github-shield]: https://img.shields.io/badge/my-github-green.svg
