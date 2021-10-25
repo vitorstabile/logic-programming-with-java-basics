@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+C:\Users\solun\OneDrive\Projetos Programação\Projetos Java\java-language-programming-basics\.metadata\.plugins\org.eclipse.jdt.core
-34289346.index
-1491688544.index
