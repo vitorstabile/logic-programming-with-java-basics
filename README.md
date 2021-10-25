@@ -21,6 +21,15 @@
 
 ```java
 
+public class Main {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Hello World!");
+
+	}
+
+}
 
 ```
 
@@ -28,6 +37,34 @@
 
 ```java
 
+import java.util.Locale;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		
+		int age;
+		double salary, height;
+		char genre;
+		String name;
+		
+		age = 20;
+		salary = 5800.5;
+		height = 1.63;
+		genre = 'F';
+		name = "Maria Silva";
+		
+		System.out.println("AGE = " + age);
+		System.out.println("SALARY = " + String.format("%.2f", salary));
+		System.out.println("HEIGHT = " + String.format("%.2f", height));
+		System.out.println("GENRE = " + genre);
+		System.out.println("NAME = " + name);
+
+	}
+
+}
 
 ```
 
@@ -35,6 +72,50 @@
 
 ```java
 
+import java.util.Locale;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		
+		System.out.print("Good Morning");
+		System.out.print("Good Night");
+		
+		System.out.println();
+		
+		System.out.println("Good Morning");
+		System.out.println("Good Night");
+
+		int x, y;
+		x = 10;
+		y = 20;
+		System.out.println(x);
+		System.out.println(y);
+		
+		double z;
+		z = 2.3456;
+		System.out.println(String.format("%.2f", z));
+		
+		int age;
+		double salary;
+		String name;
+		char genre;
+		
+		age = 32;
+		salary = 4560.9;
+		name = "Maria Silva";
+		genre = 'F';
+		
+		System.out.println("The employee " + name +
+		", genre " + genre + ", earn " +
+		String.format("%.2f", salary) + " and have " +
+		age + " years old");
+		
+	}
+
+}
 
 ```
 
@@ -42,6 +123,44 @@
 
 ```java
 
+import java.util.Locale;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		
+		int x1, y1;
+		x1 = 5;
+		y1 = 2 * x1;
+		System.out.println(x1);
+		System.out.println(y1);
+		
+		int x2;
+		double y2;
+		x2 = 5;
+		y2 = 2 * x2;
+		System.out.println(x2);
+		System.out.println(String.format("%.1f", y2));
+		
+		double b1, b2, h, area;
+		b1 = 6.0;
+		b2 = 8.0;
+		h = 5.0;
+		area = (b1 + b2) / 2.0 * h;
+		System.out.println(area);
+		
+		int a, b, result;
+		a = 5;
+		b = 2;
+		result = a / b;
+		System.out.println(result);
+		
+
+	}
+
+}
 
 ```
 
@@ -49,6 +168,19 @@
 
 ```java
 
+public class Main {
+
+	public static void main(String[] args) {
+		
+		double a;
+		int b;
+		a = 5.0;
+		b = (int) a;
+		System.out.println(b);
+
+	}
+
+}
 
 ```
 
@@ -56,6 +188,49 @@
 
 ```java
 
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		double salary1, salary2;
+		String name1, name2;
+		int age;
+		char genre;
+		
+		System.out.print("Name of the first person: ");
+		name1 = sc.nextLine();
+		System.out.print("Salary of the first person: ");
+		salary1 = sc.nextDouble();
+		
+		System.out.print("Name of the second person: ");
+		sc.nextLine(); // ------------- buffer cleaning
+		name2 = sc.nextLine();
+		System.out.print("Salary of the second person: ");
+		salary2 = sc.nextDouble();
+		
+		System.out.print("Age: ");
+		age = sc.nextInt();
+		System.out.print("Genre (F/M): ");
+		genre = sc.next().charAt(0);
+		
+		System.out.println("Name 1: " + name1);
+		System.out.println("Salary 1: " + String.format("%.2f", salary1));
+		System.out.println("Name 2: " + name2);
+		System.out.println("Salary 2: " + String.format("%.2f", salary2));
+		System.out.println("Age: " + age);
+		System.out.println("Genre: " + genre);
+		
+		sc.close();
+
+	}
+
+}
 
 ```
 
@@ -63,6 +238,33 @@
 
 ```java
 
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int time;
+		System.out.print("Enter a time of day: ");
+		time = sc.nextInt();
+		
+		if (6 <= time && time < 12) {
+		System.out.println("Good Morning!");
+		}
+		else if (12 <= time && time < 18) {
+			System.out.println("Good Afternoon!");
+			}
+		else {
+		System.out.println("Good Night!");
+		}
+		
+		sc.close();
+
+	}
+
+}
 
 ```
 
@@ -70,6 +272,32 @@
 
 ```java
 
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		
+		int x, sum;
+		
+		sum = 0;
+		System.out.print("Enter the first number: ");
+		x = sc.nextInt();
+		
+		while (x != 0) {
+			sum = sum + x;
+			System.out.print("Enter another number: ");
+			x = sc.nextInt();
+		}
+		
+		System.out.println("SUM = " + sum);
+		
+		sc.close();
+	}
+
+}
 
 ```
 
@@ -77,6 +305,33 @@
 
 ```java
 
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		int N, i, x, sum;
+
+		System.out.print("How many numbers will be enter? ");
+		N = sc.nextInt();
+
+		sum = 0;
+		for (i = 1; i <= N; i++) {
+			System.out.print("Enter a number: ");
+			x = sc.nextInt();
+			sum = sum + x;
+		}
+		
+		System.out.println("SUM = " + sum);
+		
+		sc.close();
+
+	}
+
+}
 
 ```
 
@@ -84,6 +339,38 @@
 
 ```java
 
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		int N, i;
+		
+		System.out.print("How many numbers will be enter? ");
+		N = sc.nextInt();
+		
+		double[] vet = new double[N];
+		
+		for (i = 0; i < N; i++) {
+			System.out.print("Enter a number: ");
+			vet[i] = sc.nextDouble();
+		}
+		
+		System.out.println("\nTyped Numbers:");
+		for (i = 0; i < N; i++) {
+			System.out.println(String.format("%.1f", vet[i]));
+		}
+		
+		sc.close();
+
+	}
+
+}
 
 ```
 
@@ -91,6 +378,42 @@
 
 ```java
 
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int M, N, i, j;
+		
+		System.out.print("How many rows the matrix will be? ");
+		M = sc.nextInt();
+		System.out.print("How many columns the matrix will be? ");
+		N = sc.nextInt();
+		
+		int[][] mat = new int[M][N];
+		
+		for (i = 0; i < M; i++) {
+			for (j = 0; j < N; j++) {
+				System.out.print("Element [" + i + "," + j + "]: ");
+				mat[i][j] = sc.nextInt();
+			}
+		}
+		
+		System.out.println("\nTyped Matrix:");
+		for (i = 0; i < M; i++) {
+			for (j = 0; j < N; j++) {
+				System.out.print(mat[i][j] + " ");	
+			}
+			System.out.println();
+		}
+		
+		sc.close();
+	}
+
+}
 
 ```
 
