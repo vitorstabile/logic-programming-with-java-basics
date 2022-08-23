@@ -812,7 +812,7 @@ Console
 */
 ```
 
-#### <a name="chapter3part8"></a>Chapter 3 - Part 7: Data Input
+#### <a name="chapter3part8"></a>Chapter 3 - Part 8: Data Input
 
 To do data entry, we are going to create an object of type "Scanner" as follows:
 
@@ -1062,7 +1062,7 @@ Console
 */
 ```
 
-#### <a name="chapter3part9"></a>Chapter 3 - Part 8: Mathematic Functions
+#### <a name="chapter3part9"></a>Chapter 3 - Part 9: Mathematic Functions
 
 Librarie: java.lang.Math
 
