@@ -41,6 +41,8 @@
     - [Chapter 6 - Part 2: Encapsulation](#chapter6part2)
     - [Chapter 6 - Part 3: Inheritance](#chapter6part3)
     - [Chapter 6 - Part 4: Polymorphism](#chapter6part4)
+
+## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
 #### <a name="chapter1part1"></a>Chapter 1 - Part 1: Programmer's Career Starts
 
