@@ -36,7 +36,7 @@
 5. [Chapter 5: Data Structure](#chapter5)
     - [Chapter 5 - Part 1: Vectors in Java](#chapter5part1)
     - [Chapter 5 - Part 2: Matrix in Java](#chapter5part2)
-6. [Chapter 6: Object Oriented](#chapter2)
+6. [Chapter 6: Object Oriented](#chapter6)
     - [Chapter 6 - Part 1: Abstraction](#chapter6part1)
     - [Chapter 6 - Part 2: Encapsulation](#chapter6part2)
     - [Chapter 6 - Part 3: Inheritance](#chapter6part3)
