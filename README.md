@@ -1128,7 +1128,9 @@ Valor absoluto de -5.0 = 5.0
 
 ```
 
-#### <a name="chapter1part7"></a>Chapter 1 - Part 7: Conditional Statement in Java
+## <a name="chapter4"></a>Chapter 4: Conditional Structure
+
+#### <a name="chapter4part1"></a>Chapter 1 - Part 7: Conditional Statement in Java
 
 ```java
 
@@ -1162,7 +1164,7 @@ public class Main {
 
 ```
 
-#### <a name="chapter1part8"></a>Chapter 1 - Part 8: While Statement in Java
+#### <a name="chapter4part2"></a>Chapter 4 - Part 2: While Statement in Java
 
 ```java
 
@@ -1195,7 +1197,7 @@ public class Main {
 
 ```
 
-#### <a name="chapter1part9"></a>Chapter 1 - Part 9: For Statement in Java
+#### <a name="chapter4part3"></a>Chapter 4 - Part 3: For Statement in Java
 
 ```java
 
@@ -1229,7 +1231,9 @@ public class Main {
 
 ```
 
-#### <a name="chapter1part10"></a>Chapter 1 - Part 10: Vectors in Java
+## <a name="chapter5"></a>Chapter 5: Data Structure
+
+#### <a name="chapter5part1"></a>Chapter 5 - Part 1: Vectors in Java
 
 ```java
 
@@ -1268,7 +1272,7 @@ public class Main {
 
 ```
 
-#### <a name="chapter1part11"></a>Chapter 1 - Part 11: Matrix in Java
+#### <a name="chapter5part2"></a>Chapter 5 - Part 2: Matrix in Java
 
 ```java
 
@@ -1310,9 +1314,9 @@ public class Main {
 }
 
 ```
-## <a name="chapter2"></a>Chapter 2: Object Oriented
+## <a name="chapter2"></a>Chapter 6: Object Oriented
 
-#### <a name="chapter2part1"></a>Chapter 2 - Part 1: Abstraction
+#### <a name="chapter6part1"></a>Chapter 6 - Part 1: Abstraction
 
 How it represents a real object in our system. It must have identity (Class) given by properties (attributes) and methods (functions).
 
@@ -1335,7 +1339,7 @@ Polymorphism (A class has several forms or functions)
 • Advantages of object orientation:
 o Reuse of the code and delegation of responsibilities
 
-#### <a name="chapter2part2"></a>Chapter 2 - Part 2: Encapsulation
+#### <a name="chapter6part2"></a>Chapter 6 - Part 2: Encapsulation
 
 Adds security to an object-oriented application, as it hides class properties.
 
@@ -1343,7 +1347,7 @@ o An object must not expose any attributes (use of access modifiers - private, p
 o Class attributes are usually accessed by special methods (Getters and Setters), avoiding direct access to the object's property.
 o Analogy with a television: When you click on the call button, we do not know what happens internally on the TV. We can say that the methods that connect the TV are encapsulated.
 
-#### <a name="chapter2part3"></a>Chapter 2 - Part 3: Inheritance
+#### <a name="chapter6part3"></a>Chapter 6 - Part 3: Inheritance
 
 Type of association between classes that allows a class to inherit all data and behavior from another
 
@@ -1351,7 +1355,7 @@ o Can be used for code reuse
 o Used for polymorphism - A class has several uses
 The whole class java me, inherits from Object (Warper Classes)
 
-#### <a name="chapter2part4"></a>Chapter 2 - Part 4: Polymorphism
+#### <a name="chapter6part4"></a>Chapter 6 - Part 4: Polymorphism
 
 A feature that allows variables of the same more generic type to be able to point to objects of different specific types, thus having different behaviors according to each specific type. In some cases, we must perform the upcasting or dowcasting of the object.
 
