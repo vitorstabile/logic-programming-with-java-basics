@@ -233,11 +233,11 @@ Media = 3.0
 ```
 <br>
 
-<div align="center"><img src="img/chapter1/compilation-interpretation-w1353-h638.png" width=1000 height=500><br><sub>Fig 1 - Compilation and Interpretation Process</sub></div>
+<div align="center"><img src="img/compilation-interpretation-w1353-h638.png" width=1000 height=500><br><sub>Fig 1 - Compilation and Interpretation Process</sub></div>
 
 <br>
 
-<div align="center"><img src="img/chapter1/hybrid-w1079-h395.png" width=1300 height=500><br><sub>Fig 2 - Hybrid Process</sub></div>
+<div align="center"><img src="img/hybrid-w1079-h395.png" width=1300 height=500><br><sub>Fig 2 - Hybrid Process</sub></div>
 
 <br>
 
@@ -311,15 +311,15 @@ Below, there some of compilation process examples in Java:
 
 <br>
 
-<div align="center"><img src="img/chapter2/java-compiler-process-w700-h676.png" width=700 height=676><br><sub>Fig 3 - Compilation Process in Java - (<a href='https://medium.com/@PrayagBhakar/lesson-2-behind-the-scenes-4df6a461f31f'>Work by Prayag Bhakar</a>) </sub></div>
+<div align="center"><img src="img/java-compiler-process-w700-h676.png" width=700 height=676><br><sub>Fig 3 - Compilation Process in Java - (<a href='https://medium.com/@PrayagBhakar/lesson-2-behind-the-scenes-4df6a461f31f'>Work by Prayag Bhakar</a>) </sub></div>
 
 <br>
 
-<div align="center"><img src="img/chapter2/java-compiler-process2-w487-h317.png" width=487 height=317><br><sub>Fig 4 - Compilation Process in Java - (<a href='https://www3.ntu.edu.sg/home/ehchua/programming/java/J1a_Introduction.html'>Work by Chua Hock-Chuan</a>) </sub></div>
+<div align="center"><img src="img/java-compiler-process2-w487-h317.png" width=487 height=317><br><sub>Fig 4 - Compilation Process in Java - (<a href='https://www3.ntu.edu.sg/home/ehchua/programming/java/J1a_Introduction.html'>Work by Chua Hock-Chuan</a>) </sub></div>
 
 <br>
 
-<div align="center"><img src="img/chapter2/java-compiler-process3-w612-h242.png" width=612 height=242><br><sub>Fig 5 - Compilation Process in Java - (<a href='https://www.w3schools.in/java-tutorial/compile-java-file-using-javac/'>Work by  w3schools</a>) </sub></div>
+<div align="center"><img src="img/java-compiler-process3-w612-h242.png" width=612 height=242><br><sub>Fig 5 - Compilation Process in Java - (<a href='https://www.w3schools.in/java-tutorial/compile-java-file-using-javac/'>Work by  w3schools</a>) </sub></div>
 
 <br>
 
@@ -327,7 +327,7 @@ The process to execute the bytecode is called JIT (Just in Time) Compilation. Is
 
 <br>
 
-<div align="center"><img src="img/chapter2/java-compiler-process4-w557-h617.png" width=557 height=617><br><sub>Fig 6 - Compilation Process in Java - (<a href='http://javaeesupportpatterns.blogspot.com/2013/07/java-just-in-time-compilation-more-than.html'>Work by javaeesupportpatterns</a>) </sub></div>
+<div align="center"><img src="img/java-compiler-process4-w557-h617.png" width=557 height=617><br><sub>Fig 6 - Compilation Process in Java - (<a href='http://javaeesupportpatterns.blogspot.com/2013/07/java-just-in-time-compilation-more-than.html'>Work by javaeesupportpatterns</a>) </sub></div>
 
 <br>
 
@@ -349,7 +349,7 @@ Bellow, there is a example of a Java application:
 
 <br>
 
-<div align="center"><img src="img/chapter2/application-structure-in-java-w1449-h810.png" width=1000 height=500><br><sub>Fig 7 - Application Structure in Java Application </sub></div>
+<div align="center"><img src="img/application-structure-in-java-w1449-h810.png" width=1000 height=500><br><sub>Fig 7 - Application Structure in Java Application </sub></div>
 
 <br>
 
@@ -359,7 +359,7 @@ The Java JDK come with some of most used packages to help the developer like awt
 
 <br>
 
-<div align="center"><img src="img/chapter2/packages-jdk-w646-h292.png" width=646 height=292><br><sub>Fig 8 -Java Packages - (<a href='http://www.wellnwill.com/tutorial/core-java/package/package'>Work by Well N Will</a>) </sub></div>
+<div align="center"><img src="img/packages-jdk-w646-h292.png" width=646 height=292><br><sub>Fig 8 -Java Packages - (<a href='http://www.wellnwill.com/tutorial/core-java/package/package'>Work by Well N Will</a>) </sub></div>
 
 <br>
 
@@ -367,7 +367,7 @@ Oracle have a documentation about all his packages: https://docs.oracle.com/java
 
 <br>
 
-<div align="center"><img src="img/chapter2/packages-jdk2-w788-h483.png" width=788 height=483><br><sub>Fig 9 -Java Packages - (<a href='https://docs.oracle.com/javase/8/docs/technotes/guides/desc_jdk_structure.html'>Work by Oracle</a>) </sub></div>
+<div align="center"><img src="img/packages-jdk2-w788-h483.png" width=788 height=483><br><sub>Fig 9 -Java Packages - (<a href='https://docs.oracle.com/javase/8/docs/technotes/guides/desc_jdk_structure.html'>Work by Oracle</a>) </sub></div>
 
 <br>
 
@@ -375,15 +375,15 @@ One of the most famous used packages is java.util.collections and java.util.map
 
 <br>
 
-<div align="center"><img src="img/chapter2/packages-jdk4-w1512-h1252.png" width=500 height=400><br><sub>Fig 10 -Java Packages - (<a href='https://ukode.es/colecciones-i-introduccion-y-conceptos-basicos/'>Work by Jose Antonio Simón</a>) </sub></div>
+<div align="center"><img src="img/packages-jdk4-w1512-h1252.png" width=500 height=400><br><sub>Fig 10 -Java Packages - (<a href='https://ukode.es/colecciones-i-introduccion-y-conceptos-basicos/'>Work by Jose Antonio Simón</a>) </sub></div>
 
 <br>
 
-<div align="center"><img src="img/chapter2/packages-jdk3-w1720-h693.png" width=700 height=300><br><sub>Fig 11 -Java Packages - (<a href='https://ukode.es/colecciones-i-introduccion-y-conceptos-basicos/'>Work by Jose Antonio Simón</a>) </sub></div>
+<div align="center"><img src="img/packages-jdk3-w1720-h693.png" width=700 height=300><br><sub>Fig 11 -Java Packages - (<a href='https://ukode.es/colecciones-i-introduccion-y-conceptos-basicos/'>Work by Jose Antonio Simón</a>) </sub></div>
 
 <br>
 
-<div align="center"><img src="img/chapter2/packages-jdk5-w854-h715.png" width=854 height=715><br><sub>Fig 12 -Java Packages - (<a href='https://www.javatpoint.com/collections-in-java'>Work by JavaPoint</a>) </sub></div>
+<div align="center"><img src="img/packages-jdk5-w854-h715.png" width=854 height=715><br><sub>Fig 12 -Java Packages - (<a href='https://www.javatpoint.com/collections-in-java'>Work by JavaPoint</a>) </sub></div>
 
 <br>
 
@@ -487,11 +487,11 @@ In Java, we have the 8 primitive data types. Other types are Non-primitive like 
 
 <br>
 
-<div align="center"><img src="img/chapter3/data-types-w8000-h4500.png" width=600 height=350><br><sub>Fig 13 -Java Data Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
+<div align="center"><img src="img/data-types-w8000-h4500.png" width=600 height=350><br><sub>Fig 13 -Java Data Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
 
 <br>
 
-<div align="center"><img src="img/chapter3/data-types2-w1920-h1080.jpg" width=600 height=300><br><sub>Fig 14 -Java Data Primitive Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
+<div align="center"><img src="img/data-types2-w1920-h1080.jpg" width=600 height=300><br><sub>Fig 14 -Java Data Primitive Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
 
 <br>
 
@@ -592,7 +592,7 @@ The processing is made by the CPU
 
 <br>
 
-<div align="center"><img src="img/chapter3/basic-operations-computer-w562-h190.gif" width=562 height=190><br><sub>Fig 15 -Basic Operations of a Computer - (<a href='http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html'>Work by Paul Mullins</a>) </sub></div>
+<div align="center"><img src="img/basic-operations-computer-w562-h190.gif" width=562 height=190><br><sub>Fig 15 -Basic Operations of a Computer - (<a href='http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html'>Work by Paul Mullins</a>) </sub></div>
 
 <br>
 
