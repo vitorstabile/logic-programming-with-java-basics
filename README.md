@@ -1130,7 +1130,7 @@ Valor absoluto de -5.0 = 5.0
 
 ## <a name="chapter4"></a>Chapter 4: Conditional Structure
 
-#### <a name="chapter4part1"></a>Chapter 1 - Part 7: Conditional Statement in Java
+#### <a name="chapter4part1"></a>Chapter 4 - Part 1: Conditional Statement in Java
 
 ```java
 
