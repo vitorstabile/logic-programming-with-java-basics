@@ -1314,7 +1314,7 @@ public class Main {
 }
 
 ```
-## <a name="chapter2"></a>Chapter 6: Object Oriented
+## <a name="chapter6"></a>Chapter 6: Object Oriented
 
 #### <a name="chapter6part1"></a>Chapter 6 - Part 1: Abstraction
 
