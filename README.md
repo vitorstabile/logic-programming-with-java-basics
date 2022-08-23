@@ -33,7 +33,7 @@
     - [Chapter 4 - Part 1: Conditional Statement in Java](#chapter4part1)
     - [Chapter 4 - Part 2: While Statement in Java](#chapter4part2)
     - [Chapter 4 - Part 3: For Statement in Java](#chapter4part3)
-5. [Chapter 5: Data Structure](#chapter4)
+5. [Chapter 5: Data Structure](#chapter5)
     - [Chapter 5 - Part 1: Vectors in Java](#chapter5part1)
     - [Chapter 5 - Part 2: Matrix in Java](#chapter5part2)
 6. [Chapter 6: Object Oriented](#chapter2)
