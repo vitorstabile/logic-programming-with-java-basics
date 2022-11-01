@@ -48,6 +48,10 @@
     - [Chapter 6 - Part 3: Multidimensional Arrays](#chapter6part3)
 7. [Chapter 7: Conventions, Strings, bitwise operators and functions](#chapter7)
     - [Chapter 7 - Part 1: Name Convention](#chapter7part1)
+    - [Chapter 7 - Part 2: Bitwise Operators in Java](#chapter7part2)
+    - [Chapter 7 - Part 3: String Functions](#chapter7part3)
+    - [Chapter 7 - Part 4: Comments](#chapter7part4)
+    - [Chapter 7 - Part 5: Functions](#chapter7part5)
 8. [Chapter 8: Object Oriented](#chapter8)
     - [Chapter 8 - Part 1: Abstraction](#chapter8part1)
     - [Chapter 8 - Part 2: Encapsulation](#chapter8part2)
@@ -2183,6 +2187,14 @@ public class Account {
 }
 
 ```
+
+#### <a name="chapter7part2"></a>Chapter 7 - Part 2: Bitwise Operators in Java
+
+#### <a name="chapter7part3"></a>Chapter 7 - Part 3: String Functions
+
+#### <a name="chapter7part4"></a>Chapter 7 - Part 4: Comments
+
+#### <a name="chapter7part5"></a>Chapter 7 - Part 5: Functions
 
 ## <a name="chapter8"></a>Chapter 8: Object Oriented
 
