@@ -1130,6 +1130,55 @@ Valor absoluto de -5.0 = 5.0
 
 ## <a name="chapter4"></a>Chapter 4: Conditional Structure
 
+#### <a name="chapter4part1"></a>Chapter 4 - Part 1: Comparison Operators in Java
+
+Comparison operators are used to compare two values. This is important in programming, because it helps us to find answers and make decisions.
+
+The return value of a comparison is either ```true``` or ```false```.
+
+```java
+int x = 5;
+int y = 3;
+System.out.println(x > y);
+
+/*
+
+Console
+
+----output---
+// returns true, because 5 is higher than 3
+
+*/
+
+```
+
+| Operator | Name                     | Description                              |Example     |
+| :-------:| :-----------------------:|:---------------------------------------: |:---------: |
+| ==       | Equal to                 | Adds together two values                 | x == y     |
+| !=       | Not equal                | Subtracts one value from another         | x != y     |
+| >        | Greater than             | Multiplies two values                    | x > y      |
+| <        | Less than                | Divides one value by another             | x < y      |
+| >=       | Greater than or equal to | Returns the division remainder           | x >= y     |
+| <=       | Less than or equal to    |	Increases the value of a variable by 1   | x <= y     |
+
+#### <a name="chapter4part2"></a>Chapter 4 - Part 2: Logical Operators in Java
+
+You can also test for true or false values with logical operators.
+
+Logical operators are used to determine the logic between variables or values:
+
+| Operator | Name                     | Description                                             |Example             |
+| :-------:| :-----------------------:|:------------------------------------------------------: |:-----------------: |
+| &&       | Logical and              | Returns true if both statements are true                | x < 5 &&  x < 10   |
+| ||       | Logical or               | Returns true if one of the statements is true           | x < 5 || x < 4     |
+| !        | Logical not              | Reverse the result, returns false if the result is true | !(x < 5 && x < 10) |
+
+```java
+
+```
+
+
+
 #### <a name="chapter4part1"></a>Chapter 4 - Part 1: Conditional Statement in Java
 
 ```java
