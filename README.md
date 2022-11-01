@@ -1572,6 +1572,13 @@ The ```while``` loop loops through a block of code as long as a specified condit
 
 **When to use**: when **not** know in advance the amount of repetitions to be performed.
 
+<br>
+
+<div align="center"><img src="img/while-w485-h284.png" width=485 height=284><br><sub>Fig 19 - While Control Flow - (<a href='https://web.ics.purdue.edu/~jricha14/Control_Statements/control_statements.htm'>Work by ics</a>) </sub></div>
+
+<br>
+
+
 **The while Statement**
 
 ```java
@@ -1631,6 +1638,12 @@ public class Main {
 
 #### <a name="chapter5part2"></a>Chapter 5 - Part 2: Repetition Statement in Java(for)
 
+<br>
+
+<div align="center"><img src="img/for-w625-h483.png" width=625 height=483><br><sub>Fig 20 - For Control Flow - (<a href='https://web.ics.purdue.edu/~jricha14/Control_Statements/control_statements.htm'>Work by ics</a>) </sub></div>
+
+<br>
+
 ```java
 
 import java.util.Scanner;
@@ -1664,6 +1677,30 @@ public class Main {
 ```
 
 #### <a name="chapter5part3"></a>Chapter 5 - Part 3: Repetition Statement in Java(do-while)
+
+Loops can execute a block of code as long as a specified condition is reached.
+
+Loops are handy because they save time, reduce errors, and they make code more readable.
+
+The ```do/while``` loop is a variant of the ```while``` loop. This loop will execute the code block once, before checking if the condition is true, then it will repeat the loop as long as the condition is true.
+
+<br>
+
+<div align="center"><img src="img/dowhile-w401-h398.png" width=401 height=398><br><sub>Fig 21 - Do/While Control Flow - (<a href='https://web.ics.purdue.edu/~jricha14/Control_Statements/control_statements.htm'>Work by ics</a>) </sub></div>
+
+<br>
+
+**The do/while Statement**
+
+```java
+
+do {
+  // code block to be executed
+}
+while (condition);
+
+```
+
 
 #### <a name="chapter5part4"></a>Chapter 5 - Part 4: Break and Continue Statement in Java
 
