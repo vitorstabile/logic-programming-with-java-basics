@@ -1578,7 +1578,6 @@ The ```while``` loop loops through a block of code as long as a specified condit
 
 <br>
 
-
 **The while Statement**
 
 ```java
@@ -1638,11 +1637,53 @@ public class Main {
 
 #### <a name="chapter5part2"></a>Chapter 5 - Part 2: Repetition Statement in Java(for)
 
+It is a **control structure** that **repeat** a block of commands **for a certain range ofvalues.** a condition is true.
+
+When you know exactly how many times you want to loop through a block of code, use the ```for``` loop instead of a ```while``` loop
+
+When to use: when you know previously the amount of repetitions, or the interval of values.
+
 <br>
 
 <div align="center"><img src="img/for-w625-h483.png" width=625 height=483><br><sub>Fig 20 - For Control Flow - (<a href='https://web.ics.purdue.edu/~jricha14/Control_Statements/control_statements.htm'>Work by ics</a>) </sub></div>
 
 <br>
+
+**The while Statement**
+
+```java
+
+for (statement 1; statement 2; statement 3) {
+  // code block to be executed
+}
+
+```
+
+**Statement 1** is executed (one time) before the execution of the code block.
+
+**Statement 2** defines the condition for executing the code block.
+
+**Statement 3** is executed (every time) after the code block has been executed.
+
+The example below will print the numbers 0 to 4:
+
+```java
+
+for (int i = 0; i < 5; i++) {
+  System.out.println(i);
+}
+
+```
+
+Example explained
+
+Statement 1 sets a variable before the loop starts (int i = 0).
+
+Statement 2 defines the condition for the loop to run (i must be less than 5). If the condition is true, the loop will start over again, if it is false, the loop will end.
+
+Statement 3 increases a value (i++) each time the code block in the loop has been executed.
+
+Example: Make a program that reads a value integer N and then N integers. At the end, it shows the sum of the N numbers read
 
 ```java
 
@@ -1701,8 +1742,74 @@ while (condition);
 
 ```
 
-
 #### <a name="chapter5part4"></a>Chapter 5 - Part 4: Break and Continue Statement in Java
+
+**Java Break**
+
+You have already seen the ```break``` statement used in an earlier chapter of this tutorial. It was used to "jump out" of a ```switch``` statement.
+
+The ```break``` statement can also be used to jump out of a loop.
+
+This example stops the loop when i is equal to 4:
+
+```java
+
+for (int i = 0; i < 10; i++) {
+  if (i == 4) {
+    break;
+  }
+  System.out.println(i);
+}
+
+```
+
+**Java Continue**
+
+The continue statement breaks one iteration (in the loop), if a specified condition occurs, and continues with the next iteration in the loop.
+
+This example skips the value of 4:
+
+```java
+
+for (int i = 0; i < 10; i++) {
+  if (i == 4) {
+    continue;
+  }
+  System.out.println(i);
+}
+
+```
+
+**Break and Continue in While Loop**
+
+You can also use **break** and **continue** in while loops:
+
+```java
+
+int i = 0;
+while (i < 10) {
+  System.out.println(i);
+  i++;
+  if (i == 4) {
+    break;
+  }
+}
+
+```
+
+```java
+
+int i = 0;
+while (i < 10) {
+  if (i == 4) {
+    i++;
+    continue;
+  }
+  System.out.println(i);
+  i++;
+}
+
+```
 
 ## <a name="chapter6"></a>Chapter 6: Arrays
 
