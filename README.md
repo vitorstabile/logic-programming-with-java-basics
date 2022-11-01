@@ -35,14 +35,21 @@
     - [Chapter 4 - Part 3: Conditional Statement in Java(if-else)](#chapter4part3)
     - [Chapter 4 - Part 4: Conditional Statement in Java(Short Hand If...Else)](#chapter4part4)
     - [Chapter 4 - Part 5: Conditional Statement in Java(switch-case)](#chapter4part5)
-5. [Chapter 5: Data Structure](#chapter5)
-    - [Chapter 5 - Part 1: Vectors in Java](#chapter5part1)
-    - [Chapter 5 - Part 2: Matrix in Java](#chapter5part2)
-6. [Chapter 6: Object Oriented](#chapter6)
-    - [Chapter 6 - Part 1: Abstraction](#chapter6part1)
-    - [Chapter 6 - Part 2: Encapsulation](#chapter6part2)
-    - [Chapter 6 - Part 3: Inheritance](#chapter6part3)
-    - [Chapter 6 - Part 4: Polymorphism](#chapter6part4)
+    - [Chapter 4 - Part 6: Java Scope](#chapter4part6)
+5. [Chapter 5: Repetition Structure](#chapter5)
+    - [Chapter 5 - Part 1: Repetition Statement in Java(while)](#chapter5part1)
+    - [Chapter 5 - Part 2: Repetition Statement in Java(for)](#chapter5part2)
+    - [Chapter 5 - Part 3: Repetition Statement in Java(do-while)](#chapter5part3)
+6. [Chapter 6: Conventions, Strings, bitwise operators and functions](#chapter5)
+    - [Chapter 6 - Part 1: Name Convention](#chapter6part1)
+6. [Chapter 7: Object Oriented](#chapter6)
+    - [Chapter 7 - Part 1: Abstraction](#chapter7part1)
+    - [Chapter 7 - Part 2: Encapsulation](#chapter7part2)
+    - [Chapter 7 - Part 3: Inheritance](#chapter7part3)
+    - [Chapter 7 - Part 4: Polymorphism](#chapter7part4)
+7. [Chapter 8: Data Structure](#chapter7)
+    - [Chapter 8 - Part 1: Vectors in Java](#chapter8part1)
+    - [Chapter 8 - Part 2: Matrix in Java](#chapter8part2)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -1471,6 +1478,87 @@ switch (day) {
 ```
 
 OBS: Note that if the default statement is used as the last statement in a switch block, it does not need a break.
+
+#### <a name="chapter4part6"></a>Chapter 4 - Part 6: Java Scope
+
+In Java, variables are only accessible inside the region they are created. This is called **scope**.
+
+Scope of a variable: is the region of the program where the variable is valid, that is, where it can be referenced.
+
+Variables declared directly inside a method are available anywhere in the method following the line of code in which they were declared:
+
+**Method Scope**
+
+Variables declared directly inside a method are available anywhere in the method following the line of code in which they were declared:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Code here CANNOT use x
+
+    int x = 100;
+
+    // Code here can use x
+    System.out.println(x);
+  }
+}
+
+```
+
+**Block Scope**
+
+A block of code refers to all of the code between curly braces ```{}```.
+
+Variables declared inside blocks of code are only accessible by the code between the curly braces, which follows the line in which the variable was declared:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Code here CANNOT use x
+
+    { // This is a block
+
+      // Code here CANNOT use x
+
+      int x = 100;
+
+      // Code here CAN use x
+      System.out.println(x);
+
+   } // The block ends here
+
+  // Code here CANNOT use x
+
+  }
+}
+
+```
+
+OBS: A block of code may exist on its own or it can belong to an ```if```, ```while``` or ```for``` statement. In the case of ```for``` statements, variables declared in the statement itself are also available inside the block's scope.
+
+```java
+
+double price = sc.nextDouble();
+
+if (price > 100.0) {
+
+double discount = price * 0.1;
+
+// Code here CAN use variable discount
+
+}
+
+// Code here CANNOT use variable discount
+
+```
+
+
+
+
 
 #### <a name="chapter4part2"></a>Chapter 4 - Part 2: While Statement in Java
 
