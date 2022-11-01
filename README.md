@@ -1746,7 +1746,7 @@ Polymorphism (A class has several forms or functions)
 • Advantages of object orientation:
 o Reuse of the code and delegation of responsibilities
 
-#### <a name="chapter6part2"></a>Chapter 6 - Part 2: Encapsulation
+#### <a name="chapter8part2"></a>Chapter 8 - Part 2: Encapsulation
 
 Adds security to an object-oriented application, as it hides class properties.
 
@@ -1754,7 +1754,7 @@ o An object must not expose any attributes (use of access modifiers - private, p
 o Class attributes are usually accessed by special methods (Getters and Setters), avoiding direct access to the object's property.
 o Analogy with a television: When you click on the call button, we do not know what happens internally on the TV. We can say that the methods that connect the TV are encapsulated.
 
-#### <a name="chapter6part3"></a>Chapter 6 - Part 3: Inheritance
+#### <a name="chapter8part3"></a>Chapter 8 - Part 3: Inheritance
 
 Type of association between classes that allows a class to inherit all data and behavior from another
 
@@ -1762,7 +1762,7 @@ o Can be used for code reuse
 o Used for polymorphism - A class has several uses
 The whole class java me, inherits from Object (Warper Classes)
 
-#### <a name="chapter6part4"></a>Chapter 6 - Part 4: Polymorphism
+#### <a name="chapter8part4"></a>Chapter 8 - Part 4: Polymorphism
 
 A feature that allows variables of the same more generic type to be able to point to objects of different specific types, thus having different behaviors according to each specific type. In some cases, we must perform the upcasting or dowcasting of the object.
 
