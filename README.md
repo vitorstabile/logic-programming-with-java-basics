@@ -33,8 +33,8 @@
     - [Chapter 4 - Part 1: Comparison Operators in Java](#chapter4part1)
     - [Chapter 4 - Part 2: Logical Operators in Java](#chapter4part2)
     - [Chapter 4 - Part 3: Conditional Statement in Java(if-else)](#chapter4part3)
-    - [Chapter 4 - Part : While Statement in Java](#chapter4part)
-    - [Chapter 4 - Part : For Statement in Java](#chapter4part)
+    - [Chapter 4 - Part 4: Conditional Statement in Java(Short Hand If...Else)](#chapter4part4)
+    - [Chapter 4 - Part 5: Conditional Statement in Java(switch-case)](#chapter4part5)
 5. [Chapter 5: Data Structure](#chapter5)
     - [Chapter 5 - Part 1: Vectors in Java](#chapter5part1)
     - [Chapter 5 - Part 2: Matrix in Java](#chapter5part2)
@@ -1303,6 +1303,8 @@ Console
 
 ```
 
+Write a program to wish you good morning if the time is from 6 am to 12 pm, good afternoon from 12 pm to 6 pm and good night for other times.
+
 ```java
 
 import java.util.Scanner;
@@ -1334,6 +1336,112 @@ public class Main {
 }
 
 ```
+#### <a name="chapter4part4"></a>Chapter 4 - Part 4: Conditional Statement in Java(Short Hand If...Else)
+
+
+
+
+
+#### <a name="chapter4part5"></a>Chapter 4 - Part 5: Conditional Statement in Java(switch-case)
+
+When you have multiple flow options to handle based on the value of a variable, rather than multiple chained if-else structures, some prefer to use the switch-case structure.
+
+Instead of writing many ```if..else``` statements, you can use the ```switch``` statement.
+
+<br>
+
+<div align="center"><img src="img/switch-w524-h606.png" width=524 height=606><br><sub>Fig 18 - Switch-Case Control Flow - (<a href='https://web.ics.purdue.edu/~jricha14/Control_Statements/control_statements.htm'>Work by ics</a>) </sub></div>
+
+<br>
+
+**The switch Statement**
+
+```java
+
+switch(expression) {
+  case x:
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+}
+
+```
+
+This is how it works:
+
+- The switch expression is evaluated once.
+- The value of the expression is compared with the values of each case.
+- If there is a match, the associated block of code is executed.
+- The break and default keywords are optional, and will be described later in this chapter
+
+The example below uses the weekday number to calculate the weekday name:
+
+```java
+
+int day = 4;
+switch (day) {
+  case 1:
+    System.out.println("Monday");
+    break;
+  case 2:
+    System.out.println("Tuesday");
+    break;
+  case 3:
+    System.out.println("Wednesday");
+    break;
+  case 4:
+    System.out.println("Thursday");
+    break;
+  case 5:
+    System.out.println("Friday");
+    break;
+  case 6:
+    System.out.println("Saturday");
+    break;
+  case 7:
+    System.out.println("Sunday");
+    break;
+}
+// Outputs "Thursday" (day 4)
+
+```
+
+***The break Keyword***
+
+When Java reaches a ```break``` keyword, it breaks out of the switch block.
+
+This will stop the execution of more code and case testing inside the block.
+
+When a match is found, and the job is done, it's time for a break. There is no need for more testing.
+
+OBS: A break can save a lot of execution time because it "ignores" the execution of all the rest of the code in the switch block.
+
+***The default Keyword***
+
+The ```default``` keyword specifies some code to run if there is no case match:
+
+```java
+
+int day = 4;
+switch (day) {
+  case 6:
+    System.out.println("Today is Saturday");
+    break;
+  case 7:
+    System.out.println("Today is Sunday");
+    break;
+  default:
+    System.out.println("Looking forward to the Weekend");
+}
+// Outputs "Looking forward to the Weekend"
+
+```
+
+OBS: Note that if the default statement is used as the last statement in a switch block, it does not need a break.
 
 #### <a name="chapter4part2"></a>Chapter 4 - Part 2: While Statement in Java
 
