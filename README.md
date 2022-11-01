@@ -1338,9 +1338,38 @@ public class Main {
 ```
 #### <a name="chapter4part4"></a>Chapter 4 - Part 4: Conditional Statement in Java(Short Hand If...Else)
 
+Optional structure to ```if-else``` when you want to decide a **VALUE** based on a condition.
 
+**The Short Hand If...Else Statement**
 
+```java
 
+variable = (condition) ? expressionTrue :  expressionFalse;
+
+```
+
+Instead of writing:
+
+```java
+
+int time = 20;
+if (time < 18) {
+  System.out.println("Good day.");
+} else {
+  System.out.println("Good evening.");
+}
+
+```
+
+You can simply write:
+
+```java
+
+int time = 20;
+String result = (time < 18) ? "Good day." : "Good evening.";
+System.out.println(result);
+
+```
 
 #### <a name="chapter4part5"></a>Chapter 4 - Part 5: Conditional Statement in Java(switch-case)
 
