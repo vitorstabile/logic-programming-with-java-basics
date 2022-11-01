@@ -2126,6 +2126,64 @@ public class Main {
 
 #### <a name="chapter7part1"></a>Chapter 7 - Part 1: Name Convention
 
+Restrictions for variable names:
+
+- Cannot start with a digit: use a letter or _
+- Do not use accents or tildes
+- Cannot have white space
+- Tip: Use names that have meaning
+
+**wrong**:
+int 5minutes;
+int salário;
+int salario do funcionario;
+
+**Correct**:
+int _5minutes;
+int salario;
+int salarioDoFuncionario;
+
+Conventions
+
+Camel Case: lastName
+- packages
+- attributes
+- methods
+- variables and parameters
+
+Pascal Case: ProductService
+- classes
+
+```java
+
+package entities;
+
+public class Account {
+
+	private String holder;
+	private Double balance;
+	
+	public Account(String holder, Double balance) {
+		this.holder = holder;
+		this.balance = balance;
+	}
+	
+	public String getHolder() {
+		return holder;
+	}
+	
+	public void deposit(double amount) {
+		balance += amount;
+	}
+	
+	public void withdraw(double amount) {
+		balance -= amount;
+	}
+	
+}
+
+```
+
 ## <a name="chapter8"></a>Chapter 8: Object Oriented
 
 #### <a name="chapter8part1"></a>Chapter 8 - Part 1: Abstraction
