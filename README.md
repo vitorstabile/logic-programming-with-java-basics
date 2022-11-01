@@ -1177,7 +1177,7 @@ Logical operators are used to determine the logic between variables or values:
 
 <br>
 
-<div align="center"><img src="img/truth-table-w496-h97.png" width=496 height=97><br><sub>Fig 16 -Truth Table in Java - (<a href='[http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html](http://ntci.on.ca/compsci/java/ch3/3_4.html)'></a>) </sub></div>
+<div align="center"><img src="img/truth-table-w496-h97.png" width=496 height=97><br><sub>Fig 16 -Truth Table in Java - (<a href='[http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html](http://ntci.on.ca/compsci/java/ch3/3_4.html)'>) </sub></div>
 
 <br>
 
