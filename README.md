@@ -1857,6 +1857,12 @@ Disadvantages:
 - Fixed Size
 - Difficulty performing insertions and deletions
 
+<br>
+
+<div align="center"><img src="img/array1-w592-h173.png" width=592 height=173><br><sub>Fig 22 - Array - (<a href='https://www.geeksforgeeks.org/arrays-in-java/'>Work by geeksforgeeks</a>) </sub></div>
+
+<br>
+
 ```java
 
 import java.util.Locale;
@@ -1897,6 +1903,27 @@ public class Main {
 #### <a name="chapter6part2"></a>Chapter 6 - Part 2: Loop Through an Array
 
 #### <a name="chapter6part3"></a>Chapter 6 - Part 3: Multidimensional Arrays
+
+In programming, "Matriz" is the name given to one-dimensional arrays.
+obs: A array of Arrays
+
+Array is a data Structure:
+- Homogeneous (data of the same type)
+- Ordered (elements accessed through positions)
+- Allocated at once, in a contiguous block of memory
+
+Advantages:
+- Immediate access to elements by their position
+
+Disadvantages:
+- Fixed Size
+- Difficulty performing insertions and deletions
+
+<br>
+
+<div align="center"><img src="img/array2-w740-h282.png" width=740 height=282><br><sub>Fig 23 - Multidimensional Array - (<a href='https://www.geeksforgeeks.org/multidimensional-arrays-in-java/?ref=lbp'>Work by geeksforgeeks</a>) </sub></div>
+
+<br>
 
 ```java
 
