@@ -1724,6 +1724,8 @@ Loops can execute a block of code as long as a specified condition is reached.
 
 Loops are handy because they save time, reduce errors, and they make code more readable.
 
+The command block executes at least once, as the condition is checked at the end.
+
 The ```do/while``` loop is a variant of the ```while``` loop. This loop will execute the code block once, before checking if the condition is true, then it will repeat the loop as long as the condition is true.
 
 <br>
@@ -1840,6 +1842,20 @@ while (i < 10) {
 ## <a name="chapter6"></a>Chapter 6: Arrays
 
 #### <a name="chapter6part1"></a>Chapter 6 - Part 1: Array
+
+In programming, "vector" is the name given to one-dimensional arrays.
+
+Array is a data Structure:
+- Homogeneous (data of the same type)
+- Ordered (elements accessed through positions)
+- Allocated at once, in a contiguous block of memory
+
+Advantages:
+- Immediate access to elements by their position
+
+Disadvantages:
+- Fixed Size
+- Difficulty performing insertions and deletions
 
 ```java
 
