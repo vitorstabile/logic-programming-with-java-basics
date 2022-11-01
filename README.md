@@ -40,7 +40,8 @@
     - [Chapter 5 - Part 1: Repetition Statement in Java(while)](#chapter5part1)
     - [Chapter 5 - Part 2: Repetition Statement in Java(for)](#chapter5part2)
     - [Chapter 5 - Part 3: Repetition Statement in Java(do-while)](#chapter5part3)
-    - [Chapter 5 - Part 4: Break and Continue Statement in Java](#chapter5part4)
+    - [Chapter 5 - Part 4: Repetition Statement in Java(For-Each)](#chapter5part4)
+    - [Chapter 5 - Part 5: Break and Continue Statement in Java](#chapter5part5)
 6. [Chapter 6: Arrays](#chapter6)
     - [Chapter 6 - Part 1: Array](#chapter6part1)
     - [Chapter 6 - Part 2: Loop Through an Array](#chapter6part2)
@@ -1742,7 +1743,32 @@ while (condition);
 
 ```
 
-#### <a name="chapter5part4"></a>Chapter 5 - Part 4: Break and Continue Statement in Java
+#### <a name="chapter5part4"></a>Chapter 5 - Part 4: Repetition Statement in Java(For-Each)
+
+There is also a ```for-each``` loop, which is used exclusively to loop through elements in an ```array``` or Collections class (eg, ArrayList):
+
+**The for-each Statement**
+
+```java
+
+for (type variableName : arrayName) {
+  // code block to be executed
+}
+
+```
+
+The following example outputs all elements in the **cars** array, using a **for-each** loop:
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (String i : cars) {
+  System.out.println(i);
+}
+
+```
+
+#### <a name="chapter5part5"></a>Chapter 5 - Part 5: Break and Continue Statement in Java
 
 **Java Break**
 
