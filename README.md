@@ -40,16 +40,18 @@
     - [Chapter 5 - Part 1: Repetition Statement in Java(while)](#chapter5part1)
     - [Chapter 5 - Part 2: Repetition Statement in Java(for)](#chapter5part2)
     - [Chapter 5 - Part 3: Repetition Statement in Java(do-while)](#chapter5part3)
-6. [Chapter 6: Conventions, Strings, bitwise operators and functions](#chapter5)
-    - [Chapter 6 - Part 1: Name Convention](#chapter6part1)
-6. [Chapter 7: Object Oriented](#chapter6)
-    - [Chapter 7 - Part 1: Abstraction](#chapter7part1)
-    - [Chapter 7 - Part 2: Encapsulation](#chapter7part2)
-    - [Chapter 7 - Part 3: Inheritance](#chapter7part3)
-    - [Chapter 7 - Part 4: Polymorphism](#chapter7part4)
-7. [Chapter 8: Data Structure](#chapter7)
-    - [Chapter 8 - Part 1: Vectors in Java](#chapter8part1)
-    - [Chapter 8 - Part 2: Matrix in Java](#chapter8part2)
+    - [Chapter 5 - Part 4: Break and Continue Statement in Java](#chapter5part4)
+6. [Chapter 6: Arrays](#chapter6)
+    - [Chapter 6 - Part 1: Array](#chapter6part1)
+    - [Chapter 6 - Part 2: Loop Through an Array](#chapter6part2)
+    - [Chapter 6 - Part 3: Multidimensional Arrays](#chapter6part3)
+7. [Chapter 7: Conventions, Strings, bitwise operators and functions](#chapter7)
+    - [Chapter 7 - Part 1: Name Convention](#chapter7part1)
+8. [Chapter 8: Object Oriented](#chapter8)
+    - [Chapter 8 - Part 1: Abstraction](#chapter8part1)
+    - [Chapter 8 - Part 2: Encapsulation](#chapter8part2)
+    - [Chapter 8 - Part 3: Inheritance](#chapter8part3)
+    - [Chapter 8 - Part 4: Polymorphism](#chapter8part4)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -1556,11 +1558,9 @@ double discount = price * 0.1;
 
 ```
 
+## <a name="chapter5"></a>Chapter 5: Repetition Structure
 
-
-
-
-#### <a name="chapter4part2"></a>Chapter 4 - Part 2: While Statement in Java
+#### <a name="chapter5part1"></a>Chapter 5 - Part 1: Repetition Statement in Java(while)
 
 ```java
 
@@ -1593,7 +1593,7 @@ public class Main {
 
 ```
 
-#### <a name="chapter4part3"></a>Chapter 4 - Part 3: For Statement in Java
+#### <a name="chapter5part2"></a>Chapter 5 - Part 2: Repetition Statement in Java(for)
 
 ```java
 
@@ -1627,9 +1627,13 @@ public class Main {
 
 ```
 
-## <a name="chapter5"></a>Chapter 5: Data Structure
+#### <a name="chapter5part3"></a>Chapter 5 - Part 3: Repetition Statement in Java(do-while)
 
-#### <a name="chapter5part1"></a>Chapter 5 - Part 1: Vectors in Java
+#### <a name="chapter5part3"></a>Chapter 5 - Part 4: Break and Continue Statement in Java
+
+## <a name="chapter6"></a>Chapter 6: Arrays
+
+#### <a name="chapter6part1"></a>Chapter 6 - Part 1: Array
 
 ```java
 
@@ -1668,7 +1672,9 @@ public class Main {
 
 ```
 
-#### <a name="chapter5part2"></a>Chapter 5 - Part 2: Matrix in Java
+#### <a name="chapter6part2"></a>Chapter 6 - Part 2: Loop Through an Array
+
+#### <a name="chapter6part3"></a>Chapter 6 - Part 3: Multidimensional Arrays
 
 ```java
 
@@ -1710,9 +1716,14 @@ public class Main {
 }
 
 ```
-## <a name="chapter6"></a>Chapter 6: Object Oriented
 
-#### <a name="chapter6part1"></a>Chapter 6 - Part 1: Abstraction
+## <a name="chapter7"></a>Chapter 7: Conventions, Strings, bitwise operators and functions
+
+#### <a name="chapter7part1"></a>Chapter 7 - Part 1: Name Convention
+
+## <a name="chapter8"></a>Chapter 8: Object Oriented
+
+#### <a name="chapter8part1"></a>Chapter 8 - Part 1: Abstraction
 
 How it represents a real object in our system. It must have identity (Class) given by properties (attributes) and methods (functions).
 
