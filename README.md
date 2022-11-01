@@ -1175,6 +1175,14 @@ Logical operators are used to determine the logic between variables or values:
 | &#124;&#124; | Logical or   | Returns true if one of the statements is true           | x < 5 &#124;&#124; x < 4     |
 | !            | Logical not  | Reverse the result, returns false if the result is true | !(x < 5 && x < 10)           |
 
+<br>
+
+<div align="center"><img src="img/truth-table-w496-h97.png" width=496 height=97><br><sub>Fig 16 -Truth Table in Java - (<a href='[http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html](http://ntci.on.ca/compsci/java/ch3/3_4.html)'></a>) </sub></div>
+
+<br>
+
+
+
 ```java
 
 ```
