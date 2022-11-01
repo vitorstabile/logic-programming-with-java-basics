@@ -1163,14 +1163,14 @@ Console
 
 ```
 
-| Operator | Name                     | Description                              |Example     |
-| :-------:| :-----------------------:|:---------------------------------------: |:---------: |
-| ==       | Equal to                 | Adds together two values                 | x == y     |
-| !=       | Not equal                | Subtracts one value from another         | x != y     |
-| >        | Greater than             | Multiplies two values                    | x > y      |
-| <        | Less than                | Divides one value by another             | x < y      |
-| >=       | Greater than or equal to | Returns the division remainder           | x >= y     |
-| <=       | Less than or equal to    |	Increases the value of a variable by 1   | x <= y     |
+| Operator | Name                     |Example     |
+| :-------:| :-----------------------:|:---------: |
+| ==       | Equal to                 | x == y     |
+| !=       | Not equal                | x != y     |
+| >        | Greater than             | x > y      |
+| <        | Less than                | x < y      |
+| >=       | Greater than or equal to | x >= y     |
+| <=       | Less than or equal to    | x <= y     |
 
 #### <a name="chapter4part2"></a>Chapter 4 - Part 2: Logical Operators in Java
 
