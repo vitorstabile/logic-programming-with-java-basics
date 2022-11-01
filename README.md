@@ -1448,7 +1448,7 @@ switch (day) {
 
 ```
 
-***The break Keyword***
+**The break Keyword**
 
 When Java reaches a ```break``` keyword, it breaks out of the switch block.
 
@@ -1458,7 +1458,7 @@ When a match is found, and the job is done, it's time for a break. There is no n
 
 OBS: A break can save a lot of execution time because it "ignores" the execution of all the rest of the code in the switch block.
 
-***The default Keyword***
+**The default Keyword**
 
 The ```default``` keyword specifies some code to run if there is no case match:
 
@@ -1561,6 +1561,42 @@ double discount = price * 0.1;
 ## <a name="chapter5"></a>Chapter 5: Repetition Structure
 
 #### <a name="chapter5part1"></a>Chapter 5 - Part 1: Repetition Statement in Java(while)
+
+Loops can execute a block of code as long as a specified condition is reached.
+
+Loops are handy because they save time, reduce errors, and they make code more readable.
+
+It is a **control structure** that **repeat** a block of commands **as long as** a condition is true.
+
+The ```while``` loop loops through a block of code as long as a specified condition is ```true```
+
+**When to use**: when **not** know in advance the amount of repetitions to be performed.
+
+**The while Statement**
+
+```java
+
+while (condition) {
+  // code block to be executed
+}
+
+```
+
+In the example below, the code in the loop will run, over and over again, as long as a variable (i) is less than 5:
+
+```java
+
+int i = 0;
+while (i < 5) {
+  System.out.println(i);
+  i++;
+}
+
+```
+
+OBS: Do not forget to increase the variable used in the condition, otherwise the loop will never end!
+
+Exercise: Make a program that reads numbers integers until a zero is read. To final shows the sum of the numbers read.
 
 ```java
 
