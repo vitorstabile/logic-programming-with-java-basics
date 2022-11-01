@@ -1629,7 +1629,7 @@ public class Main {
 
 #### <a name="chapter5part3"></a>Chapter 5 - Part 3: Repetition Statement in Java(do-while)
 
-#### <a name="chapter5part3"></a>Chapter 5 - Part 4: Break and Continue Statement in Java
+#### <a name="chapter5part4"></a>Chapter 5 - Part 4: Break and Continue Statement in Java
 
 ## <a name="chapter6"></a>Chapter 6: Arrays
 
