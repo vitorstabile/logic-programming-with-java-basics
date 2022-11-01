@@ -32,7 +32,7 @@
 4. [Chapter 4: Conditional Structure](#chapter4)
     - [Chapter 4 - Part 1: Comparison Operators in Java](#chapter4part1)
     - [Chapter 4 - Part 2: Logical Operators in Java](#chapter4part2)
-    - [Chapter 4 - Part : Conditional Statement in Java](#chapter4part)
+    - [Chapter 4 - Part 3: Conditional Statement in Java(if-else)](#chapter4part3)
     - [Chapter 4 - Part : While Statement in Java](#chapter4part)
     - [Chapter 4 - Part : For Statement in Java](#chapter4part)
 5. [Chapter 5: Data Structure](#chapter5)
@@ -1181,7 +1181,127 @@ Logical operators are used to determine the logic between variables or values:
 
 <br>
 
-#### <a name="chapter4part1"></a>Chapter 4 - Part 1: Conditional Statement in Java
+#### <a name="chapter4part3"></a>Chapter 4 - Part 3: Conditional Statement in Java (if-else)
+
+It's a control structure which allows you to define that a certain command block will only run production of a condition:
+
+<br>
+
+<div align="center"><img src="img/if-else-w625-h349.png" width=625 height=349><br><sub>Fig 17 - If and Else Control Flow - (<a href='https://web.ics.purdue.edu/~jricha14/Control_Statements/control_statements.htm'>Work by ics</a>) </sub></div>
+
+<br>
+
+**The if Statement**
+
+Use the ```if``` statement to specify a block of Java code to be executed if a condition is ```true```.
+
+```java
+
+if (condition) {
+  // block of code to be executed if the condition is true
+}
+
+```
+
+OBS: Note that if is in lowercase letters. Uppercase letters (If or IF) will generate an error.
+
+Example
+
+```java
+
+int x = 20;
+int y = 18;
+if (x > y) {
+  System.out.println("x is greater than y");
+}
+
+/*
+
+Console
+
+----output---
+// x is greater than y
+
+*/
+
+```
+
+**The else Statement**
+
+Use the ```else``` statement to specify a block of code to be executed if the condition is ```false```.
+
+```java
+
+if (condition) {
+  // block of code to be executed if the condition is true
+} else {
+  // block of code to be executed if the condition is false
+}
+
+```
+
+Example
+
+```java
+
+int time = 20;
+if (time < 18) {
+  System.out.println("Good day.");
+} else {
+  System.out.println("Good evening.");
+}
+
+/*
+
+Console
+
+----output---
+// Outputs "Good evening."
+
+*/
+
+```
+
+**The else if Statement**
+
+Use the ```else if``` statement to specify a new condition if the first condition is ```false```.
+
+```java
+
+if (condition1) {
+  // block of code to be executed if condition1 is true
+} else if (condition2) {
+  // block of code to be executed if the condition1 is false and condition2 is true
+} else {
+  // block of code to be executed if the condition1 is false and condition2 is false
+}
+
+```
+
+Example
+
+```java
+
+int time = 22;
+if (time < 10) {
+  System.out.println("Good morning.");
+} else if (time < 20) {
+  System.out.println("Good day.");
+} else {
+  System.out.println("Good evening.");
+}
+// Outputs "Good evening."
+
+/*
+
+Console
+
+----output---
+// Outputs "Good evening."
+
+*/
+
+```
 
 ```java
 
