@@ -1863,6 +1863,81 @@ Disadvantages:
 
 <br>
 
+Arrays are used to store multiple values in a single variable, instead of declaring separate variables for each value.
+
+To declare an array, define the variable type with **square brackets** ```[]```:
+
+```java
+
+String[] cars;
+
+```
+
+We have now declared a variable that holds an array of strings. To insert values to it, you can place the values in a comma-separated list, inside curly braces:
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+
+```
+
+To create an array of integers, you could write:
+
+```java
+
+int[] myNum = {10, 20, 30, 40};
+
+```
+
+**Access the Elements of an Array**
+
+You can access an array element by referring to the index number.
+
+This statement accesses the value of the first element in cars:
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+System.out.println(cars[0]);
+// Outputs Volvo
+
+```
+
+OBS: Array indexes start with 0: [0] is the first element. [1] is the second element, etc.
+
+**Change an Array Element**
+
+To change the value of a specific element, refer to the index number:
+
+```java
+
+cars[0] = "Opel";
+
+```
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+cars[0] = "Opel";
+System.out.println(cars[0]);
+// Now outputs Opel instead of Volvo
+
+```
+
+**Array Length**
+
+To find out how many elements an array has, use the ```length``` property:
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+System.out.println(cars.length);
+// Outputs 4
+
+```
+
+Example: Create a program that reads a certain amount of given double numbers and that in the end they are displayed on the screen
+
 ```java
 
 import java.util.Locale;
@@ -1902,10 +1977,52 @@ public class Main {
 
 #### <a name="chapter6part2"></a>Chapter 6 - Part 2: Loop Through an Array
 
+You can loop through the array elements with the ```for``` loop, and use the ```length``` property to specify how many times the loop should run.
+
+The following example outputs all elements in the cars array:
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (int i = 0; i < cars.length; i++) {
+  System.out.println(cars[i]);
+}
+
+```
+
+There is also a ```for-each``` loop, which is used exclusively to loop through elements in an ```array``` or Collections class (eg, ArrayList):
+
+**The for-each Statement**
+
+```java
+
+for (type variableName : arrayName) {
+  // code block to be executed
+}
+
+```
+
+The following example outputs all elements in the **cars** array, using a **for-each** loop:
+
+```java
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (String i : cars) {
+  System.out.println(i);
+}
+
+```
+
+The example above can be read like this: **for each** ```String``` element (called **i** - as in **i**ndex) in **cars**, print out the value of **i**.
+
+If you compare the ```for``` loop and **for-each** loop, you will see that the **for-each** method is easier to write, it does not require a counter (using the length property), and it is more readable.
+
 #### <a name="chapter6part3"></a>Chapter 6 - Part 3: Multidimensional Arrays
 
-In programming, "Matriz" is the name given to one-dimensional arrays.
-obs: A array of Arrays
+A multidimensional array is an array of arrays.
+
+In programming, "Matriz" is the name given to two-dimensional arrays.
+obs: array is an array of arrays.
 
 Array is a data Structure:
 - Homogeneous (data of the same type)
@@ -1919,11 +2036,50 @@ Disadvantages:
 - Fixed Size
 - Difficulty performing insertions and deletions
 
+To create a two-dimensional array, add each array within its own set of **curly braces** ```[][]```:
+
 <br>
 
 <div align="center"><img src="img/array2-w740-h282.png" width=740 height=282><br><sub>Fig 23 - Multidimensional Array - (<a href='https://www.geeksforgeeks.org/multidimensional-arrays-in-java/?ref=lbp'>Work by geeksforgeeks</a>) </sub></div>
 
 <br>
+
+```java
+
+int[][] myNumbers = { {1, 2, 3, 4}, {5, 6, 7} };
+
+```
+
+**myNumbers** is now an array with two arrays as its elements.
+
+To access the elements of the **myNumbers** array, specify two indexes: one for the array, and one for the element inside that array. This example accesses the third element (2) in the second array (1) of myNumbers:
+
+```java
+
+int[][] myNumbers = { {1, 2, 3, 4}, {5, 6, 7} };
+int x = myNumbers[1][2];
+System.out.println(x); // Outputs 7
+
+```
+
+We can also use a ```for loop``` inside another ```for loop``` to get the elements of a two-dimensional array (we still have to point to the two indexes):
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+    int[][] myNumbers = { {1, 2, 3, 4}, {5, 6, 7} };
+    for (int i = 0; i < myNumbers.length; ++i) {
+      for(int j = 0; j < myNumbers[i].length; ++j) {
+        System.out.println(myNumbers[i][j]);
+      }
+    }
+  }
+}
+
+```
+
+Example: Create a Matrix
 
 ```java
 
