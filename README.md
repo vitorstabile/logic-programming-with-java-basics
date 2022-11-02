@@ -59,8 +59,13 @@
     - [Chapter 8 - Part 4: Polymorphism](#chapter8part4)
 9. [Chapter 9: Object-Oriented Programming in Java](#chapter9)
     - [Chapter 9 - Part 1: Solving a Problem without object orientation](#chapter9part1)
-    - [Chapter 9 - Part 1: Classes, Objects and Attributes in Java](#chapter9part2)
+    - [Chapter 9 - Part 2: Classes, Objects and Attributes in Java](#chapter9part2)
     - [Chapter 9 - Part 3: Solving a Problem with object orientation](#chapter9part3)
+    - [Chapter 9 - Part 4: Methods in Java](#chapter9part4)
+    - [Chapter 9 - Part 5: Object and toString](#chapter9part5)
+    - [Chapter 9 - Part 6: Constructors in Java](#chapter9part6)
+    - [Chapter 9 - Part 7: Modifiers in Java](#chapter9part7)
+    - [Chapter 9 - Part 8: Encapsulation in Java](#chapter9part8)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -3034,6 +3039,14 @@ public class Program {
 
 ```
 
+#### <a name="chapter9part4"></a>Chapter 9 - Part 4: Methods in Java
 
+#### <a name="chapter9part5"></a>Chapter 9 - Part 5: Methods in Java
+
+#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Methods in Java
+
+#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Methods in Java
+
+#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Methods in Java
 
 <!-- URL's -->
