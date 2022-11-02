@@ -59,7 +59,8 @@
     - [Chapter 8 - Part 4: Polymorphism](#chapter8part4)
 9. [Chapter 9: Object-Oriented Programming in Java](#chapter9)
     - [Chapter 9 - Part 1: Solving a Problem without object orientation](#chapter9part1)
-    - [Chapter 9 - Part 2: Solving a Problem with object orientation](#chapter9part2)
+    - [Chapter 9 - Part 1: Classes, Objects and Attributes in Java](#chapter9part2)
+    - [Chapter 9 - Part 3: Solving a Problem with object orientation](#chapter9part3)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -2786,7 +2787,252 @@ public class Program {
 
 ```
 
-#### <a name="chapter9part2"></a>Chapter 9 - Part 2: Solving a Problem with Object Orientation
+#### <a name="chapter9part2"></a>Chapter 9 - Part 2: Classes, Objects and Attributes in Java
+
+Classes and objects are the two main aspects of object-oriented programming.
+
+**Class**
+
+- Class: is the definition of the type
+
+- It is a structured type that can contain (members):
+  - Attributes (data / fields)
+  - Methods (functions / operations)
+
+- The class can also provide many other features, such as:
+  - Constructors
+  - Overloading
+  - Encapsulation
+  - Inheritance
+  - Polymorphism
+
+- Examples:
+  - Entities: Product, Customer, Triangle
+  - Services: ProductService, ClienteService, EmailService, StorageService
+  - Controllers: ProductController, ClienteController
+  - Utilities: Calculator, Compactor
+  - Others (views, repositories, managers, etc.)
+
+Everything in Java is associated with classes and objects, along with its attributes and methods. For example: in real life, a car is an object. The car has attributes, such as weight and color, and methods, such as drive and brake. 
+
+A Class is like an object constructor, or a "blueprint" for creating objects.
+
+**Create a Class**
+
+To create a class, use the keyword ```class```:
+
+```java
+
+public class Triangle { //class Triangle
+	public double a; // attribute of a triangle
+	public double b; // attribute of a triangle
+	public double c; // attribute of a triangle
+}
+
+```
+
+**Object**
+
+- Objects: are instances of the class
+
+**Create a Object**
+
+In Java, an object is created from a class. We have already created the class named ```Triangle```, so now we can use this to create objects.
+
+To create an object of ```Triangle```, specify the class name, followed by the object name, and use the keyword ```new```:
+
+```java
+
+public class Program {
+	
+	public static void main(String[] args) {
+	
+		Triangle x, y;
+		x = new Triangle();
+		y = new Triangle();
+	}
+}
+
+```
+
+Now we created two objects of Class type Triagle, x and y.
+
+Look at the following illustration to see the difference between class and objects:
+
+<br>
+
+<div align="center"><img src="img/classandobjects1-w1291-h563.png" width=1291 height=563><br><sub>Fig 28 - Class and objects - (<a href='https://www.w3schools.com/java/java_oop.asp'>Work by  w3schools</a>) </sub></div>
+
+<br>
+
+So, a class is a template for objects, and an object is an instance of a class.
+
+When the individual objects are created, they inherit all the variables and methods from the class.
+
+**Attributes**
+
+In the class ```Triangle``` we used the term "variable" for ```a```, ```b``` and ```c```. It is actually an attribute of the class. Or you could say that class attributes are variables within a class.
+
+
+```java
+
+public class Triangle { //class Triangle
+	public double a; // attribute of a triangle
+	public double b; // attribute of a triangle
+	public double c; // attribute of a triangle
+}
+
+```
+
+**Accessing Attributes**
+
+You can access attributes by creating an object of the class, and by using the dot syntax (```.```):
+
+```java
+
+import java.util.Locale;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		
+
+		Triangle x, y;
+		x = new Triangle();
+		y = new Triangle();
+		
+		x.a = 3.00;
+		x.b = 4.00;
+		x.c = 5.00;
+		
+		y.a = 7.50;
+		y.b = 4.50;
+		y.c = 4.02;
+		
+	}
+}
+
+```
+
+**Modify Attributes**
+
+You can also modify attribute values:
+
+```java
+
+public class Main {
+  int x;
+
+  public static void main(String[] args) {
+    Main myObj = new Main();
+    myObj.x = 40;
+    System.out.println(myObj.x);
+  }
+}
+
+
+```
+
+Or override existing values:
+
+```java
+
+public class Main {
+  int x = 10;
+
+  public static void main(String[] args) {
+    Main myObj = new Main();
+    myObj.x = 25; // x is now 25
+    System.out.println(myObj.x);
+  }
+}
+
+```
+
+If you don't want the ability to override existing values, declare the attribute as ```final```:
+
+```java
+
+public class Main {
+  final int x = 10;
+
+  public static void main(String[] args) {
+    Main myObj = new Main();
+    myObj.x = 25; // will generate an error: cannot assign a value to a final variable
+    System.out.println(myObj.x);
+  }
+}
+
+```
+
+OBS1: The ```final``` keyword is useful when you want a variable to always store the same value, like PI (3.14159...).
+
+OBS2: The ```final``` keyword is called a "modifier".
+
+#### <a name="chapter9part3"></a>Chapter 9 - Part 3: Solving a Problem with Object Orientation
+
+Create the class ```Triangle``` with the attributes
+
+```java
+
+public class Triangle { //class Triangle
+	public double a; // attribute of a triangle
+	public double b; // attribute of a triangle
+	public double c; // attribute of a triangle
+}
+
+```
+
+Now, create the Program, calling the class ```Triangle```
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+
+		Triangle x, y;
+		x = new Triangle();
+		y = new Triangle();
+		
+		System.out.println("Enter the measures of triangle X: ");
+		x.a = sc.nextDouble();
+		x.b = sc.nextDouble();
+		x.c = sc.nextDouble();
+		System.out.println("Enter the measures of triangle Y: ");
+		y.a = sc.nextDouble();
+		y.b = sc.nextDouble();
+		y.c = sc.nextDouble();
+		
+		double p = (x.a + x.b + x.c) / 2.0;
+		double areaX = Math.sqrt(p * (p - x.a) * (p - x.b) * (p - x.c));
+		
+		p = (y.a + y.b + y.c) / 2.0;
+		double areaY = Math.sqrt(p * (p - y.a) * (p - y.b) * (p - y.c));
+		
+		System.out.printf("Triangle X area: %.4f%n", areaX);
+		System.out.printf("Triangle Y area: %.4f%n", areaY);
+		
+		if (areaX > areaY) {
+			System.out.println("Larger area: X");
+		} else {
+			System.out.println("Larger area: Y");
+		}
+		
+		sc.close();
+	}
+}
+
+```
 
 
 
