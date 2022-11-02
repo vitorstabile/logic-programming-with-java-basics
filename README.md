@@ -2512,7 +2512,60 @@ String txt = "The character \\ is called backslash.";
 
 #### <a name="chapter7part4"></a>Chapter 7 - Part 4: Comments
 
+Block Comment: 
 
+```java
+
+/*
+
+Your comment her
+
+*/
+
+```
+
+Line Comment: 
+
+```java
+
+// Your comment her
+
+```
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+/*
+Este programa calcula as raízes de uma equação do segundo grau
+
+Os valores dos coeficientes devem ser digitados um por linha
+*/
+
+public class Program {
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		double a, b, c, delta;
+		
+		System.out.println("Digite os valores dos coeficientes:");
+		a = sc.nextDouble();
+		b = sc.nextDouble();
+		c = sc.nextDouble();
+		
+		delta = b * b - 4 * a * c; // cálculo do valor de delta
+		
+		System.out.println(delta);
+		
+		sc.close();
+
+	}
+}
+
+```
 
 #### <a name="chapter7part5"></a>Chapter 7 - Part 5: Functions
 
