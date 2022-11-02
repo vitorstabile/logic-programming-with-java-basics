@@ -2214,8 +2214,70 @@ The Bitwise operators are used to perform a bit manipulation on numbers. This Op
 
 7. **Shift Right Zero Fill (>>>), Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result. The leftmost bit is set to be 0.
 
+<br>
+
+<div align="center"><img src="img/bitwise_truth_table-w1291-h472.png" width=1291 height=472><br><sub>Fig 25 - Bitwise Operators Truth Table - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  freeCodeCamp</a>) </sub></div>
+
+<br>
+
+```java
+
+public class BitwiseOperator {
+    public static void main(String[] args)
+    {
+        //Initial values
+        int a = 6;
+        int b = 7;
+
+        // bitwise and
+        // 0110 & 0111=0110 = 6
+        System.out.println("a&b = " + (a & b));
+
+        // bitwise or
+        // 0110 | 0111=0111 = 7
+        System.out.println("a|b = " + (a | b));
+
+        // bitwise xor
+        // 0110 ^ 0111=0001 = 1
+        System.out.println("a^b = " + (a ^ b));
+
+        // bitwise and
+        // ~0110=1001
+        // will give 2's complement of 1001 = -7
+        System.out.println("~a = " + ~a);
+
+		// bitwise left shift
+		System.out.println("a << 2 = " +(a << 2));
+
+		// bitwise right shift
+		System.out.println("a >> 2 = " +(a >> 2));
+
+		// bitwise shift right zero fill
+		System.out.println("b >>> 2 = " +(b >>> 2));
+	}
+
+}
+
+```
+
+```java
 
 
+    int a = 60;	      /* 60 = 0011 1100 represents 60 in binary*/
+    int b = 13;	      /* 13 = 0000 1101 */
+    int c = 0;
+    
+    c = a & b;        /* 12 = 0000 1100 */
+    c = a | b;        /* 61 = 0011 1101 */
+    c = a ^ b;        /* 49 = 0011 0001 */
+    c = ~a;           /*-61 = 1100 0011  :Invert all bits */
+    
+    // shift operators : zeros are shifted in to replace the discarded bits
+    c = a << 2;       /* 240 = 1111 0000 : Shift left 2 bits*/
+    c = a >> 2;       /* 15 = 1111 */
+    c = a >>> 2;      /* 15 = 0000 1111 : Zero fill right shift*/
+
+```
 
 #### <a name="chapter7part3"></a>Chapter 7 - Part 3: String Functions
 
