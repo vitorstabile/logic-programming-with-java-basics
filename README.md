@@ -2738,7 +2738,7 @@ The formula for calculating the area of a triangle from the measures of its side
 
 <br>
 
-<div align="center"><img src="img/problemopp-w1082-h372.png" width=1082 height=372><br><sub>Fig 27 - Problem - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  Nelio Alves</a>) </sub></div>
+<div align="center"><img src="img/problemopp-w1082-h372.png" width=1082 height=372><br><sub>Fig 27 - Problem - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
 
 <br>
 
