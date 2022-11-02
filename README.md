@@ -2279,6 +2279,31 @@ public class BitwiseOperator {
 
 ```
 
+```java
+
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int mask = 0b100000; //binary number declared in Java, in this case, 32
+		System.out.println(mask);
+		int n = sc.nextInt();
+		
+		if ((n & mask) != 0) {
+			System.out.println("6th bit is true!");
+		} else {
+			System.out.println("6th bit is false");
+		}
+		sc.close();
+	}
+}
+
+```
+
 #### <a name="chapter7part3"></a>Chapter 7 - Part 3: String Functions
 
 #### <a name="chapter7part4"></a>Chapter 7 - Part 4: Comments
