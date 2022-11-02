@@ -2306,7 +2306,7 @@ public class Program {
 
 #### <a name="chapter7part3"></a>Chapter 7 - Part 3: String Functions
 
-[For more Strings Methods][https://www.w3schools.com/java/java_ref_string.asp]
+[For more Strings Methods](https://www.w3schools.com/java/java_ref_string.asp)
 
 - Format: toLowerCase(), toUpperCase(), trim()
 
