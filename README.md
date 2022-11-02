@@ -57,6 +57,9 @@
     - [Chapter 8 - Part 2: Encapsulation](#chapter8part2)
     - [Chapter 8 - Part 3: Inheritance](#chapter8part3)
     - [Chapter 8 - Part 4: Polymorphism](#chapter8part4)
+9. [Chapter 9: Object-Oriented Programming in Java](#chapter9)
+    - [Chapter 9 - Part 1: Solving a Problem without object orientation](#chapter9part1)
+    - [Chapter 9 - Part 2: Solving a Problem with object orientation](#chapter9part2)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -2724,5 +2727,67 @@ The whole class java me, inherits from Object (Warper Classes)
 #### <a name="chapter8part4"></a>Chapter 8 - Part 4: Polymorphism
 
 A feature that allows variables of the same more generic type to be able to point to objects of different specific types, thus having different behaviors according to each specific type. In some cases, we must perform the upcasting or dowcasting of the object.
+
+## <a name="chapter9"></a>Chapter 9: Object-Oriented Programming in Java
+
+#### <a name="chapter9part1"></a>Chapter 9 - Part 1: Solving a Problem without Object Orientation
+
+Write a program to read the measurements of the sides of two triangles X and Y (assume measurements valid). Then show the value of the areas of the two triangles and say which of the two triangles has the largest area.
+
+The formula for calculating the area of a triangle from the measures of its sides a, b and c is following (Heron's formula):
+
+<br>
+
+<div align="center"><img src="img/problemopp-w1082-h372.png" width=1082 height=372><br><sub>Fig 27 - Problem - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		double xA, xB, xC, yA, yB, yC;
+		
+		System.out.println("Enter the measures of triangle X: ");
+		xA = sc.nextDouble();
+		xB = sc.nextDouble();
+		xC = sc.nextDouble();
+		System.out.println("Enter the measures of triangle Y: ");
+		yA = sc.nextDouble();
+		yB = sc.nextDouble();
+		yC = sc.nextDouble();
+		
+		double p = (xA + xB + xC) / 2.0;
+		double areaX = Math.sqrt(p * (p - xA) * (p - xB) * (p - xC));
+		
+		p = (yA + yB + yC) / 2.0;
+		double areaY = Math.sqrt(p * (p - yA) * (p - yB) * (p - yC));
+		
+		System.out.printf("Triangle X area: %.4f%n", areaX);
+		System.out.printf("Triangle Y area: %.4f%n", areaY);
+		
+		if (areaX > areaY) {
+			System.out.println("Larger area: X");
+		} else {
+			System.out.println("Larger area: Y");
+		}
+		
+		sc.close();
+	}
+}
+
+```
+
+#### <a name="chapter9part2"></a>Chapter 9 - Part 2: Solving a Problem with Object Orientation
+
+
 
 <!-- URL's -->
