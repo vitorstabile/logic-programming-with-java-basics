@@ -2190,6 +2190,33 @@ public class Account {
 
 #### <a name="chapter7part2"></a>Chapter 7 - Part 2: Bitwise Operators in Java
 
+The Bitwise operators are used to perform a bit manipulation on numbers. This Operator can be used with any integral type(char, int, short, etc) but it cannot be applied to double and float.
+
+<br>
+
+<div align="center"><img src="img/bitwise-w582-h400.png" width=582 height=400><br><sub>Fig 24 - Bitwise Operators used in Java - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by javastudypoint</a>) </sub></div>
+
+<br>
+
+**Types of Bitwise Operators in Java**
+
+1. **Bitwise AND (&) Operator:** This operator returns 1 if both the operands are also 1 else it returns 0.
+
+2. **Bitwise OR (|) Operator:** This operator returns 1 if either of the bits in the operand is 1, else it returns 0.
+
+3. **Bitwise Complement (~) Operator:** This operator inverts all of the bits of its operands.
+
+4. **Bitwise Exclusive OR (^) Operator:** This operator returns 1 if the corresponding bits are different, else it returns 0.
+
+5. **Bitwise Shift Left (<<) Operator:** This operator shifts the bits of the number to the left and fills 0 in the void spaces that are left as a result.
+
+6. **Bitwise Shift Right (>>) Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result.
+
+7. **Shift Right Zero Fill (>>>), Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result. The leftmost bit is set to be 0.
+
+
+
+
 #### <a name="chapter7part3"></a>Chapter 7 - Part 3: String Functions
 
 #### <a name="chapter7part4"></a>Chapter 7 - Part 4: Comments
