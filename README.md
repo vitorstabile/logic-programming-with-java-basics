@@ -2661,45 +2661,64 @@ public class Program {
   
    ```
 
-## <a name="chapter8"></a>Chapter 8: Object Oriented
+## <a name="chapter8"></a>Chapter 8: The Object Oriented
+
+<br>
+
+<div align="center"><img src="img/opp_four_pillars-w938-h521.png" width=938 height=521><br><sub>Fig 26 - The Four Pillars of Object-Oriented Programming - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  Lemi Orhan Ergin</a>) </sub></div>
+
+<br>
 
 #### <a name="chapter8part1"></a>Chapter 8 - Part 1: Abstraction
 
 How it represents a real object in our system. It must have identity (Class) given by properties (attributes) and methods (functions).
 
-o Class: Structured type that can contain members - Representation of an entity (Product, Customer), service (ProductService, CustomerService), drivers (ProductController), utilities (calculator) and others (views, repositories).
-o Attributes (Data or Fields - Ex: Customer has attribute name, email, cpf and etc.)
-o Methods (Class functions and operations - Ex: Consult email, consult cpf, change cpf)
+ - **Class**: Structured type that can contain members - Representation of an entity (Product, Customer), service (ProductService, CustomerService), drivers (ProductController), utilities (calculator) and others (views, repositories).
 
-• A class can also have:
-o Constructors (Special class operation, performed at instantiation of the class. Used to start attribute values ​​or to force the object to receive data or dependency on its instantiation (Dependency injection))
-o Overload of constructors or methods (Esoecify more than one constructor or method in the class)
-Encapsulation (Getters and Setters)
-o Inheritance (from whom this class inherits)
-Polymorphism (A class has several forms or functions)
+- **Attributes** (Data or Fields - Ex: Customer has attribute name, email, cpf and etc.)
 
-• Object: They are the instance of the class or instance of the type - Ex: Product p1, Client customer1
-• Class: It is the definition of the type (Customer Class, Product Class)
+- **Methods** (Class functions and operations - Ex: Consult email, consult cpf, change cpf)
 
-• Instantiation: When we instantiate primitive variables (double, int, String ...) it is instantiated in the memory stack. When the command New in Objects, Arrays and Lists is communicated, the dynamic location of memory occurs, where the object is allocated in another area of memory, called Heap and the object will point to the memory address.
+A class can also have:
 
-• Advantages of object orientation:
-o Reuse of the code and delegation of responsibilities
+- **Constructors** (Special class operation, performed at instantiation of the class. Used to start attribute values or to force the object to receive data or dependency on its instantiation (Dependency injection))
+
+- **Overload of constructors or methods** (Esoecify more than one constructor or method in the class)
+
+- **Encapsulation** (Getters and Setters)
+
+- **Inheritance** (from whom this class inherits)
+
+- **Polymorphism** (A class has several forms or functions)
+
+- **Object**: They are the instance of the class or instance of the type - Ex: Product p1, Client customer1
+
+- **Class**: It is the definition of the type (Customer Class, Product Class)
+
+- **Instantiation**: When we instantiate primitive variables (double, int, String ...) it is instantiated in the memory stack. When the command New in Objects, Arrays and Lists is communicated, the dynamic location of memory occurs, where the object is allocated in another area of memory, called Heap and the object will point to the memory address.
+
+Advantages of object orientation:
+
+- Reuse of the code and delegation of responsibilities
 
 #### <a name="chapter8part2"></a>Chapter 8 - Part 2: Encapsulation
 
 Adds security to an object-oriented application, as it hides class properties.
 
-o An object must not expose any attributes (use of access modifiers - private, protected ...)
-o Class attributes are usually accessed by special methods (Getters and Setters), avoiding direct access to the object's property.
-o Analogy with a television: When you click on the call button, we do not know what happens internally on the TV. We can say that the methods that connect the TV are encapsulated.
+- An object must not expose any attributes (use of access modifiers - private, protected ...)
+
+- Class attributes are usually accessed by special methods (Getters and Setters), avoiding direct access to the object's property.
+
+- Analogy with a television: When you click on the call button, we do not know what happens internally on the TV. We can say that the methods that connect the TV are encapsulated.
 
 #### <a name="chapter8part3"></a>Chapter 8 - Part 3: Inheritance
 
 Type of association between classes that allows a class to inherit all data and behavior from another
 
-o Can be used for code reuse
-o Used for polymorphism - A class has several uses
+- Can be used for code reuse
+
+- Used for polymorphism - A class has several uses
+
 The whole class java me, inherits from Object (Warper Classes)
 
 #### <a name="chapter8part4"></a>Chapter 8 - Part 4: Polymorphism
