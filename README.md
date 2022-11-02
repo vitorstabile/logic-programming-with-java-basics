@@ -2569,6 +2569,98 @@ public class Program {
 
 #### <a name="chapter7part5"></a>Chapter 7 - Part 5: Functions
 
+They represent a processing that has a meaning:
+
+- Math.sqrt(double)
+-  System.out.println(string)
+
+Main advantages:
+
+- modularization, delegation and reuse
+
+Functions can Input and output data:
+
+- Functions can receive input data (parameters or arguments)
+- Functions may or may not return an output
+
+ In object orientation, functions in classes are called "methods"
+ 
+ Example: Write a program to read three integers and display the largest one on the screen
+ 
+ **Without Function Implementation**
+ 
+ ```java
+ 
+ import java.util.Scanner;
+
+public class Program {
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter three numbers:");
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
+		
+		if (a > b && a > c) {
+			System.out.println("Higher = " + a);
+		} else if (b > c) {
+			System.out.println("Higher = " + b);
+		} else {
+			System.out.println("Higher = " + c);
+		}
+		
+		sc.close();
+
+	}
+}
+ 
+ ```
+ 
+ **With Function Implementation**
+ 
+  ```java
+  
+  import java.util.Scanner;
+
+public class Program {
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter three numbers:");
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
+		
+		int higher = max(a, b, c);
+		
+		showResult(higher);
+		
+		sc.close();
+	}
+
+	public static int max(int x, int y, int z) { //max function creation
+		int aux;
+		if (x > y && x > z) {
+			aux = x;
+		} else if (y > z) {
+			aux = y;
+		} else {
+			aux = z;
+		}
+		return aux;
+	}
+
+	public static void showResult(int value) {
+		System.out.println("Higher = " + value);
+	}
+
+}
+  
+   ```
+
 ## <a name="chapter8"></a>Chapter 8: Object Oriented
 
 #### <a name="chapter8part1"></a>Chapter 8 - Part 1: Abstraction
