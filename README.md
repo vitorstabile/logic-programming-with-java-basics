@@ -52,7 +52,7 @@
     - [Chapter 7 - Part 3: String Functions](#chapter7part3)
     - [Chapter 7 - Part 4: Comments](#chapter7part4)
     - [Chapter 7 - Part 5: Functions](#chapter7part5)
-8. [Chapter 8: Object Oriented](#chapter8)
+8. [Chapter 8: The Four Pillars of Object-Oriented Programming](#chapter8)
     - [Chapter 8 - Part 1: Abstraction](#chapter8part1)
     - [Chapter 8 - Part 2: Encapsulation](#chapter8part2)
     - [Chapter 8 - Part 3: Inheritance](#chapter8part3)
@@ -2661,7 +2661,7 @@ public class Program {
   
    ```
 
-## <a name="chapter8"></a>Chapter 8: The Object Oriented
+## <a name="chapter8"></a>Chapter 8: The Four Pillars of Object-Oriented Programming
 
 <br>
 
