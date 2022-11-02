@@ -2306,7 +2306,213 @@ public class Program {
 
 #### <a name="chapter7part3"></a>Chapter 7 - Part 3: String Functions
 
+[For more Strings Methods][https://www.w3schools.com/java/java_ref_string.asp]
+
+- Format: toLowerCase(), toUpperCase(), trim()
+
+- Cut: substring(start), substring(start, end)
+
+- Replace: Replace(char, char), Replace(string, string)
+
+- Search: IndexOf, LastIndexOf
+
+-  str.Split(" ")
+
+```java
+
+public class Program {
+
+	public static void main(String[] args) {
+	
+		String txt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		
+		System.out.println("The length of the txt string is: " + txt.length()); //The length of the txt string is: 26
+
+		String original = "abcde FGHIJ ABC abc DEFG ";
+
+		String s01 = original.toLowerCase();
+
+		String s02 = original.toUpperCase();
+
+		String s03 = original.trim();
+
+		String s04 = original.substring(2);
+
+		String s05 = original.substring(2, 9);
+
+		String s06 = original.replace('a', 'x');
+
+		String s07 = original.replace("abc", "xy");
+
+		int i = original.indexOf("bc");
+
+		int j = original.lastIndexOf("bc");
+
+		System.out.println("Original: -" + original + "-"); // Original: -abcde FGHIJ ABC abc DEFG -
+
+		System.out.println("toLowerCase: -" + s01 + "-"); // toLowerCase: -abcde fghij abc abc defg -
+
+		System.out.println("toUpperCase: -" + s02 + "-"); // toUpperCase: -ABCDE FGHIJ ABC ABC DEFG -
+
+		System.out.println("trim: -" + s03 + "-"); // trim: -abcde FGHIJ ABC abc DEFG-
+
+		System.out.println("substring(2): -" + s04 + "-"); // substring(2): -cde FGHIJ ABC abc DEFG -
+		
+		System.out.println("substring(2, 9): -" + s05 + "-"); // substring(2, 9): -cde FGH-
+
+		System.out.println("replace('a', 'x'): -" + s06 + "-"); // replace('a', 'x'): -xbcde FGHIJ ABC xbc DEFG -
+
+		System.out.println("replace('abc', 'xy'): -" + s07 + "-"); // replace('abc', 'xy'): -xyde FGHIJ ABC xy DEFG -
+
+		System.out.println("Index of 'bc': " + i); // Index of 'bc': 1
+
+		System.out.println("Last index of 'bc': " + j); // Last index of 'bc': 17
+	}
+}
+
+```
+
+```java
+
+public class Program {
+
+	public static void main(String[] args) {
+	
+		String s = "potato apple lemon";
+		String[] vect = s.split(" ");
+		String word1 = vect[0];
+		String word2 = vect[1];
+		String word3 = vect[2];
+		
+		System.out.println(word1); // potato
+		System.out.println(word2); // apple
+		System.out.println(word3); // lemon
+		
+	}
+}
+
+```
+
+**String Concatenation**
+
+The ```+``` operator can be used between strings to combine them. This is called concatenation:
+
+```java
+
+String firstName = "John";
+String lastName = "Doe";
+System.out.println(firstName + " " + lastName); //John Doe 
+
+```
+
+OBS: Note that we have added an empty text (" ") to create a space between firstName and lastName on print.
+
+You can also use the ```concat()``` method to concatenate two strings:
+
+```java
+
+String firstName = "John ";
+String lastName = "Doe";
+System.out.println(firstName.concat(lastName)); //John Doe 
+
+
+```
+
+**Adding Numbers and Strings**
+
+
+WARNING!
+
+Java uses the ```+``` operator for both addition and concatenation.
+
+Numbers are added. Strings are concatenated.
+
+If you add two numbers, the result will be a number:
+
+```java
+
+int x = 10;
+int y = 20;
+int z = x + y;  // z will be 30 (an integer/number)
+
+```
+
+If you add two strings, the result will be a string concatenation:
+
+```java
+
+String x = "10";
+String y = "20";
+String z = x + y;  // z will be 1020 (a String)
+
+```
+
+If you add a number and a string, the result will be a string concatenation:
+
+```java
+
+String x = "10";
+int y = 20;
+String z = x + y;  // z will be 1020 (a String)
+
+```
+
+**Strings - Special Characters**
+
+Because strings must be written within quotes, Java will misunderstand this string, and generate an error:
+
+```java
+
+Because strings must be written within quotes, Java will misunderstand this string, and generate an error:
+
+```
+
+The solution to avoid this problem, is to use the **backslash escape character**.
+
+The backslash (```\```) escape character turns special characters into string characters:
+
+| Escape character | Result   |Description   |
+| :---------------:| :-------:|:-----------: |
+| \'               | '        | Single quote |
+| \"               | "        | Double quote |
+| \\               | \        | Backslash    |
+
+
+The sequence ```\"```  inserts a double quote in a string:
+
+```java
+
+String txt = "We are the so-called \"Vikings\" from the north.";
+
+```
+
+The sequence ```\'```  inserts a single quote in a string:
+
+```java
+
+String txt = "It\'s alright.";
+
+```
+
+The sequence ```\\```  inserts a single backslash in a string:
+
+```java
+
+String txt = "The character \\ is called backslash.";
+
+```
+
+| Code | Result          |
+| :---:| :--------------:|
+| \n   | New Line        |
+| \r   | Carriage Return | 
+| \t   | Tab             |
+| \b   | Backspace       |
+| \f   | Form Feed       |
+
 #### <a name="chapter7part4"></a>Chapter 7 - Part 4: Comments
+
+
 
 #### <a name="chapter7part5"></a>Chapter 7 - Part 5: Functions
 
