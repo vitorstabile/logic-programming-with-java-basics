@@ -3041,12 +3041,12 @@ public class Program {
 
 #### <a name="chapter9part4"></a>Chapter 9 - Part 4: Methods in Java
 
-#### <a name="chapter9part5"></a>Chapter 9 - Part 5: Methods in Java
+#### <a name="chapter9part5"></a>Chapter 9 - Part 5: Object and toString
 
-#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Methods in Java
+#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Constructors in Java
 
-#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Methods in Java
+#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Modifiers in Java
 
-#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Methods in Java
+#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Encapsulation in Java
 
 <!-- URL's -->
