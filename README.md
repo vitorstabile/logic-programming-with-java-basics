@@ -4203,4 +4203,58 @@ class Second {
 
 #### <a name="chapter9part11"></a>Chapter 9 - Part 11: Encapsulation in Java
 
+It is a principle consisting of hide implementation details of a class, exposing only safe operations and maintain objects in a consistent state.
+
+Golden rule: the object must always be in a consistent state, and the class itself must guarantee this.
+
+**An object must NOT expose any attributes (access modifier private)**
+
+**Attributes must be accessed via get and set methods. [avaBeans](https://en.wikipedia.org/wiki/JavaBeans)**
+
+```java
+
+public class Product {
+
+	private String name;
+	private double price;
+	private int quantity;
+	
+	public Product() {
+	}
+	
+	public Product(String name, double price, int quantity) {
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	
+	public Product(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+```
+
+
+
 <!-- URL's -->
