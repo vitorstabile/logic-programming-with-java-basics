@@ -4360,9 +4360,4 @@ public class Product {
 #### <a name="chapter11part1"></a>Chapter 11 - Part 1: ArrayList
 
 
-
-11. [Chapter 11: Collections](#chapter10)
-    - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
-
-
 <!-- URL's -->
