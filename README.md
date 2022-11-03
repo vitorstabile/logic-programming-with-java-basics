@@ -60,7 +60,7 @@
 9. [Chapter 9: Object-Oriented Programming in Java](#chapter9)
     - [Chapter 9 - Part 1: Solving a Problem without object orientation](#chapter9part1)
     - [Chapter 9 - Part 2: Classes, Objects and Attributes in Java](#chapter9part2)
-    - [Chapter 9 - Part 3: Solving a Problem with object orientation](#chapter9part3)
+    - [Chapter 9 - Part 3: Solving the same Problem with object orientation](#chapter9part3)
     - [Chapter 9 - Part 4: Methods in Java](#chapter9part4)
     - [Chapter 9 - Part 5: Continuing to solve the Problem with object orientation](#chapter9part5)
     - [Chapter 9 - Part 6: Object and toString](#chapter9part6)
@@ -2977,7 +2977,7 @@ OBS1: The ```final``` keyword is useful when you want a variable to always store
 
 OBS2: The ```final``` keyword is called a "modifier".
 
-#### <a name="chapter9part3"></a>Chapter 9 - Part 3: Solving a Problem with Object Orientation
+#### <a name="chapter9part3"></a>Chapter 9 - Part 3: Solving the same Problem with object orientation
 
 Create the class ```Triangle``` with the attributes
 
@@ -3519,12 +3519,36 @@ public class Program {
 
 ```
 
-#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Object and toString
+#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Second problem with object orientation
 
-#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Constructors in Java
+Write a program to read the data of a product in stock (name, price and quantity in stock).
 
-#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Modifiers in Java
+Then:
 
-#### <a name="chapter9part9"></a>Chapter 9 - Part 9: Encapsulation in Java
+- Show product data (name, price, quantity in stock, total value on inventory)
+
+- Make a stock entry and show the product data again
+
+- Carry out an issue in the stock and show the product data again
+
+To solve this problem, you must create a CLASS according to the project on the side:
+
+<br>
+
+<div align="center"><img src="img/problemopp2-w417-h253.png" width=417 height=253><br><sub>Fig 29 - Problem with OOP - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+<div align="center"><img src="img/problemopp3-w1232-h458.png" width=1232 height=458><br><sub>Fig 29 - Problem with OOP - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+#### <a name="chapter9part6"></a>Chapter 9 - Part 7: Object and toString
+
+#### <a name="chapter9part7"></a>Chapter 9 - Part 8: Constructors in Java
+
+#### <a name="chapter9part8"></a>Chapter 9 - Part 9: Modifiers in Java
+
+#### <a name="chapter9part9"></a>Chapter 9 - Part 10: Encapsulation in Java
 
 <!-- URL's -->
