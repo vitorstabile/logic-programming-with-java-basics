@@ -3553,14 +3553,7 @@ To solve this problem, we need to understand the Object Class in Java
 
 The **Object class** is the parent class of all the classes in java by default. In other words, it is the topmost class of java.
 
-<br>
-
-<div align="center"><img src="img/problemopp3-w1232-h458.png" width=1232 height=458><br><sub>Fig 29 - Problem with OOP - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
 The Object class is beneficial if you want to refer any object whose type you don't know. Notice that parent class reference variable can refer the child class object, know as upcasting.
-
 
 <br>
 
