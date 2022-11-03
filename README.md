@@ -64,7 +64,7 @@
     - [Chapter 9 - Part 4: Methods in Java](#chapter9part4)
     - [Chapter 9 - Part 5: Continuing to solve the Problem with object orientation](#chapter9part5)
     - [Chapter 9 - Part 6: Second problem with object orientation](#chapter9part6)
-    - [Chapter 9 - Part 7: Object and toString](#chapter9part7)
+    - [Chapter 9 - Part 7: Object Class in Java](#chapter9part7)
     - [Chapter 9 - Part 8: Third problem with object orientation](#chapter9part8)
     - [Chapter 9 - Part 9: Constructors in Java](#chapter9part9)
     - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
@@ -3545,7 +3545,64 @@ To solve this problem, you must create a CLASS according to the project on the s
 
 <br>
 
-#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Object and toString
+To solve this problem, we need to understand the Object Class in Java
+
+#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Object Class in Java
+
+**Object Class in Java**
+
+The **Object class** is the parent class of all the classes in java by default. In other words, it is the topmost class of java.
+
+<br>
+
+<div align="center"><img src="img/problemopp3-w1232-h458.png" width=1232 height=458><br><sub>Fig 29 - Problem with OOP - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+The Object class is beneficial if you want to refer any object whose type you don't know. Notice that parent class reference variable can refer the child class object, know as upcasting.
+
+
+<br>
+
+<div align="center"><img src="img/objectclass2-w612-h314.png" width=612 height=314><br><sub>Fig 30 - Class Object Methods in Java - (<a href='https://www.javatpoint.com/object-class'>Work by  java T Point</a>) </sub></div>
+
+<br>
+
+Let's take an example, there is getObject() method that returns an object but it can be of any type like Employee,Student etc, we can use Object class reference to refer that object. For example:
+
+```java
+
+Object obj=getObject();//we don't know what object will be returned from this method  
+
+```
+
+The Object class provides some common behaviors to all the objects such as object can be compared, object can be cloned, object can be notified etc. 
+
+
+<br>
+
+<div align="center"><img src="img/objectclass1-w696-h476.png" width=696 height=476><br><sub>Fig 31 - Class Object Methods in Java - (<a href='https://www.javatpoint.com/object-class'>Work by  java T Point</a>) </sub></div>
+
+<br>
+
+**Methods of Object class**
+
+| Method                                                                      | Description     |
+| :--------------------------------------------------------------------------:| :--------------:|
+| public final Class getClass()                                               | returns the Class class object of this object. The Class class can further be used to get the metadata of this class.       |
+| public int hashCode()                                                       | returns the hashcode number for this object. | 
+| public boolean equals(Object obj)                                           | compares the given object to this object.             |
+| protected Object clone() throws CloneNotSupportedException                  | creates and returns the exact copy (clone) of this object.       |
+| public String toString()                                                    |returns the string representation of this object.       |
+| public final void notify()                                                  | wakes up single thread, waiting on this object's monitor.       |
+| public final void notifyAll()                                               | wakes up all the threads, waiting on this object's monitor.       |
+| public final void wait(long timeout)throws InterruptedException             | causes the current thread to wait for the specified milliseconds, until another thread notifies (invokes notify() or notifyAll() method).       |
+| public final void wait(long timeout,int nanos)throws InterruptedException   | causes the current thread to wait for the specified milliseconds and nanoseconds, until another thread notifies (invokes notify() or notifyAll() method).       |
+| public final void wait()throws InterruptedException                         | causes the current thread to wait, until another thread notifies (invokes notify() or notifyAll() method).       |
+| protected void finalize()throws Throwable                                   | is invoked by the garbage collector before object is being garbage collected.       |
+
+
+
 
 #### <a name="chapter9part8"></a>Chapter 9 - Part 8: Third problem with object orientation
 
