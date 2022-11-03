@@ -69,6 +69,12 @@
     - [Chapter 9 - Part 9: Constructors in Java](#chapter9part9)
     - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
     - [Chapter 9 - Part 11: Encapsulation in Java](#chapter9part11)
+10. [Chapter 10: Value Types vs. Reference Type, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
+    - [Chapter 10 - Part 1: Value Types vs. Reference Types](#chapter10part1)
+    - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
+    - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part2)
+11. [Chapter 11: Collections](#chapter10)
+    - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -4335,6 +4341,28 @@ public class Product {
 
 ```
 
+## <a name="chapter10"></a>Chapter 10: Value Types vs. Reference Type, Garbage Collector, Boxing, unboxing and wrapper classes
+
+#### <a name="chapter10part1"></a>Chapter 10 - Part 1: Value Types vs. Reference Types
+
+#### <a name="chapter10part2"></a>Chapter 10 - Part 2: Garbage Collector
+
+#### <a name="chapter10part3"></a>Chapter 10 - Part 3: Boxing, unboxing and wrapper classes
+
+## <a name="chapter11"></a>Chapter 11: Collections
+
+<br>
+
+<div align="center"><img src="img/java_collection-w854-h715.png" width=854 height=715><br><sub>Fig 33 - Collections - (<a href='https://www.javatpoint.com/collections-in-java'>Work by  Java T Point</a>) </sub></div>
+
+<br>
+
+#### <a name="chapter11part1"></a>Chapter 11 - Part 1: ArrayList
+
+
+
+11. [Chapter 11: Collections](#chapter10)
+    - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
 
 
 <!-- URL's -->
