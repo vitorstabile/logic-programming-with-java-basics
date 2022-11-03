@@ -58,15 +58,17 @@
     - [Chapter 8 - Part 3: Inheritance](#chapter8part3)
     - [Chapter 8 - Part 4: Polymorphism](#chapter8part4)
 9. [Chapter 9: Object-Oriented Programming in Java](#chapter9)
-    - [Chapter 9 - Part 1: Solving a Problem without object orientation](#chapter9part1)
+    - [Chapter 9 - Part 1: Solving a Problem without Object Orientation](#chapter9part1)
     - [Chapter 9 - Part 2: Classes, Objects and Attributes in Java](#chapter9part2)
     - [Chapter 9 - Part 3: Solving the same Problem with object orientation](#chapter9part3)
     - [Chapter 9 - Part 4: Methods in Java](#chapter9part4)
     - [Chapter 9 - Part 5: Continuing to solve the Problem with object orientation](#chapter9part5)
-    - [Chapter 9 - Part 6: Object and toString](#chapter9part6)
-    - [Chapter 9 - Part 7: Constructors in Java](#chapter9part7)
-    - [Chapter 9 - Part 8: Modifiers in Java](#chapter9part8)
-    - [Chapter 9 - Part 9: Encapsulation in Java](#chapter9part9)
+    - [Chapter 9 - Part 6: Second problem with object orientation](#chapter9part6)
+    - [Chapter 9 - Part 7: Object and toString](#chapter9part7)
+    - [Chapter 9 - Part 8: Third problem with object orientation](#chapter9part8)
+    - [Chapter 9 - Part 9: Constructors in Java](#chapter9part9)
+    - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
+    - [Chapter 9 - Part 11: Encapsulation in Java](#chapter9part11)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -3543,12 +3545,14 @@ To solve this problem, you must create a CLASS according to the project on the s
 
 <br>
 
-#### <a name="chapter9part6"></a>Chapter 9 - Part 7: Object and toString
+#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Object and toString
 
-#### <a name="chapter9part7"></a>Chapter 9 - Part 8: Constructors in Java
+#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Third problem with object orientation
 
-#### <a name="chapter9part8"></a>Chapter 9 - Part 9: Modifiers in Java
+#### <a name="chapter9part9"></a>Chapter 9 - Part 9: Constructors in Java
 
-#### <a name="chapter9part9"></a>Chapter 9 - Part 10: Encapsulation in Java
+#### <a name="chapter9part10"></a>Chapter 9 - Part 10: Modifiers in Java
+
+#### <a name="chapter9part11"></a>Chapter 9 - Part 11: Encapsulation in Java
 
 <!-- URL's -->
