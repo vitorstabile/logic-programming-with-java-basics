@@ -3831,6 +3831,134 @@ public class Program {
 
 #### <a name="chapter9part9"></a>Chapter 9 - Part 9: Constructors in Java
 
+**Java Constructors**
+
+A constructor in Java is a **special method** that is used to initialize objects.
+
+Common uses:
+- Start attribute values
+- Allow or oblige the object to receive data / dependencies at the time of its instantiation (dependency injection)
+
+If a custom constructor is not specified, the class provides the default constructor:
+- ```Product p = new Product();```
+
+It is possible to specify more than one constructor in the same class (overload):
+
+The constructor is called when an object of a class is created. It can be used to set initial values for object attributes:
+
+Create a constructor:
+
+```java
+
+// Create a Main class
+public class Main {
+  int x;  // Create a class attribute
+
+  // Create a class constructor for the Main class
+  public Main() {
+    x = 5;  // Set the initial value for the class attribute x
+  }
+
+  public static void main(String[] args) {
+    Main myObj = new Main(); // Create an object of class Main (This will call the constructor)
+    System.out.println(myObj.x); // Print the value of x
+  }
+}
+
+// Outputs 5
+
+```
+
+OBS1: Note that the constructor name must match the class name, and it cannot have a return type (like void).
+
+OBS2: Also note that the constructor is called when the object is created.
+
+OBS3: All classes have constructors by default: if you do not create a class constructor yourself, Java creates one for you. However, then you are not able to set initial values for object attributes.
+
+**Constructor Parameters**
+
+Constructors can also take parameters, which is used to initialize attributes.
+
+The following example adds an ```int y``` parameter to the constructor. Inside the constructor we set x to y (x=y). When we call the constructor, we pass a parameter to the constructor (5), which will set the value of x to 5:
+
+```java
+
+public class Main {
+  int x;
+
+  public Main(int y) {
+    x = y;
+  }
+
+  public static void main(String[] args) {
+    Main myObj = new Main(5);
+    System.out.println(myObj.x);
+  }
+}
+
+// Outputs 5
+
+```
+
+You can have as many parameters as you want:
+
+```java
+
+public class Main {
+  int modelYear;
+  String modelName;
+
+  public Main(int year, String name) {
+    modelYear = year;
+    modelName = name;
+  }
+
+  public static void main(String[] args) {
+    Main myCar = new Main(1969, "Mustang");
+    System.out.println(myCar.modelYear + " " + myCar.modelName);
+  }
+}
+
+// Outputs 1969 Mustang
+
+```
+
+**Definition and Usage of ```this``` keyword**
+
+The this keyword refers to the current object in a method or constructor.
+
+The most common use of the ```this``` keyword is to eliminate the confusion between class attributes and parameters with the same name (because a class attribute is shadowed by a method or constructor parameter). If you omit the keyword in the example above, the output would be "0" instead of "5".
+
+```this``` can also be used to:
+
+- Invoke current class constructor
+- Invoke current class method
+- Return the current class object
+- Pass an argument in the method call
+- Pass an argument in the constructor call
+
+Using ```this``` with a class attribute (x):
+
+```java
+
+public class Main {
+  int x;
+
+  // Constructor with a parameter
+  public Main(int x) {
+    this.x = x;
+  }
+
+  // Call the constructor
+  public static void main(String[] args) {
+    Main myObj = new Main(5);
+    System.out.println("Value of x = " + myObj.x);
+  }
+}
+
+
+```
+
 #### <a name="chapter9part10"></a>Chapter 9 - Part 10: Modifiers in Java
 
 #### <a name="chapter9part11"></a>Chapter 9 - Part 11: Encapsulation in Java
