@@ -3557,7 +3557,7 @@ The Object class is beneficial if you want to refer any object whose type you do
 
 <br>
 
-<div align="center"><img src="img/objectclass2-w612-h314.png" width=612 height=314><br><sub>Fig 30 - Class Object Methods in Java - (<a href='https://www.javatpoint.com/object-class'>Work by  java T Point</a>) </sub></div>
+<div align="center"><img src="img/objectclass2-w612-h314.png" width=612 height=314><br><sub>Fig 30 - Class Object Inheritance in Java - (<a href='https://www.javatpoint.com/object-class'>Work by  java T Point</a>) </sub></div>
 
 <br>
 
@@ -3595,7 +3595,91 @@ The Object class provides some common behaviors to all the objects such as objec
 | protected void finalize()throws Throwable                                   | is invoked by the garbage collector before object is being garbage collected.       |
 
 
+Now, we will use the method ```toString()``` that will be able to display the name and attributes of the Product.
 
+**Class Product**
+
+```java
+
+public class Product {
+
+	public String name;
+	public double price;
+	public int quantity;
+
+	public double totalValueInStock() {
+		return price * quantity;
+	}
+
+	public void addProducts(int quantity) {
+		this.quantity += quantity;
+	}
+
+	public void removeProducts(int quantity) {
+		this.quantity -= quantity;
+	}
+	
+	public String toString() {
+		return name
+		+ ", $ "
+		+ String.format("%.2f", price)
+		+ ", "
+		+ quantity
+		+ " units, Total: $ "
+		+ String.format("%.2f", totalValueInStock());
+	}
+
+}
+
+```
+
+**Program**
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		Product product = new Product();
+		System.out.println("Enter product data: ");
+		System.out.print("Name: ");
+		product.name = sc.nextLine();
+		System.out.print("Price: ");
+		product.price = sc.nextDouble();
+		System.out.print("Quantity in stock: ");
+		product.quantity = sc.nextInt();
+		
+		System.out.println();
+		System.out.println("Product data: " + product);
+		
+		System.out.println();
+		System.out.print("Enter the number of products to be added in stock: ");
+		int quantity = sc.nextInt();
+		product.addProducts(quantity);
+		
+		System.out.println();
+		System.out.println("Updated data: " + product);
+		
+		System.out.println();
+		System.out.print("Enter the number of products to be removed from stock: ");
+		quantity = sc.nextInt();
+		product.removeProducts(quantity);
+		
+		System.out.println();
+		System.out.println("Updated data: " + product);
+		
+		sc.close();
+	}
+}
+
+```
 
 #### <a name="chapter9part8"></a>Chapter 9 - Part 8: Third problem with object orientation
 
