@@ -3443,7 +3443,7 @@ public class Main {
 
 - 3) The ```fullThrottle()``` method and the ```speed()``` method will print out some text, when they are called.
 
-- 4) The ```speed()``` method accepts an ```int``` parameter called ```maxSpeed``` - we will use this in 8).
+- 4) The ```speed()``` method accepts an ```int``` parameter called ```maxSpeed``` - we will use this in VIII).
 
 - 5) In order to use the ```Main``` class and its methods, we need to create an **object** of the ```Main``` Class.
 
@@ -3451,7 +3451,7 @@ public class Main {
 
 - 7) By using the ```new``` keyword we created an object with the name ```myCar```.
 
-- 8)Then, we call the ```fullThrottle()``` and ```speed()``` methods on the ```myCar``` object, and run the program using the name of the object (```myCar```), followed by a dot (```.```), followed by the name of the method (```fullThrottle();``` and ```speed(200);```). Notice that we add an ```int``` parameter of **200** inside the ```speed()``` method.
+- 8) Then, we call the ```fullThrottle()``` and ```speed()``` methods on the ```myCar``` object, and run the program using the name of the object (```myCar```), followed by a dot (```.```), followed by the name of the method (```fullThrottle();``` and ```speed(200);```). Notice that we add an ```int``` parameter of **200** inside the ```speed()``` method.
 
 #### <a name="chapter9part5"></a>Chapter 9 - Part 5: Object and toString
 
