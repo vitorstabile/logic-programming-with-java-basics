@@ -62,10 +62,11 @@
     - [Chapter 9 - Part 2: Classes, Objects and Attributes in Java](#chapter9part2)
     - [Chapter 9 - Part 3: Solving a Problem with object orientation](#chapter9part3)
     - [Chapter 9 - Part 4: Methods in Java](#chapter9part4)
-    - [Chapter 9 - Part 5: Object and toString](#chapter9part5)
-    - [Chapter 9 - Part 6: Constructors in Java](#chapter9part6)
-    - [Chapter 9 - Part 7: Modifiers in Java](#chapter9part7)
-    - [Chapter 9 - Part 8: Encapsulation in Java](#chapter9part8)
+    - [Chapter 9 - Part 5: Continuing to solve the Problem with object orientation](#chapter9part5)
+    - [Chapter 9 - Part 6: Object and toString](#chapter9part6)
+    - [Chapter 9 - Part 7: Constructors in Java](#chapter9part7)
+    - [Chapter 9 - Part 8: Modifiers in Java](#chapter9part8)
+    - [Chapter 9 - Part 9: Encapsulation in Java](#chapter9part9)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -3453,12 +3454,77 @@ public class Main {
 
 - 8) Then, we call the ```fullThrottle()``` and ```speed()``` methods on the ```myCar``` object, and run the program using the name of the object (```myCar```), followed by a dot (```.```), followed by the name of the method (```fullThrottle();``` and ```speed(200);```). Notice that we add an ```int``` parameter of **200** inside the ```speed()``` method.
 
-#### <a name="chapter9part5"></a>Chapter 9 - Part 5: Object and toString
+#### <a name="chapter9part5"></a>Chapter 9 - Part 5: Continuing to solve the Problem with object orientation
 
-#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Constructors in Java
+Create the class ```Triangle``` with the attributes
 
-#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Modifiers in Java
+```java
 
-#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Encapsulation in Java
+public class Triangle { //class Triangle
+	public double a; // attribute of a triangle
+	public double b; // attribute of a triangle
+	public double c; // attribute of a triangle
+	
+	public double area() { // method of triangle
+		double p = (a + b + c) / 2.0;
+		return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+	}
+}
+
+```
+
+Now, create the Program, calling the class ```Triangle```
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+
+		Triangle x, y;
+		x = new Triangle();
+		y = new Triangle();
+		
+		System.out.println("Enter the measures of triangle X: ");
+		x.a = sc.nextDouble();
+		x.b = sc.nextDouble();
+		x.c = sc.nextDouble();
+		System.out.println("Enter the measures of triangle Y: ");
+		y.a = sc.nextDouble();
+		y.b = sc.nextDouble();
+		y.c = sc.nextDouble();
+		
+		double areaX = x.area();
+		double areaY = y.area();
+		
+		System.out.printf("Triangle X area: %.4f%n", areaX);
+		System.out.printf("Triangle Y area: %.4f%n", areaY);
+		
+		if (areaX > areaY) {
+			System.out.println("Larger area: X");
+		} else {
+			System.out.println("Larger area: Y");
+		}
+		
+		sc.close();
+	}
+}
+
+```
+
+#### <a name="chapter9part6"></a>Chapter 9 - Part 6: Object and toString
+
+#### <a name="chapter9part7"></a>Chapter 9 - Part 7: Constructors in Java
+
+#### <a name="chapter9part8"></a>Chapter 9 - Part 8: Modifiers in Java
+
+#### <a name="chapter9part9"></a>Chapter 9 - Part 9: Encapsulation in Java
 
 <!-- URL's -->
