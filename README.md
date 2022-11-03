@@ -3683,6 +3683,152 @@ public class Program {
 
 #### <a name="chapter9part8"></a>Chapter 9 - Part 8: Third problem with object orientation
 
+Make a program to read any numerical value, and then display what would be the value of a circle and the volume of a sphere for a radius of that value. Also inform the value of PI with two decimal places.
+
+Ex:
+
+Enter radius: 3.0
+Circumference: 18.85
+Volume: 113.10
+PI value: 3.14
+
+**Version 1**: methods in the program's own class. OBS: inside a static method you cannot call members of instance of the same class.
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+	
+	public static final double PI = 3.14159;
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter radius: ");
+		double radius = sc.nextDouble();
+		
+		double c = circumference(radius);
+		
+		double v = volume(radius);
+		
+		sc.close();
+	}
+	
+	public static double circumference(double radius) {
+		return 2.0 * PI * radius;
+	}
+	
+	public static double volume(double radius) {
+		return 4.0 * PI * radius * radius * radius / 3.0;
+	}
+}
+
+```
+
+**Version 2**: Calculator class with instance members
+
+Class Calculator
+
+```java
+
+public class Calculator {
+	
+	public final double PI = 3.14159;
+	
+	public double circumference(double radius) {
+		return 2.0 * PI * radius;
+	}
+	
+	public double volume(double radius) {
+		return 4.0 * PI * radius * radius * radius / 3.0;
+	}
+
+}
+
+```
+
+Program
+
+```java
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+
+		Calculator calc = new Calculator();
+		
+		System.out.print("Enter radius: ");
+		double radius = sc.nextDouble();
+		
+		double c = calc.circumference(radius);
+		
+		double v = calc.volume(radius);
+		
+		System.out.printf("Circumference: %.2f%n", c);
+		System.out.printf("Volume: %.2f%n", v);
+		System.out.printf("PI value: %.2f%n", calc.PI);
+		
+		sc.close();
+	}
+}
+
+```
+
+**Version 3**: Calculator class with static method
+
+Class Calculator
+
+```java
+
+public class Calculator {
+	
+	public static final double PI = 3.14159;
+	
+	public static double circumference(double radius) {
+		return 2.0 * PI * radius;
+	}
+	
+	public static double volume(double radius) {
+		return 4.0 * PI * radius * radius * radius / 3.0;
+	}
+
+}
+
+```
+
+```java
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("Enter radius: ");
+		double radius = sc.nextDouble();
+		
+		double c = Calculator.circumference(radius);
+		
+		double v = Calculator.volume(radius);
+		
+		System.out.printf("Circumference: %.2f%n", c);
+		System.out.printf("Volume: %.2f%n", v);
+		System.out.printf("PI value: %.2f%n", Calculator.PI);
+		
+		sc.close();
+	}
+}
+
+```
+
 #### <a name="chapter9part9"></a>Chapter 9 - Part 9: Constructors in Java
 
 #### <a name="chapter9part10"></a>Chapter 9 - Part 10: Modifiers in Java
