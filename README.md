@@ -3041,6 +3041,334 @@ public class Program {
 
 #### <a name="chapter9part4"></a>Chapter 9 - Part 4: Methods in Java
 
+A method is a block of code which only runs when it is called.
+
+You can pass data, known as parameters, into a method.
+
+Methods are used to perform certain actions, and they are also known as functions.
+
+Why use methods? To reuse code: define the code once, and use it many times.
+
+**Create a Method**
+
+A method must be declared within a class. It is defined with the name of the method, followed by parentheses ```()```. Java provides some pre-defined methods, such as ```System.out.println()```, but you can also create your own methods to perform certain actions:
+
+Create a method inside Main:
+
+```java
+
+public class Main {
+  static void myMethod() {
+    // code to be executed
+  }
+}
+
+```
+
+Example Explained: 
+
+- ```myMethod()``` is the name of the method
+- ```static``` means that the method belongs to the Main class and not an object of the Main class. You will learn more about objects and how to access methods through objects later in this tutorial.
+
+- ```void``` means that this method does not have a return value. You will learn more about return values later in this chapter
+
+**Call a Method**
+
+To call a method in Java, write the method's name followed by two parentheses ```()``` and a semicolon```;```
+
+In the following example, ```myMethod()``` is used to print a text (the action), when it is called:
+
+Inside ```main```, call the ```myMethod()``` method:
+
+```java
+
+public class Main {
+  static void myMethod() {
+    System.out.println("I just got executed!");
+  }
+
+  public static void main(String[] args) {
+    myMethod();
+  }
+}
+
+// Outputs "I just got executed!"
+
+```
+
+A method can also be called multiple times:
+
+```java
+
+public class Main {
+  static void myMethod() {
+    System.out.println("I just got executed!");
+  }
+
+  public static void main(String[] args) {
+    myMethod();
+    myMethod();
+    myMethod();
+  }
+}
+
+// I just got executed!
+// I just got executed!
+// I just got executed!
+
+```
+
+**Parameters and Arguments**
+
+Information can be passed to methods as parameter. Parameters act as variables inside the method.
+
+Parameters are specified after the method name, inside the parentheses. You can add as many parameters as you want, just separate them with a comma.
+
+The following example has a method that takes a ```String``` called fname as parameter. When the method is called, we pass along a first name, which is used inside the method to print the full name: 
+
+```java
+
+public class Main {
+  static void myMethod(String fname) {
+    System.out.println(fname + " Refsnes");
+  }
+
+  public static void main(String[] args) {
+    myMethod("Liam");
+    myMethod("Jenny");
+    myMethod("Anja");
+  }
+}
+// Liam Refsnes
+// Jenny Refsnes
+// Anja Refsnes
+
+```
+
+OBS: When a **parameter** is passed to the method, it is called an **argument**. So, from the example above: ```fname``` is a **parameter**, while ```Liam```, ```Jenny``` and ```Anja``` are **arguments**.
+
+**Multiple Parameters**
+
+You can have as many parameters as you like:
+
+```java
+
+public class Main {
+  static void myMethod(String fname, int age) {
+    System.out.println(fname + " is " + age);
+  }
+
+  public static void main(String[] args) {
+    myMethod("Liam", 5);
+    myMethod("Jenny", 8);
+    myMethod("Anja", 31);
+  }
+}
+
+// Liam is 5
+// Jenny is 8
+// Anja is 31
+
+```
+
+OBS:Note that when you are working with multiple parameters, the method call must have the same number of arguments as there are parameters, and the arguments must be passed in the same order.
+
+**Return Values**
+
+The ```void``` keyword, used in the examples above, indicates that the method should not return a value. If you want the method to return a value, you can use a primitive data type (such as ```int```, ```char```, etc.) instead of ```void```, and use the ```return``` keyword inside the method:
+
+```java
+
+public class Main {
+  static int myMethod(int x) {
+    return 5 + x;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(myMethod(3));
+  }
+}
+// Outputs 8 (5 + 3)
+
+```
+
+This example returns the sum of a method's two parameters:
+
+```java
+
+public class Main {
+  static int myMethod(int x, int y) {
+    return x + y;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(myMethod(5, 3));
+  }
+}
+// Outputs 8 (5 + 3)
+
+```
+
+You can also store the result in a variable (recommended, as it is easier to read and maintain):
+
+```java
+
+public class Main {
+  static int myMethod(int x, int y) {
+    return x + y;
+  }
+
+  public static void main(String[] args) {
+    int z = myMethod(5, 3);
+    System.out.println(z);
+  }
+}
+// Outputs 8 (5 + 3)
+
+```
+
+**A Method with If...Else**
+
+It is common to use ```if...else``` statements inside methods:
+
+```java
+
+public class Main {
+
+  // Create a checkAge() method with an integer variable called age
+  static void checkAge(int age) {
+
+    // If age is less than 18, print "access denied"
+    if (age < 18) {
+      System.out.println("Access denied - You are not old enough!");
+
+    // If age is greater than, or equal to, 18, print "access granted"
+    } else {
+      System.out.println("Access granted - You are old enough!");
+    }
+
+  }
+
+  public static void main(String[] args) {
+    checkAge(20); // Call the checkAge method and pass along an age of 20
+  }
+}
+
+// Outputs "Access granted - You are old enough!"
+
+```
+
+**Method Overloading**
+
+With method overloading, multiple methods can have the same name with different parameters:
+
+```java
+
+int myMethod(int x)
+float myMethod(float x)
+double myMethod(double x, double y)
+
+```
+
+Consider the following example, which has two methods that add numbers of different type:
+
+```java
+
+static int plusMethodInt(int x, int y) {
+  return x + y;
+}
+
+static double plusMethodDouble(double x, double y) {
+  return x + y;
+}
+
+public static void main(String[] args) {
+  int myNum1 = plusMethodInt(8, 5);
+  double myNum2 = plusMethodDouble(4.3, 6.26);
+  System.out.println("int: " + myNum1);
+  System.out.println("double: " + myNum2);
+}
+
+```
+
+Instead of defining two methods that should do the same thing, it is better to overload one.
+
+In the example below, we overload the ```plusMethod``` method to work for both ```int``` and ```double```:
+
+```java
+
+static int plusMethod(int x, int y) {
+  return x + y;
+}
+
+static double plusMethod(double x, double y) {
+  return x + y;
+}
+
+public static void main(String[] args) {
+  int myNum1 = plusMethod(8, 5);
+  double myNum2 = plusMethod(4.3, 6.26);
+  System.out.println("int: " + myNum1);
+  System.out.println("double: " + myNum2);
+}
+
+```
+
+OBS: Note: Multiple methods can have the same name as long as the number and/or type of parameters are different.
+
+**Method Scope**
+
+Variables declared directly inside a method are available anywhere in the method following the line of code in which they were declared:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Code here CANNOT use x
+
+    int x = 100;
+
+    // Code here can use x
+    System.out.println(x);
+  }
+}
+
+```
+
+**Block Scope**
+
+A block of code refers to all of the code between curly braces ```{}```.
+
+Variables declared inside blocks of code are only accessible by the code between the curly braces, which follows the line in which the variable was declared:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Code here CANNOT use x
+
+    { // This is a block
+
+      // Code here CANNOT use x
+
+      int x = 100;
+
+      // Code here CAN use x
+      System.out.println(x);
+
+   } // The block ends here
+
+  // Code here CANNOT use x
+
+  }
+}
+
+```
+
+OBS: A block of code may exist on its own or it can belong to an ```if```, ```while``` or ```for``` statement. In the case of ```for``` statements, variables declared in the statement itself are also available inside the block's scope.
+
 #### <a name="chapter9part5"></a>Chapter 9 - Part 5: Object and toString
 
 #### <a name="chapter9part6"></a>Chapter 9 - Part 6: Constructors in Java
