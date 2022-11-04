@@ -5202,5 +5202,127 @@ The ```ofPattern()``` method accepts all sorts of values, if you want to display
 
 #### <a name="chapter13part1"></a>Chapter 12 - Part 1: Java Enums
 
+It is a special type that serves to literally specify a set of related constants
+
+Keyword in Java: ```enum```
+
+Advantage: better semantics, more readable code and supported by compiler
+
+Example: life cycle of a request.
+
+```java
+
+package entities.enums;
+
+public enum OrderStatus {
+
+	PENDING_PAYMENT,
+	PROCESSING,
+	SHIPPED,
+	DELIVERED;
+}
+
+```
+
+```java
+
+package entities;
+
+import java.util.Date;
+
+import entities.enums.OrderStatus;
+
+public class Order {
+
+	private Integer id;
+	private Date moment;
+	private OrderStatus status;
+	
+	public Order() {
+	}
+
+	public Order(Integer id, Date moment, OrderStatus status) {
+		this.id = id;
+		this.moment = moment;
+		this.status = status;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getMoment() {
+		return moment;
+	}
+
+	public void setMoment(Date moment) {
+		this.moment = moment;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", moment=" + moment + ", status=" + status + "]";
+	}
+}
+
+```
+
+```java
+
+package application;
+
+import java.util.Date;
+
+import entities.Order;
+import entities.enums.OrderStatus;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Order order = new Order(1080, new Date(), OrderStatus.PENDING_PAYMENT);
+		
+		System.out.println(order);
+		
+		OrderStatus os1 = OrderStatus.DELIVERED;
+		
+		OrderStatus os2 = OrderStatus.valueOf("DELIVERED");
+		
+		System.out.println(os1);
+		System.out.println(os2);
+	}
+}
+
+```
+
+**Convertion String to enum**
+
+```java
+
+OrderStatus os1 = OrderStatus.DELIVERED;
+
+OrderStatus os2 = OrderStatus.valueOf("DELIVERED");
+
+```
+
+UML Annotation
+
+<br>
+
+<div align="center"><img src="img/enum-w797-h251.png" width=428 height=179><br><sub>Fig 39 - Enum UML representation - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
 
 <!-- URL's -->
