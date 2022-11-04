@@ -70,6 +70,8 @@
     - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
     - [Chapter 9 - Part 11: Encapsulation in Java](#chapter9part11)
     - [Chapter 9 - Part 12: Classes Composition in Java](#chapter9part12)
+    - [Chapter 9 - Part 13: Inheritance in Java](#chapter9part13)
+    - [Chapter 9 - Part 14: Polymorphism in Java](#chapter9part14)
 10. [Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
     - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
@@ -80,6 +82,16 @@
     - [Chapter 12 - Part 1: Java Date and Time](#chapter12part1)
 13. [Chapter 13: Java Enums](#chapter13)
     - [Chapter 13 - Part 1: Java Enums](#chapter13part1)
+14. [Chapter 14: Java Interfaces](#chapter14)
+    - [Chapter 14 - Part 1: Java Interfaces](#chapter14part1)
+15. [Chapter 15: Java Exceptions](#chapter15)
+    - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
+16. [Chapter 16: Java File Handling](#chapter16)
+    - [Chapter 16 - Part 1: Java File Handling](#chapter16part1)
+17. [Chapter 17: Java Lambda Expression](#chapter17)
+    - [Chapter 17 - Part 1: Java Lambda Expression](#chapter17part1)
+
+Java File Handling
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -4633,6 +4645,10 @@ public class Program {
 
 ```
 
+#### <a name="chapter9part13"></a>Chapter 9 - Part 13: Inheritance in Java
+
+#### <a name="chapter9part14"></a>Chapter 9 - Part 14: Polymorphism in Java
+
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
 #### <a name="chapter10part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
@@ -5609,5 +5625,22 @@ UML Annotation
 <div align="center"><img src="img/enum-w797-h251.png" width=428 height=179><br><sub>Fig 39 - Enum UML representation - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
 
 <br>
+
+## <a name="chapter14"></a>Chapter 14: Java Interfaces
+
+#### <a name="chapter14part1"></a>Chapter 14 - Part 1: Java Interfaces
+
+## <a name="chapter15"></a>Chapter 15: Java Exceptions
+
+#### <a name="chapter15part1"></a>Chapter 15 - Part 1: Java Exceptions
+
+## <a name="chapter16"></a>Chapter 16: Java File Handling
+
+#### <a name="chapter16part1"></a>Chapter 16 - Part 1: Java File Handling
+
+## <a name="chapter17"></a>Chapter 17: Java Lambda Expression
+
+#### <a name="chapter17part1"></a>Chapter 17 - Part 1: Java Lambda Expression
+
 
 <!-- URL's -->
