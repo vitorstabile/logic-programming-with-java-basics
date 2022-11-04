@@ -4570,13 +4570,89 @@ int y = (int) obj;
 
 **Comparing Reference Type**
 
-We can also compare the reference types in Java. Java provides two ways to compare reference types:
+Reference types are comparable in Java. Equality operators and the equals method can be used to assist with comparisons.
 
-- By using the equal ```(==)``` operator
+- Using the Equality Operators ```(==)```
 
-- By using the String.equals() Method
+The ```!=``` and ```==``` equality operators are used to compare the memory locations of two objects. If the memory addresses of the objects being compared are the same, the objects are considered equal. These equality operators are not used to compare the contents of two objects.
 
-- Copying Reference Type
+```java
+
+String guest1 = new String("name");
+String guest2 = guest1;
+if (guest1 == guest2)
+  System.out.println("They are equal");
+
+```
+
+In the following example, the memory addresses are not equal, so the statement "They are not equal" is output:
+
+```java
+
+String guest1 = new String("name");
+String guest2 = new String("name");
+if (guest1 != guest2)
+  System.out.println("They are not equal");
+
+
+```
+
+- Using the ```equals()``` Method
+
+To compare the contents of two class objects, the ```equals()``` method from class ```Object``` can be used or overridden. When the ```equals()``` method is overridden, the ```hashCode()``` method should also be overridden. This is done for compatibility with hash-based collections such as ```HashMap()``` and ```HashSet()```.
+
+By default, the ```equals()``` method uses only the ```==``` operator for comparisons. This method has to be overridden to really be useful.
+
+For example, if you want to compare values contained in two instances of the same class, you should use a programmer-defined equals() method.
+
+**Comparing Strings**
+
+There are two ways to check whether strings are equal in Java, but the definition of “equal” for each of them is different:
+
+- The ```equals()``` method compares two strings, character by character, to determine equality. This is not the default implementation of the ```equals()``` method provided by the Object class. This is the overridden implementation provided by String class.
+
+- The ```==``` operator checks to see whether two object references refer to the same instance of an object.
+
+Here is a program that shows how strings are evaluated using the ```equals()``` method and the ```==``` operator
+
+```java
+
+class MyComparisons {
+
+  // Add string to pool
+  String first = "chairs";
+  // Use string from pool
+  String second = "chairs";
+  // Create a new string
+  String third = new String ("chairs");
+
+ void myMethod() {
+
+  /*
+   * Contrary to popular belief, this evaluates
+   * to true. Try it!
+   */
+  if (first == second) {
+    System.out.println("first == second");
+  }
+
+  // This evaluates to true
+  if (first.equals(second)) {
+    System.out.println("first equals second");
+  }
+  // This evaluates to false
+  if (first == third) {
+    System.out.println("first == third");
+  }
+  // This evaluates to true
+  if (first.equals(third)) {
+    System.out.println("first equals third");
+  }
+ } // End myMethod()
+} //end class
+
+```
+
 
 **Wrapper Classes**
 
