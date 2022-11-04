@@ -91,8 +91,6 @@
 17. [Chapter 17: Java Lambda Expression](#chapter17)
     - [Chapter 17 - Part 1: Java Lambda Expression](#chapter17part1)
 
-Java File Handling
-
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
 #### <a name="chapter1part1"></a>Chapter 1 - Part 1: Programmer's Career Starts
