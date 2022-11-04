@@ -72,7 +72,7 @@
 10. [Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
     - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
-    - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part2)
+    - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part3)
 11. [Chapter 11: Collections](#chapter10)
     - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
 
