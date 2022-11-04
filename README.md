@@ -4441,6 +4441,105 @@ System.out.println(p);
 
 #### <a name="chapter10part2"></a>Chapter 10 - Part 2: Garbage Collector
 
+In Java, the ```new``` keyword is used to create an **instance** of the class. In other words, it instantiates a class by allocating **memory** for a new object and returning a reference to that memory. Objects occupy memory in the **Java heap space**. We can also use the ```new``` keyword to create the array object.
+
+```java
+
+ClassName objectName = new ClassName();  
+
+```
+
+If there are no references to an object, the memory used by that object can be reclaimed during the garbage collection process.
+
+**Garbage Collector
+
+It is a process that automates the memory management of a program running
+
+Garbage collector monitors dynamically allocated objects by the program (on the heap), deallocating those that are no longer being used.
+
+In java, garbage means unreferenced objects.
+
+Garbage Collection is process of reclaiming the runtime unused memory automatically. In other words, it is a way to destroy the unused objects.
+
+To do so, we were using free() function in C language and delete() in C++. But, in java it is performed automatically. So, java provides better memory management.
+
+**Advantage of Garbage Collection**
+
+- It makes java memory efficient because garbage collector removes the unreferenced objects from heap memory.
+
+- It is automatically done by the garbage collector(a part of JVM) so we don't need to make extra efforts.
+
+**How can an object be unreferenced?**
+
+- By nulling the reference
+
+```java
+
+    Employee e=new Employee();  
+    e=null;  
+
+```
+
+- By assigning a reference to another
+
+```java
+
+    Employee e1=new Employee();  
+    Employee e2=new Employee();  
+    e1=e2;//now the first object referred by e1 is available for garbage collection  
+
+```
+
+- By anonymous object etc.
+
+```java
+
+    new Employee();  
+
+```
+
+**finalize() method**
+
+The finalize() method is invoked each time before the object is garbage collected. This method can be used to perform cleanup processing. This method is defined in Object class as:
+
+```java
+
+    protected void finalize(){}  
+
+```
+
+OBS: The Garbage collector of JVM collects only those objects that are created by new keyword. So if you have created any object without new, you can use finalize method to perform cleanup processing (destroying remaining objects).
+
+**gc() method**
+
+The gc() method is used to invoke the garbage collector to perform cleanup processing. The gc() is found in System and Runtime classes. 
+
+```java
+
+    public static void gc(){}  
+
+```
+
+OBS: Garbage collection is performed by a daemon thread called Garbage Collector(GC). This thread calls the finalize() method before object is garbage collected.
+
+```java
+
+    public class TestGarbage1{  
+     public void finalize(){System.out.println("object is garbage collected");}  
+     public static void main(String args[]){  
+      TestGarbage1 s1=new TestGarbage1();  
+      TestGarbage1 s2=new TestGarbage1();  
+      s1=null;  
+      s2=null;  
+      System.gc();  
+     }  
+    }  
+    
+    //object is garbage collected
+    //object is garbage collected
+
+```
+
 #### <a name="chapter10part3"></a>Chapter 10 - Part 3: Boxing, unboxing and wrapper classes
 
 ## <a name="chapter11"></a>Chapter 11: Collections
