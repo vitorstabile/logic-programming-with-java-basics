@@ -4348,6 +4348,34 @@ public class Product {
 
 #### <a name="chapter9part12"></a>Chapter 9 - Part 12: Classes Composition in Java
 
+It is a type of association that allows one object to contain another
+
+"has-one" or "has-many" relationship
+
+Advantages
+- Organization: division of responsibilities
+- Cohesion
+- Flexibility
+- Reuse
+
+<br>
+
+<div align="center"><img src="img/compostion1-w865-h453.png" width=865 height=453><br><sub>Fig 39 - Composition - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Exercise: Read data from a worker with N contracts (N provided by the user). then request a month and show the employee's salary in that month, as shown in the example
+
+<br>
+
+<div align="center"><img src="img/compostion2-w766-h399.png" width=766 height=399><br><sub>Fig 39 - Compostion Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+<div align="center"><img src="img/compostion3-w658-h553.png" width=658 height=553><br><sub>Fig 39 - Compostion Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
 #### <a name="chapter10part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
