@@ -69,6 +69,7 @@
     - [Chapter 9 - Part 9: Constructors in Java](#chapter9part9)
     - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
     - [Chapter 9 - Part 11: Encapsulation in Java](#chapter9part11)
+    - [Chapter 9 - Part 12: Classes Composition in Java](#chapter9part12)
 10. [Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
     - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
@@ -77,6 +78,8 @@
     - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
 12. [Chapter 12: Java Date and Time](#chapter12)
     - [Chapter 12 - Part 1: Java Date and Time](#chapter12part1)
+13. [Chapter 13: Java Enums](#chapter13)
+    - [Chapter 13 - Part 1: Java Enums](#chapter13part1)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -4343,6 +4346,8 @@ public class Product {
 
 ```
 
+#### <a name="chapter9part12"></a>Chapter 9 - Part 12: Classes Composition in Java
+
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
 #### <a name="chapter10part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
@@ -5191,6 +5196,11 @@ The ```ofPattern()``` method accepts all sorts of values, if you want to display
 | yyyy-MM-dd     | "1988-09-29"       |
 | dd/MM/yyyy     | "29/09/1988"       |
 | dd-MMM-yyyy    | "29-Sep-1988"      | 
-| E, MMM dd yyyy | "Thu, Sep 29 1988" | 
+| E, MMM dd yyyy | "Thu, Sep 29 1988" |
+
+## <a name="chapter13"></a>Chapter 13: Java Enums
+
+#### <a name="chapter13part1"></a>Chapter 12 - Part 1: Java Enums
+
 
 <!-- URL's -->
