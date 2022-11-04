@@ -4353,9 +4353,68 @@ Java provides two types of data types **primitive** and **reference** data type.
 
 <br>
 
-In Java, **non-primitive** data types are known as **reference types**. In other words, a variable of class type is called **reference data type**. It contains the address (or reference) of dynamically created objects. For example, if Demo is a class and we have created its object **d**, then the variable d is known as a reference type.
+**Reference types**
+
+In Java, **non-primitive** data types are known as **reference types**. In other words, a variable of class type is called **reference data type**. It contains the address (or reference) of dynamically created objects. For example, if **Demo** is a class and we have created its object **d**, then the variable d is known as a reference type.
 
 It refers to objects. It is not pre-defined. It is created by the programmer if required. The reference types hold the references of objects. All **reference types** are a subclass of type **java.lang.Object**. It provides access to the objects stored in the memory.
+
+Example: In the example above the p2 variable refence the memory address where p1 was created.
+
+```java
+
+Product p1, p2;
+p1 = new Product("TV", 900.00, 0);
+p2 = p1;
+
+```
+
+<br>
+
+<div align="center"><img src="img/referency_memory-w681-h362.png" width=681 height=362><br><sub>Fig 34 -Referency Types - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by Nelio Alves</a>) </sub></div>
+
+<br>
+
+The default values when we use ```new``` in Class and Arrays is:
+
+- Numbers: 0
+- boolean: false
+- char: 0 code
+- object: null
+
+Reference type alow "null" value. This means they not reference any body.
+
+**Primitive types**
+
+In Java, primitive types is value types.
+
+Example: y receive a copy of x
+
+```java
+
+double x, y;
+x = 10;
+y = x;
+
+```
+
+The primitive types needs a value to initiate:
+
+```java
+
+int p;
+System.out.println(p); // error: variable not initiated
+
+p = 10;
+System.out.println(p);
+
+```
+
+<br>
+
+<div align="center"><img src="img/primitive_memory-w641-h378.png" width=641 height=378><br><sub>Fig 35 -Primitive Types - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by Nelio Alves</a>) </sub></div>
+
+<br>
 
 | Reference Type                                                                 | Primitive Type                                                         |
 | :-----------------------------------------------------------------------------:| :---------------------------------------------------------------------:|
@@ -4367,6 +4426,12 @@ It refers to objects. It is not pre-defined. It is created by the programmer if 
 | Examples of reference data types are class, Arrays, String, Interface, etc.    | Examples of primitive data types are int, float, double, Boolean, long.|
 | JVM allocates 8 bytes for each reference variable, by default.                 | Its size depends on the data type.                                     |
 | **Example**: Demo d1;                                                          | **Example**: int num=78;                                               |
+| Advantage: enjoys all OO features                                              | Advantage: it is simpler and more performant                           |
+| Objects must be instantiated using new, or point to an existing object.        | Does not instantiate. Once declared, they are ready for use.           |
+| Accepts null value                                                             | Does not accept null value                                             |
+| Y = X; "Y starts pointing to where X points Y = X;                             | Y = X; "Y receives a copy of X"                                        |
+| Objects instantiated on the heap                                               | "Objects" instantiated on the stack                                    |
+| Unused objects are deallocated in a close moment by garbage collector          | "Objects" are deallocated immediately when your execution scope is terminated   |
 
 #### <a name="chapter10part2"></a>Chapter 10 - Part 2: Garbage Collector
 
@@ -4376,7 +4441,7 @@ It refers to objects. It is not pre-defined. It is created by the programmer if 
 
 <br>
 
-<div align="center"><img src="img/java_collection-w854-h715.png" width=854 height=715><br><sub>Fig 33 - Collections - (<a href='https://www.javatpoint.com/collections-in-java'>Work by  Java T Point</a>) </sub></div>
+<div align="center"><img src="img/java_collection-w854-h715.png" width=854 height=715><br><sub>Fig 36 - Collections - (<a href='https://www.javatpoint.com/collections-in-java'>Work by  Java T Point</a>) </sub></div>
 
 <br>
 
