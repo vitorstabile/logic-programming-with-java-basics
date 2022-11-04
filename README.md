@@ -73,8 +73,10 @@
     - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
     - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part3)
-11. [Chapter 11: Collections](#chapter10)
+11. [Chapter 11: Collections](#chapter11)
     - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
+12. [Chapter 12: Java Date and Time](#chapter12)
+    - [Chapter 12 - Part 1: Java Date and Time](#chapter12part1)
 
 ## <a name="chapter1"></a>Chapter 1: Programming Concepts
   
@@ -5095,5 +5097,10 @@ public class Program {
 }
 
 ```
+
+## <a name="chapter12"></a>Chapter 12: Java Date and Time
+
+#### <a name="chapter12part1"></a>Chapter 12 - Part 1: Java Date and Time
+
 
 <!-- URL's -->
