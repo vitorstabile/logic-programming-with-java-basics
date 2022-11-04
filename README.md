@@ -4416,6 +4416,12 @@ System.out.println(p);
 
 <br>
 
+<br>
+
+<div align="center"><img src="img/data-types2-w1920-h1080.jpg" width=600 height=300><br><sub>Fig 14 -Java Data Primitive Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
+
+<br>
+
 | Reference Type                                                                 | Primitive Type                                                         |
 | :-----------------------------------------------------------------------------:| :---------------------------------------------------------------------:|
 | It is not pre-defined except the String.                                       | It is pre-defined in Java.                                             |
