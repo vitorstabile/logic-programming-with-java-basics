@@ -4542,6 +4542,58 @@ OBS: Garbage collection is performed by a daemon thread called Garbage Collector
 
 #### <a name="chapter10part3"></a>Chapter 10 - Part 3: Boxing, unboxing and wrapper classes
 
+**Boxing**
+
+It is the process of converting a value type object to an object compatible reference type
+
+```java
+
+int x = 20;
+
+Object obj = x;
+
+```
+
+**Unboxing**
+
+It is the process of converting a reference-type object to a object type compatible value
+
+```java
+
+int x = 20;
+
+Object obj = x;
+
+int y = (int) obj;
+
+```
+
+**Comparing Reference Type**
+
+We can also compare the reference types in Java. Java provides two ways to compare reference types:
+
+- By using the equal ```(==)``` operator
+
+- By using the String.equals() Method
+
+- Copying Reference Type
+
+**Wrapper Classes**
+
+These are classes that are equivalent to primitive types.
+
+Boxing and unboxing is done automaticaly
+
+Common usage: Entity fields in information systems (IMPORTANT!)
+Because reference types (classes) accept null value and take advantage of Object Oriented resources
+
+<br>
+
+<div align="center"><img src="img/wrapper_classes-w541-h251.png" width=541 height=251><br><sub>Fig 37 - Wrapper Classes - (<a href='https://www.javatpoint.com/collections-in-java'>Work by  Java T Point</a>) </sub></div>
+
+<br>
+
+
 ## <a name="chapter11"></a>Chapter 11: Collections
 
 <br>
