@@ -69,8 +69,8 @@
     - [Chapter 9 - Part 9: Constructors in Java](#chapter9part9)
     - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
     - [Chapter 9 - Part 11: Encapsulation in Java](#chapter9part11)
-10. [Chapter 10: Value Types vs. Reference Type, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
-    - [Chapter 10 - Part 1: Value Types vs. Reference Types](#chapter10part1)
+10. [Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
+    - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
     - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part2)
 11. [Chapter 11: Collections](#chapter10)
@@ -4341,9 +4341,32 @@ public class Product {
 
 ```
 
-## <a name="chapter10"></a>Chapter 10: Value Types vs. Reference Type, Garbage Collector, Boxing, unboxing and wrapper classes
+## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
-#### <a name="chapter10part1"></a>Chapter 10 - Part 1: Value Types vs. Reference Types
+#### <a name="chapter10part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
+
+Java provides two types of data types **primitive** and **reference** data type. The **primitive data types (value type)** are predefined in Java that serves as a fundamental building block while the **reference** data type refers to where data is stored.
+
+<br>
+
+<div align="center"><img src="img/data-types-w8000-h4500.png" width=600 height=350><br><sub>Fig 13 -Java Data Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
+
+<br>
+
+In Java, **non-primitive** data types are known as **reference types**. In other words, a variable of class type is called **reference data type**. It contains the address (or reference) of dynamically created objects. For example, if Demo is a class and we have created its object **d**, then the variable d is known as a reference type.
+
+It refers to objects. It is not pre-defined. It is created by the programmer if required. The reference types hold the references of objects. All **reference types** are a subclass of type **java.lang.Object**. It provides access to the objects stored in the memory.
+
+| Reference Type                                                                 | Primitive Type                                                         |
+| :-----------------------------------------------------------------------------:| :---------------------------------------------------------------------:|
+| It is not pre-defined except the String.                                       | It is pre-defined in Java.                                             |
+| All reference type begins with Uppercase letter.                               | All primitive type begins with a lowercase letter.                     | 
+| Non-primitive types have all the same size.                                    | The size of a primitive type depends on the data type.                 |
+| It is used to invoke or call methods.                                          | We cannot invoke the method with a primitive type.                     |
+| It can be null.                                                                | It cannot be null. It always has value.                                |
+| Examples of reference data types are class, Arrays, String, Interface, etc.    | Examples of primitive data types are int, float, double, Boolean, long.|
+| JVM allocates 8 bytes for each reference variable, by default.                 | Its size depends on the data type.                                     |
+| **Example**: Demo d1;                                                          | **Example**: int num=78;                                               |
 
 #### <a name="chapter10part2"></a>Chapter 10 - Part 2: Garbage Collector
 
