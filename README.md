@@ -86,6 +86,7 @@
 14. [Chapter 14: Java Interfaces](#chapter14)
     - [Chapter 14 - Part 1: Java Interfaces](#chapter14part1)
     - [Chapter 14 - Part 2: Dependency Injection and Inversion of Control](#chapter14part2)
+    - [Chapter 14 - Part 3: Inheritance vs Interfaces](#chapter14part3)
 15. [Chapter 15: Java Exceptions](#chapter15)
     - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
 16. [Chapter 16: Java File Handling](#chapter16)
@@ -6930,6 +6931,305 @@ When we implement a interface in our solution:
 <div align="center"><img src="img/interfaces5-w1052-h449.png" width=1052 height=449><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
 
 <br>
+
+**Inversion of control**
+- Development pattern that consists of removing from class a responsibility to instantiate your dependencies. The Class RentalService don't have to instanciate the type of TaxService, just the abstraction, Tax Service
+
+**dependency injection**
+- It is a way of performing inversion of control: an external component instantiates the dependency (In the exercise, the main Program, which is then injected into the "parent" object (The Parent was the RentalService). It might be implemented in several ways:
+  - Constructor
+  - Instantiation class (builder/factory)
+  - Container / framework
+
+#### <a name="chapter14part3"></a>Chapter 14 - Part 3: Inheritance vs Interfaces
+
+**Common aspects between inheritance and interfaces**
+
+- relationship is-one
+- generalization/specialization
+- Polymorphism
+
+**Main Differences**
+
+- inheritance = reuse (attributes and methods)
+- interfaces = contract to be fulfilled
+
+<br>
+
+<div align="center"><img src="img/interfaces6-w952-h310.png" width=952 height=310><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+You can implement inheritance with interfaces, folow this case
+
+Exercise: What if I need to implement Shape as an interface, but I also want to define a common reusable structure for all figures?
+
+<br>
+
+<div align="center"><img src="img/interfaces7-w993-h400.png" width=993 height=400><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class Colour
+
+```java
+
+package model.enums;
+
+public enum Color {
+	BLACK,
+	WHITE;
+}
+
+```
+
+Class AbstractShape
+
+```java
+
+package model.entities;
+
+import model.enums.Color;
+
+public abstract class AbstractShape implements Shape {
+
+	private Color color;
+
+	public AbstractShape(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+}
+
+```
+
+Class Shape
+
+```java
+
+package model.entities;
+
+public interface Shape {
+
+	double area();
+}
+
+```
+
+Class Circle
+
+```java
+
+package model.entities;
+
+import model.enums.Color;
+
+public class Circle extends AbstractShape {
+
+	private Double radius;
+
+	public Circle(Color color, Double radius) {
+		super(color);
+		this.radius = radius;
+	}
+
+	public Double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Double radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public double area() {
+		return Math.PI * radius * radius;
+	}
+}
+
+```
+
+Class Rectangle
+
+```java
+
+package model.entities;
+
+import model.enums.Color;
+
+public class Rectangle extends AbstractShape {
+
+	private Double width;
+	private Double height;
+
+	public Rectangle(Color color, Double width, Double height) {
+		super(color);
+		this.width = width;
+		this.height = height;
+	}
+
+	public Double getWidth() {
+		return width;
+	}
+
+	public void setWidth(Double width) {
+		this.width = width;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	@Override
+	public double area() {
+		return width * height;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import model.entities.AbstractShape;
+import model.entities.Circle;
+import model.entities.Rectangle;
+import model.enums.Color;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		AbstractShape s1 = new Circle(Color.BLACK, 2.0);
+		AbstractShape s2 = new Rectangle(Color.WHITE, 3.0, 4.0);
+		
+		System.out.println("Circle color: " + s1.getColor());
+		System.out.println("Circle area: " + String.format("%.3f", s1.area()));
+		System.out.println("Rectangle color: " + s2.getColor());
+		System.out.println("Rectangle area: " + String.format("%.3f", s2.area()));
+	}
+}
+
+```
+
+#### <a name="chapter14part4"></a>Chapter 14 - Part 4: Multiple Inheritance and Interfaces
+
+Multiple inheritance can generate the diamond problem: a ambiguity caused by existence of the same method in more than one superclass.
+
+Multiple inheritance is not allowed in most languages!
+
+<br>
+
+<div align="center"><img src="img/interfaces8-w578-h443.png" width=578 height=443><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+**However, a class can implement more from an interface**
+
+<br>
+
+<div align="center"><img src="img/interfaces9-w633-h323.png" width=633 height=323><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+OBS: This is NOT multiple inheritance, because THERE IS NO REUSE in the relationship between ComboDevice and the Scanner and Printer interfaces. ComboDevide does not inherit, but yes implements the interfaces (fulfills the contract).
+
+Class Device
+
+```java
+
+package devices;
+
+public abstract class Device {
+
+	public String serialNumber;
+
+	public Device(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+	
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public abstract void processDoc(String doc);
+}
+
+```
+
+Class ComboDevice
+
+```java
+
+package devices;
+
+public class ComboDevice extends Device implements Scanner, Printer {
+
+	public ComboDevice(String serialNumber) {
+		super(serialNumber);
+	}
+
+	@Override
+	public void print(String doc) {
+		System.out.println("Combo printing: " + doc);
+	}
+
+	@Override
+	public String scan() {
+		return "Combo scan result";
+	}
+
+	@Override
+	public void processDoc(String doc) {
+		System.out.println("Combo processing: " + doc);
+	}
+}
+
+```
+
+Class Printer
+
+```java
+
+package devices;
+
+public interface Printer {
+
+	void print(String doc);
+}
+
+```
+
+Class Scanner
+
+```java
+
+package devices;
+
+public interface Scanner {
+
+	String scan();
+}
+
+```
 
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
