@@ -87,6 +87,8 @@
     - [Chapter 14 - Part 1: Java Interfaces](#chapter14part1)
     - [Chapter 14 - Part 2: Dependency Injection and Inversion of Control](#chapter14part2)
     - [Chapter 14 - Part 3: Inheritance vs Interfaces](#chapter14part3)
+    - [Chapter 14 - Part 4: Comparable Interface](#chapter14part4)
+    - [Chapter 14 - Part 5: Default methods](#chapter14part5)
 15. [Chapter 15: Java Exceptions](#chapter15)
     - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
 16. [Chapter 16: Java File Handling](#chapter16)
@@ -7313,6 +7315,10 @@ public class Program {
 }
 
 ```
+
+#### <a name="chapter14part4"></a>Chapter 14 - Part 4: Comparable Interface
+
+#### <a name="chapter14part5"></a>Chapter 14 - Part 5: Default methods
 
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
