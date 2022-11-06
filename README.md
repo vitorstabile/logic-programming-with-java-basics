@@ -4645,6 +4645,279 @@ public class Program {
 
 #### <a name="chapter9part13"></a>Chapter 9 - Part 13: Inheritance in Java
 
+It is an association type that allows a class to inherit all data and behaviors of another
+
+- Benefits
+  - reuse
+  - Polymorphism
+  
+In Java, it is possible to inherit attributes and methods from one class to another. We group the "inheritance concept" into two categories:
+
+- **subclass** (child) - the class that inherits from another class
+- **superclass** (parent) - the class being inherited from
+
+To inherit from a class, use the ```extends``` keyword.
+
+Example: In the example below, the ```Car``` class (subclass) inherits the attributes and methods from the ```Vehicle``` class (superclass):
+
+```java
+
+class Vehicle {
+  protected String brand = "Ford";        // Vehicle attribute
+  public void honk() {                    // Vehicle method
+    System.out.println("Tuut, tuut!");
+  }
+}
+
+class Car extends Vehicle {
+  private String modelName = "Mustang";    // Car attribute
+  public static void main(String[] args) {
+
+    // Create a myCar object
+    Car myCar = new Car();
+
+    // Call the honk() method (from the Vehicle class) on the myCar object
+    myCar.honk();
+
+    // Display the value of the brand attribute (from the Vehicle class) and the value of the modelName from the Car class
+    System.out.println(myCar.brand + " " + myCar.modelName);
+  }
+}
+
+```
+
+Another Example: Suppose a banking business that has a common account and an account for companies, and the company account has all account members common plus a borrowing limit and a borrowing operation.
+
+<br>
+
+<div align="center"><img src="img/inheritance1-w774-h342.png" width=774 height=342><br><sub>Fig 40 - Inheritance - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+
+
+Important Definitions:
+
+- "is-a" relationship
+
+- generalization/specialization
+
+- Superclass (base class) / subclass (class derivative)
+
+- inheritance / extension
+
+- Inheritance is an association between classes (not between objects)
+
+Class Account
+
+```java
+
+package entities;
+
+public class Account {
+
+	private Integer number;
+	private String holder;
+	protected Double balance;
+		
+	public Account() {
+	}
+	
+	public Account(Integer number, String holder, Double balance) {
+		this.number = number;
+		this.holder = holder;
+		this.balance = balance;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public String getHolder() {
+		return holder;
+	}
+
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void withdraw(double amount) {
+		balance -= amount;
+	}
+
+	public void deposit(double amount) {
+		balance += amount;
+	}
+}
+
+```
+
+Did you notice the ```protected``` modifier in ```Account```?
+
+We set the ```balance``` attribute in ```Account``` to a ```protected``` access modifier. If it was set to ```private```, the ```BusinessAccount``` class would not be able to access it.
+
+class BussinesAccount
+
+```java
+
+package entities;
+
+public class BusinessAccount extends Account {
+
+	private Double loanLimit;
+	
+	public BusinessAccount() {
+		super();
+	}
+
+	public BusinessAccount(Integer number, String holder, Double balance, Double loanLimit) {
+		super(number, holder, balance);
+		this.loanLimit = loanLimit;
+	}
+
+	public Double getLoanLimit() {
+		return loanLimit;
+	}
+
+	public void setLoanLimit(Double loanLimit) {
+		this.loanLimit = loanLimit;
+	}
+	
+	public void loan(double amount) {
+		if (amount <= loanLimit) {
+			balance += amount - 10.0;
+		}
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import entities.BusinessAccount;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		BusinessAccount account = new BusinessAccount(8010, "Bob Brown", 0.0, 500.0);
+
+		System.out.println(account.getBalance());
+	}
+}
+
+```
+
+**Upcasting and downcasting**
+
+- Upcasting
+  - Casting from subclass to superclass
+  - Common usage: polymorphism
+
+- Downcasting
+  - Casting from superclass to subclass
+  - instanceof ```keyword```
+  - Common usage: methods that take generic parameters (ex: Equals)
+  
+Example:
+
+<br>
+
+<div align="center"><img src="img/updowncasting-w493-h400.png" width=493 height=400><br><sub>Fig 41 - Upcasting and Downcasting - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class SavingsAccount
+
+```java
+
+package entities;
+
+public class SavingsAccount extends Account {
+	
+	private Double interestRate;
+	
+	public SavingsAccount() {
+		super();
+	}
+
+	public SavingsAccount(Integer number, String holder, Double balance, Double interestRate) {
+		super(number, holder, balance);
+		this.interestRate = interestRate;
+	}
+
+	public Double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
+	
+	public void updateBalance() {
+		balance += balance * interestRate;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import entities.Account;
+import entities.BusinessAccount;
+import entities.SavingsAccount;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Account acc = new Account(1001, "Alex", 0.0);
+		BusinessAccount bacc = new BusinessAccount(1002, "Maria", 0.0, 500.0);
+		
+		// UPCASTING
+		
+		Account acc1 = bacc;
+		Account acc2 = new BusinessAccount(1003, "Bob", 0.0, 200.0);
+		Account acc3 = new SavingsAccount(1004, "Anna", 0.0, 0.01);
+		
+		// DOWNCASTING
+		
+		BusinessAccount acc4 = (BusinessAccount)acc2;
+		acc4.loan(100.0);
+		
+		// BusinessAccount acc5 = (BusinessAccount)acc3;
+		if (acc3 instanceof BusinessAccount) {
+			BusinessAccount acc5 = (BusinessAccount)acc3;
+			acc5.loan(200.0);
+			System.out.println("Loan!");
+		}
+		
+		if (acc3 instanceof SavingsAccount) {
+			SavingsAccount acc5 = (SavingsAccount)acc3;
+			acc5.updateBalance();
+			System.out.println("Update!");
+		}
+	}
+}
+
+```
+
 #### <a name="chapter9part14"></a>Chapter 9 - Part 14: Polymorphism in Java
 
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
