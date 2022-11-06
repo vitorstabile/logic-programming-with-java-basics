@@ -6507,6 +6507,24 @@ UML Annotation
 
 #### <a name="chapter14part1"></a>Chapter 14 - Part 1: Java Interfaces
 
+As of Java 8, interfaces can have "default methods" or "defend methods"
+
+Interface is a type that defines a set of operations that a class must implement.
+
+The interface establishes a contract that the class must comply with.
+
+- For what interfaces?
+  - To create loosely coupled and flexible systems.
+
+```java
+
+interface Shape {
+	double area();
+	double perimeter();
+}
+
+```
+
 Another way to achieve **abstraction** in Java, is with interfaces.
 
 An ```interface``` is a completely **"abstract class"** that is used to group related methods with empty bodies:
@@ -6597,6 +6615,285 @@ class Main {
     myObj.myMethod();
     myObj.myOtherMethod();
   }
+}
+
+```
+
+Exercise: A Brazilian car rental company charges an hourly rate for rentals of up to 12 hours. However, if the duration of the lease exceeds 12 hours, the lease will be charged based on a daily rate. In addition to the lease amount, it is added to the price the tax amount according to the country's rules which, in the case of Brazil, is 20% for values up to 100.00, or 15% for values above 100.00. Make one program that reads the lease data (car model, start and end time of lease), as well as the hourly rate and the daily rental rate. The program must then generate the payment note (containing lease amount, tax and total payment amount) and enter the data on the screen. see the examples.
+
+<br>
+
+<div align="center"><img src="img/interfaces1-w494-h669.png" width=494 height=669><br><sub>Fig 40 - Exercise Interface - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class CarRental
+
+```java
+
+package model.entities;
+
+import java.time.LocalDateTime;
+
+public class CarRental {
+
+	private LocalDateTime start;
+	private LocalDateTime finish;
+	
+	private Vehicle vehicle;
+	private Invoice invoice;
+	
+	public CarRental() {
+	}
+
+	public CarRental(LocalDateTime start, LocalDateTime finish, Vehicle vehicle) {
+		this.start = start;
+		this.finish = finish;
+		this.vehicle = vehicle;
+	}
+
+	public LocalDateTime getStart() {
+		return start;
+	}
+
+	public void setStart(LocalDateTime start) {
+		this.start = start;
+	}
+
+	public LocalDateTime getFinish() {
+		return finish;
+	}
+
+	public void setFinish(LocalDateTime finish) {
+		this.finish = finish;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+}
+
+```
+
+Class Invoice
+
+```java
+
+package model.entities;
+
+public class Invoice {
+
+	private Double basicPayment;
+	private Double tax;
+	
+	public Invoice() {
+	}
+
+	public Invoice(Double basicPayment, Double tax) {
+		this.basicPayment = basicPayment;
+		this.tax = tax;
+	}
+
+	public Double getBasicPayment() {
+		return basicPayment;
+	}
+
+	public void setBasicPayment(Double basicPayment) {
+		this.basicPayment = basicPayment;
+	}
+
+	public Double getTax() {
+		return tax;
+	}
+
+	public void setTax(Double tax) {
+		this.tax = tax;
+	}
+	
+	public Double getTotalPayment() {
+		return getBasicPayment() + getTax();
+	}
+}
+
+```
+
+Class Vehicle
+
+```java
+
+package model.entities;
+
+public class Vehicle {
+
+	private String model;
+	
+	public Vehicle() {
+	}
+
+	public Vehicle(String model) {
+		this.model = model;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+}
+
+```
+
+Class RentalService
+
+```java
+
+package model.services;
+
+import java.time.Duration;
+
+import model.entities.CarRental;
+import model.entities.Invoice;
+
+public class RentalService {
+
+	private Double pricePerDay;
+	private Double pricePerHour;
+	
+	private TaxService taxService;
+
+	public RentalService(Double pricePerDay, Double pricePerHour, TaxService taxService) {
+		this.pricePerDay = pricePerDay;
+		this.pricePerHour = pricePerHour;
+		this.taxService = taxService;
+	}
+	
+	public void processInvoice(CarRental carRental) {
+		
+		double minutes = Duration.between(carRental.getStart(), carRental.getFinish()).toMinutes();		
+		double hours = minutes / 60.0;
+		
+		double basicPayment;
+		if (hours <= 12.0) {
+			basicPayment = pricePerHour * Math.ceil(hours);
+		}
+		else {
+			basicPayment = pricePerDay * Math.ceil(hours / 24);
+		}
+
+		double tax = taxService.tax(basicPayment);
+
+		carRental.setInvoice(new Invoice(basicPayment, tax));
+	}
+}
+
+```
+
+Class TaxService
+
+```java
+
+package model.services;
+
+public interface TaxService {
+
+	double tax(double amount);
+}
+
+```
+
+Class BrazilTaxService
+
+```java
+
+package model.services;
+
+public class BrazilTaxService implements TaxService {
+
+	public double tax(double amount) {
+		if (amount <= 100.0) {
+			return amount * 0.2;
+		}
+		else {
+			return amount * 0.15;
+		}
+	}
+}
+
+```
+
+<br>
+
+<div align="center"><img src="img/interfaces2-w636-h869.png" width=636 height=869><br><sub>Fig 40 - Exercise Interface - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Program
+
+```java
+
+package application;
+
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+import model.entities.CarRental;
+import model.entities.Vehicle;
+import model.services.BrazilTaxService;
+import model.services.RentalService;
+
+public class Program {
+
+	public static void main(String[] args) throws ParseException {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		DateTimeFormatter fmt =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		
+		System.out.println("Entre com os dados do aluguel");
+		System.out.print("Modelo do carro: ");
+		String carModel = sc.nextLine();
+		System.out.print("Retirada (dd/MM/yyyy HH:mm): ");
+		LocalDateTime start = LocalDateTime.parse(sc.nextLine(), fmt);
+		System.out.print("Retorno (dd/MM/yyyy HH:mm): ");
+		LocalDateTime finish = LocalDateTime.parse(sc.nextLine(), fmt);
+		
+		CarRental cr = new CarRental(start, finish, new Vehicle(carModel));
+
+		System.out.print("Entre com o preço por hora: ");
+		double pricePerHour = sc.nextDouble();
+		System.out.print("Entre com o preço por dia: ");
+		double pricePerDay = sc.nextDouble();
+		
+		RentalService rentalService = new RentalService(pricePerDay, pricePerHour, new BrazilTaxService());
+		
+		rentalService.processInvoice(cr);
+
+		System.out.println("FATURA:");
+		System.out.println("Pagamento basico: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
+		System.out.println("Imposto: " + String.format("%.2f", cr.getInvoice().getTax()));
+		System.out.println("Pagamento total: " + String.format("%.2f", cr.getInvoice().getTotalPayment()));
+		
+		sc.close();
+	}
 }
 
 ```
