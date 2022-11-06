@@ -80,6 +80,8 @@
     - [Chapter 10 - Part 4:  hashCode and equals](#chapter10part4)
 11. [Chapter 11: Collections](#chapter11)
     - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
+    - [Chapter 11 - Part 2: HashMap](#chapter11part2)
+    - [Chapter 11 - Part 3: HashSet](#chapter11part3)
 12. [Chapter 12: Java Date and Time](#chapter12)
     - [Chapter 12 - Part 1: Java Date and Time](#chapter12part1)
 13. [Chapter 13: Java Enums](#chapter13)
@@ -6350,6 +6352,206 @@ public class Program {
 }
 
 ```
+
+#### <a name="chapter11part2"></a>Chapter 12 - Part 2: HashMap
+
+- It is a collection of key/value pairs
+  - Does not support key object repetitions
+  - Elements are indexed by the key object (have no position)
+  - Accessing, inserting and removing elements is fast
+
+- Common usage: cookies, local storage, any key-value model
+
+- Main implementations:
+  - HashMap: faster (O(1) operations on hash table) and unordered
+  - TreeMap: slower (O(log(n)) operations in red-black tree) and sorted by object compareTo (or Comparator)
+  - LinkedHashMap: intermediate speed and elements in the order they are added
+
+**Some important methods**
+
+- put(key, value), remove(key), containsKey(key), get(key)
+  - Based on equals and hashCode
+  - If equals and hashCode do not exist, pointer comparison is used
+
+- clear()
+
+- size()
+
+- keySet(): return a Set<K>
+
+- values(): return a Collection<V>
+
+	
+In the ```ArrayList``` chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (```int``` type). A ```HashMap``` however, store items in "**key/value**" pairs, and you can access them by an index of another type (e.g. a ```String```).
+	
+One object is used as a key (index) to another object (value). It can store different types: ```String``` keys and ```Integer``` values, or the same type, like: ```String``` keys and ```String``` values:
+	
+Example: Create a ```HashMap``` object called **capitalCities** that will store ```String``` keys and ```String``` values:
+	
+```java
+	
+import java.util.HashMap; // import the HashMap class
+
+HashMap<String, String> capitalCities = new HashMap<String, String>();
+	
+```
+	
+**Add Items**
+	
+The HashMap class has many useful methods. For example, to add items to it, use the ```put()``` method:
+	
+```java
+
+// Import the HashMap class
+import java.util.HashMap;
+
+public class Main {
+  public static void main(String[] args) {
+    // Create a HashMap object called capitalCities
+    HashMap<String, String> capitalCities = new HashMap<String, String>();
+
+    // Add keys and values (Country, City)
+    capitalCities.put("England", "London");
+    capitalCities.put("Germany", "Berlin");
+    capitalCities.put("Norway", "Oslo");
+    capitalCities.put("USA", "Washington DC");
+    System.out.println(capitalCities);
+  }
+}
+	
+```
+	
+**Access an Item**
+	
+To access a value in the HashMap, use the ```get()``` method and refer to its key:
+	
+```Java
+	
+capitalCities.get("England");
+	
+```
+	
+**Remove an Item**
+	
+To remove an item, use the ```remove()``` method and refer to the key:
+	
+```java
+	
+capitalCities.remove("England");
+	
+```
+	
+To remove all items, use the ```clear()``` method:
+	
+```java
+	
+capitalCities.clear();
+	
+```
+	
+**HashMap Size**
+	
+To find out how many items there are, use the ```size()``` method:
+	
+```java
+	
+capitalCities.size();
+	
+```
+	
+**Loop Through a HashMap**
+	
+Loop through the items of a HashMap with a for-each loop.
+
+Note: Use the keySet() method if you only want the keys, and use the values() method if you only want the values:
+	
+```java
+	
+// Print keys
+for (String i : capitalCities.keySet()) {
+  System.out.println(i);
+}
+	
+```
+	
+```java
+	
+// Print values
+for (String i : capitalCities.values()) {
+  System.out.println(i);
+}
+	
+```
+	
+```java
+	
+// Print keys and values
+for (String i : capitalCities.keySet()) {
+  System.out.println("key: " + i + " value: " + capitalCities.get(i));
+}
+	
+```
+	
+**Other Types**
+	
+Keys and values in a HashMap are actually objects. In the examples above, we used objects of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: Integer. For other primitive types, use: Boolean for boolean, Character for char, Double for double, etc:
+	
+```java
+	
+// Import the HashMap class
+import java.util.HashMap;
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Create a HashMap object called people
+    HashMap<String, Integer> people = new HashMap<String, Integer>();
+
+
+    // Add keys and values (Name, Age)
+    people.put("John", 32);
+    people.put("Steve", 30);
+    people.put("Angie", 33);
+
+    for (String i : people.keySet()) {
+      System.out.println("key: " + i + " value: " + people.get(i));
+    }
+  }
+}
+	
+```
+
+#### <a name="chapter11part3"></a>Chapter 12 - Part 3: HashSet
+
+- Represents a set of elements (similar to Algebra)
+  - Does not allow repetitions
+  - Elements have no position
+  - Accessing, inserting and removing elements is fast
+  - Offers efficient set operations: intersection, union, difference.
+  
+- Main implementations:
+  - HashSet: faster (O(1) operations on hash table) and unordered
+  - TreeSet: slower (O(log(n)) operations in red-black tree) and sorted by object compareTo (or Comparator)
+  - LinkedHashSet: intermediate speed and elements in the order they are added
+
+**Some important methods**
+
+- add(obj), remove(obj), contains(obj)
+  - Based on equals and hashCode
+  - If equals and hashCode do not exist, pointer comparison is used
+
+- clear()
+
+- size()
+
+- RemoveIf(predicate)
+
+- addAll(other): union: adds the elements of the other set to the set, without repetition
+
+- retainAll(other): intersection: removes elements not contained in other from the set
+
+- removeAll(other): difference: removes elements contained in other from the set
+
 
 ## <a name="chapter12"></a>Chapter 12: Java Date and Time
 
