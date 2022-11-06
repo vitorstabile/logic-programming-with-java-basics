@@ -5256,6 +5256,276 @@ public class Program {
 
 #### <a name="chapter9part15"></a>Chapter 9 - Part 15: Abstraction Class and methods
 
+Data **abstraction** is the process of hiding certain details and showing only essential information to the user.
+Abstraction can be achieved with either **abstract classes** or **interfaces** (which you will learn more about in the next chapter).
+
+The ```abstract``` keyword is a non-access modifier, used for classes and methods:
+- **Abstract class**: is a restricted class that cannot be used to create objects (to access it, it must be inherited from another class).
+- **Abstract method**: can only be used in an abstract class, and it does not have a body. The body is provided by the subclass (inherited from).
+
+NOTE: In UML is Italic
+
+An abstract class can have both abstract and regular methods:
+
+```java
+
+abstract class Animal {
+  public abstract void animalSound();
+  public void sleep() {
+    System.out.println("Zzz");
+  }
+}
+
+```
+
+From the example above, it is not possible to create an object of the Animal class:
+
+```java
+
+Animal myObj = new Animal(); // will generate an error
+
+```
+
+To access the abstract class, it must be inherited from another class. Let's convert the Animal class we used in the Polymorphism chapter to an abstract class:
+
+Remember from the Inheritance chapter that we use the extends keyword to inherit from a class.
+
+```java
+
+// Abstract class
+abstract class Animal {
+  // Abstract method (does not have a body)
+  public abstract void animalSound();
+  // Regular method
+  public void sleep() {
+    System.out.println("Zzz");
+  }
+}
+
+// Subclass (inherit from Animal)
+class Pig extends Animal {
+  public void animalSound() {
+    // The body of animalSound() is provided here
+    System.out.println("The pig says: wee wee");
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    Pig myPig = new Pig(); // Create a Pig object
+    myPig.animalSound();
+    myPig.sleep();
+  }
+}
+
+```
+
+NOTE:  If a class has at least one method abstract, so this class is also abstract
+
+Why And When To Use Abstract Classes and Methods?
+
+To achieve security - hide certain details and only show the important details of an object.
+
+Note: Abstraction can also be achieved with Interfaces, which you will learn more about in the next chapter.
+
+Exercise: Write a program to read data from N figures (N provided by the user), and then show the areas of these figures in the same order in which they were entered.
+
+<br>
+
+<div align="center"><img src="img/abstraction-w1062-h461.png" width=1062 height=461><br><sub>Fig 44 - Exercise Abstraction - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class Color
+
+```java
+
+package entities.enums;
+
+public enum Color {
+	BLACK,
+	BLUE,
+	RED;
+}
+
+```
+
+Class Shape
+
+```java
+
+package entities;
+
+import entities.enums.Color;
+
+public abstract class Shape {
+
+	private Color color;
+	
+	public Shape() {
+	}
+	
+	public Shape(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	public abstract double area(); //OBS: when you put abstract in the method, you are obligated to put abstract in the class Shape
+}
+
+```
+
+Class Circle
+
+```java
+
+package entities;
+
+import entities.enums.Color;
+
+public class Circle extends Shape {
+
+	private Double radius;
+	
+	public Circle() {
+		super();
+	}
+	
+	public Circle(Color color, Double radius) {
+		super(color);
+		this.radius = radius;
+	}
+
+	public Double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Double radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public double area() {
+		return Math.PI * radius * radius;
+	}
+}
+
+```
+
+Class Retangle
+
+```java
+
+package entities;
+
+import entities.enums.Color;
+
+public class Rectangle extends Shape {
+
+	private Double width;
+	private Double height;
+	
+	public Rectangle() {
+		super();
+	}
+
+	public Rectangle(Color color, Double width, Double height) {
+		super(color);
+		this.width = width;
+		this.height = height;
+	}
+
+	public Double getWidth() {
+		return width;
+	}
+
+	public void setWidth(Double width) {
+		this.width = width;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	@Override
+	public double area() {
+		return width * height;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Shape;
+import entities.Rectangle;
+import entities.Circle;
+import entities.enums.Color;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		List<Shape> list = new ArrayList<>();
+		
+		System.out.print("Enter the number of shapes: ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<=n; i++) {
+			System.out.println("Shape #" + i + " data:");
+			System.out.print("Rectangle or Circle (r/c)? ");
+			char ch = sc.next().charAt(0);
+			System.out.print("Color (BLACK/BLUE/RED): ");
+			Color color = Color.valueOf(sc.next());
+			if (ch == 'r') {
+				System.out.print("Width: ");
+				double width = sc.nextDouble();
+				System.out.print("Height: ");
+				double height = sc.nextDouble();
+				list.add(new Rectangle(color, width, height));
+			}
+			else {
+				System.out.print("Radius: ");
+				double radius = sc.nextDouble();
+				list.add(new Circle(color, radius));
+			}
+		}
+		
+		System.out.println();
+		System.out.println("SHAPE AREAS:");
+		for (Shape shape : list) {
+			System.out.println(String.format("%.2f", shape.area()));
+		}
+		
+		sc.close();
+	}
+}
+
+```
+
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
 #### <a name="chapter10part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
