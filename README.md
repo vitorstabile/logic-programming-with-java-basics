@@ -92,6 +92,7 @@
     - [Chapter 14 - Part 6: Default methods](#chapter14part6)
 15. [Chapter 15: Java Exceptions](#chapter15)
     - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
+    - [Chapter 15 - Part 2: Try-Catch-Finally](#chapter15part2)
 16. [Chapter 16: Java File Handling](#chapter16)
     - [Chapter 16 - Part 1: Java File Handling](#chapter16part1)
 17. [Chapter 17: Java Lambda Expression](#chapter17)
@@ -7831,6 +7832,97 @@ In Java 8+:
 
 <br>
 
+Error subclass is not handled, but Exception subclass need to be handled
+
+**Why Exceptions?**
+
+The exception handling model allows errors to be dealt with consistently and flexibly, using best practices
+
+Benefits:
+  - Delega a lógica do erro para a classe responsável por conhecer as regras que podem ocasionar o erro
+  - Handles in an organized (including hierarchical) way exceptions of different types
+  - The exception can load any data
+
+#### <a name="chapter15part2"></a>Chapter 15 - Part 2: Try-Catch-Finally
+
+The ```try``` statement allows you to define a block of code to be tested for errors while it is being executed.
+
+The ```catch``` statement allows you to define a block of code to be executed, if an error occurs in the try block.
+
+The ```try``` and ```catch``` keywords come in pairs:
+
+```java
+
+try {
+  //  Block of code to try
+}
+catch(Exception e) {
+  //  Block of code to handle errors
+}
+
+```
+
+Consider the following example:
+
+```java
+
+public class Main {
+  public static void main(String[ ] args) {
+    int[] myNumbers = {1, 2, 3};
+    System.out.println(myNumbers[10]); // error!
+  }
+}
+
+```
+
+The output will be something like this:
+
+```
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 10
+        at Main.main(Main.java:4)
+```
+
+If an error occurs, we can use ```try...catch``` to catch the error and execute some code to handle it:
+
+```java
+
+public class Main {
+  public static void main(String[ ] args) {
+    try {
+      int[] myNumbers = {1, 2, 3};
+      System.out.println(myNumbers[10]);
+    } catch (Exception e) {
+      System.out.println("Something went wrong.");
+    }
+  }
+}
+
+```
+
+The output will be:
+
+```
+Something went wrong.
+```
+
+The ```finally``` statement lets you execute code, after ```try...catch```, regardless of the result:
+
+```Java
+
+public class Main {
+  public static void main(String[] args) {
+    try {
+      int[] myNumbers = {1, 2, 3};
+      System.out.println(myNumbers[10]);
+    } catch (Exception e) {
+      System.out.println("Something went wrong.");
+    } finally {
+      System.out.println("The 'try catch' is finished.");
+    }
+  }
+}
+
+```
 
 ## <a name="chapter16"></a>Chapter 16: Java File Handling
 
