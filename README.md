@@ -77,6 +77,7 @@
     - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
     - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part3)
+    - [Chapter 10 - Part 4:  hashCode and equals](#chapter10part4)
 11. [Chapter 11: Collections](#chapter11)
     - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
 12. [Chapter 12: Java Date and Time](#chapter12)
@@ -5865,6 +5866,64 @@ Because reference types (classes) accept null value and take advantage of Object
 
 <br>
 
+#### <a name="chapter10part4"></a>Chapter 10 - Part 4: hashCode and equals
+
+**hashCode and equals**
+
+- They are operations of the Object class used to compare if an object is the same as another
+- equals: slow, 100% response
+- hashCode: fast, but positive response is not 100%
+- Common types (String, Date, Integer, Double, etc.) already have implementation for these operations. custom classes need to overlay them.
+
+**Equals**
+
+- Method that compares if the object is equal to another, returning true or false.
+
+```java
+
+String a = "Maria";
+String b = "Alex";
+
+System.out.println(a.equals(b)); //false
+
+```
+
+```java
+
+String a = "Maria";
+String b = "Naria";
+
+System.out.println(a.equals(b)); //true
+
+```
+
+**HashCode**
+
+- Method that returns an integer representing a generated code from object information
+
+```java
+
+String a = "Maria";
+String b = "Alex";
+
+System.out.println(a.hashCode()); //74113750
+System.out.println(b.hashCode()); //2043454
+
+```
+
+```java
+
+String a = "Maria";
+String b = "Maria";
+
+System.out.println(a.hashCode()); //74113750
+System.out.println(b.hashCode()); //74113750
+
+```
+
+If the hashCode of two objects is different, then the two objects are many different
+
+If the code of two objects is the same, most likely the objects they are the same
 
 ## <a name="chapter11"></a>Chapter 11: Collections
 
