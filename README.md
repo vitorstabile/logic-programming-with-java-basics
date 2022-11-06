@@ -7316,9 +7316,9 @@ public class Program {
 
 ```
 
-#### <a name="chapter14part4"></a>Chapter 14 - Part 4: Comparable Interface
+#### <a name="chapter14part5"></a>Chapter 14 - Part 5: Comparable Interface
 
-#### <a name="chapter14part5"></a>Chapter 14 - Part 5: Default methods
+#### <a name="chapter14part6"></a>Chapter 14 - Part 6: Default methods
 
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
