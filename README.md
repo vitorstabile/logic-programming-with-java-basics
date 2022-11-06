@@ -7804,6 +7804,13 @@ public class Program {
 
 ```
 
+
+In Java 8+: 
+- interfaces can now provide reuse
+- now we have a form of multiple inheritance
+  - But the compiler complains if there is more than one method with the same signature, forcing you to overwrite it
+- Interfaces are still quite different from abstract classes. interfaces they do not have features such as constructors and attributes.
+
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
 #### <a name="chapter15part1"></a>Chapter 15 - Part 1: Java Exceptions
