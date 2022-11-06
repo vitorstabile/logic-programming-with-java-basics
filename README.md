@@ -7231,6 +7231,89 @@ public interface Scanner {
 
 ```
 
+Class ConcretePrinter
+
+```Java
+
+package devices;
+
+public class ConcretePrinter extends Device implements Printer {
+
+	public ConcretePrinter(String serialNumber) {
+		super(serialNumber);
+	}
+
+	@Override
+	public void processDoc(String doc) {
+		System.out.println("Printer processing: " + doc);
+	}
+
+	@Override
+	public void print(String doc) {
+		System.out.println("Printing: " + doc);
+	}
+}
+
+```
+
+Class ConcreteScanner
+
+```java
+
+package devices;
+
+public class ConcreteScanner extends Device implements Scanner {
+
+	public ConcreteScanner(String serialNumber) {
+		super(serialNumber);
+	}
+
+	@Override
+	public void processDoc(String doc) {
+		System.out.println("Scanner processing: " + doc);
+	}
+
+	@Override
+	public String scan() {
+		return "Scanned content";
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import devices.ComboDevice;
+import devices.ConcretePrinter;
+import devices.ConcreteScanner;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		ConcretePrinter p = new ConcretePrinter("1080");
+		p.processDoc("My Letter");
+		p.print("My Letter");
+
+		System.out.println();
+		ConcreteScanner s = new ConcreteScanner("2003");
+		s.processDoc("My Email");
+		System.out.println("Scan result: " + s.scan());
+		
+		System.out.println();
+		ComboDevice c = new ComboDevice("2081");
+		c.processDoc("My dissertation");
+		c.print("My dissertation");
+		System.out.println("Scan result: " + c.scan());
+	}
+}
+
+```
+
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
 #### <a name="chapter15part1"></a>Chapter 15 - Part 1: Java Exceptions
