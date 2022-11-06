@@ -72,6 +72,7 @@
     - [Chapter 9 - Part 12: Classes Composition in Java](#chapter9part12)
     - [Chapter 9 - Part 13: Inheritance in Java](#chapter9part13)
     - [Chapter 9 - Part 14: Polymorphism in Java](#chapter9part14)
+    - [Chapter 9 - Part 15: Abstraction Class and methods](#chapter9part15)
 10. [Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
     - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
     - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
@@ -4918,7 +4919,195 @@ public class Program {
 
 ```
 
+**Override**
+
+- It is the implementation of a method of a superclass in the subclass
+- It is strongly recommended to use the @Override annotation in a method envelope
+  - Facilitates reading and understanding of code
+  - We notify the compiler (good practice)
+
+class Account
+
+```Java
+
+public void withdraw(double amount) {
+	balance -= amount + 5.0;
+}
+
+```
+
+SavingsAccount
+
+```java
+
+@Override
+public void withdraw(double amount) {
+	balance -= amount;
+}
+
+```
+
+**Keyword Super**
+
+You can call the superclass implementation using the word super.
+
+Example: suppose that, in the BusinessAccount class, the rule for withdrawal is to perform the draw normally from the superclass, and deduct another 2.0.
+
+In this case, the withdraw method is the same, but with one moddification in the BissinesAccount class, because is tho only diference.
+
+Class BissinesAccount
+
+```java
+
+@Override
+public void withdraw(double amount) {
+	super.withdraw(amount);
+	balance -= 2.0;
+}
+
+```
+
+**Keyword Final**
+
+If you don't want other classes to inherit from a class, use the ```final``` keyword:
+
+Example: If you try to access a ```final``` class, Java will generate an error:
+
+```java
+
+final class Vehicle {
+  ...
+}
+
+class Car extends Vehicle {
+  ...
+}
+
+// Main.java:9: error: cannot inherit from final Vehicle
+//class Main extends Vehicle {
+//                  ^
+// 1 error)
+
+```
+
+You can use in method. In this case prevents the method under from being overridden
+
+Example: Suppose you don't want the Withdraw method of SavingsAccount is overridden
+
+```java
+
+@Override
+public final void withdraw(double amount) {
+	balance -= amount;
+}
+
+```
+
+why use final?
+
+- Security: Depending on business rules, it is sometimes desirable ensure that a class is not inherited, or that a method is not be superimposed.
+  - It is generally convenient to add final in overlapping methods, as Multiple overlays can be a gateway to inconsistencies
+
+- Performance: type attributes of a final class are parsed accordingly. faster at runtime.
+  - Classic example: String
+
 #### <a name="chapter9part14"></a>Chapter 9 - Part 14: Polymorphism in Java
+
+In Object Oriented Programming, polymorphism is a resource that allows variables of the same more generic type to be point to objects of different specific types, thus having different behaviors depending on each specific type.
+
+```java
+
+Account x = new Account(1020, "Alex", 1000.0);
+Account y = new SavingsAccount(1023, "Maria", 1000.0, 0.01);
+
+x.withdraw(50.0);
+y.withdraw(50.0);
+
+```
+
+Another Example:
+
+For example, think of a superclass called ```Animal``` that has a method called ```animalSound()```. Subclasses of Animals could be Pigs, Cats, Dogs, Birds - And they also have their own implementation of an animal sound (the pig oinks, and the cat meows, etc.):
+
+```java
+
+class Animal {
+  public void animalSound() {
+    System.out.println("The animal makes a sound");
+  }
+}
+
+class Pig extends Animal {
+  public void animalSound() {
+    System.out.println("The pig says: wee wee");
+  }
+}
+
+class Dog extends Animal {
+  public void animalSound() {
+    System.out.println("The dog says: bow wow");
+  }
+}
+
+```
+Now we can create ```Pig``` and ```Dog``` objects and call the ```animalSound()``` method on both of them:
+
+```java
+
+class Animal {
+  public void animalSound() {
+    System.out.println("The animal makes a sound");
+  }
+}
+
+class Pig extends Animal {
+  public void animalSound() {
+    System.out.println("The pig says: wee wee");
+  }
+}
+
+class Dog extends Animal {
+  public void animalSound() {
+    System.out.println("The dog says: bow wow");
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    Animal myAnimal = new Animal();  // Create a Animal object
+    Animal myPig = new Pig();  // Create a Pig object
+    Animal myDog = new Dog();  // Create a Dog object
+    myAnimal.animalSound();
+    myPig.animalSound();
+    myDog.animalSound();
+  }
+}
+
+```
+
+Why And When To Use "Inheritance" and "Polymorphism"?
+
+- It is useful for code reusability: reuse attributes and methods of an existing class when you create a new class.
+
+Exercise:  A company has its own and outsourced employees. For each employee, you want to record name, hours worked and hourly rate. outsourced employees have an additional expense.
+
+Employee pay corresponds to the hourly rate multiplied by the hours worked, with the outsourced employees still receive a bonus corresponding to 110% of your additional expense.
+
+Write a program to read the data of N employees (N provided by the user) and store them in a list. Later to read all data, show name and payment of each employee in the same order they were entered.
+
+Build the program according to the project on the side. Look example on the next page.
+
+<br>
+
+<div align="center"><img src="img/polymorphism1-w383-h532.png" width=383 height=532><br><sub>Fig 42 - Exercise Polymorphism - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+<div align="center"><img src="img/polymorphism2-w384-h461.png" width=383 height=461><br><sub>Fig 43 - Exercise Polymorphism - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+#### <a name="chapter9part15"></a>Chapter 9 - Part 15: Abstraction Class and methods
 
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
