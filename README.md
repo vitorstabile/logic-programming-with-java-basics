@@ -85,6 +85,7 @@
     - [Chapter 13 - Part 1: Java Enums](#chapter13part1)
 14. [Chapter 14: Java Interfaces](#chapter14)
     - [Chapter 14 - Part 1: Java Interfaces](#chapter14part1)
+    - [Chapter 14 - Part 2: Dependency Injection and Inversion of Control](#chapter14part2)
 15. [Chapter 15: Java Exceptions](#chapter15)
     - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
 16. [Chapter 16: Java File Handling](#chapter16)
@@ -6897,6 +6898,38 @@ public class Program {
 }
 
 ```
+
+#### <a name="chapter14part2"></a>Chapter 14 - Part 2: Dependency Injection and Inversion of Control
+
+When we have a direct association we have:
+- Strong Coupling
+- The RentalService class knows the concrete dependency
+- If the concrete class changes, you need to change the RentalService class
+
+<br>
+
+<div align="center"><img src="img/interfaces3-w792-h366.png" width=792 height=366><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+When we implement a interface in our solution:
+- weak coupling
+- The RentalService class doesn't know the concrete dependency
+- If the concrete class changes, the RentalService class doesn't change anything
+
+<br>
+
+<div align="center"><img src="img/interfaces4-w903-h410.png" width=903 height=410><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+**Dependency injection via constructor**
+
+<br>
+
+<div align="center"><img src="img/interfaces5-w1052-h449.png" width=1052 height=449><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
 
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
