@@ -93,6 +93,8 @@
 15. [Chapter 15: Java Exceptions](#chapter15)
     - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
     - [Chapter 15 - Part 2: Try-Catch-Finally](#chapter15part2)
+    - [Chapter 15 - Part 3: Stack Trace](#chapter15part3)
+    - [Chapter 15 - Part 4: Custom Exceptions](#chapter15part3)
 16. [Chapter 16: Java File Handling](#chapter16)
     - [Chapter 16 - Part 1: Java File Handling](#chapter16part1)
 17. [Chapter 17: Java Lambda Expression](#chapter17)
@@ -7922,6 +7924,141 @@ public class Main {
   }
 }
 
+```
+
+```
+Something went wrong.
+The 'try catch' is finished.
+```
+
+Another Example:
+
+```java
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Program {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			String[] vect = sc.nextLine().split(" ");
+			int position = sc.nextInt();
+			System.out.println(vect[position]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Invalid position!");
+		} catch (InputMismatchException e) {
+			System.out.println("Input error");
+		}
+		System.out.println("End of program");
+		sc.close();
+	}
+}
+
+```
+
+#### <a name="chapter15part3"></a>Chapter 15 - Part 3: Stack Trace
+
+```java
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Program {
+	public static void main(String[] args) {
+		method1();
+		System.out.println("End of program");
+	}
+
+	public static void method1() {
+		System.out.println("***METHOD1 START***");
+		method2();
+		System.out.println("***METHOD1 END***");
+	}
+
+	public static void method2() {
+		System.out.println("***METHOD2 START***");
+		Scanner sc = new Scanner(System.in);
+		try {
+			String[] vect = sc.nextLine().split(" ");
+			int position = sc.nextInt();
+			System.out.println(vect[position]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Invalid position!");
+			e.printStackTrace();
+			sc.next();
+		} catch (InputMismatchException e) {
+			System.out.println("Input error");
+		}
+		sc.close();
+		System.out.println("***METHOD2 END***");
+	}
+}
+
+```
+
+
+
+with the ```printStackTrace```, we can print the sequence of methods
+
+```
+***METHOD1 START***
+***METHOD2 START***
+Alex Maria Bob
+5
+Invalid position!
+java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3
+	at hello.Program.method2(Program.java:24)
+	at hello.Program.method1(Program.java:14)
+	at hello.Program.main(Program.java:8)
+```
+
+#### <a name="chapter15part4"></a>Chapter 15 - Part 4: Custom Exceptions
+
+
+The ```throw``` statement allows you to create a custom error.
+
+The ```throw``` statement is used together with an **exception type**. There are many exception types available in Java: ```ArithmeticException```, ```FileNotFoundException```, ```ArrayIndexOutOfBoundsException```, ```SecurityException```, etc:
+
+Example: Throw an exception if age is below 18 (print "Access denied"). If age is 18 or older, print "Access granted":
+
+```java
+
+public class Main {
+  static void checkAge(int age) {
+    if (age < 18) {
+      throw new ArithmeticException("Access denied - You must be at least 18 years old.");
+    }
+    else {
+      System.out.println("Access granted - You are old enough!");
+    }
+  }
+
+  public static void main(String[] args) {
+    checkAge(15); // Set age to 15 (which is below 18...)
+  }
+}
+
+```
+
+The output will be:
+
+```
+Exception in thread "main" java.lang.ArithmeticException: Access denied - You must be at least 18 years old.
+        at Main.checkAge(Main.java:4)
+        at Main.main(Main.java:12)
+```
+
+If age was 20, you would not get an exception:
+
+```
+checkAge(20);
+```
+
+The output will be:
+
+```
+Access granted - You are old enough!
 ```
 
 ## <a name="chapter16"></a>Chapter 16: Java File Handling
