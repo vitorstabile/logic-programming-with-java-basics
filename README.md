@@ -7815,6 +7815,23 @@ In Java 8+:
 
 #### <a name="chapter15part1"></a>Chapter 15 - Part 1: Java Exceptions
 
+**Exceptions**
+
+-  An exception is any error condition or behavior unexpected encountered by a running program
+
+- In Java, an exception is an object inherited from the class:
+  - java.lang.Exception - compiler forces to handle or propagate
+  - java.lang.RuntimeException - compiler does not force to handle or propagate
+
+- When thrown, an exception is propagated down the call stack of running methods, until it is captured (handled) or the program is terminated
+
+<br>
+
+<div align="center"><img src="img/exceptions-w720-h405.png" width=720 height=405><br><sub>Fig 50 - Exceptions in Java - (<a href='https://medium.com/interviewnoodle/exception-in-java-89a0b41e0c45'>Work by Deepti Swain</a>) </sub></div>
+
+<br>
+
+
 ## <a name="chapter16"></a>Chapter 16: Java File Handling
 
 #### <a name="chapter16part1"></a>Chapter 16 - Part 1: Java File Handling
