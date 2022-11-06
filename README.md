@@ -7319,7 +7319,490 @@ public class Program {
 
 #### <a name="chapter14part5"></a>Chapter 14 - Part 5: Comparable Interface
 
+The Comparable interface is used to compare an object of the same class with an instance of that class, it provides ordering of data for objects of the user-defined class. The class has to implement the java.lang.Comparable interface to compare its instance, it provides the compareTo method that takes a parameter of the object of that class.
+
+Example: Write a program to read a file containing names of people (one name per line), storing them in a list. Then sort the data in this list and show them neatly on the screen. Note: the file path can be informed "hardcode".
+
+Maria Brown
+Alex Green
+Bob Grey
+Anna White
+Alex Black
+Eduardo Rose
+Willian Red
+Marta Blue
+Alex Brown
+
+```java
+
+package hello;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Program {
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<>();
+		String path = "C:\\temp\\in.txt";
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String name = br.readLine();
+			while (name != null) {
+				list.add(name);
+				name = br.readLine();
+			}
+			Collections.sort(list);
+			for (String s : list) {
+				System.out.println(s);
+			}
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+}
+
+
+/*
+
+output
+
+Alex Black
+Alex Brown
+Alex Green
+Anna White
+Bob Grey
+Eduardo Rose
+Maria Brown
+Marta Blue
+Willian Red
+
+*/
+
+```
+
+Example:  Make a program to read a file containing employees (name and salary) in the .csv format, storing them in a list. Then sort the list by name and show the result on the screen. Note: the file path can be informed "hardcode".
+
+Maria Brown,4300.00
+Alex Green,3100.00
+Bob Grey,3100.00
+Anna White,3500.00
+Alex Black,2450.00
+Eduardo Rose,4390.00
+Willian Red,2900.00
+Marta Blue,6100.00
+Alex Brown,5000.00
+
+
+
+```java
+
+package hello;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import entities.Employee;
+
+public class Program {
+	public static void main(String[] args) {
+		List<Employee> list = new ArrayList<>();
+		String path = "C:\\temp\\in.txt";
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String employeeCsv = br.readLine();
+			while (employeeCsv != null) {
+				String[] fields = employeeCsv.split(",");
+				list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+				employeeCsv = br.readLine();
+			}
+			Collections.sort(list);
+			for (Employee emp : list) {
+				System.out.println(emp.getName() + ", " + emp.getSalary());
+			}
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+}
+
+/*
+ * 
+ * output
+ * 
+Alex Black, 2450.0
+Alex Brown, 5000.0
+Alex Green, 3100.0
+Anna White, 3500.0
+Bob Grey, 3100.0
+Eduardo Rose, 4390.0
+Maria Brown, 4300.0
+Marta Blue, 6100.0
+Willian Red, 2900.0
+ */
+
+```
+
+```java
+
+package entities;
+
+public class Employee implements Comparable<Employee> {
+	private String name;
+	private Double salary;
+
+	public Employee(String name, Double salary) {
+		this.name = name;
+		this.salary = salary;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public int compareTo(Employee other) {
+		return name.compareTo(other.getName()); //you are comparing with name with .getName(). If was salary, use .getSalary()
+	}
+}
+
+```
+
+**Using Comparable Interface**
+
+- In this method, we are going to implement the Comparable interface from java.lang Package in the Pair class.
+- The Comparable interface contains the method compareTo to decide the order of the elements.
+- Override the compareTo method in the Pair class.
+- Create an array of Pairs and populate the array.
+- Use the Arrays.sort() function to sort the array.
+
+**Example 1**
+
+Given an array of Pairs consisting of two fields of type string and integer. you have to sort the array in ascending Lexicographical order and if two strings are the same sort it based on their integer value.
+
+**Sample I/O:**
+
+```
+
+Input:  { {"abc", 3}, {"a", 4}, {"bc", 5}, {"a", 2} }
+Output:  { {"a", 2}, {"a", 4}, {"abc", 3}, {"bc", 5} }
+
+Input:  { {"efg", 1}, {"gfg", 1}, {"cba", 1}, {"zaa", 1} }
+Output:  { {"cba", 1}, {"efg", 1}, {"gfg", 1}, {"zaa", 1} }
+
+```
+
+```java
+
+import java.io.*;
+import java.util.*;
+
+class Pair implements Comparable<Pair> {
+	String x;
+	int y;
+
+	public Pair(String x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString()
+	{
+		return "(" + x + "," + y + ")";
+	}
+
+	@Override public int compareTo(Pair a)
+	{
+		// if the string are not equal
+		if (this.x.compareTo(a.x) != 0) {
+			return this.x.compareTo(a.x);
+		}
+		else {
+			// we compare int values
+			// if the strings are equal
+			return this.y - a.y;
+		}
+	}
+}
+
+public class GFG {
+	public static void main(String[] args)
+	{
+
+		int n = 4;
+		Pair arr[] = new Pair[n];
+
+		arr[0] = new Pair("abc", 3);
+		arr[1] = new Pair("a", 4);
+		arr[2] = new Pair("bc", 5);
+		arr[3] = new Pair("a", 2);
+
+		// Sorting the array
+		Arrays.sort(arr);
+
+		// printing the
+		// Pair array
+		print(arr);
+	}
+
+	public static void print(Pair[] arr)
+	{
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+}
+
+```
+
+```
+Before Sorting:
+(abc, 3);
+(a, 4);
+(bc, 5);
+(a, 2);
+
+After Sorting:
+(a,2)
+(a,4)
+(abc,3)
+(bc,5)
+```
+
+Note: if two strings are the same then the comparison is done based on the value.
+
+**Example 2**
+
+Given an array of Pairs consisting of two strings with first and last names. you have to sort the array in ascending Lexicographical order of the first name and if two strings are the same sort it based on their last name.
+
+**Sample I/O:**
+
+```
+Input:  { {"raj", "kashup"}, {"rahul", "singh"}, {"reshmi", "dubey"}, {"rahul", "jetli"} }
+Output:  { {"rahul", "jetli"}, {"rahul", "singh"}, {"raj", "kashup"}, {"reshmi", "dubey"} }
+
+Input:  { {"abc", "last"}, {"pklz", "yelp"}, {"rpng", "note"}, {"ppza", "xyz"} }
+Output:  { {"abc", "last"}, {"pklz", "yelp"}, {"ppza", "xyz"}, {"rpng", "note"} }
+```
+
+```java
+
+
+import java.io.*;
+import java.util.*;
+ 
+class Pair implements Comparable<Pair> {
+    String firstName;
+    String lastName;
+ 
+    public Pair(String x, String y)
+    {
+        this.firstName = x;
+        this.lastName = y;
+    }
+ 
+    public String toString()
+    {
+        return "( " + firstName + " , " + lastName + " )";
+    }
+ 
+    @Override public int compareTo(Pair a)
+    {
+        // if the string are not equal
+        if (this.firstName.compareTo(a.firstName) != 0) {
+            return this.firstName.compareTo(a.firstName);
+        }
+        else {
+            // we compare lastName if firstNames are equal
+            return this.lastName.compareTo(a.lastName);
+        }
+    }
+}
+ 
+public class GFG {
+    public static void main(String[] args)
+    {
+ 
+        int n = 4;
+        Pair arr[] = new Pair[n];
+        arr[0] = new Pair("raj", "kashup");
+        arr[1] = new Pair("rahul", "singh");
+        arr[2] = new Pair("reshmi", "dubey");
+        arr[3] = new Pair("rahul", "jetli");
+ 
+        // Sorting the array
+        Arrays.sort(arr);
+ 
+        // printing the
+        // Pair array
+        print(arr);
+    }
+ 
+    public static void print(Pair[] arr)
+    {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+}
+
+```
+
+**output**
+
+```
+Before Sorting:
+( raj , kashup )
+( rahul , singh )
+( reshmi , dubey )
+( rahul , jetli )
+
+
+After Sorting:
+( rahul , jetli )
+( rahul , singh )
+( raj , kashup )
+( reshmi , dubey )
+```
+
 #### <a name="chapter14part6"></a>Chapter 14 - Part 6: Default methods
+
+-  As of Java 8, interfaces can contain concrete methods.
+
+- The basic intent is to provide default implementation for methods, so to avoid:
+  - repetition of implementation in every class that implements the interface
+  - the need to create abstract classes to provide implementation reuse
+
+- Other advantages:
+  - Maintain backward compatibility with existing systems
+  - Allow "functional interfaces" (which must contain only one method) can provide other reusable standard operations
+
+Example: Make a program to read an amount and the duration in months of a loan. Inform the amount to be paid after the deadline for the loan, in accordance with Brazilian interest rate rules. The calculation rule for Brazilian interest is standard compound interest of 2% per month.
+
+<br>
+
+<div align="center"><img src="img/interfaces10-w840-h323.png" width=840 height=323><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+class BrazilInterestService
+
+```java
+
+package services;
+
+public class BrazilInterestService implements InterestService {
+
+	private double interestRate;
+
+	public BrazilInterestService(double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	@Override
+	public double getInterestRate() {
+		return interestRate;
+	}
+}
+
+```
+
+class InterestService
+
+```java
+
+package services;
+
+import java.security.InvalidParameterException;
+
+public interface InterestService {
+
+	double getInterestRate();
+
+	default double payment(double amount, int months) {
+		if (months < 1) {
+			throw new InvalidParameterException("Months must be greater than zero");
+		}
+		return amount * Math.pow(1.0 + getInterestRate() / 100.0, months);
+	}
+}
+
+```
+
+class UsaInterestService
+
+```java
+
+package services;
+
+public class UsaInterestService implements InterestService {
+
+	private double interestRate;
+
+	public UsaInterestService(double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	@Override
+	public double getInterestRate() {
+		return interestRate;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import services.BrazilInterestService;
+import services.InterestService;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Amount: ");
+		double amount = sc.nextDouble();
+		System.out.print("Months: ");
+		int months = sc.nextInt();
+		
+		InterestService is = new BrazilInterestService(2.0);
+		double payment = is.payment(amount, months);
+		
+		System.out.println("Payment after " + months + " months:");
+		System.out.println(String.format("%.2f", payment));
+		
+		sc.close();
+	}
+}
+
+```
 
 ## <a name="chapter15"></a>Chapter 15: Java Exceptions
 
