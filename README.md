@@ -2,256 +2,414 @@
 
 # Content
 
-1. [Chapter 1: Programming Concepts](#chapter1)
-    - [Chapter 1 - Part 1: Programmer's Career Starts](#chapter1part1)
-    - [Chapter 1 - Part 2: Algorithm](#chapter1part2)
-    - [Chapter 1 - Part 3: Automation](#chapter1part3)
-    - [Chapter 1 - Part 4: Computer Program](#chapter1part4)
-    - [Chapter 1 - Part 5: What Does it Take to Make a Computer Program?](#chapter1part5)
-    - [Chapter 1 - Part 6: Programming Language](#chapter1part6)
-    - [Chapter 1 - Part 7: IDE](#chapter1part7)
-    - [Chapter 1 - Part 8: Compilation and Interpretation, Source Code and Object Code, Virtual machine](#chapter1part8)
-2. [Chapter 2: Introduction to Java](#chapter2)
-    - [Chapter 2 - Part 1: What is Java?](#chapter2part1)
-    - [Chapter 2 - Part 2: Understanding Java Versions (LTS)](#chapter2part2)
-    - [Chapter 2 - Part 3: JVM](#chapter2part3)
-    - [Chapter 2 - Part 4: Compile-time Errors and Runtime Errors](#chapter2part4)
-    - [Chapter 2 - Part 5: Structure of a Java Application](#chapter2part5)
-    - [Chapter 2 - Part 6: Components of Oracle's Java Platform Products](#chapter2part6)
-    - [Chapter 2 - Part 7: First Program in Java](#chapter2part7)
-3. [Chapter 3: Sequential Structure](#chapter3)
-    - [Chapter 3 - Part 1: Arithmetic Expressions](#chapter3part1)
-    - [Chapter 3 - Part 2: Variables](#chapter3part2)
-    - [Chapter 3 - Part 3: Data Types in Java](#chapter3part3)
-    - [Chapter 3 - Part 4: The Three Basic Operations of a Computer](#chapter3part4)
-    - [Chapter 3 - Part 5: Data Output](#chapter3part5)
-    - [Chapter 3 - Part 6: Data Processing](#chapter3part6)
-    - [Chapter 3 - Part 7: Casting](#chapter3part7)
-    - [Chapter 3 - Part 8: Data Input](#chapter3part8)
-    - [Chapter 3 - Part 9: Mathematic Functions](#chapter3part9)
-4. [Chapter 4: Conditional Structure](#chapter4)
-    - [Chapter 4 - Part 1: Comparison Operators in Java](#chapter4part1)
-    - [Chapter 4 - Part 2: Logical Operators in Java](#chapter4part2)
-    - [Chapter 4 - Part 3: Conditional Statement in Java(if-else)](#chapter4part3)
-    - [Chapter 4 - Part 4: Conditional Statement in Java(Short Hand If...Else)](#chapter4part4)
-    - [Chapter 4 - Part 5: Conditional Statement in Java(switch-case)](#chapter4part5)
-    - [Chapter 4 - Part 6: Java Scope](#chapter4part6)
-5. [Chapter 5: Repetition Structure](#chapter5)
-    - [Chapter 5 - Part 1: Repetition Statement in Java(while)](#chapter5part1)
-    - [Chapter 5 - Part 2: Repetition Statement in Java(for)](#chapter5part2)
-    - [Chapter 5 - Part 3: Repetition Statement in Java(do-while)](#chapter5part3)
-    - [Chapter 5 - Part 4: Repetition Statement in Java(For-Each)](#chapter5part4)
-    - [Chapter 5 - Part 5: Break and Continue Statement in Java](#chapter5part5)
-6. [Chapter 6: Arrays](#chapter6)
-    - [Chapter 6 - Part 1: Array](#chapter6part1)
-    - [Chapter 6 - Part 2: Loop Through an Array](#chapter6part2)
-    - [Chapter 6 - Part 3: Multidimensional Arrays](#chapter6part3)
-7. [Chapter 7: Conventions, Strings, bitwise operators and functions](#chapter7)
-    - [Chapter 7 - Part 1: Name Convention](#chapter7part1)
-    - [Chapter 7 - Part 2: Bitwise Operators in Java](#chapter7part2)
-    - [Chapter 7 - Part 3: String Functions](#chapter7part3)
-    - [Chapter 7 - Part 4: Comments](#chapter7part4)
-    - [Chapter 7 - Part 5: Functions](#chapter7part5)
-8. [Chapter 8: The Four Pillars of Object-Oriented Programming](#chapter8)
-    - [Chapter 8 - Part 1: Abstraction](#chapter8part1)
-    - [Chapter 8 - Part 2: Encapsulation](#chapter8part2)
-    - [Chapter 8 - Part 3: Inheritance](#chapter8part3)
-    - [Chapter 8 - Part 4: Polymorphism](#chapter8part4)
-9. [Chapter 9: Object-Oriented Programming in Java](#chapter9)
-    - [Chapter 9 - Part 1: Solving a Problem without Object Orientation](#chapter9part1)
-    - [Chapter 9 - Part 2: Classes, Objects and Attributes in Java](#chapter9part2)
-    - [Chapter 9 - Part 3: Solving the same Problem with object orientation](#chapter9part3)
-    - [Chapter 9 - Part 4: Methods in Java](#chapter9part4)
-    - [Chapter 9 - Part 5: Continuing to solve the Problem with object orientation](#chapter9part5)
-    - [Chapter 9 - Part 6: Second problem with object orientation](#chapter9part6)
-    - [Chapter 9 - Part 7: Object Class in Java](#chapter9part7)
-    - [Chapter 9 - Part 8: Third problem with object orientation](#chapter9part8)
-    - [Chapter 9 - Part 9: Constructors in Java](#chapter9part9)
-    - [Chapter 9 - Part 10: Modifiers in Java](#chapter9part10)
-    - [Chapter 9 - Part 11: Encapsulation in Java](#chapter9part11)
-    - [Chapter 9 - Part 12: Classes Composition in Java](#chapter9part12)
-    - [Chapter 9 - Part 13: Inheritance in Java](#chapter9part13)
-    - [Chapter 9 - Part 14: Polymorphism in Java](#chapter9part14)
-    - [Chapter 9 - Part 15: Abstraction Class and methods](#chapter9part15)
+1. [Chapter 1: Exception Handling and Basic Input/Output](#chapter1)
+  - [Chapter 1 - Part 1: What is Java and Why Learn It?](#chapter1part1)
+    - [Chapter 1 - Part 1.1: What is Java?](#chapter1part1.1)
+    - [Chapter 1 - Part 1.2: Why Learn Java?](#chapter1part1.2)
+    - [Chapter 1 - Part 1.3: Exercises](#chapter1part1.3)
+    - [Chapter 1 - Part 1.4: Summary](#chapter1part1.4)
+    - [Chapter 1 - Part 1.5: Next Steps](#chapter1part1.5)
+  - [Chapter 1 - Part 2: Understanding the Java Ecosystem: JVM, JRE, JDK](#chapter1part2)
+      [Chapter 1 - Part 2.1: Compilation and Interpretation, Source Code and Object Code, Virtual Machine](#chapter1part2.1)
+    - [Chapter 1 - Part 2.2: The Java Virtual Machine (JVM)](#chapter1part2.2)
+    - [Chapter 1 - Part 2.3: The Java Runtime Environment (JRE)](#chapter1part2.3)
+    - [Chapter 1 - Part 2.4: The Java Development Kit (JDK)](#chapter1part2.4)
+    - [Chapter 1 - Part 2.5: Relationship Between JVM, JRE, and JDK](#chapter1part2.5)
+    - [Chapter 1 - Part 2.6: Choosing the Right Version](#chapter1part2.6)
+    - [Chapter 1 - Part 2.7: Exercises](#chapter1part2.7)
+    - [Chapter 1 - Part 2.8: Summary](#chapter1part2.8)
+    - [Chapter 1 - Part 2.9: Next Steps](#chapter1part2.9)
+  - [Chapter 1 - Part 3: Installing the Java Development Kit (JDK)](#chapter1part3)
+    - [Chapter 1 - Part 3.1: Understanding the JDK and its Components](#chapter1part3.1)
+    - [Chapter 1 - Part 3.2: Downloading the JDK](#chapter1part3.2)
+    - [Chapter 1 - Part 3.3: Installing the JDK](#chapter1part3.3)
+    - [Chapter 1 - Part 3.4: Setting Environment Variables](#chapter1part3.4)
+    - [Chapter 1 - Part 3.5: Verifying the Installation](#chapter1part3.5)
+    - [Chapter 1 - Part 3.6: Troubleshooting Common Installation Issues](#chapter1part3.6)
+    - [Chapter 1 - Part 3.7: Practice Activities](#chapter1part3.7)
+    - [Chapter 1 - Part 3.8: Preparing for the Next Lesson](#chapter1part3.8)
+  - [Chapter 1 - Part 4: Setting Up a Java Development Environment (IDE): IntelliJ IDEA or Eclipse](#chapter1part4)
+    - [Chapter 1 - Part 4.1: Understanding Integrated Development Environments (IDEs)](#chapter1part4.1)
+    - [Chapter 1 - Part 4.2: IntelliJ IDEA](#chapter1part4.2)
+    - [Chapter 1 - Part 4.3: Eclipse](#chapter1part4.3)
+    - [Chapter 1 - Part 4.4: Comparing IntelliJ IDEA and Eclipse](#chapter1part4.4)
+  - [Chapter 1 - Part 5: Writing and Running Your First Java Program: "Hello, World!"](#chapter1part5)
+    - [Chapter 1 - Part 5.1: Creating Your First Java Program: "Hello, World!"](#chapter1part5.1)
+    - [Chapter 1 - Part 5.2: Understanding the Compilation Process](#chapter1part5.2)
+    - [Chapter 1 - Part 5.3: Common Errors and Troubleshooting](#chapter1part5.3)
+    - [Chapter 1 - Part 5.4: Practice Activities](#chapter1part5.4)
+    - [Chapter 1 - Part 5.5: Next Steps and Future Learning Directions](#chapter1part5.5)
+  - [Chapter 1 - Part 6: Understanding Basic Java Program Structure](#chapter1part6)
+    - [Chapter 1 - Part 6.1: Anatomy of a Java Program](#chapter1part6.1)
+    - [Chapter 1 - Part 6.2: Putting It All Together: A Complete Java Program](#chapter1part6.2)
+    - [Chapter 1 - Part 6.3: Common Errors and How to Avoid Them](#chapter1part6.3)
+    - [Chapter 1 - Part 6.4: Practice Activities](#chapter1part6.4)
+    - [Chapter 1 - Part 6.5: Preparing for the Next Lesson](#chapter1part6.5)
+2. [Chapter 2: Java Fundamentals: Data Types, Variables, and Operators](#chapter2)
+  - [Chapter 2 - Part 1: Understanding Primitive Data Types: int, double, boolean, char](#chapter2part1)
+    - [Chapter 2 - Part 1.1: Data Types in Java](#chapter2part1.1)
+    - [Chapter 2 - Part 1.2: Integer Data Type: int](#chapter2part1.2)
+    - [Chapter 2 - Part 1.3: Floating-Point Data Type: double](#chapter2part1.3)
+    - [Chapter 2 - Part 1.4: Boolean Data Type: boolean](#chapter2part1.4)
+    - [Chapter 2 - Part 1.5: Character Data Type: char](#chapter2part1.5)
+    - [Chapter 2 - Part 1.6: Practice Activities](#chapter2part1.6)
+    - [Chapter 2 - Part 1.7: Summary and Next Steps](#chapter2part1.7)
+  - [Chapter 2 - Part 2: Declaring and Initializing Variables](#chapter2part2)
+    - [Chapter 2 - Part 2.1: Understanding Variable Declaration](#chapter2part2.1)
+    - [Chapter 2 - Part 2.2: Understanding Variable Initialization](#chapter2part2.2)
+    - [Chapter 2 - Part 2.3: Best Practices for Declaring and Initializing Variables](#chapter2part2.3)
+    - [Chapter 2 - Part 2.4: Casting](#chapter2part2.4)
+    - [Chapter 2 - Part 2.5: Variable Scope (Java Scope)](#chapter2part2.5)
+    - [Chapter 2 - Part 2.6: Examples and Demonstrations](#chapter2part2.6)
+    - [Chapter 2 - Part 2.7: Exercises](#chapter2part2.7)
+    - [Chapter 2 - Part 2.8: Summary](#chapter2part2.8)
+    - [Chapter 2 - Part 2.9: Next Steps](#chapter2part2.9)
+  - [Chapter 2 - Part 3: Working with Strings](#chapter2part3)
+    - [Chapter 2 - Part 3.1: Creating Strings](#chapter2part3.1)
+    - [Chapter 2 - Part 3.2: String Immutability](#chapter2part3.2)
+    - [Chapter 2 - Part 3.3: String Manipulation](#chapter2part3.3)
+    - [Chapter 2 - Part 3.4: String Comparison](#chapter2part3.4)
+    - [Chapter 2 - Part 3.5: String Methods](#chapter2part3.5)
+    - [Chapter 2 - Part 3.6: Exercises](#chapter2part3.6)
+  - [Chapter 2 - Part 4: Arithmetic Operators: +, -, *, /, %](#chapter2part4)
+    - [Chapter 2 - Part 4.1: Basic Arithmetic Operators](#chapter2part4.1)
+    - [Chapter 2 - Part 4.2: Operator Precedence](#chapter2part4.2)
+    - [Chapter 2 - Part 4.3: Practical Examples and Demonstrations](#chapter2part4.3)
+    - [Chapter 2 - Part 4.4: Exercises](#chapter2part4.4)
+    - [Chapter 2 - Part 4.5: Summary](#chapter2part4.5)
+  - [Chapter 2 - Part 5: Assignment Operators: =, +=, -=, *=, /=](#chapter2part5)
+    - [Chapter 2 - Part 5.1: Understanding the Basic Assignment Operator (=)](#chapter2part5.1)
+    - [Chapter 2 - Part 5.2: Compound Assignment Operators (+=, -=, *=, /=)](#chapter2part5.2)
+    - [Chapter 2 - Part 5.3: Practical Examples and Demonstrations](#chapter2part5.3)
+    - [Chapter 2 - Part 5.4: Exercises](#chapter2part5.4)
+    - [Chapter 2 - Part 5.5: Summary and Next Steps](#chapter2part5.5)
+  - [Chapter 2 - Part 6: Comparison Operators: ==, !=, >, <, >=, <=](#chapter2part6)
+    - [Chapter 2 - Part 6.1: Understanding Comparison Operators](#chapter2part6.1)
+    - [Chapter 2 - Part 6.2: Practical Examples and Demonstrations](#chapter2part6.2)
+    - [Chapter 2 - Part 6.3: Exercises](#chapter2part6.3)
+    - [Chapter 2 - Part 6.4: Summary and Next Steps](#chapter2part6.4)
+  - [Chapter 2 - Part 7: Logical Operators: &&, ||, !](#chapter2part7)
+    - [Chapter 2 - Part 7.1: Understanding Logical Operators](#chapter2part7.1)
+    - [Chapter 2 - Part 7.2: Combining Logical Operators](#chapter2part7.2)
+    - [Chapter 2 - Part 7.3: Practical Examples](#chapter2part7.3)
+    - [Chapter 2 - Part 7.4: Exercises](#chapter2part7.4)
+  - [Chapter 2 - Part 8: Operator Precedence](#chapter2part8)
+    - [Chapter 2 - Part 8.1: Understanding Operator Precedence in Java](#chapter2part8.1)
+    - [Chapter 2 - Part 8.2: Using Parentheses to Control Precedence](#chapter2part8.2)
+    - [Chapter 2 - Part 8.3: Practical Examples and Demonstrations](#chapter2part8.3)
+    - [Chapter 2 - Part 8.4: Exercises](#chapter2part8.4)
+    - [Chapter 2 - Part 8.5: Next Steps and Future Learning Directions](#chapter2part8.5)
+3. [Chapter 3: Control Flow: Making Decisions and Repeating Actions](#chapter3)
+  - [Chapter 3 - Part 1: Introduction to Control Flow Statements](#chapter3part1)
+    - [Chapter 3 - Part 1.1: Understanding Control Flow](#chapter3part1.1)
+    - [Chapter 3 - Part 1.2: Decision-Making Statements: An Overview](#chapter3part1.2)
+    - [Chapter 3 - Part 1.3: Looping Statements: An Introduction](#chapter3part1.3)
+    - [Chapter 3 - Part 1.4: Using break and continue Statements](#chapter3part1.4)
+    - [Chapter 3 - Part 1.5: Practice Activities](#chapter3part1.5)
+    - [Chapter 3 - Part 1.6: Next Steps and Future Learning Directions](#chapter3part1.6)
+  - [Chapter 3 - Part 2: The `if` Statement: Conditional Execution](#chapter3part2)
+    - [Chapter 3 - Part 2.1: Understanding the if Statement](#chapter3part2.1)
+    - [Chapter 3 - Part 2.2: Practical Examples of the if Statement](#chapter3part2.2)
+    - [Chapter 3 - Part 2.3: Exercises](#chapter3part2.3)
+    - [Chapter 3 - Part 2.4: Preparing for Future Lessons](#chapter3part2.4)
+  - [Chapter 3 - Part 3: The `if-else` Statement: Choosing Between Two Options](#chapter3part3)
+    - [Chapter 3 - Part 3.1: Understanding the if-else Statement](#chapter3part3.1)
+    - [Chapter 3 - Part 3.2: Omitting Curly Braces](#chapter3part3.2)
+    - [Chapter 3 - Part 3.3: Nested if-else Statements](#chapter3part3.3)
+    - [Chapter 3 - Part 3.4: Common Errors and Pitfalls](#chapter3part3.4)
+    - [Chapter 3 - Part 3.5: Practice Activities](#chapter3part3.5)
+    - [Chapter 3 - Part 3.6: Preparing for Future Lessons](#chapter3part3.6)
+  - [Chapter 3 - Part 4: The `if-else if-else` Statement: Handling Multiple Conditions](#chapter3part4)
+    - [Chapter 3 - Part 4.1: Understanding the if-else if-else Statement](#chapter3part4.1)
+    - [Chapter 3 - Part 4.2: Practice Activities](#chapter3part4.2)
+    - [Chapter 3 - Part 4.3: Preparing for Future Lessons](#chapter3part4.3)
+  - [Chapter 3 - Part 5: The `switch` Statement: Selecting from Multiple Cases](#chapter3part5)
+    - [Chapter 3 - Part 5.1: Understanding the switch Statement](#chapter3part5.1)
+    - [Chapter 3 - Part 5.2: Practical Examples and Demonstrations](#chapter3part5.2)
+    - [Chapter 3 - Part 5.3: Exercises and Practice Activities](#chapter3part5.3)
+    - [Chapter 3 - Part 5.4: Summary and Next Steps](#chapter3part5.4)
+  - [Chapter 3 - Part 6: The `while` Loop: Repeating Code While a Condition is True](#chapter3part6)
+    - [Chapter 3 - Part 6.1: Understanding the while Loop](#chapter3part6.1)
+    - [Chapter 3 - Part 6.2: Using while Loops with User Input](#chapter3part6.2)
+    - [Chapter 3 - Part 6.3: Using while Loops with Boolean Flags](#chapter3part6.3)
+    - [Chapter 3 - Part 6.4: Nested while Loops](#chapter3part6.4)
+    - [Chapter 3 - Part 6.5: Practice Activities](#chapter3part6.5)
+  - [Chapter 3 - Part 7: The `do-while` Loop: Ensuring Code Executes at Least Once](#chapter3part7)
+    - [Chapter 3 - Part 7.1: Understanding the do-while Loop](#chapter3part7.1)
+    - [Chapter 3 - Part 7.2: Practical Examples of do-while Loops](#chapter3part7.2)
+    - [Chapter 3 - Part 7.3: Exercises](#chapter3part7.3)
+    - [Chapter 3 - Part 7.4: Preparing for Future Lessons](#chapter3part7.4)
+  - [Chapter 3 - Part 8: The `for` Loop: Repeating Code a Specific Number of Times](#chapter3part8)
+    - [Chapter 3 - Part 8.1: Understanding the for Loop Syntax](#chapter3part8.1)
+    - [Chapter 3 - Part 8.2: How the for Loop Works](#chapter3part8.2)
+    - [Chapter 3 - Part 8.3: Practical Examples of for Loops](#chapter3part8.3)
+    - [Chapter 3 - Part 8.4: Variations of the for Loop](#chapter3part8.4)
+    - [Chapter 3 - Part 8.5: Common Mistakes and How to Avoid Them](#chapter3part8.5)
+    - [Chapter 3 - Part 8.6: Exercises](#chapter3part8.6)
+  - [Chapter 3 - Part 9: Using `break` and `continue` Statements](#chapter3part9)
+    - [Chapter 3 - Part 9.1: Understanding the break Statement](#chapter3part9.1)
+    - [Chapter 3 - Part 9.2: Understanding the continue Statement](#chapter3part9.2)
+    - [Chapter 3 - Part 9.3: Practical Examples and Demonstrations](#chapter3part9.3)
+    - [Chapter 3 - Part 9.4: Exercises](#chapter3part9.4)
+4. [Chapter 4: Working with Arrays and Strings](#chapter4)
+  - [Chapter 4 - Part 1: Introduction to Arrays: Storing Collections of Data](#chapter4part1)
+    - [Chapter 4 - Part 1.1: Declaring and Initializing Arrays](#chapter4part1.1)
+    - [Chapter 4 - Part 1.2: Accessing Array Elements](#chapter4part1.2)
+    - [Chapter 4 - Part 1.3: Looping Through Arrays](#chapter4part1.3)
+    - [Chapter 4 - Part 1.4: Exercises](#chapter4part1.4)
+  - [Chapter 4 - Part 2: Declaring and Initializing Arrays](#chapter4part2)
+    - [Chapter 4 - Part 2.1: Declaring Arrays](#chapter4part2.1)
+    - [Chapter 4 - Part 2.2: Initializing Arrays](#chapter4part2.2)
+    - [Chapter 4 - Part 2.3: Accessing Array Elements](#chapter4part2.3)
+    - [Chapter 4 - Part 2.4: Looping Through Arrays](#chapter4part2.4)
+    - [Chapter 4 - Part 2.5: Practice Activities](#chapter4part2.5)
+  - [Chapter 4 - Part 3: Accessing Array Elements](#chapter4part3)
+    - [Chapter 4 - Part 3.1: Accessing Array Elements Using Indices](#chapter4part3.1)
+    - [Chapter 4 - Part 3.2: ArrayIndexOutOfBoundsException](#chapter4part3.2)
+    - [Chapter 4 - Part 3.3: Practical Examples and Demonstrations](#chapter4part3.3)
+    - [Chapter 4 - Part 3.4: Exercises](#chapter4part3.4)
+    - [Chapter 4 - Part 3.5: Summary and Next Steps](#chapter4part3.5)
+  - [Chapter 4 - Part 4: Looping Through Arrays](#chapter4part4)
+    - [Chapter 4 - Part 4.1: Understanding the Need for Loops](#chapter4part4.1)
+    - [Chapter 4 - Part 4.2: Types of Loops in Java](#chapter4part4.2)
+    - [Chapter 4 - Part 4.3: The for Loop](#chapter4part4.3)
+    - [Chapter 4 - Part 4.4: The Enhanced for Loop (For-Each Loop)](#chapter4part4.4)
+    - [Chapter 4 - Part 4.5: The while Loop](#chapter4part4.5)
+    - [Chapter 4 - Part 4.6: The do-while Loop](#chapter4part4.6)
+    - [Chapter 4 - Part 4.7: Practice Activities](#chapter4part4.7)
+    - [Chapter 4 - Part 4.8: Summary](#chapter4part4.8)
+  - [Chapter 4 - Part 5: Multidimensional Arrays](#chapter4part5)
+    - [Chapter 4 - Part 5.1: Understanding Multidimensional Arrays](#chapter4part5.1)
+    - [Chapter 4 - Part 5.2: Practical Examples and Demonstrations](#chapter4part5.2)
+    - [Chapter 4 - Part 5.3: Exercises](#chapter4part5.3)
+  - [Chapter 4 - Part 6: Introduction to Strings: Working with Text](#chapter4part6)
+    - [Chapter 4 - Part 6.1: Creating Strings](#chapter4part6.1)
+    - [Chapter 4 - Part 6.2: String Manipulation](#chapter4part6.2)
+    - [Chapter 4 - Part 6.3: String Comparison: equals() vs. ==](#chapter4part6.3)
+    - [Chapter 4 - Part 6.4: String Methods: toUpperCase(), toLowerCase(), trim()](#chapter4part6.4)
+    - [Chapter 4 - Part 6.5: Exercises](#chapter4part6.5)
+    - [Chapter 4 - Part 6.6: Summary](#chapter4part6.6)
+  - [Chapter 4 - Part 7: String Manipulation: Concatenation, Substrings, Length](#chapter4part7)
+    - [Chapter 4 - Part 7.1: String Concatenation](#chapter4part7.1)
+    - [Chapter 4 - Part 7.2: Extracting Substrings](#chapter4part7.2)
+    - [Chapter 4 - Part 7.3: Determining String Length](#chapter4part7.3)
+    - [Chapter 4 - Part 7.4: Exercises](#chapter4part7.4)
+    - [Chapter 4 - Part 7.5: Summary](#chapter4part7.5)
+  - [Chapter 4 - Part 8: String Comparison: equals() vs. ==](#chapter4part8)
+    - [Chapter 4 - Part 8.1: Understanding String Immutability and the String Pool](#chapter4part8.1)
+    - [Chapter 4 - Part 8.2: The equals() Method: Comparing String Content](#chapter4part8.2)
+    - [Chapter 4 - Part 8.3: The == Operator: Comparing Object References](#chapter4part8.3)
+    - [Chapter 4 - Part 8.4: When to Use equals() vs. ==](#chapter4part8.4)
+    - [Chapter 4 - Part 8.5: Practice Activities](#chapter4part8.5)
+    - [Chapter 4 - Part 8.6: Preparing for Future Lessons](#chapter4part8.6)
+    - [Chapter 4 - Part 8.7: Summary](#chapter4part8.7)
+  - [Chapter 4 - Part 9: String Methods: toUpperCase(), toLowerCase(), trim()](#chapter4part9)
+    - [Chapter 4 - Part 9.1: Understanding toUpperCase() and toLowerCase()](#chapter4part9.1)
+    - [Chapter 4 - Part 9.2: Understanding trim()](#chapter4part9.2)
+    - [Chapter 4 - Part 9.3: Combining String Methods](#chapter4part9.3)
+5. [Chapter 5: Object-Oriented Programming (OOP) Fundamentals](#chapter5)
+  - [Chapter 5 - Part 1: Introduction to Object-Oriented Programming (OOP)](#chapter5part1)
+    - [Chapter 5 - Part 1.1: Understanding Classes and Objects](#chapter5part1.1)
+    - [Chapter 5 - Part 1.2: Defining Classes: Attributes (Fields) and Behaviors (Methods)](#chapter5part1.2)
+    - [Chapter 5 - Part 1.3: Creating Objects: Instantiating Classes](#chapter5part1.3)
+    - [Chapter 5 - Part 1.4: Accessing Object Attributes and Calling Methods](#chapter5part1.4)
+    - [Chapter 5 - Part 1.5: Constructors: Initializing Objects](#chapter5part1.5)
+    - [Chapter 5 - Part 1.6: The this Keyword: Referring to the Current Object](#chapter5part1.6)
+    - [Chapter 5 - Part 1.7: Introduction to Encapsulation: Hiding Data](#chapter5part1.7)
+    - [Chapter 5 - Part 1.8: Exercises](#chapter5part1.8)
+    - [Chapter 5 - Part 1.9: Summary](#chapter5part1.9)
+    - [Chapter 5 - Part 1.10: Next Steps](#chapter5part1.10)
+  - [Chapter 5 - Part 2: Understanding Classes and Objects](#chapter5part2)
+    - [Chapter 5 - Part 2.1: Understanding Classes](#chapter5part2.1)
+    - [Chapter 5 - Part 2.2: Creating Objects: Instantiating Classes](#chapter5part2.2)
+    - [Chapter 5 - Part 2.3: Accessing Object Attributes and Calling Methods](#chapter5part2.3)
+    - [Chapter 5 - Part 2.4: Constructors: Initializing Objects](#chapter5part2.4)
+    - [Chapter 5 - Part 2.5: The this Keyword: Referring to the Current Object](#chapter5part2.5)
+    - [Chapter 5 - Part 2.6: Introduction to Encapsulation: Hiding Data](#chapter5part2.6)
+    - [Chapter 5 - Part 2.7: Exercises](#chapter5part2.7)
+  - [Chapter 5 - Part 3: Defining Classes: Attributes (Fields) and Behaviors (Methods)](#chapter5part3)
+    - [Chapter 5 - Part 3.1: Understanding Classes and Objects](#chapter5part3.1)
+    - [Chapter 5 - Part 3.2: Defining Classes: Attributes (Fields)](#chapter5part3.2)
+    - [Chapter 5 - Part 3.3: Defining Classes: Behaviors (Methods)](#chapter5part3.3)
+    - [Chapter 5 - Part 3.4: Practical Examples and Demonstrations](#chapter5part3.4)
+    - [Chapter 5 - Part 3.5: Exercises](#chapter5part3.5)
+    - [Chapter 5 - Part 3.6: Summary and Next Steps](#chapter5part3.6)
+  - [Chapter 5 - Part 4: Creating Objects: Instantiating Classes](#chapter5part4)
+    - [Chapter 5 - Part 4.1: Understanding Object Instantiation](#chapter5part4.1)
+    - [Chapter 5 - Part 4.2: Practical Examples and Demonstrations](#chapter5part4.2)
+    - [Chapter 5 - Part 4.3: Exercises](#chapter5part4.3)
+    - [Chapter 5 - Part 4.4: Summary and Next Steps](#chapter5part4.4)
+  - [Chapter 5 - Part 5: Accessing Object Attributes and Calling Methods](#chapter5part5)
+    - [Chapter 5 - Part 5.1: Accessing Object Attributes](#chapter5part5.1)
+    - [Chapter 5 - Part 5.2: Calling Methods](#chapter5part5.2)
+    - [Chapter 5 - Part 5.3: Practice Activities](#chapter5part5.3)
+    - [Chapter 5 - Part 5.4: Summary and Next Steps](#chapter5part5.4)
+  - [Chapter 5 - Part 6: Constructors: Initializing Objects](#chapter5part6)
+    - [Chapter 5 - Part 6.1: Understanding Constructors](#chapter5part6.1)
+    - [Chapter 5 - Part 6.2: Default Constructor (No-Argument Constructor)](#chapter5part6.2)
+    - [Chapter 5 - Part 6.3: Parameterized Constructor](#chapter5part6.3)
+    - [Chapter 5 - Part 6.4: The this Keyword](#chapter5part6.4)
+    - [Chapter 5 - Part 6.5: Practical Examples and Demonstrations](#chapter5part6.5)
+    - [Chapter 5 - Part 6.6: Exercises](#chapter5part6.6)
+    - [Chapter 5 - Part 6.7: Summary](#chapter5part6.7)
+    - [Chapter 5 - Part 6.8: Next Steps and Future Learning Directions](#chapter5part6.8)
+  - [Chapter 5 - Part 7: The `this` Keyword: Referring to the Current Object](#chapter5part7)
+    - [Chapter 5 - Part 7.1: Understanding the this Keyword](#chapter5part7.1)
+    - [Chapter 5 - Part 7.2: Practical Examples and Demonstrations](#chapter5part7.2)
+    - [Chapter 5 - Part 7.3: Exercises](#chapter5part7.3)
+    - [Chapter 5 - Part 7.4: Summary and Next Steps](#chapter5part7.4)
+  - [Chapter 5 - Part 8: Introduction to Encapsulation: Hiding Data](#chapter5part8)
+    - [Chapter 5 - Part 8.1: Understanding Encapsulation](#chapter5part8.1)
+    - [Chapter 5 - Part 8.2: Implementing Encapsulation in Java](#chapter5part8.2)
+    - [Chapter 5 - Part 8.3: Advanced Encapsulation Techniques](#chapter5part8.3)
+    - [Chapter 5 - Part 8.4: Practice Activities](#chapter5part8.4)
+    - [Chapter 5 - Part 8.5: Summary](#chapter5part8.5)
+    - [Chapter 5 - Part 8.6: Next Steps and Future Learning Directions](#chapter5part8.6)
+6. [Chapter 6: Methods and Classes in Depth](#chapter6)
+  - [Chapter 6 - Part 1: Method Overloading: Creating Methods with the Same Name](#chapter6part1)
+    - [Chapter 6 - Part 1.1: Understanding Method Overloading](#chapter6part1.1)
+    - [Chapter 6 - Part 1.2: Practical Examples and Demonstrations](#chapter6part1.2)
+    - [Chapter 6 - Part 1.3: Exercises and Practice Activities](#chapter6part1.3)
+    - [Chapter 6 - Part 1.4: Summary and Next Steps](#chapter6part1.4)
+  - [Chapter 6 - Part 2: Method Parameters and Return Types](#chapter6part2)
+    - [Chapter 6 - Part 2.1: Understanding Method Parameters](#chapter6part2.1)
+    - [Chapter 6 - Part 2.2: Understanding Return Types](#chapter6part2.2)
+    - [Chapter 6 - Part 2.3: Practical Examples and Demonstrations](#chapter6part2.3)
+    - [Chapter 6 - Part 2.4: Exercises](#chapter6part2.4)
+    - [Chapter 6 - Part 2.5: Summary and Next Steps](#chapter6part2.5)
+  - [Chapter 6 - Part 3: Static Variables and Methods: Class-Level Members](#chapter6part3)
+    - [Chapter 6 - Part 3.1: Understanding Static Variables](#chapter6part3.1)
+    - [Chapter 6 - Part 3.2: Understanding Static Methods](#chapter6part3.2)
+    - [Chapter 6 - Part 3.3: Static Blocks](#chapter6part3.3)
+    - [Chapter 6 - Part 3.4: Real-World Applications](#chapter6part3.4)
+    - [Chapter 6 - Part 3.5: Summary](#chapter6part3.5)
+    - [Chapter 6 - Part 3.6: Next Steps](#chapter6part3.6)
+  - [Chapter 6 - Part 4: Understanding Access Modifiers: public, private, protected, default](#chapter6part4)
+    - [Chapter 6 - Part 4.1: Understanding Access Modifiers](#chapter6part4.1)
+    - [Chapter 6 - Part 4.2: Access Levels: A Summary](#chapter6part4.2)
+    - [Chapter 6 - Part 4.3: Practical Examples and Demonstrations](#chapter6part4.3)
+    - [Chapter 6 - Part 4.4: Exercises](#chapter6part4.4)
+    - [Chapter 6 - Part 4.5: Summary and Next Steps](#chapter6part4.5)
+  - [Chapter 6 - Part 5: Introduction to Inheritance: Creating Hierarchies of Classes](#chapter6part5)
+    - [Chapter 6 - Part 5.1: Understanding Inheritance](#chapter6part5.1)
+    - [Chapter 6 - Part 5.2: The extends Keyword](#chapter6part5.2)
+    - [Chapter 6 - Part 5.3: Method Overriding](#chapter6part5.3)
+    - [Chapter 6 - Part 5.4: The super Keyword](#chapter6part5.4)
+    - [Chapter 6 - Part 5.5: Practice Activities](#chapter6part5.5)
+    - [Chapter 6 - Part 5.6: Summary and Next Steps](#chapter6part5.6)
+  - [Chapter 6 - Part 6: The `extends` Keyword: Inheriting from a Parent Class](#chapter6part6)
+    - [Chapter 6 - Part 6.1: Understanding the extends Keyword](#chapter6part6.1)
+    - [Chapter 6 - Part 6.2: Practical Examples and Demonstrations](#chapter6part6.2)
+    - [Chapter 6 - Part 6.3: Exercises](#chapter6part6.3)
+    - [Chapter 6 - Part 6.4: Summary and Next Steps](#chapter6part6.4)
+  - [Chapter 6 - Part 7: Method Overriding: Changing Inherited Behavior](#chapter6part7)
+    - [Chapter 6 - Part 7.1: Understanding Method Overriding](#chapter6part7.1)
+    - [Chapter 6 - Part 7.2: The super Keyword and Method Overriding](#chapter6part7.2)
+    - [Chapter 6 - Part 7.3: Method Overriding vs. Method Overloading](#chapter6part7.3)
+    - [Chapter 6 - Part 7.4: Practical Examples and Demonstrations](#chapter6part7.4)
+    - [Chapter 6 - Part 7.5: Exercises](#chapter6part7.5)
+    - [Chapter 6 - Part 7.6: Summary](#chapter6part7.6)
+    - [Chapter 6 - Part 7.7: Next Steps and Future Learning Directions](#chapter6part7.7)
+  - [Chapter 6 - Part 8: The `super` Keyword: Accessing Parent Class Members](#chapter6part8)
+    - [Chapter 6 - Part 8.1: Understanding the super Keyword](#chapter6part8.1)
+    - [Chapter 6 - Part 8.2: Exercises](#chapter6part8.2)
+    - [Chapter 6 - Part 8.3: Summary](#chapter6part8.3)
+7. [Chapter 7: Exception Handling and Basic Input/Output](#chapter7)
+  - [Chapter 7 - Part 1: Introduction to Exception Handling: Dealing with Errors](#chapter7part1)
+    - [Chapter 7 - Part 1.1: Understanding Exceptions](#chapter7part1.1)
+    - [Chapter 7 - Part 1.2: The try-catch Block: Handling Exceptions](#chapter7part1.2)
+    - [Chapter 7 - Part 1.3: Common Exception Types](#chapter7part1.3)
+    - [Chapter 7 - Part 1.4: Best Practices for Exception Handling](#chapter7part1.4)
+    - [Chapter 7 - Part 1.5: Exercises](#chapter7part1.5)
+    - [Chapter 7 - Part 1.6: Summary](#chapter7part1.6)
+    - [Chapter 7 - Part 1.7: Next Steps](#chapter7part1.7)
+  - [Chapter 7 - Part 2: The `try-catch` Block: Handling Exceptions](#chapter7part2)
+    - [Chapter 7 - Part 2.1: Understanding Exceptions](#chapter7part2.1)
+    - [Chapter 7 - Part 2.2: The try-catch Block: A Detailed Explanation](#chapter7part2.2)
+    - [Chapter 7 - Part 2.3: Best Practices for Using try-catch Blocks](#chapter7part2.3)
+    - [Chapter 7 - Part 2.4: Exercises](#chapter7part2.4)
+  - [Chapter 7 - Part 3: The `finally` Block: Ensuring Code Executes](#chapter7part3)
+    - [Chapter 7 - Part 3.1: Understanding the finally Block](#chapter7part3.1)
+    - [Chapter 7 - Part 3.2: Practical Examples of Using finally](#chapter7part3.2)
+    - [Chapter 7 - Part 3.3: Best Practices and Considerations](#chapter7part3.3)
+    - [Chapter 7 - Part 3.4: Exercises](#chapter7part3.4)
+  - [Chapter 7 - Part 4: Common Exception Types: NullPointerException, ArrayIndexOutOfBoundsException](#chapter7part4)
+    - [Chapter 7 - Part 4.1: Understanding Exceptions](#chapter7part4.1)
+    - [Chapter 7 - Part 4.2: The NullPointerException](#chapter7part4.2)
+    - [Chapter 7 - Part 4.3: The ArrayIndexOutOfBoundsException](#chapter7part4.3)
+    - [Chapter 7 - Part 4.4: Exercises](#chapter7part4.4)
+    - [Chapter 7 - Part 4.5: Summary](#chapter7part4.5)
+  - [Chapter 7 - Part 5: Custom Exceptions](#chapter7part5)
+    - [Chapter 7 - Part 5.1: What is Custom Exception](#chapter7part5.1)
+    - [Chapter 7 - Part 5.2: Creating Custom Exceptions](#chapter7part5.2)
+  - [Chapter 7 - Part 6: Reading Input from the Console: Using the `Scanner` Class](#chapter7part6)
+    - [Chapter 7 - Part 6.1: Introduction to the Scanner Class](#chapter7part6.1)
+    - [Chapter 7 - Part 6.2: Reading Different Data Types](#chapter7part6.2)
+    - [Chapter 7 - Part 6.3: Handling Input Mismatch Exceptions](#chapter7part6.3)
+    - [Chapter 7 - Part 6.4: Practical Examples and Demonstrations](#chapter7part6.4)
+    - [Chapter 7 - Part 6.5: Exercises](#chapter7part6.5)
+  - [Chapter 7 - Part 7: Writing Output to the Console: Using `System.out.println()`](#chapter7part7)
+    - [Chapter 7 - Part 7.1: Understanding System.out.println()](#chapter7part7.1)
+    - [Chapter 7 - Part 7.2: Practical Examples and Demonstrations](#chapter7part7.2)
+    - [Chapter 7 - Part 7.3: Exercises](#chapter7part7.3)
+    - [Chapter 7 - Part 7.4: Summary](#chapter7part7.4)
+    - [Chapter 7 - Part 7.5: Next Steps](#chapter7part7.5)
+  - [Chapter 7 - Part 8: Introduction to File Input/Output: Reading and Writing Text Files](#chapter7part8)
+    - [Chapter 7 - Part 8.1: Understanding File Input/Output (I/O)](#chapter7part8.1)
+    - [Chapter 7 - Part 8.2: Reading Text Files](#chapter7part8.2)
+    - [Chapter 7 - Part 8.3: Writing Text Files](#chapter7part8.3)
+    - [Chapter 7 - Part 8.4: Practice Activities](#chapter7part8.4)
+    - [Chapter 7 - Part 8.5: Summary](#chapter7part8.5)
+8. [Chapter 8: Java Date and Time](#chapter8)
+  - [Chapter 8 - Part 1: Java Date and Time](#chapter8part1)
+9. [Chapter 9: Java Enums](#chapter9)
+  - [Chapter 9 - Part 1: Java Enums](#chapter9part1)
 10. [Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes](#chapter10)
-    - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter10part1)
-    - [Chapter 10 - Part 2: Garbage Collector](#chapter10part2)
-    - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter10part3)
-    - [Chapter 10 - Part 4:  hashCode and equals](#chapter10part4)
-11. [Chapter 11: Collections](#chapter11)
-    - [Chapter 11 - Part 1: ArrayList](#chapter11part1)
-    - [Chapter 11 - Part 2: HashMap](#chapter11part2)
-    - [Chapter 11 - Part 3: HashSet](#chapter11part3)
-12. [Chapter 12: Java Date and Time](#chapter12)
-    - [Chapter 12 - Part 1: Java Date and Time](#chapter12part1)
-13. [Chapter 13: Java Enums](#chapter13)
-    - [Chapter 13 - Part 1: Java Enums](#chapter13part1)
-14. [Chapter 14: Java Interfaces](#chapter14)
-    - [Chapter 14 - Part 1: Java Interfaces](#chapter14part1)
-    - [Chapter 14 - Part 2: Dependency Injection and Inversion of Control](#chapter14part2)
-    - [Chapter 14 - Part 3: Inheritance vs Interfaces](#chapter14part3)
-    - [Chapter 14 - Part 4: Multiple Inheritance and Interfaces](#chapter14part4)
-    - [Chapter 14 - Part 5: Comparable Interface](#chapter14part5)
-    - [Chapter 14 - Part 6: Default methods](#chapter14part6)
-15. [Chapter 15: Java Exceptions](#chapter15)
-    - [Chapter 15 - Part 1: Java Exceptions](#chapter15part1)
-    - [Chapter 15 - Part 2: Try-Catch-Finally](#chapter15part2)
-    - [Chapter 15 - Part 3: Stack Trace](#chapter15part3)
-    - [Chapter 15 - Part 4: Custom Exceptions](#chapter15part3)
-16. [Chapter 16: Java File Handling](#chapter16)
-    - [Chapter 16 - Part 1: Java File Handling](#chapter16part1)
-    - [Chapter 16 - Part 2: Java Create and Write To Files](#chapter16part2)
-    - [Chapter 16 - Part 3: Java Read Files](#chapter16part3)
-    - [Chapter 16 - Part 4: Java Delete Files](#chapter16part4)
-17. [Chapter 17: Java Lambda Expression](#chapter17)
-    - [Chapter 17 - Part 1: Java Lambda Expression](#chapter17part1)
+  - [Chapter 10 - Part 1: Reference Type vs. Value Types](#chapter8part1)
+  - [Chapter 10 - Part 2: Garbage Collector](#chapter8part2)
+  - [Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes](#chapter8part3)
+  - [Chapter 10 - Part 4:  hashCode and equals](#chapter8part4)
+11. [Chapter 11: Java Interfaces](#chapter14)
+  - [Chapter 11 - Part 1: Java Interfaces](#chapter11part1)
+  - [Chapter 11 - Part 2: Dependency Injection and Inversion of Control](#chapter11part2)
+  - [Chapter 11 - Part 3: Inheritance vs Interfaces](#chapter11part3)
+  - [Chapter 11 - Part 4: Multiple Inheritance and Interfaces](#chapter11part4)
+  - [Chapter 11 - Part 5: Comparable Interface](#chapter11part5)
+  - [Chapter 11 - Part 6: Default methods](#chapter11part6)
+12. [Chapter 12: Collections](#chapter12)
+  - [Chapter 12 - Part 1: ArrayList](#chapter12part1)
+  - [Chapter 12 - Part 2: HashMap](#chapter12part2)
+  - [Chapter 12 - Part 3: HashSet](#chapter12part3)
+13. [Chapter 13: Java Lambda Expression](#chapter13)
+  - [Chapter 13 - Part 1: Java Lambda Expression](#chapter13part1)
 
-## <a name="chapter1"></a>Chapter 1: Programming Concepts
-  
-#### <a name="chapter1part1"></a>Chapter 1 - Part 1: Programmer's Career Starts
+## <a name="chapter1"></a>Chapter 1: Exception Handling and Basic Input/Output
 
-The beginning of any programmer's career starts with solid fundamentals, such as:
+#### <a name="chapter1part1"></a>Chapter 1 - Part 1: What is Java and Why Learn It?
 
-1. Programming Logic
-2. Algorithms
-3. Data Structure (Arrays, Lists)
-4. Object Oriented Programming
-5. Relational Data Base
-6. Systems Analysis and Design
+#### <a name="chapter1part1.1"></a>Chapter 1 - Part 1.1: What is Java?
 
-#### <a name="chapter1part2"></a>Chapter 1 - Part 2: Algorithm
+#### <a name="chapter1part1.2"></a>Chapter 1 - Part 1.2: Why Learn Java?
 
-Algorithm is a process or set of rules to be followed as problem-solving operations.
+#### <a name="chapter1part1.3"></a>Chapter 1 - Part 1.3: Exercises
 
-Make a cake problem:
+#### <a name="chapter1part1.4"></a>Chapter 1 - Part 1.4: Summary
 
-A Cake Recipe Algorithm
+#### <a name="chapter1part1.5"></a>Chapter 1 - Part 1.5: Next Steps
 
-1. Preheat the oven.
-2. Gather the ingredients.
-3. Measure out the ingredients.
-4. Mix the ingredients to make the batter.
-5. Grease a pan.
-6. Pour the batter into the pan.
-7. Put the pan in the oven.
-8. Set a timer.
-9. When the timer goes off, take the pan out of the oven.
-10. Enjoy!
+#### <a name="chapter1part2"></a>Chapter 1 - Part 2: Understanding the Java Ecosystem: JVM, JRE, JDK
 
-#### <a name="chapter1part3"></a>Chapter 1 - Part 3: Automation
+#### <a name="chapter1part2.1"></a>Chapter 1 - Part 2.1: Compilation and Interpretation, Source Code and Object Code, Virtual Machine
 
-Consists of using machine (s) to perform the procedure automatically or semi-automatically.
+The Basic operations of a computer is Input of Data, Processing of Data and the output of the result or data.
 
-In the cake recipe example, a food mixer can in the step four can be a example of automation.
+The processing is made by the CPU
 
-#### <a name="chapter1part4"></a>Chapter 1 - Part 4: Computer Program
+<br>
 
-Computer have:
+<div align="center"><img src="img/basic-operations-computer-w562-h190.gif" width=562 height=190><br><sub>Fig 15 -Basic Operations of a Computer - (<a href='http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html'>Work by Paul Mullins</a>) </sub></div>
 
-Hardware: Physical Parts (CPU, RAM, GPU, keyboard...)
-
-Software: Logical Part (Program)
-    - Operation System
-    - Aplications (Spotify, Word, Web Browser)
-    - Games
-    - Utilities
-
-Conclusion: Computer programs are algorithms executed by the computer. The computer is a machine that automates the execution of
-algorithms.
-Any algorithm? No. Only computational algorithms: Data processing and Calculation
-
-#### <a name="chapter1part5"></a>Chapter 1 - Part 5: What Does it Take to Make a Computer Program?
-
-To make a computer program, we need:
-
-- A programming language: lexical and syntactic rules for write the program
-- An IDE: software to edit and test the program
-- A compiler: software for turning source code into code object
-- A code generator or virtual machine: software that allows the program to run
-
-#### <a name="chapter1part6"></a>Chapter 1 - Part 6: Programming Language
-
-Programming languages have a lexical rules (orthography) and syntax rules (grammar) to write programs.
-
-- Lexical
-
-    Is about the correct words orthography.
-    
-    | Example English                                 | Example Programming Language  |
-    |:------------------------------------------------|:------------------------------|
-    | Dog (Correct)                                   | Main (Correct)                |
-    | Dogo (Wrong)                                    | Maim (Wrong)                  |
-    
-- Syntax
-
-   Is about the correct sentence’s grammar.
-   
-    | Example English                                 | Example Programming Language       |
-    |:------------------------------------------------|:-----------------------------------|
-    | He is a Daniel in judgment (Correct)            | x = 2 + y (Correct)                |
-    | Daniel is a He in judgment (Wrong)              | x = + 2 y (Wrong)                  |
-    
-
-Example of program in Java:
-
-```java
-package application;
-
-import java.util.Scanner;
-import java.util.Locale;
-
-public class Program {
-
-	public static void main(String[] args) {
-		
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-		
-        	double x, y, media;
-        
-		System.out.print("Enter the First Number: ");
-        	x = sc.nextDouble(); //input: 2
-        	System.out.print("Enter the Second Number: ");
-        	y = sc.nextDouble(); //input: 4
-        
-        	media = (x + y)/2.0;
-        
-       		System.out.println("Media = " + media);
-        	sc.close();
-	}
-}
-
-/*
-Console
-
-----input---
-Enter the First Number: 2.0
-Enter the First Number: 4.0
-
-----output---
-Media = 3.0
-*/
-```
-
-#### <a name="chapter1part7"></a>Chapter 1 - Part 7: IDE
-
-It is a set of software used to build programs.
-
-Ex:
-
-- C / C ++: Code Blocks
-- Java: Eclipse, NetBeans
-- C#: Microsoft Visual Studio
-
-Functions of an IDE
-
-- Editing of source code (indentation, autocompletion, highlighting of words, etc.)
-- Debugging and testing
-- Construction of the final product (build)
-- Suggestion of templates
-- Assist in various tasks of your project
-
-#### <a name="chapter1part8"></a>Chapter 1 - Part 8: Compilation and Interpretation, Source Code and Object Code, Virtual Machine
+<br>
 
 **Source Code**: is the code written by the programmer in a programming language
 
@@ -320,52 +478,7 @@ Media = 3.0
 	- Compiler Assistance Before Execution
 	- Source Code does not need to be Recompiled to run on different platform
 
-## <a name="chapter2"></a>Chapter 2: Introduction to Java
-
-#### <a name="chapter2part1"></a>Chapter 2 - Part 1: What is Java?
-
-**Whats is Java?** 
-
-Java is a program language and a developing platform, with libraries (API) and execution environment.
-
-When you need to run a Java Program in a computer, you have to install the execution environment to run the program and the JDK (Java Development Kit) with the libraries and API.
-
-**History of Java**
-
-- Problems solved and reason for its success:
-	- Pointers (C and C++) / memory management (garbage collector)
-	- Failed portability: writing part of the code when changing of SO
-	- Use on miscellaneous devices
-	- Costs
-
-- Created by Sun Microsystems in the mid-1990s
-
-- Acquired by Oracle Corporation in 2010
-
-- Java Advantages:
-	- Compiled code for bytecode and run on virtual machine (JVM)
-	- Portable, safe, robust
-	- Runs on various types of devices
-	- Dominates the corporate market since the end of the 20th century
-
-**Java Editions**
-
- - Java ME - Java Micro Edition - embedded and mobile devices - IoT - http://www.oracle.com/technetwork/java/javame
- - Java SE - Java Standard Edition - core - desktop e servers - http://www.oracle.com/technetwork/java/javase
- - Java EE - Java Enterprise Edition - corporate applications - http://www.oracle.com/technetwork/java/javaee
-
-**Java SE Documentation**
-
-https://docs.oracle.com/en/java/javase/11/
-
-
-#### <a name="chapter2part2"></a>Chapter 2 - Part 2: Understanding Java Versions (LTS)
-
-The Standard Edition (SE) of Java, you can see in this link: https://www.oracle.com/java/technologies/javase-downloads.html
-
-It is absolutely crazy to think about keeping several applications or several hundred (thousand?) servers up to date with the newest Java release, especially when 5 have come out in as many years by the end of 2019. That is why the concept of an LTS was established. A Java LTS (long-term support) release is a version of Java that will remain the industry standard for several years. To give you an example of this, Java 8 was released in 2014, it will continue to receive updates until 2020, and extended support will end by 2025. This is a span of almost 10 years for a stable Java release to be considered an industry standard. This gives plenty of OS vendors like Microsoft and Red Hat the time to repackage their releases with Java 8, time for application developers to update their applications to take full advantage of Java 8 features, and time for system administrators to update their data centers with Java 8 before a new version is released. At this time, the only other Java version that is also an LTS version is Java 11, which was released in 2018.
-
-#### <a name="chapter2part3"></a>Chapter 2 - Part 3: JVM
+#### <a name="chapter1part2.2"></a>Chapter 1 - Part 2.2: The Java Virtual Machine (JVM)
 
 JVM is the Java Virtual Machine to execute Java Programs in your system.
 
@@ -395,29 +508,23 @@ The process to execute the bytecode is called JIT (Just in Time) Compilation. Is
 
 <br>
 
-#### <a name="chapter2part4"></a>Chapter 2 - Part 4: Compile-time Errors and Runtime Errors
+#### <a name="chapter1part2.3"></a>Chapter 1 - Part 2.3: The Java Runtime Environment (JRE)
 
-| Compile-time                                                                                                              | Runtime                                                                                                                              | 
-| :------------------------------------------------------------------------------------------------------------------------ | :-----------------------------------------------------------------------------------------------------------------------------------:|
-| The compile-time errors are the errors which are produced at the compile-time, and they are detected by the compiler.     | The runtime errors are the errors which are not generated by the compiler and produce an unpredictable result at the execution time. |
-| In this case, the compiler prevents the code from execution if it detects an error in the program.]                       | In this case, the compiler does not detect the error, so it cannot prevent the code from the execution.                              |
-| It contains the syntax and semantic errors such as missing semicolon at the end of the statement.                         | It contains the errors such as division by zero, determining the square root of a negative number.                                   |
+#### <a name="chapter1part2.4"></a>Chapter 1 - Part 2.4: The Java Development Kit (JDK)
 
-#### <a name="chapter2part5"></a>Chapter 2 - Part 5: Structure of a Java Application
+#### <a name="chapter1part2.5"></a>Chapter 1 - Part 2.5: Relationship Between JVM, JRE, and JDK
 
-Java is an object-oriented language and your base unit is the class.  Every Code in Java have to be in a class.
+#### <a name="chapter1part2.6"></a>Chapter 1 - Part 2.6: Choosing the Right Version
 
-The classes is organize in packages and the packages is organize in modules. A Java application is a set of modules with packages.
+#### <a name="chapter1part2.7"></a>Chapter 1 - Part 2.7: Exercises
 
-Bellow, there is a example of a Java application:
+#### <a name="chapter1part2.8"></a>Chapter 1 - Part 2.8: Summary
 
-<br>
+#### <a name="chapter1part2.9"></a>Chapter 1 - Part 2.9: Next Steps
 
-<div align="center"><img src="img/application-structure-in-java-w1449-h810.png" width=1000 height=500><br><sub>Fig 7 - Application Structure in Java Application </sub></div>
+#### <a name="chapter1part3"></a>Chapter 1 - Part 3: Installing the Java Development Kit (JDK)
 
-<br>
-
-#### <a name="chapter2part6"></a>Chapter 2 - Part 6: Components of Oracle's Java Platform Products
+#### <a name="chapter1part3.1"></a>Chapter 1 - Part 3.1: Understanding the JDK and its Components
 
 The Java JDK come with some of most used packages to help the developer like awt, beans, io, lang, math, net, nio, sql, util and each package have a class or a interface.
 
@@ -451,101 +558,78 @@ One of the most famous used packages is java.util.collections and java.util.map
 
 <br>
 
-#### <a name="chapter2part7"></a>Chapter 2 - Part 7: First Program in Java
 
-To create your first program in Java, create a class in the srs folder.
+#### <a name="chapter1part3.2"></a>Chapter 1 - Part 3.2: Downloading the JDK
 
-Every programm in Java is a class.
+#### <a name="chapter1part3.3"></a>Chapter 1 - Part 3.3: Installing the JDK
 
-Java programs have keywords. Each has a specific meaning and sometimes they need to be used in specific orders.
+#### <a name="chapter1part3.4"></a>Chapter 1 - Part 3.4: Setting Environment Variables
 
-This keywords are case sensitive - in the code below, public, Public and PUBLIC are different things.
+#### <a name="chapter1part3.5"></a>Chapter 1 - Part 3.5: Verifying the Installation
 
-```java
-package application;
+#### <a name="chapter1part3.6"></a>Chapter 1 - Part 3.6: Troubleshooting Common Installation Issues
 
-public class Program {
+#### <a name="chapter1part3.7"></a>Chapter 1 - Part 3.7: Practice Activities
 
-	public static void main(String[] args) {
-		
-		System.out.println("Hello World!"); 
+#### <a name="chapter1part3.8"></a>Chapter 1 - Part 3.8: Preparing for the Next Lesson
 
-	}
-}
+#### <a name="chapter1part4"></a>Chapter 1 - Part 4: Setting Up a Java Development Environment (IDE): IntelliJ IDEA or Eclipse
 
-/*
-Console
+#### <a name="chapter1part4.1"></a>Chapter 1 - Part 4.1: Understanding Integrated Development Environments (IDEs)
 
-----output---
-Hello World!
-*/
-```
+#### <a name="chapter1part4.2"></a>Chapter 1 - Part 4.2: IntelliJ IDEA
 
-In the example above, public,class,void,main,Strings[],args,System.out.println are keywords.
+#### <a name="chapter1part4.3"></a>Chapter 1 - Part 4.3: Eclipse
 
-**Defining a acess modifier**: the public is the acess modifier of the class. In this case, the class is public, or open to another class's.
+#### <a name="chapter1part4.4"></a>Chapter 1 - Part 4.4: Comparing IntelliJ IDEA and Eclipse
 
-**Defining a class**: The class keyword is used to define a class with the name following the keyword - Program - in this case. In the class, the left and right curly braces is to define the class block. To define a class requires a acess modifer, in this case, public.
+#### <a name="chapter1part5"></a>Chapter 1 - Part 5: Writing and Running Your First Java Program: "Hello, World!"
 
-**The main method**: Is the entry point for any Java program and is able to start and run the program when we use it.
+#### <a name="chapter1part5.1"></a>Chapter 1 - Part 5.1: Creating Your First Java Program: "Hello, World!"
 
-**The static**: More later
+#### <a name="chapter1part5.2"></a>Chapter 1 - Part 5.2: Understanding the Compilation Process
 
-**The void**: Indicate that the method will not return any information.
+#### <a name="chapter1part5.3"></a>Chapter 1 - Part 5.3: Common Errors and Troubleshooting
 
-**The left and right parenthesis ()**: Method declaration mandatory and can optionally include one or more parameters - wich is a way to pass a information to a method
+| Compile-time                                                                                                              | Runtime                                                                                                                              | 
+| :------------------------------------------------------------------------------------------------------------------------ | :-----------------------------------------------------------------------------------------------------------------------------------:|
+| The compile-time errors are the errors which are produced at the compile-time, and they are detected by the compiler.     | The runtime errors are the errors which are not generated by the compiler and produce an unpredictable result at the execution time. |
+| In this case, the compiler prevents the code from execution if it detects an error in the program.]                       | In this case, the compiler does not detect the error, so it cannot prevent the code from the execution.                              |
+| It contains the syntax and semantic errors such as missing semicolon at the end of the statement.                         | It contains the errors such as division by zero, determining the square root of a negative number.                                   |
 
-**String[] args**: String[] args means an array of sequence of characters (Strings) that are passed to the "main" function.
+#### <a name="chapter1part5.4"></a>Chapter 1 - Part 5.4: Practice Activities
 
-**System.out.println("Hello World!")**: Is a method to print in the console that recive a statement.
+#### <a name="chapter1part5.5"></a>Chapter 1 - Part 5.5: Next Steps and Future Learning Directions
 
-## <a name="chapter3"></a>Chapter 3: Sequential Structure
+#### <a name="chapter1part6"></a>Chapter 1 - Part 6: Understanding Basic Java Program Structure
 
-#### <a name="chapter3part1"></a>Chapter 3 - Part 1: Arithmetic Expressions
+Java is an object-oriented language and your base unit is the class.  Every Code in Java have to be in a class.
 
-Arithmetic Expressions is when you have a expression and the result of this expression result in a numeric value.
+The classes is organize in packages and the packages is organize in modules. A Java application is a set of modules with packages.
 
-Ex: 4 + 5 = 9
+Bellow, there is a example of a Java application:
 
-Below, there is the arithmetic expressions operators in Java
+<br>
 
-| Operator | Name             | Description                              |Example     |
-| :-------:| :---------------:|:---------------------------------------: |:---------: |
-| +        | Addition         | Adds together two values                 | x + y      |
-| -        | Subtraction      | Subtracts one value from another         | x - y      |
-| *        | Multiplication   | Multiplies two values                    | x * y      |
-| /        | Division         | Divides one value by another             | x / y      |
-| %        | Modulus          | Returns the division remainder           | x % y      |
-| ++       | Modulus          |	Increases the value of a variable by 1   | ++x        |
-| --       | Decrement        | Decreases the value of a variable by 1   | --x        |
+<div align="center"><img src="img/application-structure-in-java-w1449-h810.png" width=1000 height=500><br><sub>Fig 7 - Application Structure in Java Application </sub></div>
 
+<br>
 
-#### <a name="chapter3part2"></a>Chapter 3 - Part 2: Variables
+#### <a name="chapter1part6.1"></a>Chapter 1 - Part 6.1: Anatomy of a Java Program
 
-Variables are a way to store information in our computer. Variables that we define in a program can be accesed by a name we give them, and the computer does the hard work of figuring out where they get stored in the computers random access memory (RAM).
+#### <a name="chapter1part6.2"></a>Chapter 1 - Part 6.2: Putting It All Together: A Complete Java Program
 
-In programming, a variable is a portion of memory (RAM) used to store data during the execution of the programs.
+#### <a name="chapter1part6.3"></a>Chapter 1 - Part 6.3: Common Errors and How to Avoid Them
 
-Declaration of variables
+#### <a name="chapter1part6.4"></a>Chapter 1 - Part 6.4: Practice Activities
 
-(type) (name) = (initial value);
+#### <a name="chapter1part6.5"></a>Chapter 1 - Part 6.5: Preparing for the Next Lesson
 
-The initial value to declare a variable can be optional.
-	
-```java
+## <a name="chapter2"></a>Chapter 2: Java Fundamentals: Data Types, Variables, and Operators
 
-int idade = 25;
-double altura = 1.68;
-char sexo = 'F';
+#### <a name="chapter2part1"></a>Chapter 2 - Part 1: Understanding Primitive Data Types: int, double, boolean, char
 
-```
-A variable have:
-- Name
-- Type
-- Value
-- Memory RAM Adress
-
-#### <a name="chapter3part3"></a>Chapter 3 - Part 3: Data Types in Java
+#### <a name="chapter2part1.1"></a>Chapter 2 - Part 1.1: Data Types in Java
 
 In Java, we have the 8 primitive data types. Other types are Non-primitive like the diagram below:
 
@@ -648,185 +732,28 @@ Wrapper types(Reference Types) provided by java for corresponding Primitive Type
 
 **Class Name -> Pascal Case** Ex: MyClass
 
-#### <a name="chapter3part4"></a>Chapter 3 - Part 4: The Three Basic Operations of a Computer
 
-The Basic operations of a computer is Input of Data, Processing of Data and the output of the result or data.
+#### <a name="chapter2part1.2"></a>Chapter 2 - Part 1.2: Integer Data Type: int
 
-The processing is made by the CPU
+#### <a name="chapter2part1.3"></a>Chapter 2 - Part 1.3: Floating-Point Data Type: double
 
-<br>
+#### <a name="chapter2part1.4"></a>Chapter 2 - Part 1.4: Boolean Data Type: boolean
 
-<div align="center"><img src="img/basic-operations-computer-w562-h190.gif" width=562 height=190><br><sub>Fig 15 -Basic Operations of a Computer - (<a href='http://cs.sru.edu/~mullins/cpsc100book/module02_introduction/module02-04_introduction.html'>Work by Paul Mullins</a>) </sub></div>
+#### <a name="chapter2part1.5"></a>Chapter 2 - Part 1.5: Character Data Type: char
 
-<br>
+#### <a name="chapter2part1.6"></a>Chapter 2 - Part 1.6: Practice Activities
 
-#### <a name="chapter3part5"></a>Chapter 3 - Part 5: Data Output
+#### <a name="chapter2part1.7"></a>Chapter 2 - Part 1.7: Summary and Next Steps
 
-The basic comand to output data in java is:
+#### <a name="chapter2part2"></a>Chapter 2 - Part 2: Declaring and Initializing Variables
 
-```java
-System.out.print(""); // without linebreake
+#### <a name="chapter2part2.1"></a>Chapter 2 - Part 2.1: Understanding Variable Declaration
 
-System.out.println(); // witho linebreake
-```
+#### <a name="chapter2part2.2"></a>Chapter 2 - Part 2.2: Understanding Variable Initialization
 
-To output a float number:
+#### <a name="chapter2part2.3"></a>Chapter 2 - Part 2.3: Best Practices for Declaring and Initializing Variables
 
-```java
-double x  = 10.35784;
-
-System.out.println(x);
-
-System.out.printf("%.2f%n", x); // With two decimals and linebreak -> OBS: use of system locale
-
-System.out.printf("%.4f%n", x); // With four decimals and linebreak -> OBS: use of system locale
-```
-
-To consider the decimal separator as a point, BEFORE the Scanner declaration, import java.util.Locale; and use Locale.setDefault(Locale.US);:
-
-```java
-// import java.util.Locale;
-```
-
-```java
-Locale.setDefault(Locale.US);
-		
-double x  = 10.35784;
-
-System.out.println(x);
-```
-
-To concatenate multiple elements into one same write command
-
-%f = float number
-
-%d = int
-
-%s = text
-
-%n = linebreak
-
-```java
-double x  = 10.35784;
-
-System.out.println("RESULTADO = " + x + " METROS");
-
-System.out.printf("RESULTADO = %.2f metros%n", x);
-
-String nome = "Maria";
-int idade = 31;
-double renda = 4000.0;
-System.out.printf("%s tem %d anos e ganha R$ %.2f reais%n", nome, idade, renda);
-```
-
-```java
-System.out.print("Olá Mundo!");
-System.out.println("Bom Dia!");
-		
-int y = 32;
-		
-System.out.println(y);
-		
-double x = 10.35784;
-		
-System.out.println(x);
-		
-System.out.printf("%.2f%n", x);
-		
-System.out.printf("%.4f%n", x);
-		
-Locale.setDefault(Locale.US);
-		
-System.out.printf("%.2f%n", x);
-		
-System.out.printf("%.4f%n", x);
-		
-System.out.println("RESULTADO = " + x + " METROS");
-		
-System.out.printf("RESULTADO = %.2f metros%n", x);
-		
-String nome = "Maria";
-		
-int idade = 31;
-		
-double renda = 4000.0;
-		
-System.out.printf("%s tem %d anos e ganha R$ %.2f reais%n", nome, idade, renda);
-
-/*
-Console
-
-----output---
-Olá Mundo!Bom Dia!
-32
-10.35784
-10,36
-10,3578
-10.36
-10.3578
-RESULTADO = 10.35784 METROS
-RESULTADO = 10.36 metros
-Maria tem 31 anos e ganha R$ 4000.00 reais
-
-*/
-```
-
-#### <a name="chapter3part6"></a>Chapter 3 - Part 6: Data Processing
-
-Assignment command
-
-(variable) = (expression);
-
-Good Practice - Always indicate the type of the number, if the expression is floating point (not entire).
-
-For double use .0 or d
-
-For float use f
-
-Numbers (1, 2, 3...etc) are integers in Java.
-
-```java
-int x, y;
-		
-x = 5;
-y = 2 * x;
-		
-System.out.println(x);
-System.out.println(y);
-		
-int x2;
-		
-double y2;
-		
-x2 = 5;
-y2 = 2 * x2;
-		
-System.out.println(x2);
-System.out.println(y2);
-		
-double b, B, h, area;
-		
-b = 6.0;
-B = 8.0;
-h = 5.0;
-		
-area = (b + B) / 2.0 * h;
-System.out.println(area);
-
-/*
-Console
-
-----output---
-5
-10
-5
-10.0
-35.0
-
-*/
-```
-
-#### <a name="chapter3part7"></a>Chapter 3 - Part 7: Casting
+#### <a name="chapter2part2.4"></a>Chapter 2 - Part 2.4: Casting
 
 It is the explicit conversion from one type to another.
 
@@ -876,321 +803,657 @@ Console
 */
 ```
 
-#### <a name="chapter3part8"></a>Chapter 3 - Part 8: Data Input
+#### <a name="chapter2part2.5"></a>Chapter 2 - Part 2.5: Variable Scope (Java Scope)
 
-To do data entry, we are going to create an object of type "Scanner" as follows:
+#### <a name="chapter2part2.6"></a>Chapter 2 - Part 2.6: Examples and Demonstrations
 
-```java
-import java.util.Scanner;
-```
+#### <a name="chapter2part2.7"></a>Chapter 2 - Part 2.7: Exercises
 
-```java
-Scanner sc = new Scanner(System.in);
+#### <a name="chapter2part2.8"></a>Chapter 2 - Part 2.8: Summary
 
-sc.close();
-```
+#### <a name="chapter2part2.9"></a>Chapter 2 - Part 2.9: Next Steps
 
-To read a word (text without spaces)
+#### <a name="chapter2part3"></a>Chapter 2 - Part 3: Working with Strings
 
-```java
-Scanner sc = new Scanner(System.in);
+#### <a name="chapter2part3.1"></a>Chapter 2 - Part 3.1: Creating Strings
 
-String x;
-x = sc.next(); // Input: Maria
-System.out.println("Você digitou: "+ x); // Output: Você digitou: Maria
+#### <a name="chapter2part3.2"></a>Chapter 2 - Part 3.2: String Immutability
 
-sc.close();
-```
+#### <a name="chapter2part3.3"></a>Chapter 2 - Part 3.3: String Manipulation
 
-To read a word (text with spaces)
+#### <a name="chapter2part3.4"></a>Chapter 2 - Part 3.4: String Comparison
 
-```java
-Scanner sc = new Scanner(System.in);
+#### <a name="chapter2part3.5"></a>Chapter 2 - Part 3.5: String Methods
 
-String x;
-x = sc.nextLine(); // Input: Maria Joao
-System.out.println("Você digitou: "+ x); // Output: Você digitou: Maria Joao
+#### <a name="chapter2part3.6"></a>Chapter 2 - Part 3.6: Exercises
 
-sc.close();
-```
+#### <a name="chapter2part4"></a>Chapter 2 - Part 4: Arithmetic Operators: +, -, *, /, %
 
-To read a integer number
+#### <a name="chapter2part4.1"></a>Chapter 2 - Part 4.1: Basic Arithmetic Operators
 
-```java
-Scanner sc = new Scanner(System.in);
+#### <a name="chapter2part4.2"></a>Chapter 2 - Part 4.2: Operator Precedence
 
-int x;
-x = sc.nextInt(); // Input: 10
-System.out.println("Você digitou: "+ x); // Output: Você digitou: 10
+#### <a name="chapter2part4.3"></a>Chapter 2 - Part 4.3: Practical Examples and Demonstrations
 
-sc.close();
-```
+#### <a name="chapter2part4.4"></a>Chapter 2 - Part 4.4: Exercises
 
-To read a double number (text without spaces)
+#### <a name="chapter2part4.5"></a>Chapter 2 - Part 4.5: Summary
 
-```java
-Locale.setDefault(Locale.US); // -> Caution of the system Locale -> Use Locale.setDefault(Locale.US);
+#### <a name="chapter2part5"></a>Chapter 2 - Part 5: Assignment Operators: =, +=, -=, *=, /=
 
-Scanner sc = new Scanner(System.in);
+#### <a name="chapter2part5.1"></a>Chapter 2 - Part 5.1: Understanding the Basic Assignment Operator (=)
 
-double x;
-x = sc.nextDouble(); // 4.5
-System.out.println("Você digitou: "+ x); // Output: Você digitou: 4.5
+#### <a name="chapter2part5.2"></a>Chapter 2 - Part 5.2: Compound Assignment Operators (+=, -=, *=, /=)
 
-sc.close();
-```
-
-To read a char
-
-```java
-Scanner sc = new Scanner(System.in);
-
-char x;
-x = sc.next().charAt(0); // A -> if you put TRE he will pick just the first char
-System.out.println("Você digitou: "+ x); // Output: Você digitou: A
+#### <a name="chapter2part5.3"></a>Chapter 2 - Part 5.3: Practical Examples and Demonstrations
 
-sc.close();
-```
-
-To read multiple data on the same line
-
-```java
-Locale.setDefault(Locale.US); // -> Caution of the system Locale -> Use Locale.setDefault(Locale.US);
-
-Scanner sc = new Scanner(System.in);
-
-String x;
-int y;
-double z;
-x = sc.next(); // Maria 30 4.5
-y = sc.nextInt();
-z = sc.nextDouble();
-System.out.println("Você digitou: "+ x);
-System.out.println("Você digitou: "+ y); 
-System.out.println("Você digitou: "+ z); 
-
-sc.close();
-/*
-// Output: 
-// Você digitou: Maria 
-// Você digitou: 30
-// Você digitou: 4.5 
-*/
-```
-
-To read a text UNTIL THE LINE BREAK
-
-```java
-
-Scanner sc = new Scanner(System.in);
-String s1, s2, s3;
-s1 = sc.nextLine();
-s2 = sc.nextLine();
-s3 = sc.nextLine();
-System.out.println("DADOS DIGITADOS:");
-System.out.println(s1);
-System.out.println(s2);
-System.out.println(s3);
-sc.close();
-
-/*
-input:
-Bom Dia
-Boa Tarde
-Boa Noite
-
-output:
-DADOS DIGITADOS:
-Bom Dia
-Boa Tarde
-Boa Noite
-*/
-```
-
-ATTENTION: pending line break
-
-```java
-Scanner sc = new Scanner(System.in);
-
-int x;
-String s1, s2, s3;
-x = sc.nextInt();
-sc.nextLine(); // Buffer Clean
-s1 = sc.nextLine();
-s2 = sc.nextLine();
-s3 = sc.nextLine();
-System.out.println("DADOS DIGITADOS:");
-System.out.println(x);
-System.out.println(s1);
-System.out.println(s2);
-System.out.println(s3);
-
-/*
-Console
-Input
-30
-Bom Dia
-Boa Tarde
-Boa Noite
-
-----output---
-DADOS DIGITADOS:
-30
-Bom Dia
-Boa tarde
-Boa Noite
-*/
-```
-
-```java
-import java.util.Locale;
-import java.util.Scanner;
-
-public class Main {
-
-	public static void main(String[] args) {
-		
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-
-		String x;
-		x = sc.next();
-		
-		System.out.println("Você digitou: "+ x);
-		
-		int y;
-		y = sc.nextInt();
-		
-		System.out.println("Você digitou: "+ y);
-		
-		double z;
-		
-		z = sc.nextDouble();
-		
-		System.out.printf("Você digitou: %.2f%n", z);
-		
-		char a;
-		
-		a = sc.next().charAt(0);
-		
-		System.out.println("Você digitou: " + a);
-		
-		String x2;
-		int y2;
-		double z2;
-
-		x2 = sc.next(); // Separador de espaço padrão
-		y2 = sc.nextInt();
-		z2 = sc.nextDouble();
-		sc.nextLine(); // limpeza de buffer
-
-		System.out.println("Dados Digitados");
-		System.out.println(x2);
-		System.out.println(y2);
-		System.out.println(z2);
-		
-		String s1, s2, s3;
-
-		s1 = sc.nextLine(); 
-		s2 = sc.nextLine(); 
-		s3 = sc.nextLine();
-		System.out.println("DADOS DIGITADOS:");
-		System.out.println(s1);
-		System.out.println(s2);
-		System.out.println(s3);
-		
-		int x3;
-		String s4, s5, s6;
-
-		x3 = sc.nextInt();
-		sc.nextLine(); // limpeza de buffer
-		s4 = sc.nextLine(); 
-		s5 = sc.nextLine(); 
-		s6 = sc.nextLine();
-		System.out.println("DADOS DIGITADOS:"); 
-		System.out.println(x3); 
-		System.out.println(s4); 
-		System.out.println(s5);
-		System.out.println(s6);
-		
-		sc.close();
-	}
-
-}
-
-/*
-Console
-
-----output---
-
-*/
-```
-
-#### <a name="chapter3part9"></a>Chapter 3 - Part 9: Mathematic Functions
-
-Librarie: java.lang.Math
-
-| Example              | Meaning |
-| :------------------: | :----------------------------------------------:|
-| A = Math.sqrt(x);    | Variable A receives the square root of x        | 
-| A = Math.pow(x, y);  | Variable A receives the result of x raised to y |
-| A = Math.abs(x);     | Variable A receives the absolute value of x      
-
-
-
-
-```java
-
-public class Main {
-
-	public static void main(String[] args) {
-		
-		double x = 3.0;
-		double y = 4.0; 
-		double z = -5.0; 
-		double A, B, C;
-		
-		A = Math.sqrt(x); 
-		B = Math.sqrt(y);
-		C = Math.sqrt(25.0);
-		System.out.println("Raiz quadrada de " + x + " = " + A); 
-		System.out.println("Raiz quadrada de " + y + " = " + B); 
-		System.out.println("Raiz quadrada de 25 = " + C);
-
-		A = Math.pow(x, y);
-		B = Math.pow(x, 2.0);
-		C = Math.pow(5.0, 2.0);
-		System.out.println(x + " elevado a " + y + " = " + A); 
-		System.out.println(x + " elevado ao quadrado = " + B); 
-		System.out.println("5 elevado ao quadrado = " + C);
-
-		A = Math.abs(y); 
-		B = Math.abs(z);
-		System.out.println("Valor absoluto de " + y + " = " + A);
-		System.out.println("Valor absoluto de " + z + " = " + B);
-		
-		
-	}
-
-}
-
-/*
-
-Console
-
-----output---
-Raiz quadrada de 3.0 = 1.7320508075688772
-Raiz quadrada de 4.0 = 2.0
-Raiz quadrada de 25 = 5.0
-3.0 elevado a 4.0 = 81.0
-3.0 elevado ao quadrado = 9.0
-5 elevado ao quadrado = 25.0
-Valor absoluto de 4.0 = 4.0
-Valor absoluto de -5.0 = 5.0
-
-*/
-
-```
+#### <a name="chapter2part5.4"></a>Chapter 2 - Part 5.4: Exercises
+
+#### <a name="chapter2part5.5"></a>Chapter 2 - Part 5.5: Summary and Next Steps
+
+#### <a name="chapter2part6"></a>Chapter 2 - Part 6: Comparison Operators: ==, !=, >, <, >=, <=
+
+#### <a name="chapter2part6.1"></a>Chapter 2 - Part 6.1: Understanding Comparison Operators
+
+#### <a name="chapter2part6.2"></a>Chapter 2 - Part 6.2: Practical Examples and Demonstrations
+
+#### <a name="chapter2part6.3"></a>Chapter 2 - Part 6.3: Exercises
+
+#### <a name="chapter2part6.4"></a>Chapter 2 - Part 6.4: Summary and Next Steps
+
+#### <a name="chapter2part7"></a>Chapter 2 - Part 7: Logical Operators: &&, ||, !
+
+#### <a name="chapter2part7.1"></a>Chapter 2 - Part 7.1: Understanding Logical Operators
+
+#### <a name="chapter2part7.2"></a>Chapter 2 - Part 7.2: Combining Logical Operators
+
+#### <a name="chapter2part7.3"></a>Chapter 2 - Part 7.3: Practical Examples
+
+#### <a name="chapter2part7.4"></a>Chapter 2 - Part 7.4: Exercises
+
+#### <a name="chapter2part8"></a>Chapter 2 - Part 8: Operator Precedence
+
+#### <a name="chapter2part8.1"></a>Chapter 2 - Part 8.1: Understanding Operator Precedence in Java
+
+#### <a name="chapter2part8.2"></a>Chapter 2 - Part 8.2: Using Parentheses to Control Precedence
+
+#### <a name="chapter2part8.3"></a>Chapter 2 - Part 8.3: Practical Examples and Demonstrations
+
+#### <a name="chapter2part8.4"></a>Chapter 2 - Part 8.4: Exercises
+
+#### <a name="chapter2part8.5"></a>Chapter 2 - Part 8.5: Next Steps and Future Learning Directions
+
+## <a name="chapter3"></a>Chapter 3: Control Flow: Making Decisions and Repeating Actions
+
+#### <a name="chapter3part1"></a>Chapter 3 - Part 1: Introduction to Control Flow Statements
+
+#### <a name="chapter3part1.1"></a>Chapter 3 - Part 1.1: Understanding Control Flow
+
+#### <a name="chapter3part1.2"></a>Chapter 3 - Part 1.2: Decision-Making Statements: An Overview
+
+#### <a name="chapter3part1.3"></a>Chapter 3 - Part 1.3: Looping Statements: An Introduction
+
+#### <a name="chapter3part1.4"></a>Chapter 3 - Part 1.4: Using break and continue Statements
+
+#### <a name="chapter3part1.5"></a>Chapter 3 - Part 1.5: Practice Activities
+
+#### <a name="chapter3part1.6"></a>Chapter 3 - Part 1.6: Next Steps and Future Learning Directions
+
+#### <a name="chapter3part2"></a>Chapter 3 - Part 2: The `if` Statement: Conditional Execution
+
+#### <a name="chapter3part2.1"></a>Chapter 3 - Part 2.1: Understanding the if Statement
+
+#### <a name="chapter3part2.2"></a>Chapter 3 - Part 2.2: Practical Examples of the if Statement
+
+#### <a name="chapter3part2.3"></a>Chapter 3 - Part 2.3: Exercises
+
+#### <a name="chapter3part2.4"></a>Chapter 3 - Part 2.4: Preparing for Future Lessons
+
+#### <a name="chapter3part3"></a>Chapter 3 - Part 3: The `if-else` Statement: Choosing Between Two Options
+
+#### <a name="chapter3part3.1"></a>Chapter 3 - Part 3.1: Understanding the if-else Statement
+
+#### <a name="chapter3part3.2"></a>Chapter 3 - Part 3.2: Omitting Curly Braces
+
+#### <a name="chapter3part3.3"></a>Chapter 3 - Part 3.3: Nested if-else Statements
+
+#### <a name="chapter3part3.4"></a>Chapter 3 - Part 3.4: Common Errors and Pitfalls
+
+#### <a name="chapter3part3.5"></a>Chapter 3 - Part 3.5: Practice Activities
+
+#### <a name="chapter3part3.6"></a>Chapter 3 - Part 3.6: Preparing for Future Lessons
+
+#### <a name="chapter3part4"></a>Chapter 3 - Part 4: The `if-else if-else` Statement: Handling Multiple Conditions
+
+#### <a name="chapter3part4.1"></a>Chapter 3 - Part 4.1: Understanding the if-else if-else Statement
+
+#### <a name="chapter3part4.2"></a>Chapter 3 - Part 4.2: Practice Activities
+
+#### <a name="chapter3part4.3"></a>Chapter 3 - Part 4.3: Preparing for Future Lessons
+
+#### <a name="chapter3part5"></a>Chapter 3 - Part 5: The `switch` Statement: Selecting from Multiple Cases
+
+#### <a name="chapter3part5.1"></a>Chapter 3 - Part 5.1: Understanding the switch Statement
+
+#### <a name="chapter3part5.2"></a>Chapter 3 - Part 5.2: Practical Examples and Demonstrations
+
+#### <a name="chapter3part5.3"></a>Chapter 3 - Part 5.3: Exercises and Practice Activities
+
+#### <a name="chapter3part5.4"></a>Chapter 3 - Part 5.4: Summary and Next Steps
+
+#### <a name="chapter3part6"></a>Chapter 3 - Part 6: The `while` Loop: Repeating Code While a Condition is True
+
+#### <a name="chapter3part6.1"></a>Chapter 3 - Part 6.1: Understanding the while Loop
+
+#### <a name="chapter3part6.2"></a>Chapter 3 - Part 6.2: Using while Loops with User Input
+
+#### <a name="chapter3part6.3"></a>Chapter 3 - Part 6.3: Using while Loops with Boolean Flags
+
+#### <a name="chapter3part6.4"></a>Chapter 3 - Part 6.4: Nested while Loops
+
+#### <a name="chapter3part6.5"></a>Chapter 3 - Part 6.5: Practice Activities
+
+#### <a name="chapter3part7"></a>Chapter 3 - Part 7: The `do-while` Loop: Ensuring Code Executes at Least Once
+
+#### <a name="chapter3part7.1"></a>Chapter 3 - Part 7.1: Understanding the do-while Loop
+
+#### <a name="chapter3part7.2"></a>Chapter 3 - Part 7.2: Practical Examples of do-while Loops
+
+#### <a name="chapter3part7.3"></a>Chapter 3 - Part 7.3: Exercises
+
+#### <a name="chapter3part7.4"></a>Chapter 3 - Part 7.4: Preparing for Future Lessons
+
+#### <a name="chapter3part8"></a>Chapter 3 - Part 8: The `for` Loop: Repeating Code a Specific Number of Times
+
+#### <a name="chapter3part8.1"></a>Chapter 3 - Part 8.1: Understanding the for Loop Syntax
+
+#### <a name="chapter3part8.2"></a>Chapter 3 - Part 8.2: How the for Loop Works
+
+#### <a name="chapter3part8.3"></a>Chapter 3 - Part 8.3: Practical Examples of for Loops
+
+#### <a name="chapter3part8.4"></a>Chapter 3 - Part 8.4: Variations of the for Loop
+
+#### <a name="chapter3part8.5"></a>Chapter 3 - Part 8.5: Common Mistakes and How to Avoid Them
+
+#### <a name="chapter3part8.6"></a>Chapter 3 - Part 8.6: Exercises
+
+#### <a name="chapter3part9"></a>Chapter 3 - Part 9: Using `break` and `continue` Statements
+
+#### <a name="chapter3part9.1"></a>Chapter 3 - Part 9.1: Understanding the break Statement
+
+#### <a name="chapter3part9.2"></a>Chapter 3 - Part 9.2: Understanding the continue Statement
+
+#### <a name="chapter3part9.3"></a>Chapter 3 - Part 9.3: Practical Examples and Demonstrations
+
+#### <a name="chapter3part9.4"></a>Chapter 3 - Part 9.4: Exercises
+
+## <a name="chapter4"></a>Chapter 4: Working with Arrays and Strings
+
+#### <a name="chapter4part1"></a>Chapter 4 - Part 1: Introduction to Arrays: Storing Collections of Data
+
+#### <a name="chapter4part1.1"></a>Chapter 4 - Part 1.1: Declaring and Initializing Arrays
+
+#### <a name="chapter4part1.2"></a>Chapter 4 - Part 1.2: Accessing Array Elements
+
+#### <a name="chapter4part1.3"></a>Chapter 4 - Part 1.3: Looping Through Arrays
+
+#### <a name="chapter4part1.4"></a>Chapter 4 - Part 1.4: Exercises
+
+#### <a name="chapter4part2"></a>Chapter 4 - Part 2: Declaring and Initializing Arrays
+
+#### <a name="chapter4part2.1"></a>Chapter 4 - Part 2.1: Declaring Arrays
+
+#### <a name="chapter4part2.2"></a>Chapter 4 - Part 2.2: Initializing Arrays
+
+#### <a name="chapter4part2.3"></a>Chapter 4 - Part 2.3: Accessing Array Elements
+
+#### <a name="chapter4part2.4"></a>Chapter 4 - Part 2.4: Looping Through Arrays
+
+#### <a name="chapter4part2.5"></a>Chapter 4 - Part 2.5: Practice Activities
+
+#### <a name="chapter4part3"></a>Chapter 4 - Part 3: Accessing Array Elements
+
+#### <a name="chapter4part3.1"></a>Chapter 4 - Part 3.1: Accessing Array Elements Using Indices
+
+#### <a name="chapter4part3.2"></a>Chapter 4 - Part 3.2: ArrayIndexOutOfBoundsException
+
+#### <a name="chapter4part3.3"></a>Chapter 4 - Part 3.3: Practical Examples and Demonstrations
+
+#### <a name="chapter4part3.4"></a>Chapter 4 - Part 3.4: Exercises
+
+#### <a name="chapter4part3.5"></a>Chapter 4 - Part 3.5: Summary and Next Steps
+
+#### <a name="chapter4part4"></a>Chapter 4 - Part 4: Looping Through Arrays
+
+#### <a name="chapter4part4.1"></a>Chapter 4 - Part 4.1: Understanding the Need for Loops
+
+#### <a name="chapter4part4.2"></a>Chapter 4 - Part 4.2: Types of Loops in Java
+
+#### <a name="chapter4part4.3"></a>Chapter 4 - Part 4.3: The for Loop
+
+#### <a name="chapter4part4.4"></a>Chapter 4 - Part 4.4: The Enhanced for Loop (For-Each Loop)
+
+#### <a name="chapter4part4.5"></a>Chapter 4 - Part 4.5: The while Loop
+
+#### <a name="chapter4part4.6"></a>Chapter 4 - Part 4.6: The do-while Loop
+
+#### <a name="chapter4part4.7"></a>Chapter 4 - Part 4.7: Practice Activities
+
+#### <a name="chapter4part4.8"></a>Chapter 4 - Part 4.8: Summary
+
+#### <a name="chapter4part5"></a>Chapter 4 - Part 5: Multidimensional Arrays
+
+#### <a name="chapter4part5.1"></a>Chapter 4 - Part 5.1: Understanding Multidimensional Arrays
+
+#### <a name="chapter4part5.2"></a>Chapter 4 - Part 5.2: Practical Examples and Demonstrations
+
+#### <a name="chapter4part5.3"></a>Chapter 4 - Part 5.3: Exercises
+
+#### <a name="chapter4part6"></a>Chapter 4 - Part 6: Introduction to Strings: Working with Text
+
+#### <a name="chapter4part6.1"></a>Chapter 4 - Part 6.1: Creating Strings
+
+#### <a name="chapter4part6.2"></a>Chapter 4 - Part 6.2: String Manipulation
+
+#### <a name="chapter4part6.3"></a>Chapter 4 - Part 6.3: String Comparison: equals() vs. ==
+
+#### <a name="chapter4part6.4"></a>Chapter 4 - Part 6.4: String Methods: toUpperCase(), toLowerCase(), trim()
+
+#### <a name="chapter4part6.5"></a>Chapter 4 - Part 6.5: Exercises
+
+#### <a name="chapter4part6.6"></a>Chapter 4 - Part 6.6: Summary
+
+#### <a name="chapter4part7"></a>Chapter 4 - Part 7: String Manipulation: Concatenation, Substrings, Length
+
+#### <a name="chapter4part7.1"></a>Chapter 4 - Part 7.1: String Concatenation
+
+#### <a name="chapter4part7.2"></a>Chapter 4 - Part 7.2: Extracting Substrings
+
+#### <a name="chapter4part7.3"></a>Chapter 4 - Part 7.3: Determining String Length
+
+#### <a name="chapter4part7.4"></a>Chapter 4 - Part 7.4: Exercises
+
+#### <a name="chapter4part7.5"></a>Chapter 4 - Part 7.5: Summary
+
+#### <a name="chapter4part8"></a>Chapter 4 - Part 8: String Comparison: equals() vs. ==
+
+#### <a name="chapter4part8.1"></a>Chapter 4 - Part 8.1: Understanding String Immutability and the String Pool
+
+#### <a name="chapter4part8.2"></a>Chapter 4 - Part 8.2: The equals() Method: Comparing String Content
+
+#### <a name="chapter4part8.3"></a>Chapter 4 - Part 8.3: The == Operator: Comparing Object References
+
+#### <a name="chapter4part8.4"></a>Chapter 4 - Part 8.4: When to Use equals() vs. ==
+
+#### <a name="chapter4part8.5"></a>Chapter 4 - Part 8.5: Practice Activities
+
+#### <a name="chapter4part8.6"></a>Chapter 4 - Part 8.6: Preparing for Future Lessons
+
+#### <a name="chapter4part8.7"></a>Chapter 4 - Part 8.7: Summary
+
+#### <a name="chapter4part9"></a>Chapter 4 - Part 9: String Methods: toUpperCase(), toLowerCase(), trim()
+
+#### <a name="chapter4part9.1"></a>Chapter 4 - Part 9.1: Understanding toUpperCase() and toLowerCase()
+
+#### <a name="chapter4part9.2"></a>Chapter 4 - Part 9.2: Understanding trim()
+
+#### <a name="chapter4part9.3"></a>Chapter 4 - Part 9.3: Combining String Methods
+
+## <a name="chapter5"></a>Chapter 5: Object-Oriented Programming (OOP) Fundamentals
+
+#### <a name="chapter5part1"></a>Chapter 5 - Part 1: Introduction to Object-Oriented Programming (OOP)
+
+#### <a name="chapter5part1.1"></a>Chapter 5 - Part 1.1: Understanding Classes and Objects
+
+#### <a name="chapter5part1.2"></a>Chapter 5 - Part 1.2: Defining Classes: Attributes (Fields) and Behaviors (Methods)
+
+#### <a name="chapter5part1.3"></a>Chapter 5 - Part 1.3: Creating Objects: Instantiating Classes
+
+#### <a name="chapter5part1.4"></a>Chapter 5 - Part 1.4: Accessing Object Attributes and Calling Methods
+
+#### <a name="chapter5part1.5"></a>Chapter 5 - Part 1.5: Constructors: Initializing Objects
+
+#### <a name="chapter5part1.6"></a>Chapter 5 - Part 1.6: The this Keyword: Referring to the Current Object
+
+#### <a name="chapter5part1.7"></a>Chapter 5 - Part 1.7: Introduction to Encapsulation: Hiding Data
+
+#### <a name="chapter5part1.8"></a>Chapter 5 - Part 1.8: Exercises
+
+#### <a name="chapter5part1.9"></a>Chapter 5 - Part 1.9: Summary
+
+#### <a name="chapter5part1.10"></a>Chapter 5 - Part 1.10: Next Steps
+
+#### <a name="chapter5part2"></a>Chapter 5 - Part 2: Understanding Classes and Objects
+
+#### <a name="chapter5part2.1"></a>Chapter 5 - Part 2.1: Understanding Classes
+
+#### <a name="chapter5part2.2"></a>Chapter 5 - Part 2.2: Creating Objects: Instantiating Classes
+
+#### <a name="chapter5part2.3"></a>Chapter 5 - Part 2.3: Accessing Object Attributes and Calling Methods
+
+#### <a name="chapter5part2.4"></a>Chapter 5 - Part 2.4: Constructors: Initializing Objects
+
+#### <a name="chapter5part2.5"></a>Chapter 5 - Part 2.5: The this Keyword: Referring to the Current Object
+
+#### <a name="chapter5part2.6"></a>Chapter 5 - Part 2.6: Introduction to Encapsulation: Hiding Data
+
+#### <a name="chapter5part2.7"></a>Chapter 5 - Part 2.7: Exercises
+
+#### <a name="chapter5part3"></a>Chapter 5 - Part 3: Defining Classes: Attributes (Fields) and Behaviors (Methods)
+
+#### <a name="chapter5part3.1"></a>Chapter 5 - Part 3.1: Understanding Classes and Objects
+
+#### <a name="chapter5part3.2"></a>Chapter 5 - Part 3.2: Defining Classes: Attributes (Fields)
+
+#### <a name="chapter5part3.3"></a>Chapter 5 - Part 3.3: Defining Classes: Behaviors (Methods)
+
+#### <a name="chapter5part3.4"></a>Chapter 5 - Part 3.4: Practical Examples and Demonstrations
+
+#### <a name="chapter5part3.5"></a>Chapter 5 - Part 3.5: Exercises
+
+#### <a name="chapter5part3.6"></a>Chapter 5 - Part 3.6: Summary and Next Steps
+
+#### <a name="chapter5part4"></a>Chapter 5 - Part 4: Creating Objects: Instantiating Classes
+
+#### <a name="chapter5part4.1"></a>Chapter 5 - Part 4.1: Understanding Object Instantiation
+
+#### <a name="chapter5part4.2"></a>Chapter 5 - Part 4.2: Practical Examples and Demonstrations
+
+#### <a name="chapter5part4.3"></a>Chapter 5 - Part 4.3: Exercises
+
+#### <a name="chapter5part4.4"></a>Chapter 5 - Part 4.4: Summary and Next Steps
+
+#### <a name="chapter5part5"></a>Chapter 5 - Part 5: Accessing Object Attributes and Calling Methods
+
+#### <a name="chapter5part5.1"></a>Chapter 5 - Part 5.1: Accessing Object Attributes
+
+#### <a name="chapter5part5.2"></a>Chapter 5 - Part 5.2: Calling Methods
+
+#### <a name="chapter5part5.3"></a>Chapter 5 - Part 5.3: Practice Activities
+
+#### <a name="chapter5part5.4"></a>Chapter 5 - Part 5.4: Summary and Next Steps
+
+#### <a name="chapter5part6"></a>Chapter 5 - Part 6: Constructors: Initializing Objects
+
+#### <a name="chapter5part6.1"></a>Chapter 5 - Part 6.1: Understanding Constructors
+
+#### <a name="chapter5part6.2"></a>Chapter 5 - Part 6.2: Default Constructor (No-Argument Constructor)
+
+#### <a name="chapter5part6.3"></a>Chapter 5 - Part 6.3: Parameterized Constructor
+
+#### <a name="chapter5part6.4"></a>Chapter 5 - Part 6.4: The this Keyword
+
+#### <a name="chapter5part6.5"></a>Chapter 5 - Part 6.5: Practical Examples and Demonstrations
+
+#### <a name="chapter5part6.6"></a>Chapter 5 - Part 6.6: Exercises
+
+#### <a name="chapter5part6.7"></a>Chapter 5 - Part 6.7: Summary
+
+#### <a name="chapter5part6.8"></a>Chapter 5 - Part 6.8: Next Steps and Future Learning Directions
+
+#### <a name="chapter5part7"></a>Chapter 5 - Part 7: The `this` Keyword: Referring to the Current Object
+
+#### <a name="chapter5part7.1"></a>Chapter 5 - Part 7.1: Understanding the this Keyword
+
+#### <a name="chapter5part7.2"></a>Chapter 5 - Part 7.2: Practical Examples and Demonstrations
+
+#### <a name="chapter5part7.3"></a>Chapter 5 - Part 7.3: Exercises
+
+#### <a name="chapter5part7.4"></a>Chapter 5 - Part 7.4: Summary and Next Steps
+
+#### <a name="chapter5part8"></a>Chapter 5 - Part 8: Introduction to Encapsulation: Hiding Data
+
+#### <a name="chapter5part8.1"></a>Chapter 5 - Part 8.1: Understanding Encapsulation
+
+#### <a name="chapter5part8.2"></a>Chapter 5 - Part 8.2: Implementing Encapsulation in Java
+
+#### <a name="chapter5part8.3"></a>Chapter 5 - Part 8.3: Advanced Encapsulation Techniques
+
+#### <a name="chapter5part8.4"></a>Chapter 5 - Part 8.4: Practice Activities
+
+#### <a name="chapter5part8.5"></a>Chapter 5 - Part 8.5: Summary
+
+#### <a name="chapter5part8.6"></a>Chapter 5 - Part 8.6: Next Steps and Future Learning Directions
+
+## <a name="chapter6"></a>Chapter 6: Methods and Classes in Depth
+
+#### <a name="chapter6part1"></a>Chapter 6 - Part 1: Method Overloading: Creating Methods with the Same Name
+
+#### <a name="chapter6part1.1"></a>Chapter 6 - Part 1.1: Understanding Method Overloading
+
+#### <a name="chapter6part1.2"></a>Chapter 6 - Part 1.2: Practical Examples and Demonstrations
+
+#### <a name="chapter6part1.3"></a>Chapter 6 - Part 1.3: Exercises and Practice Activities
+
+#### <a name="chapter6part1.4"></a>Chapter 6 - Part 1.4: Summary and Next Steps
+
+#### <a name="chapter6part2"></a>Chapter 6 - Part 2: Method Parameters and Return Types
+
+#### <a name="chapter6part2.1"></a>Chapter 6 - Part 2.1: Understanding Method Parameters
+
+#### <a name="chapter6part2.2"></a>Chapter 6 - Part 2.2: Understanding Return Types
+
+#### <a name="chapter6part2.3"></a>Chapter 6 - Part 2.3: Practical Examples and Demonstrations
+
+#### <a name="chapter6part2.4"></a>Chapter 6 - Part 2.4: Exercises
+
+#### <a name="chapter6part2.5"></a>Chapter 6 - Part 2.5: Summary and Next Steps
+
+#### <a name="chapter6part3"></a>Chapter 6 - Part 3: Static Variables and Methods: Class-Level Members
+
+#### <a name="chapter6part3.1"></a>Chapter 6 - Part 3.1: Understanding Static Variables
+
+#### <a name="chapter6part3.2"></a>Chapter 6 - Part 3.2: Understanding Static Methods
+
+#### <a name="chapter6part3.3"></a>Chapter 6 - Part 3.3: Static Blocks
+
+#### <a name="chapter6part3.4"></a>Chapter 6 - Part 3.4: Real-World Applications
+
+#### <a name="chapter6part3.5"></a>Chapter 6 - Part 3.5: Summary
+
+#### <a name="chapter6part3.6"></a>Chapter 6 - Part 3.6: Next Steps
+
+#### <a name="chapter6part4"></a>Chapter 6 - Part 4: Understanding Access Modifiers: public, private, protected, default
+
+#### <a name="chapter6part4.1"></a>Chapter 6 - Part 4.1: Understanding Access Modifiers
+
+#### <a name="chapter6part4.2"></a>Chapter 6 - Part 4.2: Access Levels: A Summary
+
+#### <a name="chapter6part4.3"></a>Chapter 6 - Part 4.3: Practical Examples and Demonstrations
+
+#### <a name="chapter6part4.4"></a>Chapter 6 - Part 4.4: Exercises
+
+#### <a name="chapter6part4.5"></a>Chapter 6 - Part 4.5: Summary and Next Steps
+
+#### <a name="chapter6part5"></a>Chapter 6 - Part 5: Introduction to Inheritance: Creating Hierarchies of Classes
+
+#### <a name="chapter6part5.1"></a>Chapter 6 - Part 5.1: Understanding Inheritance
+
+#### <a name="chapter6part5.2"></a>Chapter 6 - Part 5.2: The extends Keyword
+
+#### <a name="chapter6part5.3"></a>Chapter 6 - Part 5.3: Method Overriding
+
+#### <a name="chapter6part5.4"></a>Chapter 6 - Part 5.4: The super Keyword
+
+#### <a name="chapter6part5.5"></a>Chapter 6 - Part 5.5: Practice Activities
+
+#### <a name="chapter6part5.6"></a>Chapter 6 - Part 5.6: Summary and Next Steps
+
+#### <a name="chapter6part6"></a>Chapter 6 - Part 6: The `extends` Keyword: Inheriting from a Parent Class
+
+#### <a name="chapter6part6.1"></a>Chapter 6 - Part 6.1: Understanding the extends Keyword
+
+#### <a name="chapter6part6.2"></a>Chapter 6 - Part 6.2: Practical Examples and Demonstrations
+
+#### <a name="chapter6part6.3"></a>Chapter 6 - Part 6.3: Exercises
+
+#### <a name="chapter6part6.4"></a>Chapter 6 - Part 6.4: Summary and Next Steps
+
+#### <a name="chapter6part7"></a>Chapter 6 - Part 7: Method Overriding: Changing Inherited Behavior
+
+#### <a name="chapter6part7.1"></a>Chapter 6 - Part 7.1: Understanding Method Overriding
+
+#### <a name="chapter6part7.2"></a>Chapter 6 - Part 7.2: The super Keyword and Method Overriding
+
+#### <a name="chapter6part7.3"></a>Chapter 6 - Part 7.3: Method Overriding vs. Method Overloading
+
+#### <a name="chapter6part7.4"></a>Chapter 6 - Part 7.4: Practical Examples and Demonstrations
+
+#### <a name="chapter6part7.5"></a>Chapter 6 - Part 7.5: Exercises
+
+#### <a name="chapter6part7.6"></a>Chapter 6 - Part 7.6: Summary
+
+#### <a name="chapter6part7.7"></a>Chapter 6 - Part 7.7: Next Steps and Future Learning Directions
+
+#### <a name="chapter6part8"></a>Chapter 6 - Part 8: The `super` Keyword: Accessing Parent Class Members
+
+#### <a name="chapter6part8.1"></a>Chapter 6 - Part 8.1: Understanding the super Keyword
+
+#### <a name="chapter6part8.2"></a>Chapter 6 - Part 8.2: Exercises
+
+#### <a name="chapter6part8.3"></a>Chapter 6 - Part 8.3: Summary
+
+## <a name="chapter7"></a>Chapter 7: Exception Handling and Basic Input/Output
+
+#### <a name="chapter7part1"></a>Chapter 7 - Part 1: Introduction to Exception Handling: Dealing with Errors
+
+#### <a name="chapter7part1.1"></a>Chapter 7 - Part 1.1: Understanding Exceptions
+
+#### <a name="chapter7part1.2"></a>Chapter 7 - Part 1.2: The try-catch Block: Handling Exceptions
+
+#### <a name="chapter7part1.3"></a>Chapter 7 - Part 1.3: Common Exception Types
+
+#### <a name="chapter7part1.4"></a>Chapter 7 - Part 1.4: Best Practices for Exception Handling
+
+#### <a name="chapter7part1.5"></a>Chapter 7 - Part 1.5: Exercises
+
+#### <a name="chapter7part1.6"></a>Chapter 7 - Part 1.6: Summary
+
+#### <a name="chapter7part1.7"></a>Chapter 7 - Part 1.7: Next Steps
+
+#### <a name="chapter7part2"></a>Chapter 7 - Part 2: The `try-catch` Block: Handling Exceptions
+
+#### <a name="chapter7part2.1"></a>Chapter 7 - Part 2.1: Understanding Exceptions
+
+#### <a name="chapter7part2.2"></a>Chapter 7 - Part 2.2: The try-catch Block: A Detailed Explanation
+
+#### <a name="chapter7part2.3"></a>Chapter 7 - Part 2.3: Best Practices for Using try-catch Blocks
+
+#### <a name="chapter7part2.4"></a>Chapter 7 - Part 2.4: Exercises
+
+#### <a name="chapter7part3"></a>Chapter 7 - Part 3: The `finally` Block: Ensuring Code Executes
+
+#### <a name="chapter7part3.1"></a>Chapter 7 - Part 3.1: Understanding the finally Block
+
+#### <a name="chapter7part3.2"></a>Chapter 7 - Part 3.2: Practical Examples of Using finally
+
+#### <a name="chapter7part3.3"></a>Chapter 7 - Part 3.3: Best Practices and Considerations
+
+#### <a name="chapter7part3.4"></a>Chapter 7 - Part 3.4: Exercises
+
+#### <a name="chapter7part4"></a>Chapter 7 - Part 4: Common Exception Types: NullPointerException, ArrayIndexOutOfBoundsException
+
+#### <a name="chapter7part4.1"></a>Chapter 7 - Part 4.1: Understanding Exceptions
+
+#### <a name="chapter7part4.2"></a>Chapter 7 - Part 4.2: The NullPointerException
+
+#### <a name="chapter7part4.3"></a>Chapter 7 - Part 4.3: The ArrayIndexOutOfBoundsException
+
+#### <a name="chapter7part4.4"></a>Chapter 7 - Part 4.4: Exercises
+
+#### <a name="chapter7part4.5"></a>Chapter 7 - Part 4.5: Summary
+
+#### <a name="chapter7part5"></a>Chapter 7 - Part 5: Custom Exceptions
+
+#### <a name="chapter7part5.1"></a>Chapter 7 - Part 5.1: What is Custom Exception
+
+#### <a name="chapter7part5.2"></a>Chapter 7 - Part 5.2: Creating Custom Exceptions
+
+#### <a name="chapter7part6"></a>Chapter 7 - Part 6: Reading Input from the Console: Using the `Scanner` Class
+
+#### <a name="chapter7part6.1"></a>Chapter 7 - Part 6.1: Introduction to the Scanner Class
+
+#### <a name="chapter7part6.2"></a>Chapter 7 - Part 6.2: Reading Different Data Types
+
+#### <a name="chapter7part6.3"></a>Chapter 7 - Part 6.3: Handling Input Mismatch Exceptions
+
+#### <a name="chapter7part6.4"></a>Chapter 7 - Part 6.4: Practical Examples and Demonstrations
+
+#### <a name="chapter7part6.5"></a>Chapter 7 - Part 6.5: Exercises
+
+#### <a name="chapter7part7"></a>Chapter 7 - Part 7: Writing Output to the Console: Using `System.out.println()`
+
+#### <a name="chapter7part7.1"></a>Chapter 7 - Part 7.1: Understanding System.out.println()
+
+#### <a name="chapter7part7.2"></a>Chapter 7 - Part 7.2: Practical Examples and Demonstrations
+
+#### <a name="chapter7part7.3"></a>Chapter 7 - Part 7.3: Exercises
+
+#### <a name="chapter7part7.4"></a>Chapter 7 - Part 7.4: Summary
+
+#### <a name="chapter7part7.5"></a>Chapter 7 - Part 7.5: Next Steps
+
+#### <a name="chapter7part8"></a>Chapter 7 - Part 8: Introduction to File Input/Output: Reading and Writing Text Files
+
+#### <a name="chapter7part8.1"></a>Chapter 7 - Part 8.1: Understanding File Input/Output (I/O)
+
+#### <a name="chapter7part8.2"></a>Chapter 7 - Part 8.2: Reading Text Files
+
+#### <a name="chapter7part8.3"></a>Chapter 7 - Part 8.3: Writing Text Files
+
+#### <a name="chapter7part8.4"></a>Chapter 7 - Part 8.4: Practice Activities
+
+#### <a name="chapter7part8.5"></a>Chapter 7 - Part 8.5: Summary
+
+## <a name="chapter8"></a>Chapter 8: Java Date and Time
+
+#### <a name="chapter8part1"></a>Chapter 8 - Part 1: Java Date and Time
+
+## <a name="chapter9"></a>Chapter 9: Java Enums
+
+#### <a name="chapter9part1"></a>Chapter 9 - Part 1: Java Enums
+
+## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
+
+#### <a name="chapter8part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
+
+#### <a name="chapter8part2"></a>Chapter 10 - Part 2: Garbage Collector
+
+#### <a name="chapter8part3"></a>Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes
+
+#### <a name="chapter8part4"></a>Chapter 10 - Part 4:  hashCode and equals
+
+## <a name="chapter14"></a>Chapter 11: Java Interfaces
+
+#### <a name="chapter11part1"></a>Chapter 11 - Part 1: Java Interfaces
+
+#### <a name="chapter11part2"></a>Chapter 11 - Part 2: Dependency Injection and Inversion of Control
+
+#### <a name="chapter11part3"></a>Chapter 11 - Part 3: Inheritance vs Interfaces
+
+#### <a name="chapter11part4"></a>Chapter 11 - Part 4: Multiple Inheritance and Interfaces
+
+#### <a name="chapter11part5"></a>Chapter 11 - Part 5: Comparable Interface
+
+#### <a name="chapter11part6"></a>Chapter 11 - Part 6: Default methods
+
+## <a name="chapter12"></a>Chapter 12: Collections
+
+#### <a name="chapter12part1"></a>Chapter 12 - Part 1: ArrayList
+
+#### <a name="chapter12part2"></a>Chapter 12 - Part 2: HashMap
+
+#### <a name="chapter12part3"></a>Chapter 12 - Part 3: HashSet
+
+## <a name="chapter13"></a>Chapter 13: Java Lambda Expression
+
+#### <a name="chapter13part1"></a>Chapter 13 - Part 1: Java Lambda Expression
+
+
+
+
+
+
 
 ## <a name="chapter4"></a>Chapter 4: Conditional Structure
 
@@ -2708,128 +2971,6 @@ public class Program {
 }
   
    ```
-
-## <a name="chapter8"></a>Chapter 8: The Four Pillars of Object-Oriented Programming
-
-<br>
-
-<div align="center"><img src="img/opp_four_pillars-w938-h521.png" width=938 height=521><br><sub>Fig 26 - The Four Pillars of Object-Oriented Programming - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  Lemi Orhan Ergin</a>) </sub></div>
-
-<br>
-
-#### <a name="chapter8part1"></a>Chapter 8 - Part 1: Abstraction
-
-How it represents a real object in our system. It must have identity (Class) given by properties (attributes) and methods (functions).
-
- - **Class**: Structured type that can contain members - Representation of an entity (Product, Customer), service (ProductService, CustomerService), drivers (ProductController), utilities (calculator) and others (views, repositories).
-
-- **Attributes** (Data or Fields - Ex: Customer has attribute name, email, cpf and etc.)
-
-- **Methods** (Class functions and operations - Ex: Consult email, consult cpf, change cpf)
-
-A class can also have:
-
-- **Constructors** (Special class operation, performed at instantiation of the class. Used to start attribute values or to force the object to receive data or dependency on its instantiation (Dependency injection))
-
-- **Overload of constructors or methods** (Esoecify more than one constructor or method in the class)
-
-- **Encapsulation** (Getters and Setters)
-
-- **Inheritance** (from whom this class inherits)
-
-- **Polymorphism** (A class has several forms or functions)
-
-- **Object**: They are the instance of the class or instance of the type - Ex: Product p1, Client customer1
-
-- **Class**: It is the definition of the type (Customer Class, Product Class)
-
-- **Instantiation**: When we instantiate primitive variables (double, int, String ...) it is instantiated in the memory stack. When the command New in Objects, Arrays and Lists is communicated, the dynamic location of memory occurs, where the object is allocated in another area of memory, called Heap and the object will point to the memory address.
-
-Advantages of object orientation:
-
-- Reuse of the code and delegation of responsibilities
-
-#### <a name="chapter8part2"></a>Chapter 8 - Part 2: Encapsulation
-
-Adds security to an object-oriented application, as it hides class properties.
-
-- An object must not expose any attributes (use of access modifiers - private, protected ...)
-
-- Class attributes are usually accessed by special methods (Getters and Setters), avoiding direct access to the object's property.
-
-- Analogy with a television: When you click on the call button, we do not know what happens internally on the TV. We can say that the methods that connect the TV are encapsulated.
-
-#### <a name="chapter8part3"></a>Chapter 8 - Part 3: Inheritance
-
-Type of association between classes that allows a class to inherit all data and behavior from another
-
-- Can be used for code reuse
-
-- Used for polymorphism - A class has several uses
-
-The whole class java me, inherits from Object (Warper Classes)
-
-#### <a name="chapter8part4"></a>Chapter 8 - Part 4: Polymorphism
-
-A feature that allows variables of the same more generic type to be able to point to objects of different specific types, thus having different behaviors according to each specific type. In some cases, we must perform the upcasting or dowcasting of the object.
-
-## <a name="chapter9"></a>Chapter 9: Object-Oriented Programming in Java
-
-#### <a name="chapter9part1"></a>Chapter 9 - Part 1: Solving a Problem without Object Orientation
-
-Write a program to read the measurements of the sides of two triangles X and Y (assume measurements valid). Then show the value of the areas of the two triangles and say which of the two triangles has the largest area.
-
-The formula for calculating the area of a triangle from the measures of its sides a, b and c is following (Heron's formula):
-
-<br>
-
-<div align="center"><img src="img/problemopp-w1082-h372.png" width=1082 height=372><br><sub>Fig 27 - Problem - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-```java
-
-import java.util.Locale;
-import java.util.Scanner;
-
-public class Program {
-	
-	public static void main(String[] args) {
-		
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-		
-		double xA, xB, xC, yA, yB, yC;
-		
-		System.out.println("Enter the measures of triangle X: ");
-		xA = sc.nextDouble();
-		xB = sc.nextDouble();
-		xC = sc.nextDouble();
-		System.out.println("Enter the measures of triangle Y: ");
-		yA = sc.nextDouble();
-		yB = sc.nextDouble();
-		yC = sc.nextDouble();
-		
-		double p = (xA + xB + xC) / 2.0;
-		double areaX = Math.sqrt(p * (p - xA) * (p - xB) * (p - xC));
-		
-		p = (yA + yB + yC) / 2.0;
-		double areaY = Math.sqrt(p * (p - yA) * (p - yB) * (p - yC));
-		
-		System.out.printf("Triangle X area: %.4f%n", areaX);
-		System.out.printf("Triangle Y area: %.4f%n", areaY);
-		
-		if (areaX > areaY) {
-			System.out.println("Larger area: X");
-		} else {
-			System.out.println("Larger area: Y");
-		}
-		
-		sc.close();
-	}
-}
-
-```
 
 #### <a name="chapter9part2"></a>Chapter 9 - Part 2: Classes, Objects and Attributes in Java
 
