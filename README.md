@@ -2,7 +2,7 @@
 
 # Content
 
-1. [Chapter 1: Exception Handling and Basic Input/Output](#chapter1)
+1. [Chapter 1: Introduction to Java and Setting Up Your Environment](#chapter1)
   - [Chapter 1 - Part 1: What is Java and Why Learn It?](#chapter1part1)
     - [Chapter 1 - Part 1.1: What is Java?](#chapter1part1.1)
     - [Chapter 1 - Part 1.2: Why Learn Java?](#chapter1part1.2)
@@ -383,7 +383,7 @@
 13. [Chapter 13: Java Lambda Expression](#chapter13)
   - [Chapter 13 - Part 1: Java Lambda Expression](#chapter13part1)
 
-## <a name="chapter1"></a>Chapter 1: Exception Handling and Basic Input/Output
+## <a name="chapter1"></a>Chapter 1: Introduction to Java and Setting Up Your Environment
 
 #### <a name="chapter1part1"></a>Chapter 1 - Part 1: What is Java and Why Learn It?
 
