@@ -2657,7 +2657,78 @@ public class LoopAccumulator {
 
 #### <a name="chapter2part6"></a>Chapter 2 - Part 6: Comparison Operators: ==, !=, >, <, >=, <=
 
+Comparison operators are fundamental building blocks in Java, allowing you to create logic that makes decisions based on the relationship between values. They are essential for controlling the flow of your program and performing different actions based on specific conditions. Understanding how to use comparison operators correctly is crucial for writing effective and bug-free Java code. This lesson will provide a comprehensive overview of each comparison operator, along with practical examples and exercises to solidify your understanding.
+
 #### <a name="chapter2part6.1"></a>Chapter 2 - Part 6.1: Understanding Comparison Operators
+
+Comparison operators are used to compare two values. The result of a comparison operation is always a boolean value: true or false. Java provides six comparison operators:
+
+- ```==``` (equal to)
+- ```!=``` (not equal to)
+- ```>``` (greater than)
+- ```<``` (less than)
+- ```>=``` (greater than or equal to)
+- ```<=``` (less than or equal to)
+
+These operators can be used to compare primitive data types (like int, double, char, boolean) and, with some caveats, objects (specifically using == and !=).
+
+**The == (Equal To) Operator**
+
+The == operator checks if two values are equal. If they are, it returns true; otherwise, it returns false.
+
+**Example with Integers**:
+
+```java
+int x = 5;
+int y = 5;
+int z = 10;
+
+System.out.println(x == y); // Output: true
+System.out.println(x == z); // Output: false
+```
+
+**Example with Doubles:**
+
+```java
+double a = 3.14;
+double b = 3.14;
+double c = 2.71;
+
+System.out.println(a == b); // Output: true
+System.out.println(a == c); // Output: false
+```
+
+**Example with Characters:**
+
+```java
+char p = 'A';
+char q = 'A';
+char r = 'B';
+
+System.out.println(p == q); // Output: true
+System.out.println(p == r); // Output: false
+```
+
+**Important Note Regarding Objects**:
+
+When using == with objects (like Strings, or custom objects you'll learn to create later), it checks if the two variables refer to the same object in memory, not whether the objects have the same value. This is a crucial distinction.
+
+```java
+String str1 = new String("Hello");
+String str2 = new String("Hello");
+String str3 = str1;
+
+System.out.println(str1 == str2); // Output: false (different objects)
+System.out.println(str1 == str3); // Output: true (same object)
+```
+
+To compare the content of objects (like Strings), you should use the .equals() method, which will be covered in a later module.
+
+**The != (Not Equal To) Operator**
+
+The != operator checks if two values are not equal. It returns true if they are different, and false if they are the same.
+
+**Example with Integers**:
 
 #### <a name="chapter2part6.2"></a>Chapter 2 - Part 6.2: Practical Examples and Demonstrations
 
