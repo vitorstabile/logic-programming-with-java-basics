@@ -1364,6 +1364,8 @@ public class MyClass {
 
 #### <a name="chapter2part1"></a>Chapter 2 - Part 1: Understanding Primitive Data Types: int, double, boolean, char
 
+Primitive data types are the fundamental building blocks for representing data in Java. Understanding them is crucial because they dictate the kind of values a variable can hold and the operations that can be performed on it. This lesson will provide a comprehensive overview of four essential primitive data types: int, double, boolean, and char. We'll explore their characteristics, how to declare and use them, and their significance in Java programming.
+
 #### <a name="chapter2part1.1"></a>Chapter 2 - Part 1.1: Data Types in Java
 
 In Java, we have the 8 primitive data types. Other types are Non-primitive like the diagram below:
@@ -1470,15 +1472,218 @@ Wrapper types(Reference Types) provided by java for corresponding Primitive Type
 
 #### <a name="chapter2part1.2"></a>Chapter 2 - Part 1.2: Integer Data Type: int
 
+The int data type is used to store whole numbers (integers) without any fractional part. It's one of the most commonly used data types in Java.
+
+**Characteristics of int**
+
+- **Size**: int occupies 4 bytes (32 bits) of memory.
+- **Range**: The range of values that an int can hold is from -2,147,483,648 (-231) to 2,147,483,647 (231 - 1).
+- **Usage**: Suitable for representing counts, indices, quantities, and other whole number values.
+
+**Declaring and Initializing int Variables**
+
+To declare an int variable, you use the int keyword followed by the variable name. To initialize it, you assign a value to it using the assignment operator =.
+
+```java
+int age; // Declaration
+age = 30; // Initialization
+
+int count = 100; // Declaration and initialization in one line
+```
+
+**Examples of int Usage**
+
+```java
+int numberOfStudents = 25;
+int temperature = 72;
+int score = 1000;
+int negativeNumber = -5;
+```
+
+**int Operations**
+
+You can perform various arithmetic operations on int variables, such as addition, subtraction, multiplication, and division.
+
+```java
+int x = 10;
+int y = 5;
+
+int sum = x + y; // sum is 15
+int difference = x - y; // difference is 5
+int product = x * y; // product is 50
+int quotient = x / y; // quotient is 2
+int remainder = x % y; // remainder is 0
+```
+
+**When to Use int**
+
+Use int when you need to represent whole numbers within the specified range and when you don't need to store fractional parts. For example, representing the number of items in a shopping cart, the age of a person, or the score in a game.
+
 #### <a name="chapter2part1.3"></a>Chapter 2 - Part 1.3: Floating-Point Data Type: double
+
+The double data type is used to store floating-point numbers, which are numbers with a fractional part (decimal numbers).
+
+**Characteristics of double**
+
+**Size**: double occupies 8 bytes (64 bits) of memory.
+**Range**: double can represent a wide range of values, both positive and negative, including very large and very small numbers. It uses the IEEE 754 standard for representing floating-point numbers.
+**Precision**: double provides approximately 15-17 decimal digits of precision.
+**Usage**: Suitable for representing measurements, scientific calculations, financial values, and other values that require fractional precision.
+
+**Declaring and Initializing double Variables**
+
+To declare a double variable, you use the double keyword followed by the variable name. To initialize it, you assign a floating-point value to it.
+
+```java
+double price; // Declaration
+price = 19.99; // Initialization
+
+double temperature = 98.6; // Declaration and initialization in one line
+```
+
+**Examples of double Usage**
+
+```java
+double pi = 3.14159;
+double gravity = 9.81;
+double bankBalance = 1234.56;
+double percentage = 0.75;
+```
+
+**double Operations**
+
+You can perform arithmetic operations on double variables, similar to int.
+
+```java
+double x = 10.5;
+double y = 3.2;
+
+double sum = x + y; // sum is 13.7
+double difference = x - y; // difference is 7.3
+double product = x * y; // product is 33.6
+double quotient = x / y; // quotient is 3.28125
+```
+
+**When to Use double**
+
+Use double when you need to represent numbers with fractional parts or when you require a wider range and higher precision than int can provide. For example, representing the price of an item, the temperature of a room, or the result of a scientific calculation.
 
 #### <a name="chapter2part1.4"></a>Chapter 2 - Part 1.4: Boolean Data Type: boolean
 
+The boolean data type represents a logical value that can be either true or false. It's used to represent conditions and make decisions in your code.
+
+**Characteristics of boolean**
+
+- **Size**: The size of a boolean is not precisely defined in the Java specification, but it's typically considered to be 1 bit, although it might occupy more memory depending on the JVM implementation.
+- **Values**: boolean can only hold two values: true or false.
+- **Usage**: Used to represent conditions, flags, and logical states.
+
+**Declaring and Initializing boolean Variables**
+
+To declare a boolean variable, you use the boolean keyword followed by the variable name. To initialize it, you assign either true or false to it.
+
+```java
+boolean isRaining; // Declaration
+isRaining = true; // Initialization
+
+boolean isLoggedIn = false; // Declaration and initialization in one line
+```
+
+**Examples of boolean Usage**
+
+```java
+boolean hasPermission = true;
+boolean isFinished = false;
+boolean isValidInput = true;
+```
+
+**boolean Operations**
+
+boolean variables are primarily used with logical operators to create complex conditions. These operators will be covered in detail in a later lesson, but here's a brief overview:
+
+- ```&&``` (AND): Returns true if both operands are true.
+- ```||``` (OR): Returns true if at least one operand is true.
+- ```!``` (NOT): Inverts the value of the operand.
+
+```java
+boolean x = true;
+boolean y = false;
+
+boolean andResult = x && y; // andResult is false
+boolean orResult = x || y; // orResult is true
+boolean notX = !x; // notX is false
+```
+
+**When to Use boolean**
+
+Use boolean when you need to represent a binary state or a condition that can be either true or false. For example, representing whether a user is logged in, whether a file exists, or whether a certain condition is met.
+
 #### <a name="chapter2part1.5"></a>Chapter 2 - Part 1.5: Character Data Type: char
 
-#### <a name="chapter2part1.6"></a>Chapter 2 - Part 1.6: Practice Activities
+The char data type is used to store a single character. It represents characters using the Unicode character set.
 
-#### <a name="chapter2part1.7"></a>Chapter 2 - Part 1.7: Summary and Next Steps
+**Characteristics of char**
+
+- **Size**: char occupies 2 bytes (16 bits) of memory.
+- **Range**: char can represent characters from the Unicode character set, which includes letters, digits, symbols, and special characters from various languages.
+- **Usage**: Used to represent individual characters, such as letters, digits, or symbols.
+
+**Declaring and Initializing char Variables**
+
+To declare a char variable, you use the char keyword followed by the variable name. To initialize it, you assign a character literal to it, enclosed in single quotes.
+
+```java
+char initial; // Declaration
+initial = 'J'; // Initialization
+
+char grade = 'A'; // Declaration and initialization in one line
+```
+
+**Examples of char Usage**
+
+```java
+char letter = 'a';
+char digit = '5';
+char symbol = '$';
+char unicodeChar = '\u0041'; // Unicode for 'A'
+```
+
+**char Operations**
+
+You can perform some arithmetic operations on char variables, as they are represented by numerical Unicode values. However, it's more common to use them for character manipulation and comparison.
+
+```java
+char letterA = 'A';
+char letterB = 'B';
+
+int difference = letterB - letterA; // difference is 1 (Unicode value of 'B' - Unicode value of 'A')
+```
+
+**Escape Sequences**
+
+char also supports escape sequences, which are special character combinations that represent characters that are difficult or impossible to type directly.
+
+- ```\n```: Newline
+- ```\t```: Tab
+- ```\'```: Single quote
+- ```\"```: Double quote
+- ```\\```: Backslash
+
+```java
+char newline = '\n';
+char tab = '\t';
+char singleQuote = '\'';
+char doubleQuote = '\"';
+char backslash = '\\';
+
+System.out.println("This is a line" + newline + "This is a new line");
+System.out.println("Column 1" + tab + "Column 2");
+System.out.println("He said, " + singleQuote + "Hello" + singleQuote);
+```
+
+**When to Use char**
+
+Use char when you need to represent a single character. For example, representing a letter in a name, a digit in a code, or a symbol in a password.
 
 #### <a name="chapter2part2"></a>Chapter 2 - Part 2: Declaring and Initializing Variables
 
