@@ -2268,27 +2268,392 @@ System.out.println(endsWithWorld);   // Output: true
 
 #### <a name="chapter2part4"></a>Chapter 2 - Part 4: Arithmetic Operators: +, -, *, /, %
 
+Arithmetic operators are fundamental building blocks in Java, allowing you to perform mathematical calculations within your programs. Understanding how these operators work is crucial for manipulating numerical data and creating dynamic applications. This lesson will cover the five basic arithmetic operators in Java: addition, subtraction, multiplication, division, and modulus. We'll explore their syntax, usage, and potential pitfalls, equipping you with the knowledge to confidently perform arithmetic operations in your Java code.
+
 #### <a name="chapter2part4.1"></a>Chapter 2 - Part 4.1: Basic Arithmetic Operators
+
+Java provides five primary arithmetic operators:
+
+- **Addition (+)**: Adds two operands.
+- **Subtraction (-)**: Subtracts the second operand from the first.
+- **Multiplication (*)**: Multiplies two operands.
+- **Division (/)**: Divides the first operand by the second.
+- **Modulus (%)**: Returns the remainder of a division operation.
+
+**Addition (+)**
+
+The addition operator (+) is used to sum two numerical values.
+
+```java
+int a = 10;
+int b = 5;
+int sum = a + b; // sum will be 15
+System.out.println("Sum: " + sum);
+```
+
+In this example, the + operator adds the values of a and b, storing the result in the sum variable. The System.out.println() statement then prints the value of sum to the console.
+
+String Concatenation: The + operator also performs string concatenation. If one of the operands is a string, Java treats the + operator as a string concatenation operator, converting the other operand to a string and joining them together.
+
+```java
+String firstName = "John";
+String lastName = "Doe";
+String fullName = firstName + " " + lastName; // fullName will be "John Doe"
+System.out.println("Full Name: " + fullName);
+```
+
+Here, the + operator concatenates the firstName, a space (" "), and the lastName strings to create the fullName string.
+
+**Subtraction (-)**
+
+The subtraction operator (-) is used to find the difference between two numerical values.
+
+```java
+int a = 10;
+int b = 5;
+int difference = a - b; // difference will be 5
+System.out.println("Difference: " + difference);
+```
+
+In this example, the - operator subtracts the value of b from a, storing the result in the difference variable.
+
+Unary Minus: The - operator can also be used as a unary operator to negate a single operand.
+
+```java
+int a = 10;
+int negativeA = -a; // negativeA will be -10
+System.out.println("Negative A: " + negativeA);
+```
+
+**Multiplication (*)**
+
+The multiplication operator (*) is used to find the product of two numerical values.
+
+```java
+int a = 10;
+int b = 5;
+int product = a * b; // product will be 50
+System.out.println("Product: " + product);
+```
+
+In this example, the * operator multiplies the values of a and b, storing the result in the product variable.
+
+**Division (/)**
+
+The division operator (/) is used to divide the first operand by the second.
+
+```java
+int a = 10;
+int b = 5;
+int quotient = a / b; // quotient will be 2
+System.out.println("Quotient: " + quotient);
+```
+
+In this example, the / operator divides the value of a by b, storing the result in the quotient variable.
+
+Integer Division: When both operands are integers, the / operator performs integer division, which truncates the decimal part of the result.
+
+```java
+int a = 11;
+int b = 5;
+int quotient = a / b; // quotient will be 2 (not 2.2)
+System.out.println("Quotient: " + quotient);
+```
+
+To obtain a floating-point result, at least one of the operands must be a floating-point number (e.g., double or float).
+
+```java
+double a = 11.0;
+int b = 5;
+double quotient = a / b; // quotient will be 2.2
+System.out.println("Quotient: " + quotient);
+```
+
+Division by Zero: Dividing by zero results in an ArithmeticException at runtime. It's crucial to avoid division by zero in your code.
+
+```java
+int a = 10;
+int b = 0;
+// int quotient = a / b; // This will throw an ArithmeticException
+```
+
+**Modulus (%)**
+
+The modulus operator (%) returns the remainder of a division operation.
+
+```java
+int a = 10;
+int b = 3;
+int remainder = a % b; // remainder will be 1
+System.out.println("Remainder: " + remainder);
+```
+
+In this example, the % operator divides a by b and returns the remainder, which is 1.
+
+Use Cases: The modulus operator is useful for various tasks, such as:
+
+- Determining if a number is even or odd: number % 2 == 0 indicates an even number.
+- Wrapping around a range: index = (index + 1) % arrayLength ensures that the index stays within the bounds of the array.
+- Extracting digits from a number: lastDigit = number % 10 extracts the last digit of the number.
 
 #### <a name="chapter2part4.2"></a>Chapter 2 - Part 4.2: Operator Precedence
 
+Arithmetic operators have a specific order of precedence, which determines the order in which they are evaluated in an expression. The precedence of arithmetic operators in Java is as follows (from highest to lowest):
+
+- **1**: Multiplication (*), Division (/), Modulus (%)
+- **2**: Addition (+), Subtraction (-)
+
+Operators with higher precedence are evaluated before operators with lower precedence. When operators have the same precedence, they are evaluated from left to right.
+
+```java
+int result = 10 + 5 * 2; // Multiplication is performed before addition
+System.out.println("Result: " + result); // Output: 20
+```
+
+In this example, the multiplication 5 * 2 is performed first, resulting in 10. Then, the addition 10 + 10 is performed, resulting in 20.
+
+Using Parentheses: You can use parentheses () to override the default operator precedence and explicitly specify the order of evaluation.
+
+```java
+int result = (10 + 5) * 2; // Addition is performed before multiplication due to parentheses
+System.out.println("Result: " + result); // Output: 30
+```
+
+In this example, the addition 10 + 5 is performed first because it is enclosed in parentheses, resulting in 15. Then, the multiplication 15 * 2 is performed, resulting in 30.
+
 #### <a name="chapter2part4.3"></a>Chapter 2 - Part 4.3: Practical Examples and Demonstrations
 
-#### <a name="chapter2part4.4"></a>Chapter 2 - Part 4.4: Exercises
+Let's explore some practical examples of using arithmetic operators in Java.
 
-#### <a name="chapter2part4.5"></a>Chapter 2 - Part 4.5: Summary
+**Calculating the Area of a Rectangle**
+
+```java
+double length = 10.5;
+double width = 5.0;
+double area = length * width; // Calculate the area
+System.out.println("Area of the rectangle: " + area);
+```
+
+This example calculates the area of a rectangle by multiplying its length and width.
+
+**Calculating the Average of Three Numbers**
+
+```java
+double num1 = 85.0;
+double num2 = 90.0;
+double num3 = 78.0;
+double average = (num1 + num2 + num3) / 3; // Calculate the average
+System.out.println("Average: " + average);
+```
+
+This example calculates the average of three numbers by summing them and dividing by 3.
+
+**Converting Celsius to Fahrenheit**
+
+```java
+double celsius = 25.0;
+double fahrenheit = (celsius * 9 / 5) + 32; // Convert Celsius to Fahrenheit
+System.out.println("Fahrenheit: " + fahrenheit);
+```
+
+This example converts a temperature from Celsius to Fahrenheit using the standard conversion formula.
+
+**Calculating the Remaining Seats**
+
+Imagine a scenario where you are managing seats for an event. You have a total number of seats and a certain number of seats have been booked. You can use subtraction to calculate the remaining seats.
+
+```java
+int totalSeats = 200;
+int bookedSeats = 120;
+int remainingSeats = totalSeats - bookedSeats;
+System.out.println("Remaining seats: " + remainingSeats);
+```
 
 #### <a name="chapter2part5"></a>Chapter 2 - Part 5: Assignment Operators: =, +=, -=, *=, /=
 
+Assignment operators are fundamental to programming in Java. They provide a concise way to assign values to variables and perform arithmetic operations simultaneously. Understanding these operators is crucial for writing efficient and readable code. This lesson will cover the basic assignment operator (=) and the compound assignment operators (+=, -=, *=, /=), explaining their functionality and demonstrating their usage with examples.
+
 #### <a name="chapter2part5.1"></a>Chapter 2 - Part 5.1: Understanding the Basic Assignment Operator (=)
+
+The most basic assignment operator in Java is the equals sign (=). It assigns the value on the right-hand side of the operator to the variable on the left-hand side.
+
+**Syntax**
+
+```java
+variable = expression;
+```
+
+**Explanation**
+
+- ```variable```: This is the name of the variable that will store the value.
+- ```=```: The assignment operator.
+- ```expression```: This is any valid Java expression that evaluates to a value. The value must be compatible with the data type of the variable.
+
+**Examples**
+
+```java
+int age = 25; // Assigns the integer value 25 to the variable 'age'
+double price = 19.99; // Assigns the double value 19.99 to the variable 'price'
+String name = "Alice"; // Assigns the String value "Alice" to the variable 'name'
+boolean isValid = true; // Assigns the boolean value true to the variable 'isValid'
+```
+
+**Important Notes**
+
+- The assignment operator assigns the value of the expression to the variable. If the expression involves other variables, their current values are used.
+- Assignment is right-associative, meaning that in an expression like a = b = c;, the value of c is first assigned to b, and then the value of b is assigned to a. It's generally better to avoid chaining assignments like this for readability.
+- The variable on the left-hand side must be declared before it can be used in an assignment.
 
 #### <a name="chapter2part5.2"></a>Chapter 2 - Part 5.2: Compound Assignment Operators (+=, -=, *=, /=)
 
+Compound assignment operators combine an arithmetic operation with assignment. They provide a shorthand way to update the value of a variable.
+
+**The += Operator (Addition Assignment)**
+
+The += operator adds the value of the right-hand operand to the value of the left-hand operand and assigns the result to the left-hand operand.
+
+**Syntax**
+
+```java
+variable += expression; // Equivalent to: variable = variable + expression;
+```
+
+**Example**
+
+```java
+int x = 10;
+x += 5; // Equivalent to x = x + 5;
+System.out.println(x); // Output: 15
+```
+
+**The -= Operator (Subtraction Assignment)**
+
+The -= operator subtracts the value of the right-hand operand from the value of the left-hand operand and assigns the result to the left-hand operand.
+
+**Syntax**
+
+```java
+variable -= expression; // Equivalent to: variable = variable - expression;
+```
+
+**Example**
+
+```java
+int y = 20;
+y -= 7; // Equivalent to y = y - 7;
+System.out.println(y); // Output: 13
+```
+
+**The ```*=``` Operator (Multiplication Assignment)**
+
+The *= operator multiplies the value of the left-hand operand by the value of the right-hand operand and assigns the result to the left-hand operand.
+
+**Syntax**
+
+```java
+variable *= expression; // Equivalent to: variable = variable * expression;
+```
+
+**Example**
+
+```java
+int z = 5;
+z *= 4; // Equivalent to z = z * 4;
+System.out.println(z); // Output: 20
+```
+
+**The /= Operator (Division Assignment)**
+
+The /= operator divides the value of the left-hand operand by the value of the right-hand operand and assigns the result to the left-hand operand.
+
+**Syntax**
+
+```java
+variable /= expression; // Equivalent to: variable = variable / expression;
+```
+
+**Example**
+
+```java
+double a = 100.0;
+a /= 2.5; // Equivalent to a = a / 2.5;
+System.out.println(a); // Output: 40.0
+```
+
+**Implicit Casting with Compound Assignment Operators**
+
+Compound assignment operators perform an implicit cast if necessary. This means that if the result of the operation is of a different type than the variable, Java will automatically convert the result to the variable's type. This can be useful, but it's important to be aware of potential loss of precision.
+
+**Example**
+
+```java
+int num = 5;
+num += 2.5; // Equivalent to num = (int)(num + 2.5);
+System.out.println(num); // Output: 7 (2.5 is truncated to 2)
+```
+
+In this example, num + 2.5 would normally result in a double. However, because we're using the += operator, the result is implicitly cast back to an int, truncating the decimal part. If we had used num = num + 2.5; directly, it would have resulted in a compile-time error because you can't directly assign a double to an int without explicit casting.
+
 #### <a name="chapter2part5.3"></a>Chapter 2 - Part 5.3: Practical Examples and Demonstrations
 
-#### <a name="chapter2part5.4"></a>Chapter 2 - Part 5.4: Exercises
+Let's look at some more practical examples of how assignment operators can be used in Java programs.
 
-#### <a name="chapter2part5.5"></a>Chapter 2 - Part 5.5: Summary and Next Steps
+**Example 1: Calculating the Sum of Numbers**
+
+```java
+public class SumCalculator {
+    public static void main(String[] args) {
+        int sum = 0; // Initialize the sum to 0
+        sum += 10; // Add 10 to the sum
+        sum += 25; // Add 25 to the sum
+        sum += 5; // Add 5 to the sum
+
+        System.out.println("The sum is: " + sum); // Output: The sum is: 40
+    }
+}
+```
+
+**Example 2: Updating a Product Price**
+
+```java
+public class PriceUpdater {
+    public static void main(String[] args) {
+        double price = 99.99; // Initial price
+        double discount = 0.20; // 20% discount
+
+        price -= price * discount; // Apply the discount
+        System.out.println("The discounted price is: " + price); // Output: The discounted price is: 79.992
+    }
+}
+```
+
+**Example 3: Incrementing a Counter**
+
+```java
+public class Counter {
+    public static void main(String[] args) {
+        int count = 0; // Initialize the counter
+        count++; // Increment the counter (covered in the next lesson, but shown here for context)
+        count += 1; // Increment the counter using +=
+
+        System.out.println("The count is: " + count); // Output: The count is: 2
+    }
+}
+```
+
+**Example 4: Accumulating Values in a Loop**
+
+```java
+public class LoopAccumulator {
+    public static void main(String[] args) {
+        int total = 0;
+        for (int i = 1; i <= 5; i++) {
+            total += i; // Add the current value of i to the total
+        }
+        System.out.println("The total is: " + total); // Output: The total is: 15
+    }
+}
+```
 
 #### <a name="chapter2part6"></a>Chapter 2 - Part 6: Comparison Operators: ==, !=, >, <, >=, <=
 
