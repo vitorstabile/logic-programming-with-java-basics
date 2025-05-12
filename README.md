@@ -1999,17 +1999,272 @@ In this example, we use the Scanner class (which we will cover in more detail in
 
 #### <a name="chapter2part3"></a>Chapter 2 - Part 3: Working with Strings
 
+Strings are fundamental to programming, representing text and enabling interaction with users and data. In Java, strings are objects, not primitive data types, which means they have associated methods that allow for powerful manipulation and analysis. Understanding how to work with strings is crucial for tasks ranging from simple text output to complex data processing. This lesson will cover the essentials of working with strings in Java, including their creation, manipulation, and comparison.
+
 #### <a name="chapter2part3.1"></a>Chapter 2 - Part 3.1: Creating Strings
+
+In Java, strings are objects of the String class. There are several ways to create string objects.
+
+**String Literals**
+
+The most common way to create a string is by using a string literal, which is a sequence of characters enclosed in double quotes.
+
+```java
+String message = "Hello, world!"; // Creating a string literal
+System.out.println(message); // Output: Hello, world!
+```
+
+When you use a string literal, Java checks if a string with the same content already exists in the string pool. If it does, the new variable will refer to the existing string in the pool. If not, a new string object is created in the string pool. The string pool is a special memory area in the Java heap that stores string literals to optimize memory usage.
+
+**Using the new Keyword**
+
+You can also create a string using the new keyword, which explicitly creates a new String object in the heap, regardless of whether an identical string already exists in the string pool.
+
+```java
+String anotherMessage = new String("Hello, world!"); // Creating a string object using 'new'
+System.out.println(anotherMessage); // Output: Hello, world!
+```
+
+While both methods achieve the same result, using string literals is generally preferred for efficiency because it leverages the string pool. Using new creates a new object even if an identical string exists, which can be less memory-efficient.
+
+**Creating Strings from Character Arrays**
+
+You can create a string from an array of characters using the String constructor.
+
+```java
+char[] charArray = {'J', 'a', 'v', 'a'};
+String fromCharArray = new String(charArray);
+System.out.println(fromCharArray); // Output: Java
+```
+
+This method is useful when you need to convert character data into a string format.
 
 #### <a name="chapter2part3.2"></a>Chapter 2 - Part 3.2: String Immutability
 
+A crucial concept to understand about strings in Java is that they are immutable. This means that once a String object is created, its value cannot be changed. Any operation that appears to modify a string actually creates a new String object.
+
+```java
+String text = "Hello";
+text = text + " world!"; // A new String object is created
+System.out.println(text); // Output: Hello world!
+```
+
+In the example above, the original "Hello" string is not modified. Instead, a new string "Hello world!" is created, and the text variable is updated to refer to this new string. The old "Hello" string might eventually be garbage collected if it's no longer referenced.
+
+**Implications of Immutability**
+
+Immutability has several important implications:
+
+- **Thread Safety**: Immutable objects are inherently thread-safe, as their state cannot be modified after creation. This makes them safe to use in concurrent environments without the need for synchronization.
+- **Caching**: Immutable strings can be safely cached and reused, as their value will never change. This is the basis for the string pool optimization.
+- **Predictability**: Immutability makes code more predictable and easier to reason about, as you can be confident that a string's value will not change unexpectedly.
+
 #### <a name="chapter2part3.3"></a>Chapter 2 - Part 3.3: String Manipulation
+
+While strings are immutable, Java provides a rich set of methods for manipulating strings and creating new strings based on existing ones.
+
+**Concatenation**
+
+String concatenation is the process of combining two or more strings into a single string. In Java, you can use the + operator or the concat() method to concatenate strings.
+
+**Using the + Operator**
+
+The + operator is the most common and convenient way to concatenate strings.
+
+```java
+String firstName = "John";
+String lastName = "Doe";
+String fullName = firstName + " " + lastName;
+System.out.println(fullName); // Output: John Doe
+```
+
+When you use the + operator with a string and another data type (e.g., an integer), Java automatically converts the other data type to a string and concatenates them.
+
+```java
+String age = "Age: ";
+int personAge = 30;
+String ageString = age + personAge;
+System.out.println(ageString); // Output: Age: 30
+```
+
+**Using the concat() Method**
+
+The concat() method is another way to concatenate strings. It takes a string as an argument and returns a new string that is the concatenation of the original string and the argument.
+
+```java
+String greeting = "Hello";
+String name = " Alice";
+String fullGreeting = greeting.concat(name);
+System.out.println(fullGreeting); // Output: Hello Alice
+```
+
+While both methods achieve the same result, the + operator is generally preferred for its simplicity and readability.
+
+**Substrings**
+
+A substring is a contiguous sequence of characters within a string. Java provides the substring() method to extract substrings from a string.
+
+```java
+String message = "This is a test message";
+String sub = message.substring(5, 12); // Extracts characters from index 5 (inclusive) to 12 (exclusive)
+System.out.println(sub); // Output: is a te
+```
+
+The substring() method takes two arguments: the starting index (inclusive) and the ending index (exclusive). You can also use a single argument, which specifies the starting index, and the substring will extend to the end of the string.
+
+```java
+String message = "This is a test message";
+String sub2 = message.substring(8); // Extracts characters from index 8 to the end of the string
+System.out.println(sub2); // Output: a test message
+```
+
+**Length**
+
+The length() method returns the number of characters in a string.
+
+```java
+String text = "Java";
+int len = text.length();
+System.out.println(len); // Output: 4
+```
+
+The length of a string includes all characters, including spaces and special characters.
 
 #### <a name="chapter2part3.4"></a>Chapter 2 - Part 3.4: String Comparison
 
+Comparing strings is a common task in programming. Java provides several ways to compare strings, each with its own nuances.
+
+**```equals()``` vs. ```==```**
+
+It's crucial to understand the difference between the equals() method and the == operator when comparing strings.
+
+- The equals() method compares the content of two strings. It returns true if the strings have the same sequence of characters, and false otherwise.
+
+- The == operator compares the references of two strings. It returns true if the two variables refer to the same String object in memory, and false otherwise.
+
+```java
+String str1 = "Hello";
+String str2 = "Hello";
+String str3 = new String("Hello");
+
+System.out.println(str1.equals(str2)); // Output: true (same content)
+System.out.println(str1 == str2);    // Output: true (same object from string pool)
+System.out.println(str1.equals(str3)); // Output: true (same content)
+System.out.println(str1 == str3);    // Output: false (different objects)
+```
+
+In the example above, str1 and str2 refer to the same string in the string pool, so == returns true. However, str3 is a new String object created using new, so == returns false even though the content is the same.
+
+**Always use the equals() method to compare the content of strings**. Using == can lead to unexpected results, especially when dealing with strings created using new or strings obtained from external sources.
+
+**```equalsIgnoreCase()```**
+
+The equalsIgnoreCase() method compares the content of two strings, ignoring case differences.
+
+```java
+String str1 = "Hello";
+String str2 = "hello";
+
+System.out.println(str1.equals(str2));          // Output: false (case-sensitive comparison)
+System.out.println(str1.equalsIgnoreCase(str2)); // Output: true (case-insensitive comparison)
+```
+
+This method is useful when you want to compare strings without regard to case.
+
+**```compareTo()```**
+
+The compareTo() method compares two strings lexicographically (based on the Unicode values of their characters). It returns:
+
+- A negative value if the first string is lexicographically less than the second string.
+- A positive value if the first string is lexicographically greater than the second string.
+- Zero if the strings are equal.
+
+```java
+String str1 = "apple";
+String str2 = "banana";
+String str3 = "apple";
+
+System.out.println(str1.compareTo(str2)); // Output: Negative value (apple comes before banana)
+System.out.println(str2.compareTo(str1)); // Output: Positive value (banana comes after apple)
+System.out.println(str1.compareTo(str3)); // Output: 0 (strings are equal)
+```
+
+The compareTo() method is useful for sorting strings or determining their relative order.
+
 #### <a name="chapter2part3.5"></a>Chapter 2 - Part 3.5: String Methods
 
-#### <a name="chapter2part3.6"></a>Chapter 2 - Part 3.6: Exercises
+Java's String class provides a wide range of methods for manipulating and analyzing strings. Here are some commonly used methods:
+
+**```toUpperCase()``` and ```toLowerCase()```**
+
+These methods convert a string to uppercase or lowercase, respectively.
+
+```java
+String text = "Java is Fun";
+String upper = text.toUpperCase();
+String lower = text.toLowerCase();
+
+System.out.println(upper); // Output: JAVA IS FUN
+System.out.println(lower); // Output: java is fun
+```
+
+These methods are useful for normalizing strings or performing case-insensitive comparisons.
+
+**```trim()```**
+
+The trim() method removes leading and trailing whitespace from a string.
+
+```java
+String text = "   Hello World   ";
+String trimmed = text.trim();
+
+System.out.println(text);    // Output:    Hello World
+System.out.println(trimmed); // Output: Hello World
+```
+
+Whitespace includes spaces, tabs, and newline characters. The trim() method is useful for cleaning up user input or data from external sources.
+
+**```replace()```**
+
+The replace() method replaces all occurrences of a specified character or substring with another character or substring.
+
+```java
+String text = "This is a test";
+String replaced = text.replace("test", "sample");
+System.out.println(replaced); // Output: This is a sample
+
+String replacedChar = text.replace('i', 'a');
+System.out.println(replacedChar); // Output: Thas as a tast
+```
+
+**```indexOf()``` and ```lastIndexOf()```**
+
+The indexOf() method returns the index of the first occurrence of a specified character or substring within a string. The lastIndexOf() method returns the index of the last occurrence. If the character or substring is not found, both methods return -1.
+
+```java
+String text = "This is a test";
+int firstIndex = text.indexOf("is");
+int lastIndex = text.lastIndexOf("is");
+
+System.out.println(firstIndex); // Output: 2
+System.out.println(lastIndex);  // Output: 5
+
+int notFound = text.indexOf("xyz");
+System.out.println(notFound);   // Output: -1
+```
+
+**```startsWith()``` and ```endsWith()```**
+
+The startsWith() method checks if a string starts with a specified prefix. The endsWith() method checks if a string ends with a specified suffix. Both methods return a boolean value.
+
+```java
+String text = "Hello World";
+boolean startsWithHello = text.startsWith("Hello");
+boolean endsWithWorld = text.endsWith("World");
+
+System.out.println(startsWithHello); // Output: true
+System.out.println(endsWithWorld);   // Output: true
+```
 
 #### <a name="chapter2part4"></a>Chapter 2 - Part 4: Arithmetic Operators: +, -, *, /, %
 
