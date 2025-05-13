@@ -67,10 +67,11 @@
       - [Chapter 2 - Part 7.1: Understanding Logical Operators](#chapter2part7.1)
       - [Chapter 2 - Part 7.2: Combining Logical Operators](#chapter2part7.2)
       - [Chapter 2 - Part 7.3: Practical Examples](#chapter2part7.3)
-    - [Chapter 2 - Part 8: Operator Precedence](#chapter2part8)
-      - [Chapter 2 - Part 8.1: Understanding Operator Precedence in Java](#chapter2part8.1)
-      - [Chapter 2 - Part 8.2: Using Parentheses to Control Precedence](#chapter2part8.2)
-      - [Chapter 2 - Part 8.3: Practical Examples and Demonstrations](#chapter2part8.3)
+    - [Chapter 2 - Part 8: Bitwise Operators](#chapter2part8)
+    - [Chapter 2 - Part 9: Operator Precedence](#chapter2part9)
+      - [Chapter 2 - Part 9.1: Understanding Operator Precedence in Java](#chapter2part9.1)
+      - [Chapter 2 - Part 9.2: Using Parentheses to Control Precedence](#chapter2part9.2)
+      - [Chapter 2 - Part 9.3: Practical Examples and Demonstrations](#chapter2part9.3)
 3. [Chapter 3: Control Flow: Making Decisions and Repeating Actions](#chapter3)
     - [Chapter 3 - Part 1: Introduction to Control Flow Statements](#chapter3part1)
       - [Chapter 3 - Part 1.1: Understanding Control Flow](#chapter3part1.1)
@@ -2730,11 +2731,244 @@ The != operator checks if two values are not equal. It returns true if they are 
 
 **Example with Integers**:
 
+```java
+int x = 5;
+int y = 5;
+int z = 10;
+
+System.out.println(x != y); // Output: false
+System.out.println(x != z); // Output: true
+```
+
+**Example with Doubles**:
+
+```java
+double a = 3.14;
+double b = 3.14;
+double c = 2.71;
+
+System.out.println(a != b); // Output: false
+System.out.println(a != c); // Output: true
+```
+
+**Example with Characters**:
+
+```java
+char p = 'A';
+char q = 'A';
+char r = 'B';
+
+System.out.println(p != q); // Output: false
+System.out.println(p != r); // Output: true
+```
+
+**Important Note Regarding Objects**:
+
+Similar to ==, when using != with objects, it checks if the two variables refer to different objects in memory.
+
+```java
+String str1 = new String("Hello");
+String str2 = new String("Hello");
+
+System.out.println(str1 != str2); // Output: true (different objects)
+```
+
+**The ```>``` (Greater Than) Operator**:
+
+The > operator checks if the value on the left is greater than the value on the right. It returns true if it is, and false otherwise. This operator is typically used with numerical data types.
+
+**Example with Integers**:
+
+```java
+int x = 10;
+int y = 5;
+int z = 10;
+
+System.out.println(x > y); // Output: true
+System.out.println(y > x); // Output: false
+System.out.println(x > z); // Output: false
+```
+
+**Example with Doubles**:
+
+```java
+double a = 3.14;
+double b = 2.71;
+double c = 3.14;
+
+System.out.println(a > b); // Output: true
+System.out.println(b > a); // Output: false
+System.out.println(a > c); // Output: false
+```
+
+**Example with Characters**:
+
+Characters can also be compared using >, as they have underlying numerical (Unicode) values.
+
+```java
+char p = 'C'; // Unicode value 67
+char q = 'A'; // Unicode value 65
+
+System.out.println(p > q); // Output: true (67 > 65)
+```
+
+**The ```<``` (Less Than) Operator**:
+
+The < operator checks if the value on the left is less than the value on the right. It returns true if it is, and false otherwise. This operator is also typically used with numerical data types.
+
+**Example with Integers**:
+
+```java
+int x = 5;
+int y = 10;
+int z = 5;
+
+System.out.println(x < y); // Output: true
+System.out.println(y < x); // Output: false
+System.out.println(x < z); // Output: false
+```
+
+**Example with Doubles**:
+
+```java
+double a = 2.71;
+double b = 3.14;
+double c = 2.71;
+
+System.out.println(a < b); // Output: true
+System.out.println(b < a); // Output: false
+System.out.println(a < c); // Output: false
+```
+
+**Example with Characters**:
+
+```java
+char p = 'A'; // Unicode value 65
+char q = 'C'; // Unicode value 67
+
+System.out.println(p < q); // Output: true (65 < 67)
+```
+
+**The ```>=``` (Greater Than or Equal To) Operator**:
+
+The >= operator checks if the value on the left is greater than or equal to the value on the right. It returns true if it is, and false otherwise.
+
+**Example with Integers**:
+
+```java
+int x = 10;
+int y = 5;
+int z = 10;
+
+System.out.println(x >= y); // Output: true
+System.out.println(x >= z); // Output: true
+System.out.println(y >= x); // Output: false
+```
+
+**Example with Doubles**:
+
+```java
+double a = 3.14;
+double b = 2.71;
+double c = 3.14;
+
+System.out.println(a >= b); // Output: true
+System.out.println(a >= c); // Output: true
+System.out.println(b >= a); // Output: false
+```
+
+**Example with Characters**:
+
+```java
+char p = 'C'; // Unicode value 67
+char q = 'A'; // Unicode value 65
+char r = 'C'; // Unicode value 67
+
+System.out.println(p >= q); // Output: true (67 >= 65)
+System.out.println(p >= r); // Output: true (67 >= 67)
+```
+
+**The ```<=``` (Less Than or Equal To) Operator**:
+
+The <= operator checks if the value on the left is less than or equal to the value on the right. It returns true if it is, and false otherwise.
+
+**Example with Integers**:
+
+```java
+int x = 5;
+int y = 10;
+int z = 5;
+
+System.out.println(x <= y); // Output: true
+System.out.println(x <= z); // Output: true
+System.out.println(y <= x); // Output: false
+```
+
+**Example with Doubles**:
+
+```java
+double a = 2.71;
+double b = 3.14;
+double c = 2.71;
+
+System.out.println(a <= b); // Output: true
+System.out.println(a <= c); // Output: true
+System.out.println(b <= a); // Output: false
+```
+
+**Example with Characters**:
+
+```java
+char p = 'A'; // Unicode value 65
+char q = 'C'; // Unicode value 67
+char r = 'A'; // Unicode value 65
+
+System.out.println(p <= q); // Output: true (65 <= 67)
+System.out.println(p <= r); // Output: true (65 <= 65)
+```
+
 #### <a name="chapter2part6.2"></a>Chapter 2 - Part 6.2: Practical Examples and Demonstrations
 
-#### <a name="chapter2part6.3"></a>Chapter 2 - Part 6.3: Exercises
+Let's look at some more practical examples of how comparison operators can be used in Java programs.
 
-#### <a name="chapter2part6.4"></a>Chapter 2 - Part 6.4: Summary and Next Steps
+**Example 1: Checking if a number is within a range**
+
+```java
+int age = 25;
+int votingAge = 18;
+
+boolean isEligibleToVote = age >= votingAge;
+
+System.out.println("Is eligible to vote: " + isEligibleToVote); // Output: true
+```
+
+**Example 2: Comparing two double values with a tolerance**
+
+Due to the way floating-point numbers are represented in computers, direct comparison using == can sometimes be unreliable. It's often better to check if the difference between two doubles is within a small tolerance.
+
+```java
+double value1 = 0.1 + 0.2;
+double value2 = 0.3;
+double tolerance = 0.00001;
+
+boolean areEqual = Math.abs(value1 - value2) < tolerance;
+
+System.out.println("Are equal: " + areEqual); // Output: true
+```
+
+**Example 3: Comparing characters to determine alphabetical order**
+
+```java
+char char1 = 'M';
+char char2 = 'P';
+
+if (char1 < char2) {
+    System.out.println(char1 + " comes before " + char2 + " in the alphabet.");
+} else {
+    System.out.println(char2 + " comes before " + char1 + " in the alphabet.");
+}
+// Output: M comes before P in the alphabet.
+```
 
 #### <a name="chapter2part7"></a>Chapter 2 - Part 7: Logical Operators: &&, ||, !
 
@@ -2744,19 +2978,130 @@ The != operator checks if two values are not equal. It returns true if they are 
 
 #### <a name="chapter2part7.3"></a>Chapter 2 - Part 7.3: Practical Examples
 
-#### <a name="chapter2part7.4"></a>Chapter 2 - Part 7.4: Exercises
+#### <a name="chapter7part8"></a>Chapter 7 - Part 8: Bitwise Operators
 
-#### <a name="chapter2part8"></a>Chapter 2 - Part 8: Operator Precedence
+The Bitwise operators are used to perform a bit manipulation on numbers. This Operator can be used with any integral type(char, int, short, etc) but it cannot be applied to double and float.
 
-#### <a name="chapter2part8.1"></a>Chapter 2 - Part 8.1: Understanding Operator Precedence in Java
+<br>
 
-#### <a name="chapter2part8.2"></a>Chapter 2 - Part 8.2: Using Parentheses to Control Precedence
+<div align="center"><img src="img/bitwise-w582-h400.png" width=582 height=400><br><sub>Fig 24 - Bitwise Operators used in Java - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by javastudypoint</a>) </sub></div>
 
-#### <a name="chapter2part8.3"></a>Chapter 2 - Part 8.3: Practical Examples and Demonstrations
+<br>
 
-#### <a name="chapter2part8.4"></a>Chapter 2 - Part 8.4: Exercises
+**Types of Bitwise Operators in Java**
 
-#### <a name="chapter2part8.5"></a>Chapter 2 - Part 8.5: Next Steps and Future Learning Directions
+1. **Bitwise AND (&) Operator:** This operator returns 1 if both the operands are also 1 else it returns 0.
+
+2. **Bitwise OR (|) Operator:** This operator returns 1 if either of the bits in the operand is 1, else it returns 0.
+
+3. **Bitwise Complement (~) Operator:** This operator inverts all of the bits of its operands.
+
+4. **Bitwise Exclusive OR (^) Operator:** This operator returns 1 if the corresponding bits are different, else it returns 0.
+
+5. **Bitwise Shift Left (<<) Operator:** This operator shifts the bits of the number to the left and fills 0 in the void spaces that are left as a result.
+
+6. **Bitwise Shift Right (>>) Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result.
+
+7. **Shift Right Zero Fill (>>>), Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result. The leftmost bit is set to be 0.
+
+<br>
+
+<div align="center"><img src="img/bitwise_truth_table-w1291-h472.png" width=1291 height=472><br><sub>Fig 25 - Bitwise Operators Truth Table - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  freeCodeCamp</a>) </sub></div>
+
+<br>
+
+```java
+
+public class BitwiseOperator {
+    public static void main(String[] args)
+    {
+        //Initial values
+        int a = 6;
+        int b = 7;
+
+        // bitwise and
+        // 0110 & 0111=0110 = 6
+        System.out.println("a&b = " + (a & b));
+
+        // bitwise or
+        // 0110 | 0111=0111 = 7
+        System.out.println("a|b = " + (a | b));
+
+        // bitwise xor
+        // 0110 ^ 0111=0001 = 1
+        System.out.println("a^b = " + (a ^ b));
+
+        // bitwise and
+        // ~0110=1001
+        // will give 2's complement of 1001 = -7
+        System.out.println("~a = " + ~a);
+
+		// bitwise left shift
+		System.out.println("a << 2 = " +(a << 2));
+
+		// bitwise right shift
+		System.out.println("a >> 2 = " +(a >> 2));
+
+		// bitwise shift right zero fill
+		System.out.println("b >>> 2 = " +(b >>> 2));
+	}
+
+}
+
+```
+
+```java
+
+
+    int a = 60;	      /* 60 = 0011 1100 represents 60 in binary*/
+    int b = 13;	      /* 13 = 0000 1101 */
+    int c = 0;
+    
+    c = a & b;        /* 12 = 0000 1100 */
+    c = a | b;        /* 61 = 0011 1101 */
+    c = a ^ b;        /* 49 = 0011 0001 */
+    c = ~a;           /*-61 = 1100 0011  :Invert all bits */
+    
+    // shift operators : zeros are shifted in to replace the discarded bits
+    c = a << 2;       /* 240 = 1111 0000 : Shift left 2 bits*/
+    c = a >> 2;       /* 15 = 1111 */
+    c = a >>> 2;      /* 15 = 0000 1111 : Zero fill right shift*/
+
+```
+
+```java
+
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int mask = 0b100000; //binary number declared in Java, in this case, 32
+		System.out.println(mask);
+		int n = sc.nextInt();
+		
+		if ((n & mask) != 0) {
+			System.out.println("6th bit is true!");
+		} else {
+			System.out.println("6th bit is false");
+		}
+		sc.close();
+	}
+}
+
+```
+
+
+#### <a name="chapter2part9"></a>Chapter 2 - Part 9: Operator Precedence
+
+#### <a name="chapter2part9.1"></a>Chapter 2 - Part 9.1: Understanding Operator Precedence in Java
+
+#### <a name="chapter2part9.2"></a>Chapter 2 - Part 9.2: Using Parentheses to Control Precedence
+
+#### <a name="chapter2part9.3"></a>Chapter 2 - Part 9.3: Practical Examples and Demonstrations
 
 ## <a name="chapter3"></a>Chapter 3: Control Flow: Making Decisions and Repeating Actions
 
@@ -4390,122 +4735,6 @@ public class Account {
 		balance -= amount;
 	}
 	
-}
-
-```
-
-#### <a name="chapter7part2"></a>Chapter 7 - Part 2: Bitwise Operators in Java
-
-The Bitwise operators are used to perform a bit manipulation on numbers. This Operator can be used with any integral type(char, int, short, etc) but it cannot be applied to double and float.
-
-<br>
-
-<div align="center"><img src="img/bitwise-w582-h400.png" width=582 height=400><br><sub>Fig 24 - Bitwise Operators used in Java - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by javastudypoint</a>) </sub></div>
-
-<br>
-
-**Types of Bitwise Operators in Java**
-
-1. **Bitwise AND (&) Operator:** This operator returns 1 if both the operands are also 1 else it returns 0.
-
-2. **Bitwise OR (|) Operator:** This operator returns 1 if either of the bits in the operand is 1, else it returns 0.
-
-3. **Bitwise Complement (~) Operator:** This operator inverts all of the bits of its operands.
-
-4. **Bitwise Exclusive OR (^) Operator:** This operator returns 1 if the corresponding bits are different, else it returns 0.
-
-5. **Bitwise Shift Left (<<) Operator:** This operator shifts the bits of the number to the left and fills 0 in the void spaces that are left as a result.
-
-6. **Bitwise Shift Right (>>) Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result.
-
-7. **Shift Right Zero Fill (>>>), Operator:** This operator shifts the bits of the number to the right and fills 0 in the void spaces that are left as a result. The leftmost bit is set to be 0.
-
-<br>
-
-<div align="center"><img src="img/bitwise_truth_table-w1291-h472.png" width=1291 height=472><br><sub>Fig 25 - Bitwise Operators Truth Table - (<a href='https://www.javastudypoint.com/2019/12/bitwise-operators-in-java.html'>Work by  freeCodeCamp</a>) </sub></div>
-
-<br>
-
-```java
-
-public class BitwiseOperator {
-    public static void main(String[] args)
-    {
-        //Initial values
-        int a = 6;
-        int b = 7;
-
-        // bitwise and
-        // 0110 & 0111=0110 = 6
-        System.out.println("a&b = " + (a & b));
-
-        // bitwise or
-        // 0110 | 0111=0111 = 7
-        System.out.println("a|b = " + (a | b));
-
-        // bitwise xor
-        // 0110 ^ 0111=0001 = 1
-        System.out.println("a^b = " + (a ^ b));
-
-        // bitwise and
-        // ~0110=1001
-        // will give 2's complement of 1001 = -7
-        System.out.println("~a = " + ~a);
-
-		// bitwise left shift
-		System.out.println("a << 2 = " +(a << 2));
-
-		// bitwise right shift
-		System.out.println("a >> 2 = " +(a >> 2));
-
-		// bitwise shift right zero fill
-		System.out.println("b >>> 2 = " +(b >>> 2));
-	}
-
-}
-
-```
-
-```java
-
-
-    int a = 60;	      /* 60 = 0011 1100 represents 60 in binary*/
-    int b = 13;	      /* 13 = 0000 1101 */
-    int c = 0;
-    
-    c = a & b;        /* 12 = 0000 1100 */
-    c = a | b;        /* 61 = 0011 1101 */
-    c = a ^ b;        /* 49 = 0011 0001 */
-    c = ~a;           /*-61 = 1100 0011  :Invert all bits */
-    
-    // shift operators : zeros are shifted in to replace the discarded bits
-    c = a << 2;       /* 240 = 1111 0000 : Shift left 2 bits*/
-    c = a >> 2;       /* 15 = 1111 */
-    c = a >>> 2;      /* 15 = 0000 1111 : Zero fill right shift*/
-
-```
-
-```java
-
-import java.util.Scanner;
-
-public class Program {
-	
-	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		int mask = 0b100000; //binary number declared in Java, in this case, 32
-		System.out.println(mask);
-		int n = sc.nextInt();
-		
-		if ((n & mask) != 0) {
-			System.out.println("6th bit is true!");
-		} else {
-			System.out.println("6th bit is false");
-		}
-		sc.close();
-	}
 }
 
 ```
