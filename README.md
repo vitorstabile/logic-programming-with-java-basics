@@ -3306,9 +3306,172 @@ Here's a table summarizing the precedence of common Java operators, from highest
 |12	|```? :```|	Right-to-left|
 |13	|```=```, ```+=```, ```-=```, ```*=```, ```/=```, ```%=```, ```&=```, ```^=```|	```=```, ```<<=```, ```>>=```, ```>>>=```|
 
+**Arithmetic Operators**
+
+Arithmetic operators (```*```, ```/```, ```%```, ```+```, ```-```) follow the standard mathematical order of operations. Multiplication, division, and modulus have higher precedence than addition and subtraction.
+
+**Example 1**:
+
+```java
+int result = 5 + 3 * 2; // Multiplication is performed before addition
+System.out.println(result); // Output: 11
+```
+
+In this example, 3 * 2 is evaluated first, resulting in 6. Then, 5 + 6 is evaluated, resulting in 11.
+
+**Example 2**:
+
+```java
+int result = (5 + 3) * 2; // Parentheses change the order of operations
+System.out.println(result); // Output: 16
+```
+
+Here, the parentheses force 5 + 3 to be evaluated first, resulting in 8. Then, 8 * 2 is evaluated, resulting in 16.
+
+**Increment and Decrement Operators**
+
+Increment (```++```) and decrement (```--```) operators can be used in prefix or postfix form. The precedence differs depending on the form.
+
+Postfix: The value is used before it is incremented/decremented. Prefix: The value is incremented/decremented before it is used.
+
+Example 1 (Postfix):
+
+```java
+int x = 5;
+int y = x++; // y = 5, then x = 6
+System.out.println("x = " + x + ", y = " + y); // Output: x = 6, y = 5
+```
+
+**Example 2 (Prefix)**:
+
+```java
+int x = 5;
+int y = ++x; // x = 6, then y = 6
+System.out.println("x = " + x + ", y = " + y); // Output: x = 6, y = 6
+```
+
+**Example 3 (Precedence with other operators)**:
+
+```java
+int x = 5;
+int y = 10;
+int result = ++x + y--; // x becomes 6, then 6 + 10 is evaluated, then y becomes 9
+System.out.println("x = " + x + ", y = " + y + ", result = " + result); // Output: x = 6, y = 9, result = 16
+```
+
+In this example, the prefix increment ++x has higher precedence than the addition + and the postfix decrement y--. Therefore, x is incremented to 6 first. Then, 6 + y is evaluated (using the original value of y, which is 10), resulting in 16. Finally, y is decremented to 9.
+
+**Comparison Operators**
+
+Comparison operators (```==```, ```!=```, ```>```, ```<```, ```>=```, ```<=```) are used to compare values. They have lower precedence than arithmetic operators.
+
+Example:
+
+```java
+int x = 5;
+int y = 10;
+boolean result = x + 5 > y - 2; // Arithmetic operations are performed before comparison
+System.out.println(result); // Output: false (10 > 8 is false)
+```
+
+Here, x + 5 is evaluated to 10, and y - 2 is evaluated to 8. Then, 10 > 8 is evaluated, resulting in false.
+
+**Logical Operators**
+
+Logical operators (&&, ||, !) are used to combine boolean expressions. ! (logical NOT) has the highest precedence among logical operators, followed by && (logical AND), and then || (logical OR).
+
+**Example 1**:
+
+```java
+boolean a = true;
+boolean b = false;
+boolean result = a || b && false; // AND is performed before OR
+System.out.println(result); // Output: true (true || (false && false) -> true || false -> true)
+```
+
+In this example, b && false is evaluated first, resulting in false. Then, a || false is evaluated, resulting in true.
+
+**Example 2**:
+
+```java
+boolean a = true;
+boolean b = false;
+boolean result = (a || b) && false; // Parentheses change the order of operations
+System.out.println(result); // Output: false ((true || false) && false -> true && false -> false)
+```
+
+Here, the parentheses force a || b to be evaluated first, resulting in true. Then, true && false is evaluated, resulting in false.
+
+**Example 3**:
+
+```java
+boolean a = true;
+boolean b = false;
+boolean result = !b && a; // NOT is performed before AND
+System.out.println(result); // Output: true ((!false) && true -> true && true -> true)
+```
+
+In this example, !b is evaluated first, resulting in true. Then, true && a is evaluated, resulting in true.
+
+**Assignment Operators**
+
+Assignment operators (=, +=, -=, *=, /=, %=) have the lowest precedence. They are evaluated after all other operations in the expression.
+
+**Example**:
+
+```java
+int x = 5;
+int y = 10;
+x += y * 2; // Multiplication is performed before addition and assignment
+System.out.println(x); // Output: 25 (x = x + (y * 2) -> x = 5 + (10 * 2) -> x = 5 + 20 -> x = 25)
+```
+
+Here, y * 2 is evaluated to 20. Then, x + 20 is evaluated to 25. Finally, x is assigned the value 25.
+
 #### <a name="chapter2part9.2"></a>Chapter 2 - Part 9.2: Using Parentheses to Control Precedence
 
+Parentheses () can be used to override the default operator precedence. Expressions within parentheses are always evaluated first. This can improve code readability and prevent unexpected results.
+
+**Example 1**:
+
+```java
+int result = 10 - 2 * 3; // Multiplication is performed before subtraction
+System.out.println(result); // Output: 4
+```
+
+**Example 2**:
+
+```java
+int result = (10 - 2) * 3; // Parentheses change the order of operations
+System.out.println(result); // Output: 24
+```
+
+In the first example, 2 * 3 is evaluated first, resulting in 6. Then, 10 - 6 is evaluated, resulting in 4. In the second example, 10 - 2 is evaluated first due to the parentheses, resulting in 8. Then, 8 * 3 is evaluated, resulting in 24.
+
 #### <a name="chapter2part9.3"></a>Chapter 2 - Part 9.3: Practical Examples and Demonstrations
+
+Let's consider a more complex example that combines multiple operators:
+
+```java
+int a = 5;
+int b = 3;
+int c = 10;
+int result = a++ + b * 2 - c / 3;
+System.out.println("Initial values: a = 5, b = 3, c = 10");
+// a++ (postfix increment): a is used as 5, then incremented to 6
+// b * 2: 3 * 2 = 6
+// c / 3: 10 / 3 = 3 (integer division)
+// 5 + 6 - 3 = 8
+System.out.println("a = " + a + ", b = " + b + ", c = " + c + ", result = " + result); // Output: a = 6, b = 3, c = 10, result = 8
+```
+
+Here's a breakdown of the evaluation:
+
+- a++ is evaluated. The current value of a (which is 5) is used in the expression, and then a is incremented to 6.
+- b * 2 is evaluated, resulting in 6.
+- c / 3 is evaluated, resulting in 3 (integer division).
+- 5 + 6 - 3 is evaluated from left to right, resulting in 8.
+- The value 8 is assigned to result.
 
 ## <a name="chapter3"></a>Chapter 3: Control Flow: Making Decisions and Repeating Actions
 
