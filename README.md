@@ -355,6 +355,13 @@
     - [Chapter 12 - Part 3: HashSet](#chapter12part3)
 13. [Chapter 13: Java Lambda Expression](#chapter13)
     - [Chapter 13 - Part 1: Java Lambda Expression](#chapter13part1)
+   
+|               |                 |                 |                 |                 |                 |                 |                 |                 | 
+| :-----------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+|               |                 |                 |                 |                 |                 |                 |                 |                 |
+|               |                 |                 |                 |                 |                 |                 |                 |                 |
+|               |                 |                 |                 |                 |                 |                 |                 |                 |
+|               |                 |                 |                 |                 |                 |                 |                 |                 |
 
 ## <a name="chapter1"></a>Chapter 1: Introduction to Java and Setting Up Your Environment
 
@@ -2972,11 +2979,189 @@ if (char1 < char2) {
 
 #### <a name="chapter2part7"></a>Chapter 2 - Part 7: Logical Operators: &&, ||, !
 
+Logical operators are fundamental building blocks in Java, allowing you to create more complex and nuanced conditions in your code. They enable you to combine multiple boolean expressions, creating powerful decision-making capabilities within your programs. Understanding and effectively using logical operators is crucial for controlling the flow of execution and implementing sophisticated logic.
+
 #### <a name="chapter2part7.1"></a>Chapter 2 - Part 7.1: Understanding Logical Operators
+
+Logical operators are used to combine two or more boolean expressions into a single boolean result. Java provides three main logical operators:
+
+- **```&&```  (Logical AND)**: Returns true if both operands are true. Otherwise, it returns false.
+
+- **```||``` (Logical OR)**: Returns true if at least one of the operands is true. It returns false only if both operands are false.
+
+- **```!``` (Logical NOT)**: This is a unary operator that inverts the boolean value of its operand. If the operand is true, ! returns false, and vice versa.
+
+**Logical AND ```(&&)```**:
+
+The logical AND operator (&&) evaluates to true only when both operands are true. Think of it as requiring both conditions to be met.
+
+|Operand 1	|Operand 2	|Result|
+| :-----------: | :-------------: | :-------------: |
+|true	|true	|true|
+|true	|false	|false|
+|false	|true	|false|
+|false	|false	|false|
+
+**Example**
+
+```java
+int age = 25;
+boolean isStudent = true;
+
+// Check if the person is both older than 18 AND a student
+boolean isEligibleForDiscount = age > 18 && isStudent;
+System.out.println("Eligible for discount: " + isEligibleForDiscount); // Output: true
+
+age = 16;
+isEligibleForDiscount = age > 18 && isStudent;
+System.out.println("Eligible for discount: " + isEligibleForDiscount); // Output: false
+```
+
+In the first case, both conditions (age > 18 and isStudent) are true, so the result is true. In the second case, age > 18 is false, so the entire expression becomes false.
+
+**Short-circuiting**: The && operator exhibits short-circuiting behavior. This means that if the left-hand operand evaluates to false, the right-hand operand is not evaluated. This is because the result of the entire expression will be false regardless of the value of the right-hand operand. This can improve performance and prevent potential errors.
+
+```java
+int x = 5;
+int y = 0;
+
+// The second condition (y != 0 && x / y > 2) will not be evaluated because x > 10 is false.
+if (x > 10 && x / y > 2) {
+    System.out.println("This will not be printed.");
+} else {
+    System.out.println("Short-circuiting occurred."); // Output: Short-circuiting occurred.
+}
+```
+
+In this example, if the right-hand operand was evaluated, it would result in a division by zero error. However, because of short-circuiting, this error is avoided.
+
+**Logical OR ```(||)```**:
+
+The logical OR operator (||) evaluates to true if at least one of the operands is true. It only evaluates to false if both operands are false.
+
+|Operand 1|	Operand 2|	Result|
+| :-----------: | :-------------: | :-------------: |
+|true	|true	|true|
+|true	|false	|true|
+|false|	true	|true|
+|false	|false	|false|
+
+**Example**:
+
+```java
+int temperature = 28;
+boolean isRaining = false;
+
+// Check if it's either hot OR raining
+boolean shouldWearJacket = temperature < 15 || isRaining;
+System.out.println("Should wear a jacket: " + shouldWearJacket); // Output: false
+
+temperature = 10;
+shouldWearJacket = temperature < 15 || isRaining;
+System.out.println("Should wear a jacket: " + shouldWearJacket); // Output: true
+```
+
+In the first case, both conditions (temperature < 15 and isRaining) are false, so the result is false. In the second case, temperature < 15 is true, so the entire expression becomes true.
+
+**Short-circuiting**: Similar to &&, the || operator also exhibits short-circuiting. If the left-hand operand evaluates to true, the right-hand operand is not evaluated. This is because the result of the entire expression will be true regardless of the value of the right-hand operand.
+
+```java
+String name = null;
+
+// The second condition (name.length() > 5) will not be evaluated because name == null is true.
+if (name == null || name.length() > 5) {
+    System.out.println("Name is null or longer than 5 characters."); // Output: Name is null or longer than 5 characters.
+}
+```
+
+In this example, if the right-hand operand was evaluated, it would result in a NullPointerException. However, because of short-circuiting, this exception is avoided.
+
+**Logical NOT ```(!)```**:
+
+The logical NOT operator (!) is a unary operator that inverts the boolean value of its operand. If the operand is true, ! returns false, and if the operand is false, ! returns true.
+
+|Operand	|Result|
+| :-----------: | :-------------: |
+|true	|false|
+|false	|true|
+
+**Example**:
+
+```java
+boolean isLoggedIn = false;
+
+// Check if the user is NOT logged in
+boolean isLoggedOut = !isLoggedIn;
+System.out.println("Is logged out: " + isLoggedOut); // Output: true
+
+isLoggedIn = true;
+isLoggedOut = !isLoggedIn;
+System.out.println("Is logged out: " + isLoggedOut); // Output: false
+```
+
+In the first case, isLoggedIn is false, so !isLoggedIn is true. In the second case, isLoggedIn is true, so !isLoggedIn is false.
+
+**Using NOT to simplify conditions**: The NOT operator can sometimes be used to make conditions more readable or to express them in a different way.
+
+```java
+int score = 75;
+boolean isPassing = score >= 60;
+boolean isFailing = !isPassing; // Equivalent to score < 60
+
+System.out.println("Is passing: " + isPassing); // Output: true
+System.out.println("Is failing: " + isFailing); // Output: false
+```
 
 #### <a name="chapter2part7.2"></a>Chapter 2 - Part 7.2: Combining Logical Operators
 
+You can combine multiple logical operators to create more complex conditions. When combining operators, it's important to understand operator precedence (which will be covered in the next lesson) and to use parentheses to ensure that the expression is evaluated in the order you intend.
+
+**Example**:
+
+```java
+int age = 20;
+boolean hasLicense = true;
+boolean isInsured = false;
+
+// Check if the person is of legal age AND has a license AND is insured
+boolean canDrive = age >= 18 && hasLicense && isInsured;
+System.out.println("Can drive: " + canDrive); // Output: false
+
+// Check if the person is of legal age AND (has a license OR is insured)
+canDrive = age >= 18 && (hasLicense || isInsured);
+System.out.println("Can drive: " + canDrive); // Output: true
+```
+
+In the first case, all three conditions must be true for canDrive to be true. In the second case, the person must be of legal age, and they must have either a license or insurance (or both). The parentheses ensure that the || operation is performed before the && operation.
+
 #### <a name="chapter2part7.3"></a>Chapter 2 - Part 7.3: Practical Examples
+
+Let's consider a scenario where you're building a simple e-commerce application. You might use logical operators to determine whether a user is eligible for a discount based on their membership status and purchase amount.
+
+```java
+boolean isMember = true;
+double purchaseAmount = 120.0;
+
+// Check if the user is a member OR if their purchase amount is greater than $100
+boolean isEligibleForDiscount = isMember || purchaseAmount > 100.0;
+
+if (isEligibleForDiscount) {
+    System.out.println("User is eligible for a discount."); // Output: User is eligible for a discount.
+} else {
+    System.out.println("User is not eligible for a discount.");
+}
+
+// Check if the user is a member AND their purchase amount is greater than $50
+boolean isEligibleForFreeShipping = isMember && purchaseAmount > 50.0;
+
+if (isEligibleForFreeShipping) {
+    System.out.println("User is eligible for free shipping."); // Output: User is eligible for free shipping.
+} else {
+    System.out.println("User is not eligible for free shipping.");
+}
+```
+
+In this example, the || operator is used to check if the user is either a member or has a purchase amount greater than $100. The && operator is used to check if the user is both a member and has a purchase amount greater than $50.
 
 #### <a name="chapter7part8"></a>Chapter 7 - Part 8: Bitwise Operators
 
@@ -3097,7 +3282,29 @@ public class Program {
 
 #### <a name="chapter2part9"></a>Chapter 2 - Part 9: Operator Precedence
 
+Operator precedence dictates the order in which operators are evaluated in a Java expression. Understanding operator precedence is crucial for writing correct and predictable code. Without this knowledge, the results of calculations might be unexpected, leading to bugs that are difficult to find. This lesson will cover the rules of operator precedence in Java, providing examples and exercises to solidify your understanding.
+
 #### <a name="chapter2part9.1"></a>Chapter 2 - Part 9.1: Understanding Operator Precedence in Java
+
+Operator precedence determines which operations are performed first in an expression. Operators with higher precedence are evaluated before operators with lower precedence. When operators have the same precedence, their associativity determines the order of evaluation (left-to-right or right-to-left).
+
+Here's a table summarizing the precedence of common Java operators, from highest to lowest:
+
+|Precedence	|Operator(s)	|Associativity|
+| :-----------: | :-------------: | :-------------: |
+|1	|```[]```, ```.```, ```()``` (method call)|	Left-to-right|
+|2	|```++```, ```--``` (postfix)|	Left-to-right|
+|3	|```++```, ```--``` (prefix), ```+```, ```-```, ```!```, ```~```|	Right-to-left|
+|4	|```*```, ```/```, ```%```|	Left-to-right|
+|5	|```+```, ```-```|	Left-to-right|
+|6	|```<<```, ```>>```, ```>>>```|	Left-to-right|
+|7	|```<```, ```<=```, ```>```, ```>=```, instanceof|	Left-to-right|
+|8	|```==```, ```!=```|	Left-to-right|
+|9	|```&```|	Left-to-right|
+|10	|```^```|	Left-to-right|
+|11	|&&|	Left-to-right|
+|12	|```? :```|	Right-to-left|
+|13	|```=```, ```+=```, ```-=```, ```*=```, ```/=```, ```%=```, ```&=```, ```^=```|	```=```, ```<<=```, ```>>=```, ```>>>=```|
 
 #### <a name="chapter2part9.2"></a>Chapter 2 - Part 9.2: Using Parentheses to Control Precedence
 
