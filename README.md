@@ -85,7 +85,8 @@
       - [Chapter 3 - Part 3.1: Understanding the if-else Statement](#chapter3part3.1)
       - [Chapter 3 - Part 3.2: Omitting Curly Braces](#chapter3part3.2)
       - [Chapter 3 - Part 3.3: Nested if-else Statements](#chapter3part3.3)
-      - [Chapter 3 - Part 3.4: Common Errors and Pitfalls](#chapter3part3.4)
+      - [Chapter 3 - Part 3.4: Short-Hand if-else](#chapter3part3.4)
+      - [Chapter 3 - Part 3.5: Common Errors and Pitfalls](#chapter3part3.5)
     - [Chapter 3 - Part 4: The `if-else if-else` Statement: Handling Multiple Conditions](#chapter3part4)
       - [Chapter 3 - Part 4.1: Understanding the if-else if-else Statement](#chapter3part4.1)
     - [Chapter 3 - Part 5: The `switch` Statement: Selecting from Multiple Cases](#chapter3part5)
@@ -3842,7 +3843,42 @@ Iteration: 9
 
 #### <a name="chapter3part3.3"></a>Chapter 3 - Part 3.3: Nested if-else Statements
 
-#### <a name="chapter3part3.4"></a>Chapter 3 - Part 3.4: Common Errors and Pitfalls
+#### <a name="chapter3part3.4"></a>Chapter 3 - Part 3.4: Short-Hand if-else
+
+Optional structure to ```if-else``` when you want to decide a **VALUE** based on a condition.
+
+**The Short Hand If...Else Statement**
+
+```java
+
+variable = (condition) ? expressionTrue :  expressionFalse;
+
+```
+
+Instead of writing:
+
+```java
+
+int time = 20;
+if (time < 18) {
+  System.out.println("Good day.");
+} else {
+  System.out.println("Good evening.");
+}
+
+```
+
+You can simply write:
+
+```java
+
+int time = 20;
+String result = (time < 18) ? "Good day." : "Good evening.";
+System.out.println(result);
+
+```
+
+#### <a name="chapter3part3.5"></a>Chapter 3 - Part 3.5: Common Errors and Pitfalls
 
 #### <a name="chapter3part3.5"></a>Chapter 3 - Part 3.5: Practice Activities
 
@@ -4685,38 +4721,7 @@ public class Main {
 ```
 #### <a name="chapter4part4"></a>Chapter 4 - Part 4: Conditional Statement in Java(Short Hand If...Else)
 
-Optional structure to ```if-else``` when you want to decide a **VALUE** based on a condition.
 
-**The Short Hand If...Else Statement**
-
-```java
-
-variable = (condition) ? expressionTrue :  expressionFalse;
-
-```
-
-Instead of writing:
-
-```java
-
-int time = 20;
-if (time < 18) {
-  System.out.println("Good day.");
-} else {
-  System.out.println("Good evening.");
-}
-
-```
-
-You can simply write:
-
-```java
-
-int time = 20;
-String result = (time < 18) ? "Good day." : "Good evening.";
-System.out.println(result);
-
-```
 
 #### <a name="chapter4part5"></a>Chapter 4 - Part 5: Conditional Statement in Java(switch-case)
 
