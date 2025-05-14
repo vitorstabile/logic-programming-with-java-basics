@@ -78,52 +78,37 @@
       - [Chapter 3 - Part 1.2: Decision-Making Statements: An Overview](#chapter3part1.2)
       - [Chapter 3 - Part 1.3: Looping Statements: An Introduction](#chapter3part1.3)
       - [Chapter 3 - Part 1.4: Using break and continue Statements](#chapter3part1.4)
-      - [Chapter 3 - Part 1.5: Practice Activities](#chapter3part1.5)
-      - [Chapter 3 - Part 1.6: Next Steps and Future Learning Directions](#chapter3part1.6)
     - [Chapter 3 - Part 2: The `if` Statement: Conditional Execution](#chapter3part2)
       - [Chapter 3 - Part 2.1: Understanding the if Statement](#chapter3part2.1)
       - [Chapter 3 - Part 2.2: Practical Examples of the if Statement](#chapter3part2.2)
-      - [Chapter 3 - Part 2.3: Exercises](#chapter3part2.3)
-      - [Chapter 3 - Part 2.4: Preparing for Future Lessons](#chapter3part2.4)
     - [Chapter 3 - Part 3: The `if-else` Statement: Choosing Between Two Options](#chapter3part3)
       - [Chapter 3 - Part 3.1: Understanding the if-else Statement](#chapter3part3.1)
       - [Chapter 3 - Part 3.2: Omitting Curly Braces](#chapter3part3.2)
       - [Chapter 3 - Part 3.3: Nested if-else Statements](#chapter3part3.3)
       - [Chapter 3 - Part 3.4: Common Errors and Pitfalls](#chapter3part3.4)
-      - [Chapter 3 - Part 3.5: Practice Activities](#chapter3part3.5)
-      - [Chapter 3 - Part 3.6: Preparing for Future Lessons](#chapter3part3.6)
     - [Chapter 3 - Part 4: The `if-else if-else` Statement: Handling Multiple Conditions](#chapter3part4)
       - [Chapter 3 - Part 4.1: Understanding the if-else if-else Statement](#chapter3part4.1)
-      - [Chapter 3 - Part 4.2: Practice Activities](#chapter3part4.2)
-      - [Chapter 3 - Part 4.3: Preparing for Future Lessons](#chapter3part4.3)
     - [Chapter 3 - Part 5: The `switch` Statement: Selecting from Multiple Cases](#chapter3part5)
       - [Chapter 3 - Part 5.1: Understanding the switch Statement](#chapter3part5.1)
       - [Chapter 3 - Part 5.2: Practical Examples and Demonstrations](#chapter3part5.2)
-      - [Chapter 3 - Part 5.3: Exercises and Practice Activities](#chapter3part5.3)
-      - [Chapter 3 - Part 5.4: Summary and Next Steps](#chapter3part5.4)
     - [Chapter 3 - Part 6: The `while` Loop: Repeating Code While a Condition is True](#chapter3part6)
       - [Chapter 3 - Part 6.1: Understanding the while Loop](#chapter3part6.1)
       - [Chapter 3 - Part 6.2: Using while Loops with User Input](#chapter3part6.2)
       - [Chapter 3 - Part 6.3: Using while Loops with Boolean Flags](#chapter3part6.3)
       - [Chapter 3 - Part 6.4: Nested while Loops](#chapter3part6.4)
-      - [Chapter 3 - Part 6.5: Practice Activities](#chapter3part6.5)
     - [Chapter 3 - Part 7: The `do-while` Loop: Ensuring Code Executes at Least Once](#chapter3part7)
       - [Chapter 3 - Part 7.1: Understanding the do-while Loop](#chapter3part7.1)
       - [Chapter 3 - Part 7.2: Practical Examples of do-while Loops](#chapter3part7.2)
-      - [Chapter 3 - Part 7.3: Exercises](#chapter3part7.3)
-      - [Chapter 3 - Part 7.4: Preparing for Future Lessons](#chapter3part7.4)
     - [Chapter 3 - Part 8: The `for` Loop: Repeating Code a Specific Number of Times](#chapter3part8)
       - [Chapter 3 - Part 8.1: Understanding the for Loop Syntax](#chapter3part8.1)
       - [Chapter 3 - Part 8.2: How the for Loop Works](#chapter3part8.2)
       - [Chapter 3 - Part 8.3: Practical Examples of for Loops](#chapter3part8.3)
       - [Chapter 3 - Part 8.4: Variations of the for Loop](#chapter3part8.4)
       - [Chapter 3 - Part 8.5: Common Mistakes and How to Avoid Them](#chapter3part8.5)
-      - [Chapter 3 - Part 8.6: Exercises](#chapter3part8.6)
     - [Chapter 3 - Part 9: Using `break` and `continue` Statements](#chapter3part9)
       - [Chapter 3 - Part 9.1: Understanding the break Statement](#chapter3part9.1)
       - [Chapter 3 - Part 9.2: Understanding the continue Statement](#chapter3part9.2)
       - [Chapter 3 - Part 9.3: Practical Examples and Demonstrations](#chapter3part9.3)
-      - [Chapter 3 - Part 9.4: Exercises](#chapter3part9.4)
 4. [Chapter 4: Working with Arrays and Strings](#chapter4)
     - [Chapter 4 - Part 1: Introduction to Arrays: Storing Collections of Data](#chapter4part1)
       - [Chapter 4 - Part 1.1: Declaring and Initializing Arrays](#chapter4part1.1)
@@ -3475,19 +3460,369 @@ Here's a breakdown of the evaluation:
 
 ## <a name="chapter3"></a>Chapter 3: Control Flow: Making Decisions and Repeating Actions
 
+Control flow statements are the fundamental building blocks that allow programs to make decisions and repeat actions. Without control flow, a program would execute sequentially, line by line, offering no flexibility or adaptability. This lesson introduces the core concepts of control flow and sets the stage for understanding how to write more complex and dynamic Java programs. We'll explore the different types of control flow statements available in Java and how they alter the execution path of your code.
+
 #### <a name="chapter3part1"></a>Chapter 3 - Part 1: Introduction to Control Flow Statements
+
+Control flow refers to the order in which individual statements, instructions or function calls of an imperative program are executed or evaluated. In simple terms, it's the path your code takes as it runs. By default, Java executes code sequentially, from top to bottom, within a method. Control flow statements allow you to deviate from this linear execution, enabling your program to respond to different conditions and perform repetitive tasks.
 
 #### <a name="chapter3part1.1"></a>Chapter 3 - Part 1.1: Understanding Control Flow
 
+Control flow refers to the order in which individual statements, instructions or function calls of an imperative program are executed or evaluated. In simple terms, it's the path your code takes as it runs. By default, Java executes code sequentially, from top to bottom, within a method. Control flow statements allow you to deviate from this linear execution, enabling your program to respond to different conditions and perform repetitive tasks.
+
+**Types of Control Flow Statements**
+
+- **Decision-Making Statements**: These statements allow your program to choose between different paths of execution based on certain conditions. The primary decision-making statements in Java are:
+  - ```if``` statement
+  - ```if-else``` statement
+  - ```if-else if-else``` statement
+  - ```switch``` statement
+ 
+- **Looping Statements**: These statements allow you to repeat a block of code multiple times. The looping statements in Java are:
+  - ```while``` loop
+  - ```do-while``` loop
+  - ```for``` loop
+  - ```for-each``` loop
+ 
+**Importance of Control Flow**
+
+Control flow statements are essential for creating programs that can:
+
+- **React to User Input**: A program can take different actions based on what the user enters.
+- **Process Data Conditionally**: A program can perform different calculations or operations depending on the data it receives.
+- **Automate Repetitive Tasks**: A program can repeat a set of instructions multiple times, saving time and effort.
+- **Implement Complex Algorithms**: Many algorithms rely on conditional execution and repetition to solve problems.
+
 #### <a name="chapter3part1.2"></a>Chapter 3 - Part 1.2: Decision-Making Statements: An Overview
+
+Decision-making statements allow a program to execute specific blocks of code only when certain conditions are met. These conditions are evaluated as boolean expressions (i.e., they result in either true or false).
+
+**The ```if``` Statement**
+
+The if statement is the simplest form of decision-making. It executes a block of code only if a specified condition is true.
+
+```java
+if (condition) {
+    // Code to be executed if the condition is true
+}
+```
+
+**Example**:
+
+```java
+int age = 20;
+
+if (age >= 18) {
+    System.out.println("You are eligible to vote.");
+}
+```
+
+In this example, the message "You are eligible to vote." will be printed to the console only if the value of the age variable is greater than or equal to 18.
+
+**The ```if-else``` Statement**
+
+The if-else statement provides an alternative block of code to execute when the condition in the if statement is false.
+
+**Syntax**:
+
+```java
+if (condition) {
+    // Code to be executed if the condition is true
+} else {
+    // Code to be executed if the condition is false
+}
+```
+
+**Example**:
+
+```java
+int age = 16;
+
+if (age >= 18) {
+    System.out.println("You are eligible to vote.");
+} else {
+    System.out.println("You are not eligible to vote yet.");
+}
+```
+
+In this example, since age is 16 (less than 18), the message "You are not eligible to vote yet." will be printed.
+
+**The ```if-else if-else``` Statement**
+
+The if-else if-else statement allows you to check multiple conditions in sequence. It provides a way to handle more complex decision-making scenarios where you have several possible outcomes.
+
+**Syntax**:
+
+```java
+if (condition1) {
+    // Code to be executed if condition1 is true
+} else if (condition2) {
+    // Code to be executed if condition1 is false AND condition2 is true
+} else if (condition3) {
+    // Code to be executed if condition1 and condition2 are false AND condition3 is true
+} else {
+    // Code to be executed if all conditions are false
+}
+```
+
+**Example**:
+
+```java
+int score = 75;
+
+if (score >= 90) {
+    System.out.println("Grade: A");
+} else if (score >= 80) {
+    System.out.println("Grade: B");
+} else if (score >= 70) {
+    System.out.println("Grade: C");
+} else if (score >= 60) {
+    System.out.println("Grade: D");
+} else {
+    System.out.println("Grade: F");
+}
+```
+
+In this example, the program checks the value of the score variable against a series of conditions. Since score is 75, the message "Grade: C" will be printed.
+
+**The ```switch``` Statement**
+
+The switch statement provides a more efficient way to select one block of code to execute from a set of possible cases, based on the value of a single variable or expression. It's particularly useful when you have multiple possible values to check against.
+
+**Syntax**:
+
+```java
+switch (expression) {
+    case value1:
+        // Code to be executed if expression equals value1
+        break;
+    case value2:
+        // Code to be executed if expression equals value2
+        break;
+    case value3:
+        // Code to be executed if expression equals value3
+        break;
+    default:
+        // Code to be executed if expression doesn't match any of the cases
+}
+```
+
+**Explanation**:
+
+- The switch statement evaluates the expression.
+- The case labels specify the different possible values of the expression.
+- If the value of the expression matches a case label, the code within that case block is executed.
+- The break statement is crucial. It terminates the switch statement and prevents the execution of subsequent case blocks. If you omit the break statement, the program will "fall through" to the next case block, even if the value of the expression doesn't match that case.
+- The default case is optional. It provides a block of code to execute if the value of the expression doesn't match any of the case labels.
+
+**Example**:
+
+```java
+int dayOfWeek = 3;
+
+switch (dayOfWeek) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    case 3:
+        System.out.println("Wednesday");
+        break;
+    case 4:
+        System.out.println("Thursday");
+        break;
+    case 5:
+        System.out.println("Friday");
+        break;
+    case 6:
+        System.out.println("Saturday");
+        break;
+    case 7:
+        System.out.println("Sunday");
+        break;
+    default:
+        System.out.println("Invalid day");
+}
+```
+
+In this example, since dayOfWeek is 3, the message "Wednesday" will be printed.
 
 #### <a name="chapter3part1.3"></a>Chapter 3 - Part 1.3: Looping Statements: An Introduction
 
+Looping statements allow you to execute a block of code repeatedly, as long as a certain condition remains true. This is incredibly useful for automating tasks that need to be performed multiple times.
+
+**The ```while``` Loop**
+
+The while loop executes a block of code repeatedly as long as a specified condition is true. The condition is checked before each iteration of the loop.
+
+**Syntax**:
+
+```java
+while (condition) {
+    // Code to be executed repeatedly as long as the condition is true
+}
+```
+
+**Example**:
+
+```java
+int count = 1;
+
+while (count <= 5) {
+    System.out.println("Count: " + count);
+    count++; // Increment the counter
+}
+```
+
+In this example, the loop will execute as long as the value of count is less than or equal to 5. The message "Count: " followed by the current value of count will be printed in each iteration. The count++ statement increments the value of count by 1 after each iteration. Without this increment, the loop would run indefinitely (an infinite loop).
+
+**The ```do-while``` Loop**
+
+The do-while loop is similar to the while loop, but with one key difference: the condition is checked after each iteration of the loop. This means that the code block inside the do-while loop will always be executed at least once, even if the condition is initially false.
+
+**Syntax**:
+
+```java
+do {
+    // Code to be executed repeatedly as long as the condition is true
+} while (condition);
+```
+
+**Example**:
+
+```java
+int count = 6;
+
+do {
+    System.out.println("Count: " + count);
+    count++;
+} while (count <= 5);
+```
+
+In this example, even though count is initially 6 (which is greater than 5), the code inside the do block will be executed once. The message "Count: 6" will be printed. Then, the condition count <= 5 will be checked. Since it's false, the loop will terminate.
+
+**The ```for``` Loop**
+
+The for loop provides a more concise way to write loops that iterate a specific number of times. It combines the initialization, condition checking, and increment/decrement steps into a single statement.
+
+**Syntax**:
+
+```java
+for (initialization; condition; increment/decrement) {
+    // Code to be executed repeatedly as long as the condition is true
+}
+```
+
+**Explanation**:
+
+- **Initialization**: This part is executed only once, at the beginning of the loop. It's typically used to declare and initialize a loop counter variable.
+- **Condition**: This condition is checked before each iteration of the loop. If it's true, the loop body is executed. If it's false, the loop terminates.
+- **Increment/Decrement**: This part is executed after each iteration of the loop. It's typically used to update the loop counter variable.
+
+**Example**:
+
+```java
+for (int i = 1; i <= 5; i++) {
+    System.out.println("Iteration: " + i);
+}
+```
+
+In this example, the loop will execute 5 times. The variable i is initialized to 1. The loop continues as long as i is less than or equal to 5. After each iteration, i is incremented by 1.
+
+**The ```for-each``` Loop**
+
+The for-each loop automatically handles the iteration process, so you don't need to worry about index variables or incrementing counters. It iterates through each element in the array or collection, one at a time, and makes the element available to you within the loop's body.
+
+```java
+for (dataType element : arrayOrCollection) {
+    // Code to be executed for each element
+    // You can use the 'element' variable to access the current element
+}
+```
+
+**Explanation**:
+
+- **dataType**: The data type of the elements in the array or collection.
+- **element**: A variable that will hold the current element during each iteration.
+- **arrayOrCollection**: The array or collection you want to iterate through.
+
+**Example with Arrays**:
+
+```java
+public class ForEachArrayExample {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+
+        // Using a for-each loop to print each element in the array
+        for (int number : numbers) {
+            System.out.println(number);
+        }
+    }
+}
+```
+
+```
+1
+2
+3
+4
+5
+```
+
 #### <a name="chapter3part1.4"></a>Chapter 3 - Part 1.4: Using break and continue Statements
 
-#### <a name="chapter3part1.5"></a>Chapter 3 - Part 1.5: Practice Activities
+The break and continue statements provide additional control over the execution of loops.
 
-#### <a name="chapter3part1.6"></a>Chapter 3 - Part 1.6: Next Steps and Future Learning Directions
+**The ```break``` Statement**
+
+The break statement is used to terminate a loop prematurely. When a break statement is encountered inside a loop, the loop is immediately exited, and the program continues with the next statement after the loop.
+
+**Example**:
+
+```java
+for (int i = 1; i <= 10; i++) {
+    if (i == 5) {
+        break; // Exit the loop when i is 5
+    }
+    System.out.println("Iteration: " + i);
+}
+```
+
+In this example, the loop is intended to iterate from 1 to 10. However, when i becomes 5, the break statement is executed, and the loop terminates. The output will be:
+
+```
+Iteration: 1
+Iteration: 2
+Iteration: 3
+Iteration: 4
+```
+
+**The ```continue``` Statement**
+
+The continue statement is used to skip the current iteration of a loop and proceed to the next iteration. When a continue statement is encountered inside a loop, the remaining code in the current iteration is skipped, and the loop proceeds to the next iteration.
+
+**Example**:
+
+```java
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) {
+        continue; // Skip even numbers
+    }
+    System.out.println("Iteration: " + i);
+}
+```
+
+In this example, the loop iterates from 1 to 10. However, when i is an even number (i.e., i % 2 == 0 is true), the continue statement is executed, and the remaining code in the current iteration (the System.out.println() statement) is skipped. The output will be:
+
+```
+Iteration: 1
+Iteration: 3
+Iteration: 5
+Iteration: 7
+Iteration: 9
+```
 
 #### <a name="chapter3part2"></a>Chapter 3 - Part 2: The `if` Statement: Conditional Execution
 
