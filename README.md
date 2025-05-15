@@ -8314,12 +8314,388 @@ UML Annotation
 
 #### <a name="chapter8part1"></a>Chapter 10 - Part 1: Reference Type vs. Value Types
 
+Java provides two types of data types **primitive** and **reference** data type. The **primitive data types (value type)** are predefined in Java that serves as a fundamental building block while the **reference** data type refers to where data is stored.
+
+<br>
+
+<div align="center"><img src="img/data-types-w8000-h4500.png" width=600 height=350><br><sub>Fig 13 -Java Data Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
+
+<br>
+
+**Reference types**
+
+In Java, **non-primitive** data types are known as **reference types**. In other words, a variable of class type is called **reference data type**. It contains the address (or reference) of dynamically created objects. For example, if **Demo** is a class and we have created its object **d**, then the variable d is known as a reference type.
+
+It refers to objects. It is not pre-defined. It is created by the programmer if required. The reference types hold the references of objects. All **reference types** are a subclass of type **java.lang.Object**. It provides access to the objects stored in the memory.
+
+Example: In the example above the p2 variable refence the memory address where p1 was created.
+
+```java
+
+Product p1, p2;
+p1 = new Product("TV", 900.00, 0);
+p2 = p1;
+
+```
+
+<br>
+
+<div align="center"><img src="img/referency_memory-w681-h362.png" width=681 height=362><br><sub>Fig 34 -Referency Types - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by Nelio Alves</a>) </sub></div>
+
+<br>
+
+The default values when we use ```new``` in Class and Arrays is:
+
+- Numbers: 0
+- boolean: false
+- char: 0 code
+- object: null
+
+Reference type alow "null" value. This means they not reference any body.
+
+**Primitive types**
+
+In Java, primitive types is value types.
+
+Example: y receive a copy of x
+
+```java
+
+double x, y;
+x = 10;
+y = x;
+
+```
+
+The primitive types needs a value to initiate:
+
+```java
+
+int p;
+System.out.println(p); // error: variable not initiated
+
+p = 10;
+System.out.println(p);
+
+```
+
+<br>
+
+<div align="center"><img src="img/primitive_memory-w641-h378.png" width=641 height=378><br><sub>Fig 35 -Primitive Types - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by Nelio Alves</a>) </sub></div>
+
+<br>
+
+<br>
+
+<div align="center"><img src="img/data-types2-w1920-h1080.jpg" width=600 height=300><br><sub>Fig 14 -Java Data Primitive Types - (<a href='https://getkt.com/blog/reintroduction-to-java-data-types/'>Work by neotam</a>) </sub></div>
+
+<br>
+
+| Reference Type                                                                 | Primitive Type                                                         |
+| :-----------------------------------------------------------------------------:| :---------------------------------------------------------------------:|
+| It is not pre-defined except the String.                                       | It is pre-defined in Java.                                             |
+| All reference type begins with Uppercase letter.                               | All primitive type begins with a lowercase letter.                     | 
+| Non-primitive types have all the same size.                                    | The size of a primitive type depends on the data type.                 |
+| It is used to invoke or call methods.                                          | We cannot invoke the method with a primitive type.                     |
+| It can be null.                                                                | It cannot be null. It always has value.                                |
+| Examples of reference data types are class, Arrays, String, Interface, etc.    | Examples of primitive data types are int, float, double, Boolean, long.|
+| JVM allocates 8 bytes for each reference variable, by default.                 | Its size depends on the data type.                                     |
+| **Example**: Demo d1;                                                          | **Example**: int num=78;                                               |
+| Advantage: enjoys all OO features                                              | Advantage: it is simpler and more performant                           |
+| Objects must be instantiated using new, or point to an existing object.        | Does not instantiate. Once declared, they are ready for use.           |
+| Accepts null value                                                             | Does not accept null value                                             |
+| Y = X; "Y starts pointing to where X points Y = X;                             | Y = X; "Y receives a copy of X"                                        |
+| Objects instantiated on the heap                                               | "Objects" instantiated on the stack                                    |
+| Unused objects are deallocated in a close moment by garbage collector          | "Objects" are deallocated immediately when your execution scope is terminated   |
+
 #### <a name="chapter8part2"></a>Chapter 10 - Part 2: Garbage Collector
+
+In Java, the ```new``` keyword is used to create an **instance** of the class. In other words, it instantiates a class by allocating **memory** for a new object and returning a reference to that memory. Objects occupy memory in the **Java heap space**. We can also use the ```new``` keyword to create the array object.
+
+```java
+
+ClassName objectName = new ClassName();  
+
+```
+
+If there are no references to an object, the memory used by that object can be reclaimed during the garbage collection process.
+
+**Garbage Collector
+
+It is a process that automates the memory management of a program running
+
+Garbage collector monitors dynamically allocated objects by the program (on the heap), deallocating those that are no longer being used.
+
+In java, garbage means unreferenced objects.
+
+Garbage Collection is process of reclaiming the runtime unused memory automatically. In other words, it is a way to destroy the unused objects.
+
+To do so, we were using free() function in C language and delete() in C++. But, in java it is performed automatically. So, java provides better memory management.
+
+**Advantage of Garbage Collection**
+
+- It makes java memory efficient because garbage collector removes the unreferenced objects from heap memory.
+
+- It is automatically done by the garbage collector(a part of JVM) so we don't need to make extra efforts.
+
+**How can an object be unreferenced?**
+
+- By nulling the reference
+
+```java
+
+    Employee e=new Employee();  
+    e=null;  
+
+```
+
+- By assigning a reference to another
+
+```java
+
+    Employee e1=new Employee();  
+    Employee e2=new Employee();  
+    e1=e2;//now the first object referred by e1 is available for garbage collection  
+
+```
+
+- By anonymous object etc.
+
+```java
+
+    new Employee();  
+
+```
+
+**finalize() method**
+
+The finalize() method is invoked each time before the object is garbage collected. This method can be used to perform cleanup processing. This method is defined in Object class as:
+
+```java
+
+    protected void finalize(){}  
+
+```
+
+OBS: The Garbage collector of JVM collects only those objects that are created by new keyword. So if you have created any object without new, you can use finalize method to perform cleanup processing (destroying remaining objects).
+
+**gc() method**
+
+The gc() method is used to invoke the garbage collector to perform cleanup processing. The gc() is found in System and Runtime classes. 
+
+```java
+
+    public static void gc(){}  
+
+```
+
+OBS: Garbage collection is performed by a daemon thread called Garbage Collector(GC). This thread calls the finalize() method before object is garbage collected.
+
+```java
+
+    public class TestGarbage1{  
+     public void finalize(){System.out.println("object is garbage collected");}  
+     public static void main(String args[]){  
+      TestGarbage1 s1=new TestGarbage1();  
+      TestGarbage1 s2=new TestGarbage1();  
+      s1=null;  
+      s2=null;  
+      System.gc();  
+     }  
+    }  
+    
+    //object is garbage collected
+    //object is garbage collected
+
+```
 
 #### <a name="chapter8part3"></a>Chapter 10 - Part 3:  Boxing, unboxing and wrapper classes
 
+**Boxing**
+
+It is the process of converting a value type object to an object compatible reference type
+
+```java
+
+int x = 20;
+
+Object obj = x;
+
+```
+
+**Unboxing**
+
+It is the process of converting a reference-type object to a object type compatible value
+
+```java
+
+int x = 20;
+
+Object obj = x;
+
+int y = (int) obj;
+
+```
+
+**Comparing Reference Type**
+
+Reference types are comparable in Java. Equality operators and the equals method can be used to assist with comparisons.
+
+- Using the Equality Operators ```(==)```
+
+The ```!=``` and ```==``` equality operators are used to compare the memory locations of two objects. If the memory addresses of the objects being compared are the same, the objects are considered equal. These equality operators are not used to compare the contents of two objects.
+
+```java
+
+String guest1 = new String("name");
+String guest2 = guest1;
+if (guest1 == guest2)
+  System.out.println("They are equal");
+
+```
+
+In the following example, the memory addresses are not equal, so the statement "They are not equal" is output:
+
+```java
+
+String guest1 = new String("name");
+String guest2 = new String("name");
+if (guest1 != guest2)
+  System.out.println("They are not equal");
+
+
+```
+
+- Using the ```equals()``` Method
+
+To compare the contents of two class objects, the ```equals()``` method from class ```Object``` can be used or overridden. When the ```equals()``` method is overridden, the ```hashCode()``` method should also be overridden. This is done for compatibility with hash-based collections such as ```HashMap()``` and ```HashSet()```.
+
+By default, the ```equals()``` method uses only the ```==``` operator for comparisons. This method has to be overridden to really be useful.
+
+For example, if you want to compare values contained in two instances of the same class, you should use a programmer-defined equals() method.
+
+**Comparing Strings**
+
+There are two ways to check whether strings are equal in Java, but the definition of “equal” for each of them is different:
+
+- The ```equals()``` method compares two strings, character by character, to determine equality. This is not the default implementation of the ```equals()``` method provided by the Object class. This is the overridden implementation provided by String class.
+
+- The ```==``` operator checks to see whether two object references refer to the same instance of an object.
+
+Here is a program that shows how strings are evaluated using the ```equals()``` method and the ```==``` operator
+
+```java
+
+class MyComparisons {
+
+  // Add string to pool
+  String first = "chairs";
+  // Use string from pool
+  String second = "chairs";
+  // Create a new string
+  String third = new String ("chairs");
+
+ void myMethod() {
+
+  /*
+   * Contrary to popular belief, this evaluates
+   * to true. Try it!
+   */
+  if (first == second) {
+    System.out.println("first == second");
+  }
+
+  // This evaluates to true
+  if (first.equals(second)) {
+    System.out.println("first equals second");
+  }
+  // This evaluates to false
+  if (first == third) {
+    System.out.println("first == third");
+  }
+  // This evaluates to true
+  if (first.equals(third)) {
+    System.out.println("first equals third");
+  }
+ } // End myMethod()
+} //end class
+
+```
+
+
+**Wrapper Classes**
+
+These are classes that are equivalent to primitive types.
+
+Boxing and unboxing is done automaticaly
+
+Common usage: Entity fields in information systems (IMPORTANT!)
+Because reference types (classes) accept null value and take advantage of Object Oriented resources
+
+<br>
+
+<div align="center"><img src="img/wrapper_classes-w541-h251.png" width=541 height=251><br><sub>Fig 37 - Wrapper Classes - (<a href='https://www.javatpoint.com/collections-in-java'>Work by  Java T Point</a>) </sub></div>
+
+<br>
+
 #### <a name="chapter8part4"></a>Chapter 10 - Part 4:  hashCode and equals
 
+**hashCode and equals**
+
+- They are operations of the Object class used to compare if an object is the same as another
+- equals: slow, 100% response
+- hashCode: fast, but positive response is not 100%
+- Common types (String, Date, Integer, Double, etc.) already have implementation for these operations. custom classes need to overlay them.
+
+**Equals**
+
+- Method that compares if the object is equal to another, returning true or false.
+
+```java
+
+String a = "Maria";
+String b = "Alex";
+
+System.out.println(a.equals(b)); //false
+
+```
+
+```java
+
+String a = "Maria";
+String b = "Naria";
+
+System.out.println(a.equals(b)); //true
+
+```
+
+**HashCode**
+
+- Method that returns an integer representing a generated code from object information
+
+```java
+
+String a = "Maria";
+String b = "Alex";
+
+System.out.println(a.hashCode()); //74113750
+System.out.println(b.hashCode()); //2043454
+
+```
+
+```java
+
+String a = "Maria";
+String b = "Maria";
+
+System.out.println(a.hashCode()); //74113750
+System.out.println(b.hashCode()); //74113750
+
+```
+
+If the hashCode of two objects is different, then the two objects are many different
+
+If the code of two objects is the same, most likely the objects they are the same
 
 
 ## <a name="chapter14"></a>Chapter 11: Java Interfaces
