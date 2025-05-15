@@ -3827,21 +3827,309 @@ Iteration: 9
 
 #### <a name="chapter3part2"></a>Chapter 3 - Part 2: The `if` Statement: Conditional Execution
 
+The if statement is a fundamental building block of control flow in Java, allowing programs to make decisions and execute different code paths based on whether a condition is true or false. It enables programs to respond dynamically to different inputs and situations, making them more versatile and intelligent. Understanding the if statement is crucial for writing programs that can solve real-world problems.
+
 #### <a name="chapter3part2.1"></a>Chapter 3 - Part 2.1: Understanding the if Statement
+
+The if statement in Java allows you to execute a block of code only if a specified condition is true. The basic syntax is as follows:
+
+```java
+if (condition) {
+    // Code to be executed if the condition is true
+}
+```
+
+The condition is a boolean expression that evaluates to either true or false. If the condition is true, the code within the curly braces {} is executed. If the condition is false, the code block is skipped, and the program continues with the next statement after the if block.
+
+**Anatomy of an if Statement**
+
+Let's break down the components of an if statement:
+
+- **```if``` Keyword**: This keyword signals the start of the conditional statement.
+- **Condition**: This is a boolean expression enclosed in parentheses (). It can be a simple comparison (e.g., x > 5) or a more complex logical expression (e.g., (x > 5) && (y < 10)).
+- **Code Block**: This is a block of code enclosed in curly braces {}. This code is executed only if the condition evaluates to true. If the code block contains only one statement, the curly braces can be omitted, but it's generally recommended to always use them for clarity and to avoid potential errors when adding more statements later.
+
+**Boolean Expressions**
+
+The condition within the if statement must be a boolean expression. This means it must evaluate to either true or false. Boolean expressions are typically constructed using:
+
+- **Comparison Operators**: == (equal to), != (not equal to), > (greater than), < (less than), >= (greater than or equal to), <= (less than or equal to).
+- **Logical Operators**: && (logical AND), || (logical OR), ! (logical NOT).
+
+For example:
+
+```java
+int age = 20;
+boolean isAdult = age >= 18; // isAdult will be true
+
+if (isAdult) {
+    System.out.println("You are an adult.");
+}
+```
 
 #### <a name="chapter3part2.2"></a>Chapter 3 - Part 2.2: Practical Examples of the if Statement
 
-#### <a name="chapter3part2.3"></a>Chapter 3 - Part 2.3: Exercises
+Let's explore some practical examples to illustrate how the if statement can be used in Java programs.
 
-#### <a name="chapter3part2.4"></a>Chapter 3 - Part 2.4: Preparing for Future Lessons
+**Example 1: Checking if a Number is Positive**
+
+This example demonstrates how to use an if statement to check if a number is positive.
+
+```java
+int number = 10;
+
+if (number > 0) {
+    System.out.println("The number is positive.");
+}
+```
+
+In this case, the condition number > 0 evaluates to true because number is 10, which is greater than 0. Therefore, the message "The number is positive." is printed to the console.
+
+**Example 2: Determining if a User is Eligible to Vote**
+
+This example builds upon the previous one and incorporates user input.
+
+```java
+import java.util.Scanner;
+
+public class VotingEligibility {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        if (age >= 18) {
+            System.out.println("You are eligible to vote.");
+        }
+    }
+}
+```
+
+This program prompts the user to enter their age. It then uses an if statement to check if the age is greater than or equal to 18. If it is, the program prints "You are eligible to vote."
+
+**Example 3: Checking for Even or Odd Numbers**
+
+This example demonstrates the use of the modulo operator (%) to determine if a number is even or odd.
+
+```java
+int number = 7;
+
+if (number % 2 == 0) {
+    System.out.println("The number is even.");
+}
+```
+
+In this case, the condition number % 2 == 0 evaluates to false because 7 divided by 2 has a remainder of 1, which is not equal to 0. Therefore, nothing is printed to the console. To handle the case where the number is odd, you would typically use an if-else statement, which will be covered in the next lesson.
+
+**Example 4: Validating User Input**
+
+This example shows how to use an if statement to validate user input and ensure it falls within a specific range.
+
+```java
+import java.util.Scanner;
+
+public class InputValidation {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter a number between 1 and 100: ");
+        int number = input.nextInt();
+
+        if (number >= 1 && number <= 100) {
+            System.out.println("You entered a valid number: " + number);
+        }
+    }
+}
+```
+
+This program prompts the user to enter a number between 1 and 100. It then uses an if statement with a compound condition (number >= 1 && number <= 100) to check if the number is within the valid range. If it is, the program prints a confirmation message.
+
+**Example 5: Simulating a Simple Login**
+
+This example demonstrates how to use an if statement to simulate a simple login process by comparing a user-entered password with a stored password.
+
+```java
+import java.util.Scanner;
+
+public class SimpleLogin {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        String storedPassword = "password123"; // In real applications, passwords should be stored securely
+        System.out.print("Enter your password: ");
+        String enteredPassword = input.nextLine();
+
+        if (enteredPassword.equals(storedPassword)) {
+            System.out.println("Login successful!");
+        }
+    }
+}
+```
+
+This program prompts the user to enter their password. It then uses the equals() method to compare the entered password with the stored password. If they match, the program prints "Login successful!". Note that in real-world applications, passwords should be stored securely using hashing and salting techniques.
 
 #### <a name="chapter3part3"></a>Chapter 3 - Part 3: The `if-else` Statement: Choosing Between Two Options
 
+The if-else statement is a fundamental control flow structure in Java (and many other programming languages). It allows your program to execute different blocks of code based on whether a specified condition is true or false. This ability to make decisions is crucial for creating programs that can handle different inputs and situations, making them more versatile and useful. Without conditional statements like if-else, programs would simply execute the same sequence of instructions every time, regardless of the data they are processing.
+
 #### <a name="chapter3part3.1"></a>Chapter 3 - Part 3.1: Understanding the if-else Statement
+
+The if-else statement provides a way to execute one block of code if a condition is true and another block of code if the condition is false. The basic syntax is as follows:
+
+```java
+if (condition) {
+    // Code to execute if the condition is true
+} else {
+    // Code to execute if the condition is false
+}
+```
+
+- **```if``` keyword**: This signals the start of the conditional statement.
+- **```condition```**: This is a boolean expression (an expression that evaluates to either true or false). The condition is enclosed in parentheses ().
+- **```{}``` (curly braces)**: These define the blocks of code that will be executed based on the condition. The code within the first set of curly braces is executed if the condition is true. The code within the second set of curly braces (following the else keyword) is executed if the condition is false.
+- **```else``` keyword**: This keyword introduces the block of code that will be executed when the if condition is false.
+
+**How it Works**
+
+- The program evaluates the condition inside the parentheses of the if statement.
+- If the condition evaluates to true, the code block immediately following the if statement (the code within the first set of curly braces) is executed. The code block following the else statement is skipped.
+- If the condition evaluates to false, the code block immediately following the if statement is skipped. The code block following the else statement (the code within the second set of curly braces) is executed.
+- After either the if block or the else block is executed, the program continues with the next statement after the if-else statement.
+
+**Example 1: Checking if a Number is Positive or Negative**
+
+```java
+public class IfElseExample {
+    public static void main(String[] args) {
+        int number = -10;
+
+        if (number > 0) {
+            System.out.println("The number is positive.");
+        } else {
+            System.out.println("The number is not positive.");
+        }
+    }
+}
+```
+
+In this example:
+
+- We declare an integer variable number and initialize it to -10.
+- The if statement checks if number > 0. Since -10 is not greater than 0, the condition is false.
+- Therefore, the code inside the else block is executed, and the output is "The number is not positive."
+
+**Example 2: Determining Even or Odd**
+
+```java
+public class EvenOdd {
+    public static void main(String[] args) {
+        int number = 7;
+
+        if (number % 2 == 0) {
+            System.out.println("The number is even.");
+        } else {
+            System.out.println("The number is odd.");
+        }
+    }
+}
+```
+
+In this example:
+
+- We declare an integer variable number and initialize it to 7.
+- The if statement checks if number % 2 == 0. The % operator gives the remainder of a division. If the remainder when number is divided by 2 is 0, then the number is even.
+- Since 7 % 2 equals 1 (not 0), the condition is false.
+- Therefore, the code inside the else block is executed, and the output is "The number is odd."
+
+**Example 3: Comparing Two Numbers**
+
+```java
+public class CompareNumbers {
+    public static void main(String[] args) {
+        int num1 = 25;
+        int num2 = 15;
+
+        if (num1 > num2) {
+            System.out.println("num1 is greater than num2");
+        } else {
+            System.out.println("num1 is not greater than num2");
+        }
+    }
+}
+```
+
+In this example:
+
+- We declare two integer variables, num1 and num2.
+- The if statement checks if num1 > num2. Since 25 is greater than 15, the condition is true.
+- Therefore, the code inside the if block is executed, and the output is "num1 is greater than num2".
 
 #### <a name="chapter3part3.2"></a>Chapter 3 - Part 3.2: Omitting Curly Braces
 
-#### <a name="chapter3part3.3"></a>Chapter 3 - Part 3.3: Nested if-else Statements
+If the code block within the if or else statement consists of only a single statement, you can omit the curly braces. However, it is generally considered good practice to always include the curly braces, even for single-line blocks, as it improves code readability and reduces the risk of errors when modifying the code later.
+
+**Example (Not Recommended)**:
+
+```java
+public class NoBraces {
+    public static void main(String[] args) {
+        int age = 15;
+
+        if (age >= 18)
+            System.out.println("You are an adult.");
+        else
+            System.out.println("You are a minor.");
+    }
+}
+```
+
+While this code is syntactically correct, it's better to write it as:
+
+```java
+public class WithBraces {
+    public static void main(String[] args) {
+        int age = 15;
+
+        if (age >= 18) {
+            System.out.println("You are an adult.");
+        } else {
+            System.out.println("You are a minor.");
+        }
+    }
+}
+```
+
+#### <a name="chapter3part3.3"></a>Chapter 3 - Part 3.3: Nested ```if-else``` Statements
+
+You can nest if-else statements inside other if-else statements to create more complex decision-making logic. This means placing an if-else statement within the code block of another if or else statement.
+
+```java
+public class NestedIfElse {
+    public static void main(String[] args) {
+        int num = 10;
+
+        if (num > 0) {
+            System.out.println("The number is positive.");
+            if (num % 2 == 0) {
+                System.out.println("The number is also even.");
+            } else {
+                System.out.println("The number is odd.");
+            }
+        } else {
+            System.out.println("The number is not positive.");
+        }
+    }
+}
+```
+
+In this example:
+
+- The outer if statement checks if num > 0. Since 10 is greater than 0, the condition is true.
+- The code inside the outer if block is executed.
+- Inside the outer if block, there is another if-else statement (nested if-else). This inner if statement checks if num % 2 == 0. Since 10 % 2 equals 0, the condition is true.
+- Therefore, the code inside the inner if block is executed, and the output is "The number is also even."
+- If num was not greater than 0, the else block of the outer if-else statement would have been executed.
 
 #### <a name="chapter3part3.4"></a>Chapter 3 - Part 3.4: Short-Hand if-else
 
@@ -3880,17 +4168,190 @@ System.out.println(result);
 
 #### <a name="chapter3part3.5"></a>Chapter 3 - Part 3.5: Common Errors and Pitfalls
 
-#### <a name="chapter3part3.5"></a>Chapter 3 - Part 3.5: Practice Activities
+- **Using = instead of ==**: A common mistake is to use the assignment operator = instead of the equality operator == in the condition. This will lead to unexpected behavior and potentially a compilation error.
 
-#### <a name="chapter3part3.6"></a>Chapter 3 - Part 3.6: Preparing for Future Lessons
+```java
+int x = 5;
+if (x = 10) { // Incorrect: assignment operator
+    System.out.println("x is 10");
+}
+```
+
+The correct way to write this is:
+
+```java
+int x = 5;
+if (x == 10) { // Correct: equality operator
+    System.out.println("x is 10");
+}
+```
+
+- **Missing curly braces**: Forgetting to include curly braces for multi-line code blocks can lead to logical errors. Only the first statement after the if or else will be conditionally executed.
+
+- **Incorrectly nested if-else statements**: Ensure that nested if-else statements are properly aligned and that each if has a corresponding else (if needed) to avoid confusion and logical errors.
 
 #### <a name="chapter3part4"></a>Chapter 3 - Part 4: The `if-else if-else` Statement: Handling Multiple Conditions
 
+The if-else if-else statement is a powerful tool in Java for handling multiple conditions. It allows your program to execute different blocks of code based on which condition evaluates to true. This is essential for creating flexible and responsive applications that can adapt to various inputs and scenarios. Understanding how to use this statement effectively is crucial for building more complex and logical programs.
+
 #### <a name="chapter3part4.1"></a>Chapter 3 - Part 4.1: Understanding the if-else if-else Statement
 
-#### <a name="chapter3part4.2"></a>Chapter 3 - Part 4.2: Practice Activities
+The if-else if-else statement is an extension of the if and if-else statements. It provides a way to check multiple conditions sequentially. The basic structure is as follows:
 
-#### <a name="chapter3part4.3"></a>Chapter 3 - Part 4.3: Preparing for Future Lessons
+```java
+if (condition1) {
+    // Code to execute if condition1 is true
+} else if (condition2) {
+    // Code to execute if condition1 is false AND condition2 is true
+} else if (condition3) {
+    // Code to execute if condition1 and condition2 are false AND condition3 is true
+} else {
+    // Code to execute if all conditions are false
+}
+```
+
+**Explanation**:
+
+- The if statement evaluates condition1. If it's true, the code block within the first set of curly braces {} is executed, and the rest of the if-else if-else statement is skipped.
+- If condition1 is false, the program moves to the first else if statement and evaluates condition2. If condition2 is true, its corresponding code block is executed, and the rest of the statement is skipped.
+- This process continues for each else if statement. The program evaluates each condition in order until it finds one that is true.
+- If none of the conditions are true, the code block within the else statement is executed. The else block is optional, but it's good practice to include it to handle cases where none of the specified conditions are met.
+
+**Key Principles**:
+
+- **Order Matters**: The order of the conditions is important. The conditions are evaluated from top to bottom, and the first condition that evaluates to true will have its corresponding code block executed.
+- **Mutual Exclusivity**: The if-else if-else statement ensures that only one code block is executed. Once a condition is met, the remaining conditions are not evaluated.
+- **Optional else Block**: The else block is optional, but it provides a default action to take when none of the if or else if conditions are met.
+
+**Example 1: Grading System**
+
+Let's create a simple grading system based on a student's score:
+
+```java
+public class GradingSystem {
+    public static void main(String[] args) {
+        int score = 85; // Example score
+        char grade;
+
+        if (score >= 90) {
+            grade = 'A';
+        } else if (score >= 80) {
+            grade = 'B';
+        } else if (score >= 70) {
+            grade = 'C';
+        } else if (score >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+
+        System.out.println("Score: " + score);
+        System.out.println("Grade: " + grade);
+    }
+}
+```
+
+**Explanation**:
+
+- The code checks the score against different ranges.
+- If the score is 90 or above, the grade is set to 'A'.
+- If the score is not 90 or above, but it is 80 or above, the grade is set to 'B'.
+- This continues until a condition is met, or the else block is reached, setting the grade to 'F' if the score is below 60.
+
+**Example 2: Determining the Sign of a Number**
+
+This example demonstrates how to use if-else if-else to determine if a number is positive, negative, or zero:
+
+```java
+public class SignChecker {
+    public static void main(String[] args) {
+        int number = -5; // Example number
+
+        if (number > 0) {
+            System.out.println("The number is positive.");
+        } else if (number < 0) {
+            System.out.println("The number is negative.");
+        } else {
+            System.out.println("The number is zero.");
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- The code first checks if the number is greater than 0. If it is, it prints "The number is positive."
+- If the number is not greater than 0, it checks if it's less than 0. If it is, it prints "The number is negative."
+- If neither of the above conditions is true (i.e., the number is not greater than 0 and not less than 0), the else block is executed, and it prints "The number is zero."
+
+**Example 3: Multiple Discount Levels**
+
+Imagine an e-commerce application where different discount levels are applied based on the total purchase amount.
+
+```java
+public class DiscountCalculator {
+    public static void main(String[] args) {
+        double purchaseAmount = 120.0; // Example purchase amount
+        double discountRate = 0.0;
+
+        if (purchaseAmount >= 200) {
+            discountRate = 0.20; // 20% discount
+        } else if (purchaseAmount >= 100) {
+            discountRate = 0.10; // 10% discount
+        } else if (purchaseAmount >= 50) {
+            discountRate = 0.05; // 5% discount
+        } else {
+            discountRate = 0.0; // No discount
+        }
+
+        double discountAmount = purchaseAmount * discountRate;
+        double finalAmount = purchaseAmount - discountAmount;
+
+        System.out.println("Purchase Amount: $" + purchaseAmount);
+        System.out.println("Discount Rate: " + (discountRate * 100) + "%");
+        System.out.println("Discount Amount: $" + discountAmount);
+        System.out.println("Final Amount: $" + finalAmount);
+    }
+}
+```
+
+**Explanation**:
+
+- The code checks the purchaseAmount against different thresholds.
+- If the amount is $200 or more, a 20% discount is applied.
+- If the amount is between $100 and $200, a 10% discount is applied.
+- If the amount is between $50 and $100, a 5% discount is applied.
+- Otherwise, no discount is applied.
+
+**Example 4: Hypothetical Scenario - Traffic Light Control**
+
+Consider a hypothetical traffic light control system. The system needs to determine the appropriate action based on the current state of the traffic light.
+
+```java
+public class TrafficLight {
+    public static void main(String[] args) {
+        String lightColor = "yellow"; // Example light color
+
+        if (lightColor.equals("green")) {
+            System.out.println("Go!");
+        } else if (lightColor.equals("yellow")) {
+            System.out.println("Caution! Prepare to stop.");
+        } else if (lightColor.equals("red")) {
+            System.out.println("Stop!");
+        } else {
+            System.out.println("Invalid light color.");
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- The code checks the lightColor against different possible values.
+- If the color is "green", it prints "Go!".
+- If the color is "yellow", it prints "Caution! Prepare to stop."
+- If the color is "red", it prints "Stop!".
+- If the color is none of the above, it prints "Invalid light color." This demonstrates the importance of the else block for handling unexpected or invalid inputs.
 
 #### <a name="chapter3part5"></a>Chapter 3 - Part 5: The `switch` Statement: Selecting from Multiple Cases
 
