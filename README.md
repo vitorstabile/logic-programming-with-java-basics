@@ -8091,9 +8091,224 @@ In this example, the toLowerCase() method is called first to convert the string 
 
 #### <a name="chapter8part1"></a>Chapter 8 - Part 1: Java Date and Time
 
+**Java Dates**
+
+Java does not have a built-in Date class, but we can import the ```java.time``` package to work with the date and time API. The package includes many date and time classes. For example:
+
+| Class             | Description                                                             |
+| :----------------:| :----------------------------------------------------------------------:|
+| LocalDate         | Represents a date (year, month, day (yyyy-MM-dd))                       |
+| LocalTime         | Represents a time (hour, minute, second and nanoseconds (HH-mm-ss-ns))  |
+| LocalDateTime     | Represents both a date and a time (yyyy-MM-dd-HH-mm-ss-ns)              | 
+| DateTimeFormatter | Formatter for displaying and parsing date-time objects                  | 
+
+**Display Current Date**
+
+To display the current date, import the ```java.time.LocalDate``` class, and use its ```now()``` method:
+
+```java
+
+import java.time.LocalDate; // import the LocalDate class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalDate myObj = LocalDate.now(); // Create a date object
+    System.out.println(myObj); // Display the current date //2022-11-04 
+  }
+}
+
+**Display Current Time**
+
+To display the current time (hour, minute, second, and nanoseconds), import the ```java.time.LocalTime``` class, and use its ```now()``` method:
+
+```java
+
+import java.time.LocalTime; // import the LocalTime class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalTime myObj = LocalTime.now();
+    System.out.println(myObj); //14:30:40.994046 
+  }
+}
+
+```
+
+**Display Current Date and Time**
+
+To display the current date and time, import the ```java.time.LocalDateTime class```, and use its ```now()``` method:
+
+```java
+
+import java.time.LocalDateTime; // import the LocalDateTime class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalDateTime myObj = LocalDateTime.now();
+    System.out.println(myObj); //2022-11-04T14:30:40.994110 
+  }
+}
+
+```
+
+**Formatting Date and Time**
+
+The "T" in the example above is used to separate the date from the time. You can use the ```DateTimeFormatter``` class with the ```ofPattern()``` method in the same package to format or parse date-time objects. The following example will remove both the "T" and nanoseconds from the date-time:
+
+```java
+
+import java.time.LocalDateTime; // Import the LocalDateTime class
+import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalDateTime myDateObj = LocalDateTime.now();
+    System.out.println("Before formatting: " + myDateObj); //Before Formatting: 2022-11-04T14:30:40.995494 
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+    String formattedDate = myDateObj.format(myFormatObj);
+    System.out.println("After formatting: " + formattedDate); //After Formatting: 04-11-2022 14:30:40 
+  }
+}
+
+```
+
+The ```ofPattern()``` method accepts all sorts of values, if you want to display the date and time in a different format. For example:
+
+| Value          | Example            |
+| :-------------:| :-----------------:|
+| yyyy-MM-dd     | "1988-09-29"       |
+| dd/MM/yyyy     | "29/09/1988"       |
+| dd-MMM-yyyy    | "29-Sep-1988"      | 
+| E, MMM dd yyyy | "Thu, Sep 29 1988" |
+
 ## <a name="chapter9"></a>Chapter 9: Java Enums
 
 #### <a name="chapter9part1"></a>Chapter 9 - Part 1: Java Enums
+
+It is a special type that serves to literally specify a set of related constants
+
+Keyword in Java: ```enum```
+
+Advantage: better semantics, more readable code and supported by compiler
+
+Example: life cycle of a request.
+
+```java
+
+package entities.enums;
+
+public enum OrderStatus {
+
+	PENDING_PAYMENT,
+	PROCESSING,
+	SHIPPED,
+	DELIVERED;
+}
+
+```
+
+```java
+
+package entities;
+
+import java.util.Date;
+
+import entities.enums.OrderStatus;
+
+public class Order {
+
+	private Integer id;
+	private Date moment;
+	private OrderStatus status;
+	
+	public Order() {
+	}
+
+	public Order(Integer id, Date moment, OrderStatus status) {
+		this.id = id;
+		this.moment = moment;
+		this.status = status;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getMoment() {
+		return moment;
+	}
+
+	public void setMoment(Date moment) {
+		this.moment = moment;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", moment=" + moment + ", status=" + status + "]";
+	}
+}
+
+```
+
+```java
+
+package application;
+
+import java.util.Date;
+
+import entities.Order;
+import entities.enums.OrderStatus;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Order order = new Order(1080, new Date(), OrderStatus.PENDING_PAYMENT);
+		
+		System.out.println(order);
+		
+		OrderStatus os1 = OrderStatus.DELIVERED;
+		
+		OrderStatus os2 = OrderStatus.valueOf("DELIVERED");
+		
+		System.out.println(os1);
+		System.out.println(os2);
+	}
+}
+
+```
+
+**Convertion String to enum**
+
+```java
+
+OrderStatus os1 = OrderStatus.DELIVERED;
+
+OrderStatus os2 = OrderStatus.valueOf("DELIVERED");
+
+```
+
+UML Annotation
+
+<br>
+
+<div align="center"><img src="img/enum-w797-h251.png" width=428 height=179><br><sub>Fig 39 - Enum UML representation - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
 
 ## <a name="chapter10"></a>Chapter 10: Reference Type vs. Value Types, Garbage Collector, Boxing, unboxing and wrapper classes
 
@@ -8105,27 +8320,2129 @@ In this example, the toLowerCase() method is called first to convert the string 
 
 #### <a name="chapter8part4"></a>Chapter 10 - Part 4:  hashCode and equals
 
+
+
 ## <a name="chapter14"></a>Chapter 11: Java Interfaces
 
 #### <a name="chapter11part1"></a>Chapter 11 - Part 1: Java Interfaces
 
+As of Java 8, interfaces can have "default methods" or "defend methods"
+
+Interface is a type that defines a set of operations that a class must implement.
+
+The interface establishes a contract that the class must comply with.
+
+- For what interfaces?
+  - To create loosely coupled and flexible systems.
+
+```java
+
+interface Shape {
+	double area();
+	double perimeter();
+}
+
+```
+
+Another way to achieve **abstraction** in Java, is with interfaces.
+
+An ```interface``` is a completely **"abstract class"** that is used to group related methods with empty bodies:
+
+```java
+
+// interface
+interface Animal {
+  public void animalSound(); // interface method (does not have a body)
+  public void run(); // interface method (does not have a body)
+}
+
+```
+
+To access the interface methods, the interface must be "implemented" (kinda like inherited) by another class with the ```implements``` keyword (instead of ```extends```). The body of the interface method is provided by the "implement" class:
+
+```java
+
+// Interface
+interface Animal {
+  public void animalSound(); // interface method (does not have a body)
+  public void sleep(); // interface method (does not have a body)
+}
+
+// Pig "implements" the Animal interface
+class Pig implements Animal {
+  public void animalSound() {
+    // The body of animalSound() is provided here
+    System.out.println("The pig says: wee wee");
+  }
+  public void sleep() {
+    // The body of sleep() is provided here
+    System.out.println("Zzz");
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    Pig myPig = new Pig();  // Create a Pig object
+    myPig.animalSound();
+    myPig.sleep();
+  }
+}
+
+```
+
+Notes on Interfaces:
+
+- Like abstract classes, interfaces cannot be used to create objects (in the example above, it is not possible to create an "Animal" object in the MyMainClass)
+- Interface methods do not have a body - the body is provided by the "implement" class
+- On implementation of an interface, you must override all of its methods
+- Interface methods are by default ```abstract``` and ```public```
+- Interface attributes are by default ```public```, ```static``` and ```final```
+- An interface cannot contain a constructor (as it cannot be used to create objects)
+
+Why And When To Use Interfaces?
+
+1) To achieve security - hide certain details and only show the important details of an object (interface).
+
+2) Java does not support "multiple inheritance" (a class can only inherit from one superclass). However, it can be achieved with interfaces, because the class can **implement** multiple interfaces. **Note**: To implement multiple interfaces, separate them with a comma (see example below).
+
+**Multiple Interfaces**
+
+To implement multiple interfaces, separate them with a comma:
+
+```java
+
+interface FirstInterface {
+  public void myMethod(); // interface method
+}
+
+interface SecondInterface {
+  public void myOtherMethod(); // interface method
+}
+
+class DemoClass implements FirstInterface, SecondInterface {
+  public void myMethod() {
+    System.out.println("Some text..");
+  }
+  public void myOtherMethod() {
+    System.out.println("Some other text...");
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    DemoClass myObj = new DemoClass();
+    myObj.myMethod();
+    myObj.myOtherMethod();
+  }
+}
+
+```
+
+Exercise: A Brazilian car rental company charges an hourly rate for rentals of up to 12 hours. However, if the duration of the lease exceeds 12 hours, the lease will be charged based on a daily rate. In addition to the lease amount, it is added to the price the tax amount according to the country's rules which, in the case of Brazil, is 20% for values up to 100.00, or 15% for values above 100.00. Make one program that reads the lease data (car model, start and end time of lease), as well as the hourly rate and the daily rental rate. The program must then generate the payment note (containing lease amount, tax and total payment amount) and enter the data on the screen. see the examples.
+
+<br>
+
+<div align="center"><img src="img/interfaces1-w494-h669.png" width=494 height=669><br><sub>Fig 40 - Exercise Interface - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class CarRental
+
+```java
+
+package model.entities;
+
+import java.time.LocalDateTime;
+
+public class CarRental {
+
+	private LocalDateTime start;
+	private LocalDateTime finish;
+	
+	private Vehicle vehicle;
+	private Invoice invoice;
+	
+	public CarRental() {
+	}
+
+	public CarRental(LocalDateTime start, LocalDateTime finish, Vehicle vehicle) {
+		this.start = start;
+		this.finish = finish;
+		this.vehicle = vehicle;
+	}
+
+	public LocalDateTime getStart() {
+		return start;
+	}
+
+	public void setStart(LocalDateTime start) {
+		this.start = start;
+	}
+
+	public LocalDateTime getFinish() {
+		return finish;
+	}
+
+	public void setFinish(LocalDateTime finish) {
+		this.finish = finish;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+}
+
+```
+
+Class Invoice
+
+```java
+
+package model.entities;
+
+public class Invoice {
+
+	private Double basicPayment;
+	private Double tax;
+	
+	public Invoice() {
+	}
+
+	public Invoice(Double basicPayment, Double tax) {
+		this.basicPayment = basicPayment;
+		this.tax = tax;
+	}
+
+	public Double getBasicPayment() {
+		return basicPayment;
+	}
+
+	public void setBasicPayment(Double basicPayment) {
+		this.basicPayment = basicPayment;
+	}
+
+	public Double getTax() {
+		return tax;
+	}
+
+	public void setTax(Double tax) {
+		this.tax = tax;
+	}
+	
+	public Double getTotalPayment() {
+		return getBasicPayment() + getTax();
+	}
+}
+
+```
+
+Class Vehicle
+
+```java
+
+package model.entities;
+
+public class Vehicle {
+
+	private String model;
+	
+	public Vehicle() {
+	}
+
+	public Vehicle(String model) {
+		this.model = model;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+}
+
+```
+
+Class RentalService
+
+```java
+
+package model.services;
+
+import java.time.Duration;
+
+import model.entities.CarRental;
+import model.entities.Invoice;
+
+public class RentalService {
+
+	private Double pricePerDay;
+	private Double pricePerHour;
+	
+	private TaxService taxService;
+
+	public RentalService(Double pricePerDay, Double pricePerHour, TaxService taxService) {
+		this.pricePerDay = pricePerDay;
+		this.pricePerHour = pricePerHour;
+		this.taxService = taxService;
+	}
+	
+	public void processInvoice(CarRental carRental) {
+		
+		double minutes = Duration.between(carRental.getStart(), carRental.getFinish()).toMinutes();		
+		double hours = minutes / 60.0;
+		
+		double basicPayment;
+		if (hours <= 12.0) {
+			basicPayment = pricePerHour * Math.ceil(hours);
+		}
+		else {
+			basicPayment = pricePerDay * Math.ceil(hours / 24);
+		}
+
+		double tax = taxService.tax(basicPayment);
+
+		carRental.setInvoice(new Invoice(basicPayment, tax));
+	}
+}
+
+```
+
+Class TaxService
+
+```java
+
+package model.services;
+
+public interface TaxService {
+
+	double tax(double amount);
+}
+
+```
+
+Class BrazilTaxService
+
+```java
+
+package model.services;
+
+public class BrazilTaxService implements TaxService {
+
+	public double tax(double amount) {
+		if (amount <= 100.0) {
+			return amount * 0.2;
+		}
+		else {
+			return amount * 0.15;
+		}
+	}
+}
+
+```
+
+<br>
+
+<div align="center"><img src="img/interfaces2-w636-h869.png" width=636 height=869><br><sub>Fig 40 - Exercise Interface - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Program
+
+```java
+
+package application;
+
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+import model.entities.CarRental;
+import model.entities.Vehicle;
+import model.services.BrazilTaxService;
+import model.services.RentalService;
+
+public class Program {
+
+	public static void main(String[] args) throws ParseException {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		DateTimeFormatter fmt =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		
+		System.out.println("Entre com os dados do aluguel");
+		System.out.print("Modelo do carro: ");
+		String carModel = sc.nextLine();
+		System.out.print("Retirada (dd/MM/yyyy HH:mm): ");
+		LocalDateTime start = LocalDateTime.parse(sc.nextLine(), fmt);
+		System.out.print("Retorno (dd/MM/yyyy HH:mm): ");
+		LocalDateTime finish = LocalDateTime.parse(sc.nextLine(), fmt);
+		
+		CarRental cr = new CarRental(start, finish, new Vehicle(carModel));
+
+		System.out.print("Entre com o preço por hora: ");
+		double pricePerHour = sc.nextDouble();
+		System.out.print("Entre com o preço por dia: ");
+		double pricePerDay = sc.nextDouble();
+		
+		RentalService rentalService = new RentalService(pricePerDay, pricePerHour, new BrazilTaxService());
+		
+		rentalService.processInvoice(cr);
+
+		System.out.println("FATURA:");
+		System.out.println("Pagamento basico: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
+		System.out.println("Imposto: " + String.format("%.2f", cr.getInvoice().getTax()));
+		System.out.println("Pagamento total: " + String.format("%.2f", cr.getInvoice().getTotalPayment()));
+		
+		sc.close();
+	}
+}
+
+```
+
 #### <a name="chapter11part2"></a>Chapter 11 - Part 2: Dependency Injection and Inversion of Control
+
+When we have a direct association we have:
+- Strong Coupling
+- The RentalService class knows the concrete dependency
+- If the concrete class changes, you need to change the RentalService class
+
+<br>
+
+<div align="center"><img src="img/interfaces3-w792-h366.png" width=792 height=366><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+When we implement a interface in our solution:
+- weak coupling
+- The RentalService class doesn't know the concrete dependency
+- If the concrete class changes, the RentalService class doesn't change anything
+
+<br>
+
+<div align="center"><img src="img/interfaces4-w903-h410.png" width=903 height=410><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+**Dependency injection via constructor**
+
+<br>
+
+<div align="center"><img src="img/interfaces5-w1052-h449.png" width=1052 height=449><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+**Inversion of control**
+- Development pattern that consists of removing from class a responsibility to instantiate your dependencies. The Class RentalService don't have to instanciate the type of TaxService, just the abstraction, Tax Service
+
+**dependency injection**
+- It is a way of performing inversion of control: an external component instantiates the dependency (In the exercise, the main Program, which is then injected into the "parent" object (The Parent was the RentalService). It might be implemented in several ways:
+  - Constructor
+  - Instantiation class (builder/factory)
+  - Container / framework
 
 #### <a name="chapter11part3"></a>Chapter 11 - Part 3: Inheritance vs Interfaces
 
+**Common aspects between inheritance and interfaces**
+
+- relationship is-one
+- generalization/specialization
+- Polymorphism
+
+**Main Differences**
+
+- inheritance = reuse (attributes and methods)
+- interfaces = contract to be fulfilled
+
+<br>
+
+<div align="center"><img src="img/interfaces6-w952-h310.png" width=952 height=310><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+You can implement inheritance with interfaces, folow this case
+
+Exercise: What if I need to implement Shape as an interface, but I also want to define a common reusable structure for all figures?
+
+<br>
+
+<div align="center"><img src="img/interfaces7-w993-h400.png" width=993 height=400><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class Colour
+
+```java
+
+package model.enums;
+
+public enum Color {
+	BLACK,
+	WHITE;
+}
+
+```
+
+Class AbstractShape
+
+```java
+
+package model.entities;
+
+import model.enums.Color;
+
+public abstract class AbstractShape implements Shape {
+
+	private Color color;
+
+	public AbstractShape(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+}
+
+```
+
+Class Shape
+
+```java
+
+package model.entities;
+
+public interface Shape {
+
+	double area();
+}
+
+```
+
+Class Circle
+
+```java
+
+package model.entities;
+
+import model.enums.Color;
+
+public class Circle extends AbstractShape {
+
+	private Double radius;
+
+	public Circle(Color color, Double radius) {
+		super(color);
+		this.radius = radius;
+	}
+
+	public Double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Double radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public double area() {
+		return Math.PI * radius * radius;
+	}
+}
+
+```
+
+Class Rectangle
+
+```java
+
+package model.entities;
+
+import model.enums.Color;
+
+public class Rectangle extends AbstractShape {
+
+	private Double width;
+	private Double height;
+
+	public Rectangle(Color color, Double width, Double height) {
+		super(color);
+		this.width = width;
+		this.height = height;
+	}
+
+	public Double getWidth() {
+		return width;
+	}
+
+	public void setWidth(Double width) {
+		this.width = width;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	@Override
+	public double area() {
+		return width * height;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import model.entities.AbstractShape;
+import model.entities.Circle;
+import model.entities.Rectangle;
+import model.enums.Color;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		AbstractShape s1 = new Circle(Color.BLACK, 2.0);
+		AbstractShape s2 = new Rectangle(Color.WHITE, 3.0, 4.0);
+		
+		System.out.println("Circle color: " + s1.getColor());
+		System.out.println("Circle area: " + String.format("%.3f", s1.area()));
+		System.out.println("Rectangle color: " + s2.getColor());
+		System.out.println("Rectangle area: " + String.format("%.3f", s2.area()));
+	}
+}
+
+```
+
 #### <a name="chapter11part4"></a>Chapter 11 - Part 4: Multiple Inheritance and Interfaces
+
+Multiple inheritance can generate the diamond problem: a ambiguity caused by existence of the same method in more than one superclass.
+
+Multiple inheritance is not allowed in most languages!
+
+<br>
+
+<div align="center"><img src="img/interfaces8-w578-h443.png" width=578 height=443><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+**However, a class can implement more from an interface**
+
+<br>
+
+<div align="center"><img src="img/interfaces9-w633-h323.png" width=633 height=323><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+OBS: This is NOT multiple inheritance, because THERE IS NO REUSE in the relationship between ComboDevice and the Scanner and Printer interfaces. ComboDevide does not inherit, but yes implements the interfaces (fulfills the contract).
+
+Class Device
+
+```java
+
+package devices;
+
+public abstract class Device {
+
+	public String serialNumber;
+
+	public Device(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+	
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public abstract void processDoc(String doc);
+}
+
+```
+
+Class ComboDevice
+
+```java
+
+package devices;
+
+public class ComboDevice extends Device implements Scanner, Printer {
+
+	public ComboDevice(String serialNumber) {
+		super(serialNumber);
+	}
+
+	@Override
+	public void print(String doc) {
+		System.out.println("Combo printing: " + doc);
+	}
+
+	@Override
+	public String scan() {
+		return "Combo scan result";
+	}
+
+	@Override
+	public void processDoc(String doc) {
+		System.out.println("Combo processing: " + doc);
+	}
+}
+
+```
+
+Class Printer
+
+```java
+
+package devices;
+
+public interface Printer {
+
+	void print(String doc);
+}
+
+```
+
+Class Scanner
+
+```java
+
+package devices;
+
+public interface Scanner {
+
+	String scan();
+}
+
+```
+
+Class ConcretePrinter
+
+```Java
+
+package devices;
+
+public class ConcretePrinter extends Device implements Printer {
+
+	public ConcretePrinter(String serialNumber) {
+		super(serialNumber);
+	}
+
+	@Override
+	public void processDoc(String doc) {
+		System.out.println("Printer processing: " + doc);
+	}
+
+	@Override
+	public void print(String doc) {
+		System.out.println("Printing: " + doc);
+	}
+}
+
+```
+
+Class ConcreteScanner
+
+```java
+
+package devices;
+
+public class ConcreteScanner extends Device implements Scanner {
+
+	public ConcreteScanner(String serialNumber) {
+		super(serialNumber);
+	}
+
+	@Override
+	public void processDoc(String doc) {
+		System.out.println("Scanner processing: " + doc);
+	}
+
+	@Override
+	public String scan() {
+		return "Scanned content";
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import devices.ComboDevice;
+import devices.ConcretePrinter;
+import devices.ConcreteScanner;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		ConcretePrinter p = new ConcretePrinter("1080");
+		p.processDoc("My Letter");
+		p.print("My Letter");
+
+		System.out.println();
+		ConcreteScanner s = new ConcreteScanner("2003");
+		s.processDoc("My Email");
+		System.out.println("Scan result: " + s.scan());
+		
+		System.out.println();
+		ComboDevice c = new ComboDevice("2081");
+		c.processDoc("My dissertation");
+		c.print("My dissertation");
+		System.out.println("Scan result: " + c.scan());
+	}
+}
+
+```
 
 #### <a name="chapter11part5"></a>Chapter 11 - Part 5: Comparable Interface
 
+The Comparable interface is used to compare an object of the same class with an instance of that class, it provides ordering of data for objects of the user-defined class. The class has to implement the java.lang.Comparable interface to compare its instance, it provides the compareTo method that takes a parameter of the object of that class.
+
+Example: Write a program to read a file containing names of people (one name per line), storing them in a list. Then sort the data in this list and show them neatly on the screen. Note: the file path can be informed "hardcode".
+
+Maria Brown
+Alex Green
+Bob Grey
+Anna White
+Alex Black
+Eduardo Rose
+Willian Red
+Marta Blue
+Alex Brown
+
+```java
+
+package hello;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Program {
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<>();
+		String path = "C:\\temp\\in.txt";
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String name = br.readLine();
+			while (name != null) {
+				list.add(name);
+				name = br.readLine();
+			}
+			Collections.sort(list);
+			for (String s : list) {
+				System.out.println(s);
+			}
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+}
+
+
+/*
+
+output
+
+Alex Black
+Alex Brown
+Alex Green
+Anna White
+Bob Grey
+Eduardo Rose
+Maria Brown
+Marta Blue
+Willian Red
+
+*/
+
+```
+
+Example:  Make a program to read a file containing employees (name and salary) in the .csv format, storing them in a list. Then sort the list by name and show the result on the screen. Note: the file path can be informed "hardcode".
+
+Maria Brown,4300.00
+Alex Green,3100.00
+Bob Grey,3100.00
+Anna White,3500.00
+Alex Black,2450.00
+Eduardo Rose,4390.00
+Willian Red,2900.00
+Marta Blue,6100.00
+Alex Brown,5000.00
+
+
+
+```java
+
+package hello;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import entities.Employee;
+
+public class Program {
+	public static void main(String[] args) {
+		List<Employee> list = new ArrayList<>();
+		String path = "C:\\temp\\in.txt";
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String employeeCsv = br.readLine();
+			while (employeeCsv != null) {
+				String[] fields = employeeCsv.split(",");
+				list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+				employeeCsv = br.readLine();
+			}
+			Collections.sort(list);
+			for (Employee emp : list) {
+				System.out.println(emp.getName() + ", " + emp.getSalary());
+			}
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+}
+
+/*
+ * 
+ * output
+ * 
+Alex Black, 2450.0
+Alex Brown, 5000.0
+Alex Green, 3100.0
+Anna White, 3500.0
+Bob Grey, 3100.0
+Eduardo Rose, 4390.0
+Maria Brown, 4300.0
+Marta Blue, 6100.0
+Willian Red, 2900.0
+ */
+
+```
+
+```java
+
+package entities;
+
+public class Employee implements Comparable<Employee> {
+	private String name;
+	private Double salary;
+
+	public Employee(String name, Double salary) {
+		this.name = name;
+		this.salary = salary;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public int compareTo(Employee other) {
+		return name.compareTo(other.getName()); //you are comparing with name with .getName(). If was salary, use .getSalary()
+	}
+}
+
+```
+
+**Using Comparable Interface**
+
+- In this method, we are going to implement the Comparable interface from java.lang Package in the Pair class.
+- The Comparable interface contains the method compareTo to decide the order of the elements.
+- Override the compareTo method in the Pair class.
+- Create an array of Pairs and populate the array.
+- Use the Arrays.sort() function to sort the array.
+
+**Example 1**
+
+Given an array of Pairs consisting of two fields of type string and integer. you have to sort the array in ascending Lexicographical order and if two strings are the same sort it based on their integer value.
+
+**Sample I/O:**
+
+```
+
+Input:  { {"abc", 3}, {"a", 4}, {"bc", 5}, {"a", 2} }
+Output:  { {"a", 2}, {"a", 4}, {"abc", 3}, {"bc", 5} }
+
+Input:  { {"efg", 1}, {"gfg", 1}, {"cba", 1}, {"zaa", 1} }
+Output:  { {"cba", 1}, {"efg", 1}, {"gfg", 1}, {"zaa", 1} }
+
+```
+
+```java
+
+import java.io.*;
+import java.util.*;
+
+class Pair implements Comparable<Pair> {
+	String x;
+	int y;
+
+	public Pair(String x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString()
+	{
+		return "(" + x + "," + y + ")";
+	}
+
+	@Override public int compareTo(Pair a)
+	{
+		// if the string are not equal
+		if (this.x.compareTo(a.x) != 0) {
+			return this.x.compareTo(a.x);
+		}
+		else {
+			// we compare int values
+			// if the strings are equal
+			return this.y - a.y;
+		}
+	}
+}
+
+public class GFG {
+	public static void main(String[] args)
+	{
+
+		int n = 4;
+		Pair arr[] = new Pair[n];
+
+		arr[0] = new Pair("abc", 3);
+		arr[1] = new Pair("a", 4);
+		arr[2] = new Pair("bc", 5);
+		arr[3] = new Pair("a", 2);
+
+		// Sorting the array
+		Arrays.sort(arr);
+
+		// printing the
+		// Pair array
+		print(arr);
+	}
+
+	public static void print(Pair[] arr)
+	{
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+}
+
+```
+
+```
+Before Sorting:
+(abc, 3);
+(a, 4);
+(bc, 5);
+(a, 2);
+
+After Sorting:
+(a,2)
+(a,4)
+(abc,3)
+(bc,5)
+```
+
+Note: if two strings are the same then the comparison is done based on the value.
+
+**Example 2**
+
+Given an array of Pairs consisting of two strings with first and last names. you have to sort the array in ascending Lexicographical order of the first name and if two strings are the same sort it based on their last name.
+
+**Sample I/O:**
+
+```
+Input:  { {"raj", "kashup"}, {"rahul", "singh"}, {"reshmi", "dubey"}, {"rahul", "jetli"} }
+Output:  { {"rahul", "jetli"}, {"rahul", "singh"}, {"raj", "kashup"}, {"reshmi", "dubey"} }
+
+Input:  { {"abc", "last"}, {"pklz", "yelp"}, {"rpng", "note"}, {"ppza", "xyz"} }
+Output:  { {"abc", "last"}, {"pklz", "yelp"}, {"ppza", "xyz"}, {"rpng", "note"} }
+```
+
+```java
+
+
+import java.io.*;
+import java.util.*;
+ 
+class Pair implements Comparable<Pair> {
+    String firstName;
+    String lastName;
+ 
+    public Pair(String x, String y)
+    {
+        this.firstName = x;
+        this.lastName = y;
+    }
+ 
+    public String toString()
+    {
+        return "( " + firstName + " , " + lastName + " )";
+    }
+ 
+    @Override public int compareTo(Pair a)
+    {
+        // if the string are not equal
+        if (this.firstName.compareTo(a.firstName) != 0) {
+            return this.firstName.compareTo(a.firstName);
+        }
+        else {
+            // we compare lastName if firstNames are equal
+            return this.lastName.compareTo(a.lastName);
+        }
+    }
+}
+ 
+public class GFG {
+    public static void main(String[] args)
+    {
+ 
+        int n = 4;
+        Pair arr[] = new Pair[n];
+        arr[0] = new Pair("raj", "kashup");
+        arr[1] = new Pair("rahul", "singh");
+        arr[2] = new Pair("reshmi", "dubey");
+        arr[3] = new Pair("rahul", "jetli");
+ 
+        // Sorting the array
+        Arrays.sort(arr);
+ 
+        // printing the
+        // Pair array
+        print(arr);
+    }
+ 
+    public static void print(Pair[] arr)
+    {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+}
+
+```
+
+**output**
+
+```
+Before Sorting:
+( raj , kashup )
+( rahul , singh )
+( reshmi , dubey )
+( rahul , jetli )
+
+
+After Sorting:
+( rahul , jetli )
+( rahul , singh )
+( raj , kashup )
+( reshmi , dubey )
+```
+
 #### <a name="chapter11part6"></a>Chapter 11 - Part 6: Default methods
+
+-  As of Java 8, interfaces can contain concrete methods.
+
+- The basic intent is to provide default implementation for methods, so to avoid:
+  - repetition of implementation in every class that implements the interface
+  - the need to create abstract classes to provide implementation reuse
+
+- Other advantages:
+  - Maintain backward compatibility with existing systems
+  - Allow "functional interfaces" (which must contain only one method) can provide other reusable standard operations
+
+Example: Make a program to read an amount and the duration in months of a loan. Inform the amount to be paid after the deadline for the loan, in accordance with Brazilian interest rate rules. The calculation rule for Brazilian interest is standard compound interest of 2% per month.
+
+<br>
+
+<div align="center"><img src="img/interfaces10-w840-h323.png" width=840 height=323><br><sub>Fig 40 - Interfaces - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+class BrazilInterestService
+
+```java
+
+package services;
+
+public class BrazilInterestService implements InterestService {
+
+	private double interestRate;
+
+	public BrazilInterestService(double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	@Override
+	public double getInterestRate() {
+		return interestRate;
+	}
+}
+
+```
+
+class InterestService
+
+```java
+
+package services;
+
+import java.security.InvalidParameterException;
+
+public interface InterestService {
+
+	double getInterestRate();
+
+	default double payment(double amount, int months) {
+		if (months < 1) {
+			throw new InvalidParameterException("Months must be greater than zero");
+		}
+		return amount * Math.pow(1.0 + getInterestRate() / 100.0, months);
+	}
+}
+
+```
+
+class UsaInterestService
+
+```java
+
+package services;
+
+public class UsaInterestService implements InterestService {
+
+	private double interestRate;
+
+	public UsaInterestService(double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	@Override
+	public double getInterestRate() {
+		return interestRate;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import services.BrazilInterestService;
+import services.InterestService;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Amount: ");
+		double amount = sc.nextDouble();
+		System.out.print("Months: ");
+		int months = sc.nextInt();
+		
+		InterestService is = new BrazilInterestService(2.0);
+		double payment = is.payment(amount, months);
+		
+		System.out.println("Payment after " + months + " months:");
+		System.out.println(String.format("%.2f", payment));
+		
+		sc.close();
+	}
+}
+
+```
+
+
+In Java 8+: 
+- interfaces can now provide reuse
+- now we have a form of multiple inheritance
+  - But the compiler complains if there is more than one method with the same signature, forcing you to overwrite it
+- Interfaces are still quite different from abstract classes. interfaces they do not have features such as constructors and attributes.
 
 ## <a name="chapter12"></a>Chapter 12: Collections
 
+<br>
+
+<div align="center"><img src="img/java_collection-w854-h715.png" width=854 height=715><br><sub>Fig 36 - Collections - (<a href='https://www.javatpoint.com/collections-in-java'>Work by  Java T Point</a>) </sub></div>
+
+<br>
+
 #### <a name="chapter12part1"></a>Chapter 12 - Part 1: ArrayList
+
+ArrayList is a data Structure:
+- Homogeneous (data of the same type)
+- Ordered (elements accessed through positions)
+- Starts empty, and its elements are allocated on demand
+- Each element occupies a "node" (or node) of the list
+
+Type (interface): List
+
+Implementing classes: ArrayList, LinkedList, etc
+
+Advantages:
+- Variable Size
+- Ease of insertion and deletion
+
+Disadvantages:
+- Fixed Size
+- Sequential access to elements -> In the case of ArrayList, they are otimizaded
+
+**Java ArrayList**
+
+The ```ArrayList``` class is a resizable array, which can be found in the ```java.util``` package.
+
+The difference between a built-in array and an ```ArrayList``` in Java, is that the size of an array cannot be modified (if you want to add or remove elements to/from an array, you have to create a new one). While elements can be added and removed from an ```ArrayList``` whenever you want. The syntax is also slightly different:
+
+```java
+
+import java.util.ArrayList; // import the ArrayList class
+
+ArrayList<String> cars = new ArrayList<String>(); // Create an ArrayList object
+
+```
+
+- Add Items
+
+The ```ArrayList``` class has many useful methods. For example, to add elements to the ```ArrayList```, use the ```add()``` method:
+
+```java
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main(String[] args) {
+    ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("Mazda");
+    System.out.println(cars);
+  }
+}
+
+```
+
+- Access an Item
+
+To access an element in the ```ArrayList```, use the ```get()``` method and refer to the index number:
+
+```java
+
+cars.get(0);
+
+```
+
+- Change an Item
+
+To modify an element, use the ```set()``` method and refer to the index number:
+
+```java
+
+cars.set(0, "Opel");
+
+```
+
+- Remove an Item
+
+To remove an element, use the ```remove()``` method and refer to the index number:
+
+```java
+
+cars.remove(0);
+
+```
+
+To remove all the elements in the ```ArrayList```, use the ```clear()``` method:
+
+```java
+
+cars.clear();
+
+```
+
+- ArrayList Size
+
+To find out how many elements an ArrayList have, use the ```size``` method:
+
+```java
+
+cars.size();
+
+```
+
+- Loop Through an ArrayList
+
+Loop through the elements of an ```ArrayList``` with a ```for``` loop, and use the ```size()``` method to specify how many times the loop should run:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+    ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("Mazda");
+    for (int i = 0; i < cars.size(); i++) {
+      System.out.println(cars.get(i));
+    }
+  }
+}
+
+
+```
+
+You can also loop through an ArrayList with the for-each loop:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+    ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("Mazda");
+    for (String i : cars) {
+      System.out.println(i);
+    }
+  }
+}
+
+
+```
+
+- Other Types
+
+Elements in an ArrayList are actually objects. In the examples above, we created elements (objects) of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: ```Integer```. For other primitive types, use: ```Boolean``` for boolean, ```Character``` for char, ```Double``` for double, etc:
+
+```java
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main(String[] args) {
+    ArrayList<Integer> myNumbers = new ArrayList<Integer>();
+    myNumbers.add(10);
+    myNumbers.add(15);
+    myNumbers.add(20);
+    myNumbers.add(25);
+    for (int i : myNumbers) {
+      System.out.println(i);
+    }
+  }
+}
+
+
+```
+
+- Sort an ArrayList
+
+Another useful class in the ```java.util``` package is the ```Collections``` class, which include the ```sort()``` method for sorting lists alphabetically or numerically:
+
+Example: Sort an ArrayList of Strings:
+
+```java
+
+import java.util.ArrayList;
+import java.util.Collections;  // Import the Collections class
+
+public class Main {
+  public static void main(String[] args) {
+    ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("Mazda");
+    Collections.sort(cars);  // Sort cars
+    for (String i : cars) {
+      System.out.println(i);
+    }
+  }
+}
+
+
+```
+
+Example: Sort an ArrayList of Integers:
+
+```java
+
+import java.util.ArrayList;
+import java.util.Collections;  // Import the Collections class
+
+public class Main {
+  public static void main(String[] args) {
+    ArrayList<Integer> myNumbers = new ArrayList<Integer>();
+    myNumbers.add(33);
+    myNumbers.add(15);
+    myNumbers.add(20);
+    myNumbers.add(34);
+    myNumbers.add(8);
+    myNumbers.add(12);
+
+    Collections.sort(myNumbers);  // Sort myNumbers
+
+    for (int i : myNumbers) {
+      System.out.println(i);
+    }
+  }
+}
+
+
+```
+
+```java
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		List<String> list = new ArrayList<>();
+
+		list.add("Maria");
+		list.add("Alex");
+		list.add("Bob");
+		list.add("Anna");
+		list.add(2, "Marco");
+
+		System.out.println(list.size()); // 5
+		for (String x : list) {
+			System.out.println(x); // Maria Alex Marco Bob Anna
+		}
+		System.out.println("---------------------");
+		list.removeIf(x -> x.charAt(0) == 'M');
+		for (String x : list) {
+			System.out.println(x); // Alex Bob Anna
+		}
+		System.out.println("---------------------");
+		System.out.println("Index of Bob: " + list.indexOf("Bob")); // -1
+		System.out.println("Index of Marco: " + list.indexOf("Marco")); // -1
+		System.out.println("---------------------");
+		List<String> result = list.stream().filter(x -> x.charAt(0) == 'A').collect(Collectors.toList());
+		for (String x : result) {
+			System.out.println(x); //Alex Anna
+		}
+		System.out.println("---------------------");
+		String name = list.stream().filter(x -> x.charAt(0) == 'J').findFirst().orElse(null);
+		System.out.println(name); //null
+	}
+}
+
+```
+
+Exercise: Make a program to read an integer N and then the data (id, name and salary) of N employees. There should be no repetition of id
+
+Then, increase the salary of a given employee by X percent. For this, the program must read an id and the value X. If the informed id does not exist, display a message and abort the operation. At the end, show the updated list of employees, according to examples.
+
+Remember to apply the encapsulation technique to not allow the salary to be changed freely. A salary can only be increased on the basis of a increase by given percentage
+
+<br>
+
+<div align="center"><img src="img/arraylist_exercise-w677-h786.png" width=677 height=786><br><sub>Fig 37 - ArrayList Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Neilo Alves</a>) </sub></div>
+
+<br>
+
+<div align="center"><img src="img/arraylist1_exercise-w428-h179.png" width=428 height=179><br><sub>Fig 38 - ArrayList Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class Employe
+
+```java
+
+public class Employee {
+
+	private Integer id;
+	private String name;
+	private Double salary;
+	
+	public Employee() {
+	}
+	
+	public Employee(Integer id, String name, Double salary) {
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+	
+	public void increaseSalary(double percentage) {
+		salary += salary * percentage / 100.0;
+	}
+	
+	public String toString() {
+		return id + ", " + name + ", " + String.format("%.2f", salary);
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Employee;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+
+		List<Employee> list = new ArrayList<>();
+		
+		// PART 1 - READING DATA:
+		
+		System.out.print("How many employees will be registered? ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<=n; i++) {
+			System.out.println();
+			System.out.println("Employee #" + i + ": ");
+
+			System.out.print("Id: ");
+			int id = sc.nextInt();
+			while (hasId(list, id)) {
+				System.out.print("Id already taken. Try again: ");
+				id = sc.nextInt();
+			}
+			
+			System.out.print("Name: ");
+			sc.nextLine();
+			String name = sc.nextLine();
+			System.out.print("Salary: ");
+			double salary = sc.nextDouble();
+			list.add(new Employee(id, name, salary));
+		}
+
+		// PART 2 - UPDATING SALARY OF GIVEN EMPLOYEE:
+		
+		System.out.println();
+		System.out.print("Enter the employee id that will have salary increase: ");
+		int id = sc.nextInt();
+		Employee emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		if (emp == null) {
+			System.out.println("This id does not exist!");
+		}
+		else {
+			System.out.print("Enter the percentage: ");
+			double percentage = sc.nextDouble();
+			emp.increaseSalary(percentage);
+		}
+		
+		// PART 3 - LISTING EMPLOYEES:
+		
+		System.out.println();
+		System.out.println("List of employees:");
+		for (Employee obj : list) {
+			System.out.println(obj);
+		}
+				
+		sc.close(); 
+	}
+	
+	public static boolean hasId(List<Employee> list, int id) {
+		Employee emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		return emp != null;
+	}
+}
+
+```
 
 #### <a name="chapter12part2"></a>Chapter 12 - Part 2: HashMap
 
+- It is a collection of key/value pairs
+  - Does not support key object repetitions
+  - Elements are indexed by the key object (have no position)
+  - Accessing, inserting and removing elements is fast
+
+- Common usage: cookies, local storage, any key-value model
+
+- Main implementations:
+  - HashMap: faster (O(1) operations on hash table) and unordered
+  - TreeMap: slower (O(log(n)) operations in red-black tree) and sorted by object compareTo (or Comparator)
+  - LinkedHashMap: intermediate speed and elements in the order they are added
+
+**Some important methods**
+
+- put(key, value), remove(key), containsKey(key), get(key)
+  - Based on equals and hashCode
+  - If equals and hashCode do not exist, pointer comparison is used
+
+- clear()
+
+- size()
+
+- keySet(): return a Set<K>
+
+- values(): return a Collection<V>
+
+	
+In the ```ArrayList``` chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (```int``` type). A ```HashMap``` however, store items in "**key/value**" pairs, and you can access them by an index of another type (e.g. a ```String```).
+	
+One object is used as a key (index) to another object (value). It can store different types: ```String``` keys and ```Integer``` values, or the same type, like: ```String``` keys and ```String``` values:
+	
+Example: Create a ```HashMap``` object called **capitalCities** that will store ```String``` keys and ```String``` values:
+	
+```java
+	
+import java.util.HashMap; // import the HashMap class
+
+HashMap<String, String> capitalCities = new HashMap<String, String>();
+	
+```
+	
+**Add Items**
+	
+The HashMap class has many useful methods. For example, to add items to it, use the ```put()``` method:
+	
+```java
+
+// Import the HashMap class
+import java.util.HashMap;
+
+public class Main {
+  public static void main(String[] args) {
+    // Create a HashMap object called capitalCities
+    HashMap<String, String> capitalCities = new HashMap<String, String>();
+
+    // Add keys and values (Country, City)
+    capitalCities.put("England", "London");
+    capitalCities.put("Germany", "Berlin");
+    capitalCities.put("Norway", "Oslo");
+    capitalCities.put("USA", "Washington DC");
+    System.out.println(capitalCities);
+  }
+}
+	
+```
+	
+**Access an Item**
+	
+To access a value in the HashMap, use the ```get()``` method and refer to its key:
+	
+```Java
+	
+capitalCities.get("England");
+	
+```
+	
+**Remove an Item**
+	
+To remove an item, use the ```remove()``` method and refer to the key:
+	
+```java
+	
+capitalCities.remove("England");
+	
+```
+	
+To remove all items, use the ```clear()``` method:
+	
+```java
+	
+capitalCities.clear();
+	
+```
+	
+**HashMap Size**
+	
+To find out how many items there are, use the ```size()``` method:
+	
+```java
+	
+capitalCities.size();
+	
+```
+	
+**Loop Through a HashMap**
+	
+Loop through the items of a HashMap with a for-each loop.
+
+Note: Use the keySet() method if you only want the keys, and use the values() method if you only want the values:
+	
+```java
+	
+// Print keys
+for (String i : capitalCities.keySet()) {
+  System.out.println(i);
+}
+	
+```
+	
+```java
+	
+// Print values
+for (String i : capitalCities.values()) {
+  System.out.println(i);
+}
+	
+```
+	
+```java
+	
+// Print keys and values
+for (String i : capitalCities.keySet()) {
+  System.out.println("key: " + i + " value: " + capitalCities.get(i));
+}
+	
+```
+	
+**Other Types**
+	
+Keys and values in a HashMap are actually objects. In the examples above, we used objects of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: Integer. For other primitive types, use: Boolean for boolean, Character for char, Double for double, etc:
+	
+```java
+	
+// Import the HashMap class
+import java.util.HashMap;
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Create a HashMap object called people
+    HashMap<String, Integer> people = new HashMap<String, Integer>();
+
+
+    // Add keys and values (Name, Age)
+    people.put("John", 32);
+    people.put("Steve", 30);
+    people.put("Angie", 33);
+
+    for (String i : people.keySet()) {
+      System.out.println("key: " + i + " value: " + people.get(i));
+    }
+  }
+}
+	
+```
+
 #### <a name="chapter12part3"></a>Chapter 12 - Part 3: HashSet
+
+- Represents a set of elements (similar to Algebra)
+  - Does not allow repetitions
+  - Elements have no position
+  - Accessing, inserting and removing elements is fast
+  - Offers efficient set operations: intersection, union, difference.
+  
+- Main implementations:
+  - HashSet: faster (O(1) operations on hash table) and unordered
+  - TreeSet: slower (O(log(n)) operations in red-black tree) and sorted by object compareTo (or Comparator)
+  - LinkedHashSet: intermediate speed and elements in the order they are added
+
+**Some important methods**
+
+- add(obj), remove(obj), contains(obj)
+  - Based on equals and hashCode
+  - If equals and hashCode do not exist, pointer comparison is used
+
+- clear()
+
+- size()
+
+- RemoveIf(predicate)
+
+- addAll(other): union: adds the elements of the other set to the set, without repetition
+
+- retainAll(other): intersection: removes elements not contained in other from the set
+
+- removeAll(other): difference: removes elements contained in other from the set
+	
+A HashSet is a collection of items where every item is unique, and it is found in the ```java.util``` package:
+	
+Example: Create a HashSet object called cars that will store strings:
+	
+```java
+	
+import java.util.HashSet; // Import the HashSet class
+
+HashSet<String> cars = new HashSet<String>();
+	
+```
+	
+**Add Items**
+	
+The HashSet class has many useful methods. For example, to add items to it, use the ```add()``` method:
+	
+```java
+	
+// Import the HashSet class
+import java.util.HashSet;
+
+public class Main {
+  public static void main(String[] args) {
+    HashSet<String> cars = new HashSet<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("BMW");
+    cars.add("Mazda");
+    System.out.println(cars);
+  }
+}
+	
+```
+	
+Note: In the example above, even though BMW is added twice it only appears once in the set because every item in a set has to be unique.
+	
+**Check If an Item Exists**
+	
+To check whether an item exists in a HashSet, use the ```contains()``` method:
+	
+```java
+	
+cars.contains("Mazda");
+	
+```
+	
+**Remove an Item**
+	
+To remove an item, use the ```remove()``` method:
+	
+```java
+	
+cars.remove("Volvo");
+	
+```
+	
+To remove all items, use the ```clear()``` method:
+	
+```java
+	
+cars.clear();
+	
+```
+	
+**HashSet Size**
+
+To find out how many items there are, use the ```size``` method:
+	
+```java
+	
+cars.size();
+	
+```
+	
+**Loop Through a HashSet**
+	
+Loop through the items of an HashSet with a for-each loop:
+	
+```java
+	
+for (String i : cars) {
+  System.out.println(i);
+}
+	
+```
+	
+**Union**
+	
+```java
+	
+package application;
+	
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+	
+public class Program {
+	
+	public static void main(String[] args) {
+	
+		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
+		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
+	
+		//union
+		Set<Integer> c = new TreeSet<>(a);
+		c.addAll(b);
+		System.out.println(c); // [0, 2, 4, 5, 6, 7, 8, 9, 10]
+	}
+}
+	
+```
+	
+**intersection**
+	
+```java
+	
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+	
+public class Program {
+	
+	public static void main(String[] args) {
+	
+		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
+		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
+	
+		//intersection
+		Set<Integer> d = new TreeSet<>(a);
+		d.retainAll(b);
+		System.out.println(d); // [5, 6, 8, 10]
+	}
+}
+	
+```
+	
+**difference**
+	
+```java
+	
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+	
+public class Program {
+	
+	public static void main(String[] args) {
+	
+		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
+		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
+	
+		//difference
+		Set<Integer> e = new TreeSet<>(a);
+		e.removeAll(b);
+		System.out.println(e); //[0, 2, 4]
+	}
+}
+	
+```
+	
+**Other Types**
+	
+Items in an HashSet are actually objects. In the examples above, we created items (objects) of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: Integer. For other primitive types, use: Boolean for boolean, Character for char, Double for double, etc:
+	
+```java
+	
+import java.util.HashSet;
+
+public class Main {
+  public static void main(String[] args) {
+
+    // Create a HashSet object called numbers
+    HashSet<Integer> numbers = new HashSet<Integer>();
+
+    // Add values to the set
+    numbers.add(4);
+    numbers.add(7);
+    numbers.add(8);
+
+    // Show which numbers between 1 and 10 are in the set
+    for(int i = 1; i <= 10; i++) {
+      if(numbers.contains(i)) {
+        System.out.println(i + " was found in the set.");
+      } else {
+        System.out.println(i + " was not found in the set.");
+      }
+    }
+  }
+}
+			  
+```
+
 
 ## <a name="chapter13"></a>Chapter 13: Java Lambda Expression
 
