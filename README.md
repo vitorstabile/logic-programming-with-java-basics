@@ -11731,10 +11731,6 @@ The output will be:
 ```
 Deleted the folder: Test
 ```
-
-## <a name="chapter17"></a>Chapter 17: Java Lambda Expression
-
-#### <a name="chapter17part1"></a>Chapter 17 - Part 1: Java Lambda Expression
 	
 
 	
