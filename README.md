@@ -227,6 +227,13 @@
       - [Chapter 6 - Part 7.4: Practical Examples and Demonstrations](#chapter6part7.4)
     - [Chapter 6 - Part 8: The `super` Keyword: Accessing Parent Class Members](#chapter6part8)
       - [Chapter 6 - Part 8.1: Understanding the super Keyword](#chapter6part8.1)
+    - [Chapter 6 - Part 9: Class Composition and Polymorphism](#chapter6part9)
+      - [Chapter 6 - Part 9.1: Modifiers in Java](#chapter6part9.1)
+      - [Chapter 6 - Part 9.2: Encapsulation in Java](#chapter6part9.2)
+      - [Chapter 6 - Part 9.3: Classes Composition in Java](#chapter6part9.3)
+      - [Chapter 6 - Part 9.4: Inheritance in Java](#chapter6part9.4)
+      - [Chapter 6 - Part 9.5: Polymorphism in Java](#chapter6part9.5)
+      - [Chapter 6 - Part 9.6: Abstraction Class and methods](#chapter6part9.6)
 7. [Chapter 7: Exception Handling and Basic Input/Output](#chapter7)
     - [Chapter 7 - Part 1: Introduction to Exception Handling: Dealing with Errors](#chapter7part1)
       - [Chapter 7 - Part 1.1: Understanding Exceptions](#chapter7part1.1)
@@ -10194,6 +10201,1461 @@ public class Program {
 
 #### <a name="chapter6part8.3"></a>Chapter 6 - Part 8.3: Summary
 
+#### <a name="chapter6part9"></a>Chapter 6 - Part 9: Class Composition and Polymorphism
+
+#### <a name="chapter6part9.1"></a>Chapter 9 - Part 6.1: Modifiers in Java
+
+By now, you are quite familiar with the ```public``` keyword that appears in almost all of our examples:
+
+```java
+
+public class Main
+
+```
+
+The ```public``` keyword is an **access modifier**, meaning that it is used to set the access level for classes, attributes, methods and constructors.
+
+We divide modifiers into two groups:
+
+- Access Modifiers - controls the access level
+- Non-Access Modifiers - do not control access level, but provides other functionality
+
+**Access Modifiers**
+
+For **classes**, you can use either ```public``` or default:
+
+| Modifier | Description                                                                                                   |
+| :-------:| :------------------------------------------------------------------------------------------------------------:|
+| public   | The class is accessible by any other class                                                                    |
+| default  | The class is only accessible by classes in the same package. This is used when you don't specify a modifier.  | 
+
+For **attributes, methods and constructors**, you can use the one of the following:
+
+| Modifier   | Description                                                                                       |
+| :---------:| :------------------------------------------------------------------------------------------------:|
+| public     | The code is accessible for all classes                                                            |
+| private    | The code is only accessible within the declared class                                             |
+| default    | The code is only accessible in the same package. This is used when you don't specify a modifier.  | 
+| protected  | The code is accessible in the same package and subclasses.                                        | 
+
+<br>
+
+<div align="center"><img src="img/modifiers-w1046-h434.png" width=1046 height=434><br><sub>Fig 32 - Modifiers in Java - (<a href='https://stackoverflow.com/questions/215497/what-is-the-difference-between-public-protected-package-private-and-private-in'>Work by  aioobe</a>) </sub></div>
+
+<br>
+
+**Non-Access Modifiers**
+
+For **classes**, you can use either ```final``` or ```abstract```:
+
+| Modifier  | Description                                                                                                       |
+| :--------:| :----------------------------------------------------------------------------------------------------------------:|
+| final     | The class cannot be inherited by other classes                                                                    |
+| abstract  | The class cannot be used to create objects (To access an abstract class, it must be inherited from another class. | 
+
+For **attributes and methods**, you can use the one of the following:
+
+| Modifier      | Description                                                                                                       |
+| :------------:| :----------------------------------------------------------------------------------------------------------------:|
+| final         | Attributes and methods cannot be overridden/modified                                                                    |
+| static        | Attributes and methods belongs to the class, rather than an object |
+| abstract      | Can only be used in an abstract class, and can only be used on methods. The method does not have a body, for example **abstract void run();**. The body is provided by the subclass (inherited from).  | 
+| transient     | Attributes and methods are skipped when serializing the object containing them | 
+| synchronized  | Methods can only be accessed by one thread at a time | 
+| volatile      | The value of an attribute is not cached thread-locally, and is always read from the "main memory" |
+
+**Final**
+
+If you don't want the ability to override existing attribute values, declare attributes as ```final```:
+
+```java
+
+public class Main {
+  final int x = 10;
+  final double PI = 3.14;
+
+  public static void main(String[] args) {
+    Main myObj = new Main();
+    myObj.x = 50; // will generate an error: cannot assign a value to a final variable
+    myObj.PI = 25; // will generate an error: cannot assign a value to a final variable
+    System.out.println(myObj.x);
+  }
+}
+
+```
+
+**Static**
+
+A ```static``` method means that it can be accessed without creating an object of the class, unlike ```public```:
+
+An example to demonstrate the differences between ```static``` and ```public``` methods:
+
+```java
+
+public class Main {
+  // Static method
+  static void myStaticMethod() {
+    System.out.println("Static methods can be called without creating objects");
+  }
+
+  // Public method
+  public void myPublicMethod() {
+    System.out.println("Public methods must be called by creating objects");
+  }
+
+  // Main method
+  public static void main(String[ ] args) {
+    myStaticMethod(); // Call the static method
+    // myPublicMethod(); This would output an error
+
+    Main myObj = new Main(); // Create an object of Main
+    myObj.myPublicMethod(); // Call the public method
+  }
+}
+
+```
+
+**Abstract**
+
+An ```abstract``` method belongs to an ```abstract``` class, and it does not have a body. The body is provided by the subclass:
+
+```java
+
+// Code from filename: Main.java
+// abstract class
+abstract class Main {
+  public String fname = "John";
+  public int age = 24;
+  public abstract void study(); // abstract method
+}
+
+// Subclass (inherit from Main)
+class Student extends Main {
+  public int graduationYear = 2018;
+  public void study() { // the body of the abstract method is provided here
+    System.out.println("Studying all day long");
+  }
+}
+// End code from filename: Main.java
+
+// Code from filename: Second.java
+class Second {
+  public static void main(String[] args) {
+    // create an object of the Student class (which inherits attributes and methods from Main)
+    Student myObj = new Student();
+
+    System.out.println("Name: " + myObj.fname);
+    System.out.println("Age: " + myObj.age);
+    System.out.println("Graduation Year: " + myObj.graduationYear);
+    myObj.study(); // call abstract method
+  }
+}
+
+```
+
+#### <a name="chapter6part9.2"></a>Chapter 6 - Part 9.2: Encapsulation in Java
+
+It is a principle consisting of hide implementation details of a class, exposing only safe operations and maintain objects in a consistent state.
+
+Golden rule: the object must always be in a consistent state, and the class itself must guarantee this.
+
+**An object must NOT expose any attributes (access modifier private)**
+
+**Attributes must be accessed via get and set methods. [JavaBeans](https://en.wikipedia.org/wiki/JavaBeans)**
+
+The meaning of Encapsulation, is to make sure that "sensitive" data is hidden from users. To achieve this, you must:
+
+- declare class variables/attributes as ```private```.
+- provide public get and set methods to access and update the value of a ```private``` variable
+
+**Get and Set**
+
+You learned from the previous chapter that ```private``` variables can only be accessed within the same class (an outside class has no access to it). However, it is possible to access them if we provide public get and set methods.
+
+The ```get``` method returns the variable value, and the ```set``` method sets the value.
+
+Syntax for both is that they start with either ```get``` or ```set```, followed by the name of the variable, with the first letter in upper case:
+
+```java
+
+public class Person {
+  private String name; // private = restricted access
+
+  // Getter
+  public String getName() {
+    return name;
+  }
+
+  // Setter
+  public void setName(String newName) {
+    this.name = newName;
+  }
+}
+
+```
+
+The ```get``` method returns the value of the variable ```name```.
+
+The ```set``` method takes a parameter (```newName```) and assigns it to the ```name``` variable. The ```this``` keyword is used to refer to the current object.
+
+However, as the ```name``` variable is declared as ```private```, we cannot access it from outside this class:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+    Person myObj = new Person();
+    myObj.name = "John";  // error
+    System.out.println(myObj.name); // error 
+  }
+}
+
+
+```
+
+If the variable was declared as ```public```, we would expect the following output:
+
+```John```
+
+However, as we try to access a ```private``` variable, we get an error:
+
+Instead, we use the ```getName()``` and ```setName()``` methods to access and update the variable:
+
+```java
+
+public class Main {
+  public static void main(String[] args) {
+    Person myObj = new Person();
+    myObj.setName("John"); // Set the value of the name variable to "John"
+    System.out.println(myObj.getName());
+  }
+}
+
+// Outputs "John"
+
+```
+
+**Why Encapsulation?**
+
+- Better control of class attributes and methods
+- Class attributes can be made read-only (if you only use the ```get``` method), or write-only (if you only use the set method)
+- Flexible: the programmer can change one part of the code without affecting other parts
+- Increased security of data
+
+
+```java
+
+public class Product {
+
+	private String name;
+	private double price;
+	private int quantity;
+	
+	public Product() {
+	}
+	
+	public Product(String name, double price, int quantity) {
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	
+	public Product(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+```
+
+#### <a name="chapter6part9.3"></a>Chapter 6 - Part 9.3: Classes Composition in Java
+
+It is a type of association that allows one object to contain another
+
+"has-one" or "has-many" relationship
+
+Advantages
+- Organization: division of responsibilities
+- Cohesion
+- Flexibility
+- Reuse
+
+<br>
+
+<div align="center"><img src="img/compostion1-w865-h453.png" width=865 height=453><br><sub>Fig 39 - Composition - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Exercise: Read data from a worker with N contracts (N provided by the user). then request a month and show the employee's salary in that month, as shown in the example
+
+<br>
+
+<div align="center"><img src="img/compostion2-w766-h399.png" width=766 height=399><br><sub>Fig 39 - Compostion Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+<div align="center"><img src="img/compostion3-w658-h553.png" width=658 height=553><br><sub>Fig 39 - Compostion Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Resolution:
+
+**WorkerLevel Class (enum)**
+
+```java
+
+package entities.enums;
+
+public enum WorkerLevel {
+
+	JUNIOR,
+	MID_LEVEL,
+	SENIOR;
+}
+
+```
+
+**Department Class**
+
+```java
+
+package entities;
+
+public class Department {
+
+	private String name;
+	
+	public Department() {
+	}
+
+	public Department(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+
+```
+
+**HourContract Class**
+
+```java
+
+package entities;
+
+import java.util.Date;
+
+public class HourContract {
+
+	private Date date;
+	private Double valuePerHour;
+	private Integer hours;
+	
+	public HourContract() {
+	}
+
+	public HourContract(Date date, Double valuePerHour, Integer hours) {
+		this.date = date;
+		this.valuePerHour = valuePerHour;
+		this.hours = hours;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Double getValuePerHour() {
+		return valuePerHour;
+	}
+
+	public void setValuePerHour(Double valuePerHour) {
+		this.valuePerHour = valuePerHour;
+	}
+
+	public Integer getHours() {
+		return hours;
+	}
+
+	public void setHours(Integer hours) {
+		this.hours = hours;
+	}
+	
+	public double totalValue() {
+		return valuePerHour * hours;
+	}
+}
+
+```
+
+**Worker Class**
+
+```java
+
+package entities;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import entities.enums.WorkerLevel;
+
+public class Worker {
+
+	private String name;
+	private WorkerLevel level;
+	private Double baseSalary;
+	
+	private Department department;
+	private List<HourContract> contracts = new ArrayList<>();
+	
+	public Worker() {
+	}
+
+	public Worker(String name, WorkerLevel level, Double baseSalary, Department department) {
+		this.name = name;
+		this.level = level;
+		this.baseSalary = baseSalary;
+		this.department = department;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public WorkerLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(WorkerLevel level) {
+		this.level = level;
+	}
+
+	public Double getBaseSalary() {
+		return baseSalary;
+	}
+
+	public void setBaseSalary(Double baseSalary) {
+		this.baseSalary = baseSalary;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public List<HourContract> getContracts() {
+		return contracts;
+	}
+
+	public void addContract(HourContract contract) {
+		contracts.add(contract);
+	}
+	
+	public void removeContract(HourContract contract) {
+		contracts.remove(contract);
+	}
+	
+	public double income(int year, int month) {
+		double sum = baseSalary;
+		Calendar cal = Calendar.getInstance();
+		for (HourContract c : contracts) {
+			cal.setTime(c.getDate());
+			int c_year = cal.get(Calendar.YEAR);
+			int c_month = 1 + cal.get(Calendar.MONTH);
+			if (year == c_year && month == c_month) {
+				sum += c.totalValue();
+			}
+		}
+		return sum;
+	}
+}
+
+```
+
+**Program**
+
+```java
+
+package application;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Department;
+import entities.HourContract;
+import entities.Worker;
+import entities.enums.WorkerLevel;
+
+public class Program {
+
+	public static void main(String[] args) throws ParseException {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		System.out.print("Enter department's name: ");
+		String departmentName = sc.nextLine();
+		System.out.println("Enter worker data:");
+		System.out.print("Name: ");
+		String workerName = sc.nextLine();
+		System.out.print("Level: ");
+		String workerLevel = sc.nextLine();
+		System.out.print("Base salary: ");
+		double baseSalary = sc.nextDouble();
+		Worker worker = new Worker(workerName, WorkerLevel.valueOf(workerLevel), baseSalary, new Department(departmentName));
+		
+		System.out.print("How many contracts to this worker? ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<=n; i++) {
+			System.out.println("Enter contract #" + i + " data:");
+			System.out.print("Date (DD/MM/YYYY): ");
+			Date contractDate = sdf.parse(sc.next());
+			System.out.print("Value per hour: ");
+			double valuePerHour = sc.nextDouble();
+			System.out.print("Duration (hours): ");
+			int hours = sc.nextInt();
+			HourContract contract = new HourContract(contractDate, valuePerHour, hours);
+			worker.addContract(contract);
+		}
+		
+		System.out.println();
+		System.out.print("Enter month and year to calculate income (MM/YYYY): ");
+		String monthAndYear = sc.next();
+		int month = Integer.parseInt(monthAndYear.substring(0, 2));
+		int year = Integer.parseInt(monthAndYear.substring(3));
+		System.out.println("Name: " + worker.getName());
+		System.out.println("Department: " + worker.getDepartment().getName());
+		System.out.println("Income for " + monthAndYear + ": " + String.format("%.2f", worker.income(year, month)));
+		
+		sc.close();
+	}
+}
+
+```
+
+#### <a name="chapter6part9.4"></a>Chapter 6 - Part 9.4: Inheritance in Java
+
+It is an association type that allows a class to inherit all data and behaviors of another
+
+- Benefits
+  - reuse
+  - Polymorphism
+  
+In Java, it is possible to inherit attributes and methods from one class to another. We group the "inheritance concept" into two categories:
+
+- **subclass** (child) - the class that inherits from another class
+- **superclass** (parent) - the class being inherited from
+
+To inherit from a class, use the ```extends``` keyword.
+
+Example: In the example below, the ```Car``` class (subclass) inherits the attributes and methods from the ```Vehicle``` class (superclass):
+
+```java
+
+class Vehicle {
+  protected String brand = "Ford";        // Vehicle attribute
+  public void honk() {                    // Vehicle method
+    System.out.println("Tuut, tuut!");
+  }
+}
+
+class Car extends Vehicle {
+  private String modelName = "Mustang";    // Car attribute
+  public static void main(String[] args) {
+
+    // Create a myCar object
+    Car myCar = new Car();
+
+    // Call the honk() method (from the Vehicle class) on the myCar object
+    myCar.honk();
+
+    // Display the value of the brand attribute (from the Vehicle class) and the value of the modelName from the Car class
+    System.out.println(myCar.brand + " " + myCar.modelName);
+  }
+}
+
+```
+
+Another Example: Suppose a banking business that has a common account and an account for companies, and the company account has all account members common plus a borrowing limit and a borrowing operation.
+
+<br>
+
+<div align="center"><img src="img/inheritance1-w774-h342.png" width=774 height=342><br><sub>Fig 40 - Inheritance - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+
+
+Important Definitions:
+
+- "is-a" relationship
+
+- generalization/specialization
+
+- Superclass (base class) / subclass (class derivative)
+
+- inheritance / extension
+
+- Inheritance is an association between classes (not between objects)
+
+Class Account
+
+```java
+
+package entities;
+
+public class Account {
+
+	private Integer number;
+	private String holder;
+	protected Double balance;
+		
+	public Account() {
+	}
+	
+	public Account(Integer number, String holder, Double balance) {
+		this.number = number;
+		this.holder = holder;
+		this.balance = balance;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public String getHolder() {
+		return holder;
+	}
+
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void withdraw(double amount) {
+		balance -= amount;
+	}
+
+	public void deposit(double amount) {
+		balance += amount;
+	}
+}
+
+```
+
+Did you notice the ```protected``` modifier in ```Account```?
+
+We set the ```balance``` attribute in ```Account``` to a ```protected``` access modifier. If it was set to ```private```, the ```BusinessAccount``` class would not be able to access it.
+
+class BussinesAccount
+
+```java
+
+package entities;
+
+public class BusinessAccount extends Account {
+
+	private Double loanLimit;
+	
+	public BusinessAccount() {
+		super();
+	}
+
+	public BusinessAccount(Integer number, String holder, Double balance, Double loanLimit) {
+		super(number, holder, balance);
+		this.loanLimit = loanLimit;
+	}
+
+	public Double getLoanLimit() {
+		return loanLimit;
+	}
+
+	public void setLoanLimit(Double loanLimit) {
+		this.loanLimit = loanLimit;
+	}
+	
+	public void loan(double amount) {
+		if (amount <= loanLimit) {
+			balance += amount - 10.0;
+		}
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import entities.BusinessAccount;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		BusinessAccount account = new BusinessAccount(8010, "Bob Brown", 0.0, 500.0);
+
+		System.out.println(account.getBalance());
+	}
+}
+
+```
+
+**Upcasting and downcasting**
+
+- Upcasting
+  - Casting from subclass to superclass
+  - Common usage: polymorphism
+
+- Downcasting
+  - Casting from superclass to subclass
+  - instanceof ```keyword```
+  - Common usage: methods that take generic parameters (ex: Equals)
+  
+Example:
+
+<br>
+
+<div align="center"><img src="img/updowncasting-w493-h400.png" width=493 height=400><br><sub>Fig 41 - Upcasting and Downcasting - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class SavingsAccount
+
+```java
+
+package entities;
+
+public class SavingsAccount extends Account {
+	
+	private Double interestRate;
+	
+	public SavingsAccount() {
+		super();
+	}
+
+	public SavingsAccount(Integer number, String holder, Double balance, Double interestRate) {
+		super(number, holder, balance);
+		this.interestRate = interestRate;
+	}
+
+	public Double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
+	
+	public void updateBalance() {
+		balance += balance * interestRate;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import entities.Account;
+import entities.BusinessAccount;
+import entities.SavingsAccount;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Account acc = new Account(1001, "Alex", 0.0);
+		BusinessAccount bacc = new BusinessAccount(1002, "Maria", 0.0, 500.0);
+		
+		// UPCASTING
+		
+		Account acc1 = bacc;
+		Account acc2 = new BusinessAccount(1003, "Bob", 0.0, 200.0);
+		Account acc3 = new SavingsAccount(1004, "Anna", 0.0, 0.01);
+		
+		// DOWNCASTING
+		
+		BusinessAccount acc4 = (BusinessAccount)acc2;
+		acc4.loan(100.0);
+		
+		// BusinessAccount acc5 = (BusinessAccount)acc3;
+		if (acc3 instanceof BusinessAccount) {
+			BusinessAccount acc5 = (BusinessAccount)acc3;
+			acc5.loan(200.0);
+			System.out.println("Loan!");
+		}
+		
+		if (acc3 instanceof SavingsAccount) {
+			SavingsAccount acc5 = (SavingsAccount)acc3;
+			acc5.updateBalance();
+			System.out.println("Update!");
+		}
+	}
+}
+
+```
+
+**Override**
+
+- It is the implementation of a method of a superclass in the subclass
+- It is strongly recommended to use the @Override annotation in a method envelope
+  - Facilitates reading and understanding of code
+  - We notify the compiler (good practice)
+
+class Account
+
+```Java
+
+public void withdraw(double amount) {
+	balance -= amount + 5.0;
+}
+
+```
+
+SavingsAccount
+
+```java
+
+@Override
+public void withdraw(double amount) {
+	balance -= amount;
+}
+
+```
+
+**Keyword Super**
+
+You can call the superclass implementation using the word super.
+
+Example: suppose that, in the BusinessAccount class, the rule for withdrawal is to perform the draw normally from the superclass, and deduct another 2.0.
+
+In this case, the withdraw method is the same, but with one moddification in the BissinesAccount class, because is tho only diference.
+
+Class BissinesAccount
+
+```java
+
+@Override
+public void withdraw(double amount) {
+	super.withdraw(amount);
+	balance -= 2.0;
+}
+
+```
+
+**Keyword Final**
+
+If you don't want other classes to inherit from a class, use the ```final``` keyword:
+
+Example: If you try to access a ```final``` class, Java will generate an error:
+
+```java
+
+final class Vehicle {
+  ...
+}
+
+class Car extends Vehicle {
+  ...
+}
+
+// Main.java:9: error: cannot inherit from final Vehicle
+//class Main extends Vehicle {
+//                  ^
+// 1 error)
+
+```
+
+You can use in method. In this case prevents the method under from being overridden
+
+Example: Suppose you don't want the Withdraw method of SavingsAccount is overridden
+
+```java
+
+@Override
+public final void withdraw(double amount) {
+	balance -= amount;
+}
+
+```
+
+why use final?
+
+- Security: Depending on business rules, it is sometimes desirable ensure that a class is not inherited, or that a method is not be superimposed.
+  - It is generally convenient to add final in overlapping methods, as Multiple overlays can be a gateway to inconsistencies
+
+- Performance: type attributes of a final class are parsed accordingly. faster at runtime.
+  - Classic example: String
+
+#### <a name="chapter6part9.5"></a>Chapter 6 - Part 9.5: Polymorphism in Java
+
+In Object Oriented Programming, polymorphism is a resource that allows variables of the same more generic type to be point to objects of different specific types, thus having different behaviors depending on each specific type.
+
+```java
+
+Account x = new Account(1020, "Alex", 1000.0);
+Account y = new SavingsAccount(1023, "Maria", 1000.0, 0.01);
+
+x.withdraw(50.0);
+y.withdraw(50.0);
+
+```
+
+Another Example:
+
+For example, think of a superclass called ```Animal``` that has a method called ```animalSound()```. Subclasses of Animals could be Pigs, Cats, Dogs, Birds - And they also have their own implementation of an animal sound (the pig oinks, and the cat meows, etc.):
+
+```java
+
+class Animal {
+  public void animalSound() {
+    System.out.println("The animal makes a sound");
+  }
+}
+
+class Pig extends Animal {
+  public void animalSound() {
+    System.out.println("The pig says: wee wee");
+  }
+}
+
+class Dog extends Animal {
+  public void animalSound() {
+    System.out.println("The dog says: bow wow");
+  }
+}
+
+```
+Now we can create ```Pig``` and ```Dog``` objects and call the ```animalSound()``` method on both of them:
+
+```java
+
+class Animal {
+  public void animalSound() {
+    System.out.println("The animal makes a sound");
+  }
+}
+
+class Pig extends Animal {
+  public void animalSound() {
+    System.out.println("The pig says: wee wee");
+  }
+}
+
+class Dog extends Animal {
+  public void animalSound() {
+    System.out.println("The dog says: bow wow");
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    Animal myAnimal = new Animal();  // Create a Animal object
+    Animal myPig = new Pig();  // Create a Pig object
+    Animal myDog = new Dog();  // Create a Dog object
+    myAnimal.animalSound();
+    myPig.animalSound();
+    myDog.animalSound();
+  }
+}
+
+```
+
+Why And When To Use "Inheritance" and "Polymorphism"?
+
+- It is useful for code reusability: reuse attributes and methods of an existing class when you create a new class.
+
+Exercise:  A company has its own and outsourced employees. For each employee, you want to record name, hours worked and hourly rate. outsourced employees have an additional expense.
+
+Employee pay corresponds to the hourly rate multiplied by the hours worked, with the outsourced employees still receive a bonus corresponding to 110% of your additional expense.
+
+Write a program to read the data of N employees (N provided by the user) and store them in a list. Later to read all data, show name and payment of each employee in the same order they were entered.
+
+Build the program according to the project on the side. Look example on the next page.
+
+<br>
+
+<div align="center"><img src="img/polymorphism1-w383-h532.png" width=383 height=532><br><sub>Fig 42 - Exercise Polymorphism - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+<div align="center"><img src="img/polymorphism2-w384-h461.png" width=383 height=461><br><sub>Fig 43 - Exercise Polymorphism - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class Employee
+
+```java
+
+package entities;
+
+public class Employee {
+
+	private String name;
+	private Integer hours;
+	private Double valuePerHour;
+	
+	public Employee() {
+	}
+
+	public Employee(String name, Integer hours, Double valuePerHour) {
+		this.name = name;
+		this.hours = hours;
+		this.valuePerHour = valuePerHour;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getHours() {
+		return hours;
+	}
+
+	public void setHours(Integer hours) {
+		this.hours = hours;
+	}
+
+	public Double getValuePerHour() {
+		return valuePerHour;
+	}
+
+	public void setValuePerHour(Double valuePerHour) {
+		this.valuePerHour = valuePerHour;
+	}
+	
+	public double payment() {
+		return hours * valuePerHour;
+	}
+}
+
+```
+
+Class OutsourcedEmployee
+
+```java
+
+package entities;
+
+public class OutsourcedEmployee extends Employee {
+
+	private Double additionalCharge;
+
+	public OutsourcedEmployee() {
+		super();
+	}
+	
+	public OutsourcedEmployee(String name, Integer hours, Double valuePerHour, Double additionalCharge) {
+		super(name, hours, valuePerHour);
+		this.additionalCharge = additionalCharge;
+	}
+
+	public Double getAdditionalCharge() {
+		return additionalCharge;
+	}
+
+	public void setAdditionalCharge(Double additionalCharge) {
+		this.additionalCharge = additionalCharge;
+	}
+	
+	@Override
+	public double payment() {
+		return super.payment() + additionalCharge * 1.1;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Employee;
+import entities.OutsourcedEmployee;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		List<Employee> list = new ArrayList<>();
+		
+		System.out.print("Enter the number of employees: ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<=n; i++) {
+			System.out.println("Employee #" + i + " data:");
+			System.out.print("Outsourced (y/n)? ");
+			char ch = sc.next().charAt(0);
+			System.out.print("Name: ");
+			sc.nextLine();
+			String name = sc.nextLine();
+			System.out.print("Hours: ");
+			int hours = sc.nextInt();
+			System.out.print("Value per hour: ");
+			double valuePerHour = sc.nextDouble();
+			//OBS: A List of Employee can add Employe or OutsourcedEmploye (polymorphism)
+			if (ch == 'y') {
+				System.out.print("Additional charge: ");
+				double additionalCharge = sc.nextDouble();
+				list.add(new OutsourcedEmployee(name, hours, valuePerHour, additionalCharge));
+			}
+			else {
+				list.add(new Employee(name, hours, valuePerHour));
+			}
+		}
+		
+		System.out.println();
+		System.out.println("PAYMENTS:");
+		for (Employee emp : list) {
+			System.out.println(emp.getName() + " - $ " + String.format("%.2f", emp.payment()));
+		}
+		
+		sc.close();
+	}
+}
+
+```
+
+#### <a name="chapter6part9.6"></a>Chapter 6 - Part 9.6: Abstraction Class and methods
+
+Data **abstraction** is the process of hiding certain details and showing only essential information to the user.
+Abstraction can be achieved with either **abstract classes** or **interfaces** (which you will learn more about in the next chapter).
+
+The ```abstract``` keyword is a non-access modifier, used for classes and methods:
+- **Abstract class**: is a restricted class that cannot be used to create objects (to access it, it must be inherited from another class).
+- **Abstract method**: can only be used in an abstract class, and it does not have a body. The body is provided by the subclass (inherited from).
+
+NOTE: In UML is Italic
+
+An abstract class can have both abstract and regular methods:
+
+```java
+
+abstract class Animal {
+  public abstract void animalSound();
+  public void sleep() {
+    System.out.println("Zzz");
+  }
+}
+
+```
+
+From the example above, it is not possible to create an object of the Animal class:
+
+```java
+
+Animal myObj = new Animal(); // will generate an error
+
+```
+
+To access the abstract class, it must be inherited from another class. Let's convert the Animal class we used in the Polymorphism chapter to an abstract class:
+
+Remember from the Inheritance chapter that we use the extends keyword to inherit from a class.
+
+```java
+
+// Abstract class
+abstract class Animal {
+  // Abstract method (does not have a body)
+  public abstract void animalSound();
+  // Regular method
+  public void sleep() {
+    System.out.println("Zzz");
+  }
+}
+
+// Subclass (inherit from Animal)
+class Pig extends Animal {
+  public void animalSound() {
+    // The body of animalSound() is provided here
+    System.out.println("The pig says: wee wee");
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    Pig myPig = new Pig(); // Create a Pig object
+    myPig.animalSound();
+    myPig.sleep();
+  }
+}
+
+```
+
+NOTE:  If a class has at least one method abstract, so this class is also abstract
+
+Why And When To Use Abstract Classes and Methods?
+
+To achieve security - hide certain details and only show the important details of an object.
+
+Note: Abstraction can also be achieved with Interfaces, which you will learn more about in the next chapter.
+
+Exercise: Write a program to read data from N figures (N provided by the user), and then show the areas of these figures in the same order in which they were entered.
+
+<br>
+
+<div align="center"><img src="img/abstraction-w1062-h461.png" width=1062 height=461><br><sub>Fig 44 - Exercise Abstraction - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
+
+<br>
+
+Class Color
+
+```java
+
+package entities.enums;
+
+public enum Color {
+	BLACK,
+	BLUE,
+	RED;
+}
+
+```
+
+Class Shape
+
+```java
+
+package entities;
+
+import entities.enums.Color;
+
+public abstract class Shape {
+
+	private Color color;
+	
+	public Shape() {
+	}
+	
+	public Shape(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	public abstract double area(); //OBS: when you put abstract in the method, you are obligated to put abstract in the class Shape
+}
+
+```
+
+Class Circle
+
+```java
+
+package entities;
+
+import entities.enums.Color;
+
+public class Circle extends Shape {
+
+	private Double radius;
+	
+	public Circle() {
+		super();
+	}
+	
+	public Circle(Color color, Double radius) {
+		super(color);
+		this.radius = radius;
+	}
+
+	public Double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Double radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public double area() {
+		return Math.PI * radius * radius;
+	}
+}
+
+```
+
+Class Retangle
+
+```java
+
+package entities;
+
+import entities.enums.Color;
+
+public class Rectangle extends Shape {
+
+	private Double width;
+	private Double height;
+	
+	public Rectangle() {
+		super();
+	}
+
+	public Rectangle(Color color, Double width, Double height) {
+		super(color);
+		this.width = width;
+		this.height = height;
+	}
+
+	public Double getWidth() {
+		return width;
+	}
+
+	public void setWidth(Double width) {
+		this.width = width;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	@Override
+	public double area() {
+		return width * height;
+	}
+}
+
+```
+
+Program
+
+```java
+
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Shape;
+import entities.Rectangle;
+import entities.Circle;
+import entities.enums.Color;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		List<Shape> list = new ArrayList<>();
+		
+		System.out.print("Enter the number of shapes: ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<=n; i++) {
+			System.out.println("Shape #" + i + " data:");
+			System.out.print("Rectangle or Circle (r/c)? ");
+			char ch = sc.next().charAt(0);
+			System.out.print("Color (BLACK/BLUE/RED): ");
+			Color color = Color.valueOf(sc.next());
+			if (ch == 'r') {
+				System.out.print("Width: ");
+				double width = sc.nextDouble();
+				System.out.print("Height: ");
+				double height = sc.nextDouble();
+				list.add(new Rectangle(color, width, height));
+			}
+			else {
+				System.out.print("Radius: ");
+				double radius = sc.nextDouble();
+				list.add(new Circle(color, radius));
+			}
+		}
+		
+		System.out.println();
+		System.out.println("SHAPE AREAS:");
+		for (Shape shape : list) {
+			System.out.println(String.format("%.2f", shape.area()));
+		}
+		
+		sc.close();
+	}
+}
+
+```
+
 ## <a name="chapter7"></a>Chapter 7: Exception Handling and Basic Input/Output
 
 #### <a name="chapter7part1"></a>Chapter 7 - Part 1: Introduction to Exception Handling: Dealing with Errors
@@ -13148,1460 +14610,5 @@ public class Main {
 }
 	
 ```
-
-#### <a name="chapter9part10"></a>Chapter 9 - Part 10: Modifiers in Java
-
-By now, you are quite familiar with the ```public``` keyword that appears in almost all of our examples:
-
-```java
-
-public class Main
-
-```
-
-The ```public``` keyword is an **access modifier**, meaning that it is used to set the access level for classes, attributes, methods and constructors.
-
-We divide modifiers into two groups:
-
-- Access Modifiers - controls the access level
-- Non-Access Modifiers - do not control access level, but provides other functionality
-
-**Access Modifiers**
-
-For **classes**, you can use either ```public``` or default:
-
-| Modifier | Description                                                                                                   |
-| :-------:| :------------------------------------------------------------------------------------------------------------:|
-| public   | The class is accessible by any other class                                                                    |
-| default  | The class is only accessible by classes in the same package. This is used when you don't specify a modifier.  | 
-
-For **attributes, methods and constructors**, you can use the one of the following:
-
-| Modifier   | Description                                                                                       |
-| :---------:| :------------------------------------------------------------------------------------------------:|
-| public     | The code is accessible for all classes                                                            |
-| private    | The code is only accessible within the declared class                                             |
-| default    | The code is only accessible in the same package. This is used when you don't specify a modifier.  | 
-| protected  | The code is accessible in the same package and subclasses.                                        | 
-
-<br>
-
-<div align="center"><img src="img/modifiers-w1046-h434.png" width=1046 height=434><br><sub>Fig 32 - Modifiers in Java - (<a href='https://stackoverflow.com/questions/215497/what-is-the-difference-between-public-protected-package-private-and-private-in'>Work by  aioobe</a>) </sub></div>
-
-<br>
-
-**Non-Access Modifiers**
-
-For **classes**, you can use either ```final``` or ```abstract```:
-
-| Modifier  | Description                                                                                                       |
-| :--------:| :----------------------------------------------------------------------------------------------------------------:|
-| final     | The class cannot be inherited by other classes                                                                    |
-| abstract  | The class cannot be used to create objects (To access an abstract class, it must be inherited from another class. | 
-
-For **attributes and methods**, you can use the one of the following:
-
-| Modifier      | Description                                                                                                       |
-| :------------:| :----------------------------------------------------------------------------------------------------------------:|
-| final         | Attributes and methods cannot be overridden/modified                                                                    |
-| static        | Attributes and methods belongs to the class, rather than an object |
-| abstract      | Can only be used in an abstract class, and can only be used on methods. The method does not have a body, for example **abstract void run();**. The body is provided by the subclass (inherited from).  | 
-| transient     | Attributes and methods are skipped when serializing the object containing them | 
-| synchronized  | Methods can only be accessed by one thread at a time | 
-| volatile      | The value of an attribute is not cached thread-locally, and is always read from the "main memory" |
-
-**Final**
-
-If you don't want the ability to override existing attribute values, declare attributes as ```final```:
-
-```java
-
-public class Main {
-  final int x = 10;
-  final double PI = 3.14;
-
-  public static void main(String[] args) {
-    Main myObj = new Main();
-    myObj.x = 50; // will generate an error: cannot assign a value to a final variable
-    myObj.PI = 25; // will generate an error: cannot assign a value to a final variable
-    System.out.println(myObj.x);
-  }
-}
-
-```
-
-**Static**
-
-A ```static``` method means that it can be accessed without creating an object of the class, unlike ```public```:
-
-An example to demonstrate the differences between ```static``` and ```public``` methods:
-
-```java
-
-public class Main {
-  // Static method
-  static void myStaticMethod() {
-    System.out.println("Static methods can be called without creating objects");
-  }
-
-  // Public method
-  public void myPublicMethod() {
-    System.out.println("Public methods must be called by creating objects");
-  }
-
-  // Main method
-  public static void main(String[ ] args) {
-    myStaticMethod(); // Call the static method
-    // myPublicMethod(); This would output an error
-
-    Main myObj = new Main(); // Create an object of Main
-    myObj.myPublicMethod(); // Call the public method
-  }
-}
-
-```
-
-**Abstract**
-
-An ```abstract``` method belongs to an ```abstract``` class, and it does not have a body. The body is provided by the subclass:
-
-```java
-
-// Code from filename: Main.java
-// abstract class
-abstract class Main {
-  public String fname = "John";
-  public int age = 24;
-  public abstract void study(); // abstract method
-}
-
-// Subclass (inherit from Main)
-class Student extends Main {
-  public int graduationYear = 2018;
-  public void study() { // the body of the abstract method is provided here
-    System.out.println("Studying all day long");
-  }
-}
-// End code from filename: Main.java
-
-// Code from filename: Second.java
-class Second {
-  public static void main(String[] args) {
-    // create an object of the Student class (which inherits attributes and methods from Main)
-    Student myObj = new Student();
-
-    System.out.println("Name: " + myObj.fname);
-    System.out.println("Age: " + myObj.age);
-    System.out.println("Graduation Year: " + myObj.graduationYear);
-    myObj.study(); // call abstract method
-  }
-}
-
-```
-
-#### <a name="chapter9part11"></a>Chapter 9 - Part 11: Encapsulation in Java
-
-It is a principle consisting of hide implementation details of a class, exposing only safe operations and maintain objects in a consistent state.
-
-Golden rule: the object must always be in a consistent state, and the class itself must guarantee this.
-
-**An object must NOT expose any attributes (access modifier private)**
-
-**Attributes must be accessed via get and set methods. [JavaBeans](https://en.wikipedia.org/wiki/JavaBeans)**
-
-The meaning of Encapsulation, is to make sure that "sensitive" data is hidden from users. To achieve this, you must:
-
-- declare class variables/attributes as ```private```.
-- provide public get and set methods to access and update the value of a ```private``` variable
-
-**Get and Set**
-
-You learned from the previous chapter that ```private``` variables can only be accessed within the same class (an outside class has no access to it). However, it is possible to access them if we provide public get and set methods.
-
-The ```get``` method returns the variable value, and the ```set``` method sets the value.
-
-Syntax for both is that they start with either ```get``` or ```set```, followed by the name of the variable, with the first letter in upper case:
-
-```java
-
-public class Person {
-  private String name; // private = restricted access
-
-  // Getter
-  public String getName() {
-    return name;
-  }
-
-  // Setter
-  public void setName(String newName) {
-    this.name = newName;
-  }
-}
-
-```
-
-The ```get``` method returns the value of the variable ```name```.
-
-The ```set``` method takes a parameter (```newName```) and assigns it to the ```name``` variable. The ```this``` keyword is used to refer to the current object.
-
-However, as the ```name``` variable is declared as ```private```, we cannot access it from outside this class:
-
-```java
-
-public class Main {
-  public static void main(String[] args) {
-    Person myObj = new Person();
-    myObj.name = "John";  // error
-    System.out.println(myObj.name); // error 
-  }
-}
-
-
-```
-
-If the variable was declared as ```public```, we would expect the following output:
-
-```John```
-
-However, as we try to access a ```private``` variable, we get an error:
-
-Instead, we use the ```getName()``` and ```setName()``` methods to access and update the variable:
-
-```java
-
-public class Main {
-  public static void main(String[] args) {
-    Person myObj = new Person();
-    myObj.setName("John"); // Set the value of the name variable to "John"
-    System.out.println(myObj.getName());
-  }
-}
-
-// Outputs "John"
-
-```
-
-**Why Encapsulation?**
-
-- Better control of class attributes and methods
-- Class attributes can be made read-only (if you only use the ```get``` method), or write-only (if you only use the set method)
-- Flexible: the programmer can change one part of the code without affecting other parts
-- Increased security of data
-
-
-```java
-
-public class Product {
-
-	private String name;
-	private double price;
-	private int quantity;
-	
-	public Product() {
-	}
-	
-	public Product(String name, double price, int quantity) {
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-	}
-	
-	public Product(String name, double price) {
-		this.name = name;
-		this.price = price;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public double getPrice() {
-		return price;
-	}
-	
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	
-	public int getQuantity() {
-		return quantity;
-	}
-
-```
-
-#### <a name="chapter9part12"></a>Chapter 9 - Part 12: Classes Composition in Java
-
-It is a type of association that allows one object to contain another
-
-"has-one" or "has-many" relationship
-
-Advantages
-- Organization: division of responsibilities
-- Cohesion
-- Flexibility
-- Reuse
-
-<br>
-
-<div align="center"><img src="img/compostion1-w865-h453.png" width=865 height=453><br><sub>Fig 39 - Composition - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-Exercise: Read data from a worker with N contracts (N provided by the user). then request a month and show the employee's salary in that month, as shown in the example
-
-<br>
-
-<div align="center"><img src="img/compostion2-w766-h399.png" width=766 height=399><br><sub>Fig 39 - Compostion Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-<div align="center"><img src="img/compostion3-w658-h553.png" width=658 height=553><br><sub>Fig 39 - Compostion Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-Resolution:
-
-**WorkerLevel Class (enum)**
-
-```java
-
-package entities.enums;
-
-public enum WorkerLevel {
-
-	JUNIOR,
-	MID_LEVEL,
-	SENIOR;
-}
-
-```
-
-**Department Class**
-
-```java
-
-package entities;
-
-public class Department {
-
-	private String name;
-	
-	public Department() {
-	}
-
-	public Department(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-}
-
-```
-
-**HourContract Class**
-
-```java
-
-package entities;
-
-import java.util.Date;
-
-public class HourContract {
-
-	private Date date;
-	private Double valuePerHour;
-	private Integer hours;
-	
-	public HourContract() {
-	}
-
-	public HourContract(Date date, Double valuePerHour, Integer hours) {
-		this.date = date;
-		this.valuePerHour = valuePerHour;
-		this.hours = hours;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Double getValuePerHour() {
-		return valuePerHour;
-	}
-
-	public void setValuePerHour(Double valuePerHour) {
-		this.valuePerHour = valuePerHour;
-	}
-
-	public Integer getHours() {
-		return hours;
-	}
-
-	public void setHours(Integer hours) {
-		this.hours = hours;
-	}
-	
-	public double totalValue() {
-		return valuePerHour * hours;
-	}
-}
-
-```
-
-**Worker Class**
-
-```java
-
-package entities;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import entities.enums.WorkerLevel;
-
-public class Worker {
-
-	private String name;
-	private WorkerLevel level;
-	private Double baseSalary;
-	
-	private Department department;
-	private List<HourContract> contracts = new ArrayList<>();
-	
-	public Worker() {
-	}
-
-	public Worker(String name, WorkerLevel level, Double baseSalary, Department department) {
-		this.name = name;
-		this.level = level;
-		this.baseSalary = baseSalary;
-		this.department = department;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public WorkerLevel getLevel() {
-		return level;
-	}
-
-	public void setLevel(WorkerLevel level) {
-		this.level = level;
-	}
-
-	public Double getBaseSalary() {
-		return baseSalary;
-	}
-
-	public void setBaseSalary(Double baseSalary) {
-		this.baseSalary = baseSalary;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	public List<HourContract> getContracts() {
-		return contracts;
-	}
-
-	public void addContract(HourContract contract) {
-		contracts.add(contract);
-	}
-	
-	public void removeContract(HourContract contract) {
-		contracts.remove(contract);
-	}
-	
-	public double income(int year, int month) {
-		double sum = baseSalary;
-		Calendar cal = Calendar.getInstance();
-		for (HourContract c : contracts) {
-			cal.setTime(c.getDate());
-			int c_year = cal.get(Calendar.YEAR);
-			int c_month = 1 + cal.get(Calendar.MONTH);
-			if (year == c_year && month == c_month) {
-				sum += c.totalValue();
-			}
-		}
-		return sum;
-	}
-}
-
-```
-
-**Program**
-
-```java
-
-package application;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
-
-import entities.Department;
-import entities.HourContract;
-import entities.Worker;
-import entities.enums.WorkerLevel;
-
-public class Program {
-
-	public static void main(String[] args) throws ParseException {
-
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
-		System.out.print("Enter department's name: ");
-		String departmentName = sc.nextLine();
-		System.out.println("Enter worker data:");
-		System.out.print("Name: ");
-		String workerName = sc.nextLine();
-		System.out.print("Level: ");
-		String workerLevel = sc.nextLine();
-		System.out.print("Base salary: ");
-		double baseSalary = sc.nextDouble();
-		Worker worker = new Worker(workerName, WorkerLevel.valueOf(workerLevel), baseSalary, new Department(departmentName));
-		
-		System.out.print("How many contracts to this worker? ");
-		int n = sc.nextInt();
-		
-		for (int i=1; i<=n; i++) {
-			System.out.println("Enter contract #" + i + " data:");
-			System.out.print("Date (DD/MM/YYYY): ");
-			Date contractDate = sdf.parse(sc.next());
-			System.out.print("Value per hour: ");
-			double valuePerHour = sc.nextDouble();
-			System.out.print("Duration (hours): ");
-			int hours = sc.nextInt();
-			HourContract contract = new HourContract(contractDate, valuePerHour, hours);
-			worker.addContract(contract);
-		}
-		
-		System.out.println();
-		System.out.print("Enter month and year to calculate income (MM/YYYY): ");
-		String monthAndYear = sc.next();
-		int month = Integer.parseInt(monthAndYear.substring(0, 2));
-		int year = Integer.parseInt(monthAndYear.substring(3));
-		System.out.println("Name: " + worker.getName());
-		System.out.println("Department: " + worker.getDepartment().getName());
-		System.out.println("Income for " + monthAndYear + ": " + String.format("%.2f", worker.income(year, month)));
-		
-		sc.close();
-	}
-}
-
-```
-
-#### <a name="chapter9part13"></a>Chapter 9 - Part 13: Inheritance in Java
-
-It is an association type that allows a class to inherit all data and behaviors of another
-
-- Benefits
-  - reuse
-  - Polymorphism
-  
-In Java, it is possible to inherit attributes and methods from one class to another. We group the "inheritance concept" into two categories:
-
-- **subclass** (child) - the class that inherits from another class
-- **superclass** (parent) - the class being inherited from
-
-To inherit from a class, use the ```extends``` keyword.
-
-Example: In the example below, the ```Car``` class (subclass) inherits the attributes and methods from the ```Vehicle``` class (superclass):
-
-```java
-
-class Vehicle {
-  protected String brand = "Ford";        // Vehicle attribute
-  public void honk() {                    // Vehicle method
-    System.out.println("Tuut, tuut!");
-  }
-}
-
-class Car extends Vehicle {
-  private String modelName = "Mustang";    // Car attribute
-  public static void main(String[] args) {
-
-    // Create a myCar object
-    Car myCar = new Car();
-
-    // Call the honk() method (from the Vehicle class) on the myCar object
-    myCar.honk();
-
-    // Display the value of the brand attribute (from the Vehicle class) and the value of the modelName from the Car class
-    System.out.println(myCar.brand + " " + myCar.modelName);
-  }
-}
-
-```
-
-Another Example: Suppose a banking business that has a common account and an account for companies, and the company account has all account members common plus a borrowing limit and a borrowing operation.
-
-<br>
-
-<div align="center"><img src="img/inheritance1-w774-h342.png" width=774 height=342><br><sub>Fig 40 - Inheritance - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-
-
-Important Definitions:
-
-- "is-a" relationship
-
-- generalization/specialization
-
-- Superclass (base class) / subclass (class derivative)
-
-- inheritance / extension
-
-- Inheritance is an association between classes (not between objects)
-
-Class Account
-
-```java
-
-package entities;
-
-public class Account {
-
-	private Integer number;
-	private String holder;
-	protected Double balance;
-		
-	public Account() {
-	}
-	
-	public Account(Integer number, String holder, Double balance) {
-		this.number = number;
-		this.holder = holder;
-		this.balance = balance;
-	}
-
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public String getHolder() {
-		return holder;
-	}
-
-	public void setHolder(String holder) {
-		this.holder = holder;
-	}
-
-	public Double getBalance() {
-		return balance;
-	}
-
-	public void withdraw(double amount) {
-		balance -= amount;
-	}
-
-	public void deposit(double amount) {
-		balance += amount;
-	}
-}
-
-```
-
-Did you notice the ```protected``` modifier in ```Account```?
-
-We set the ```balance``` attribute in ```Account``` to a ```protected``` access modifier. If it was set to ```private```, the ```BusinessAccount``` class would not be able to access it.
-
-class BussinesAccount
-
-```java
-
-package entities;
-
-public class BusinessAccount extends Account {
-
-	private Double loanLimit;
-	
-	public BusinessAccount() {
-		super();
-	}
-
-	public BusinessAccount(Integer number, String holder, Double balance, Double loanLimit) {
-		super(number, holder, balance);
-		this.loanLimit = loanLimit;
-	}
-
-	public Double getLoanLimit() {
-		return loanLimit;
-	}
-
-	public void setLoanLimit(Double loanLimit) {
-		this.loanLimit = loanLimit;
-	}
-	
-	public void loan(double amount) {
-		if (amount <= loanLimit) {
-			balance += amount - 10.0;
-		}
-	}
-}
-
-```
-
-Program
-
-```java
-
-package application;
-
-import entities.BusinessAccount;
-
-public class Program {
-
-	public static void main(String[] args) {
-
-		BusinessAccount account = new BusinessAccount(8010, "Bob Brown", 0.0, 500.0);
-
-		System.out.println(account.getBalance());
-	}
-}
-
-```
-
-**Upcasting and downcasting**
-
-- Upcasting
-  - Casting from subclass to superclass
-  - Common usage: polymorphism
-
-- Downcasting
-  - Casting from superclass to subclass
-  - instanceof ```keyword```
-  - Common usage: methods that take generic parameters (ex: Equals)
-  
-Example:
-
-<br>
-
-<div align="center"><img src="img/updowncasting-w493-h400.png" width=493 height=400><br><sub>Fig 41 - Upcasting and Downcasting - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-Class SavingsAccount
-
-```java
-
-package entities;
-
-public class SavingsAccount extends Account {
-	
-	private Double interestRate;
-	
-	public SavingsAccount() {
-		super();
-	}
-
-	public SavingsAccount(Integer number, String holder, Double balance, Double interestRate) {
-		super(number, holder, balance);
-		this.interestRate = interestRate;
-	}
-
-	public Double getInterestRate() {
-		return interestRate;
-	}
-
-	public void setInterestRate(Double interestRate) {
-		this.interestRate = interestRate;
-	}
-	
-	public void updateBalance() {
-		balance += balance * interestRate;
-	}
-}
-
-```
-
-Program
-
-```java
-
-package application;
-
-import entities.Account;
-import entities.BusinessAccount;
-import entities.SavingsAccount;
-
-public class Program {
-
-	public static void main(String[] args) {
-
-		Account acc = new Account(1001, "Alex", 0.0);
-		BusinessAccount bacc = new BusinessAccount(1002, "Maria", 0.0, 500.0);
-		
-		// UPCASTING
-		
-		Account acc1 = bacc;
-		Account acc2 = new BusinessAccount(1003, "Bob", 0.0, 200.0);
-		Account acc3 = new SavingsAccount(1004, "Anna", 0.0, 0.01);
-		
-		// DOWNCASTING
-		
-		BusinessAccount acc4 = (BusinessAccount)acc2;
-		acc4.loan(100.0);
-		
-		// BusinessAccount acc5 = (BusinessAccount)acc3;
-		if (acc3 instanceof BusinessAccount) {
-			BusinessAccount acc5 = (BusinessAccount)acc3;
-			acc5.loan(200.0);
-			System.out.println("Loan!");
-		}
-		
-		if (acc3 instanceof SavingsAccount) {
-			SavingsAccount acc5 = (SavingsAccount)acc3;
-			acc5.updateBalance();
-			System.out.println("Update!");
-		}
-	}
-}
-
-```
-
-**Override**
-
-- It is the implementation of a method of a superclass in the subclass
-- It is strongly recommended to use the @Override annotation in a method envelope
-  - Facilitates reading and understanding of code
-  - We notify the compiler (good practice)
-
-class Account
-
-```Java
-
-public void withdraw(double amount) {
-	balance -= amount + 5.0;
-}
-
-```
-
-SavingsAccount
-
-```java
-
-@Override
-public void withdraw(double amount) {
-	balance -= amount;
-}
-
-```
-
-**Keyword Super**
-
-You can call the superclass implementation using the word super.
-
-Example: suppose that, in the BusinessAccount class, the rule for withdrawal is to perform the draw normally from the superclass, and deduct another 2.0.
-
-In this case, the withdraw method is the same, but with one moddification in the BissinesAccount class, because is tho only diference.
-
-Class BissinesAccount
-
-```java
-
-@Override
-public void withdraw(double amount) {
-	super.withdraw(amount);
-	balance -= 2.0;
-}
-
-```
-
-**Keyword Final**
-
-If you don't want other classes to inherit from a class, use the ```final``` keyword:
-
-Example: If you try to access a ```final``` class, Java will generate an error:
-
-```java
-
-final class Vehicle {
-  ...
-}
-
-class Car extends Vehicle {
-  ...
-}
-
-// Main.java:9: error: cannot inherit from final Vehicle
-//class Main extends Vehicle {
-//                  ^
-// 1 error)
-
-```
-
-You can use in method. In this case prevents the method under from being overridden
-
-Example: Suppose you don't want the Withdraw method of SavingsAccount is overridden
-
-```java
-
-@Override
-public final void withdraw(double amount) {
-	balance -= amount;
-}
-
-```
-
-why use final?
-
-- Security: Depending on business rules, it is sometimes desirable ensure that a class is not inherited, or that a method is not be superimposed.
-  - It is generally convenient to add final in overlapping methods, as Multiple overlays can be a gateway to inconsistencies
-
-- Performance: type attributes of a final class are parsed accordingly. faster at runtime.
-  - Classic example: String
-
-#### <a name="chapter9part14"></a>Chapter 9 - Part 14: Polymorphism in Java
-
-In Object Oriented Programming, polymorphism is a resource that allows variables of the same more generic type to be point to objects of different specific types, thus having different behaviors depending on each specific type.
-
-```java
-
-Account x = new Account(1020, "Alex", 1000.0);
-Account y = new SavingsAccount(1023, "Maria", 1000.0, 0.01);
-
-x.withdraw(50.0);
-y.withdraw(50.0);
-
-```
-
-Another Example:
-
-For example, think of a superclass called ```Animal``` that has a method called ```animalSound()```. Subclasses of Animals could be Pigs, Cats, Dogs, Birds - And they also have their own implementation of an animal sound (the pig oinks, and the cat meows, etc.):
-
-```java
-
-class Animal {
-  public void animalSound() {
-    System.out.println("The animal makes a sound");
-  }
-}
-
-class Pig extends Animal {
-  public void animalSound() {
-    System.out.println("The pig says: wee wee");
-  }
-}
-
-class Dog extends Animal {
-  public void animalSound() {
-    System.out.println("The dog says: bow wow");
-  }
-}
-
-```
-Now we can create ```Pig``` and ```Dog``` objects and call the ```animalSound()``` method on both of them:
-
-```java
-
-class Animal {
-  public void animalSound() {
-    System.out.println("The animal makes a sound");
-  }
-}
-
-class Pig extends Animal {
-  public void animalSound() {
-    System.out.println("The pig says: wee wee");
-  }
-}
-
-class Dog extends Animal {
-  public void animalSound() {
-    System.out.println("The dog says: bow wow");
-  }
-}
-
-class Main {
-  public static void main(String[] args) {
-    Animal myAnimal = new Animal();  // Create a Animal object
-    Animal myPig = new Pig();  // Create a Pig object
-    Animal myDog = new Dog();  // Create a Dog object
-    myAnimal.animalSound();
-    myPig.animalSound();
-    myDog.animalSound();
-  }
-}
-
-```
-
-Why And When To Use "Inheritance" and "Polymorphism"?
-
-- It is useful for code reusability: reuse attributes and methods of an existing class when you create a new class.
-
-Exercise:  A company has its own and outsourced employees. For each employee, you want to record name, hours worked and hourly rate. outsourced employees have an additional expense.
-
-Employee pay corresponds to the hourly rate multiplied by the hours worked, with the outsourced employees still receive a bonus corresponding to 110% of your additional expense.
-
-Write a program to read the data of N employees (N provided by the user) and store them in a list. Later to read all data, show name and payment of each employee in the same order they were entered.
-
-Build the program according to the project on the side. Look example on the next page.
-
-<br>
-
-<div align="center"><img src="img/polymorphism1-w383-h532.png" width=383 height=532><br><sub>Fig 42 - Exercise Polymorphism - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-<div align="center"><img src="img/polymorphism2-w384-h461.png" width=383 height=461><br><sub>Fig 43 - Exercise Polymorphism - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-Class Employee
-
-```java
-
-package entities;
-
-public class Employee {
-
-	private String name;
-	private Integer hours;
-	private Double valuePerHour;
-	
-	public Employee() {
-	}
-
-	public Employee(String name, Integer hours, Double valuePerHour) {
-		this.name = name;
-		this.hours = hours;
-		this.valuePerHour = valuePerHour;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getHours() {
-		return hours;
-	}
-
-	public void setHours(Integer hours) {
-		this.hours = hours;
-	}
-
-	public Double getValuePerHour() {
-		return valuePerHour;
-	}
-
-	public void setValuePerHour(Double valuePerHour) {
-		this.valuePerHour = valuePerHour;
-	}
-	
-	public double payment() {
-		return hours * valuePerHour;
-	}
-}
-
-```
-
-Class OutsourcedEmployee
-
-```java
-
-package entities;
-
-public class OutsourcedEmployee extends Employee {
-
-	private Double additionalCharge;
-
-	public OutsourcedEmployee() {
-		super();
-	}
-	
-	public OutsourcedEmployee(String name, Integer hours, Double valuePerHour, Double additionalCharge) {
-		super(name, hours, valuePerHour);
-		this.additionalCharge = additionalCharge;
-	}
-
-	public Double getAdditionalCharge() {
-		return additionalCharge;
-	}
-
-	public void setAdditionalCharge(Double additionalCharge) {
-		this.additionalCharge = additionalCharge;
-	}
-	
-	@Override
-	public double payment() {
-		return super.payment() + additionalCharge * 1.1;
-	}
-}
-
-```
-
-Program
-
-```java
-
-package application;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
-
-import entities.Employee;
-import entities.OutsourcedEmployee;
-
-public class Program {
-
-	public static void main(String[] args) {
-
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-		
-		List<Employee> list = new ArrayList<>();
-		
-		System.out.print("Enter the number of employees: ");
-		int n = sc.nextInt();
-		
-		for (int i=1; i<=n; i++) {
-			System.out.println("Employee #" + i + " data:");
-			System.out.print("Outsourced (y/n)? ");
-			char ch = sc.next().charAt(0);
-			System.out.print("Name: ");
-			sc.nextLine();
-			String name = sc.nextLine();
-			System.out.print("Hours: ");
-			int hours = sc.nextInt();
-			System.out.print("Value per hour: ");
-			double valuePerHour = sc.nextDouble();
-			//OBS: A List of Employee can add Employe or OutsourcedEmploye (polymorphism)
-			if (ch == 'y') {
-				System.out.print("Additional charge: ");
-				double additionalCharge = sc.nextDouble();
-				list.add(new OutsourcedEmployee(name, hours, valuePerHour, additionalCharge));
-			}
-			else {
-				list.add(new Employee(name, hours, valuePerHour));
-			}
-		}
-		
-		System.out.println();
-		System.out.println("PAYMENTS:");
-		for (Employee emp : list) {
-			System.out.println(emp.getName() + " - $ " + String.format("%.2f", emp.payment()));
-		}
-		
-		sc.close();
-	}
-}
-
-```
-
-#### <a name="chapter9part15"></a>Chapter 9 - Part 15: Abstraction Class and methods
-
-Data **abstraction** is the process of hiding certain details and showing only essential information to the user.
-Abstraction can be achieved with either **abstract classes** or **interfaces** (which you will learn more about in the next chapter).
-
-The ```abstract``` keyword is a non-access modifier, used for classes and methods:
-- **Abstract class**: is a restricted class that cannot be used to create objects (to access it, it must be inherited from another class).
-- **Abstract method**: can only be used in an abstract class, and it does not have a body. The body is provided by the subclass (inherited from).
-
-NOTE: In UML is Italic
-
-An abstract class can have both abstract and regular methods:
-
-```java
-
-abstract class Animal {
-  public abstract void animalSound();
-  public void sleep() {
-    System.out.println("Zzz");
-  }
-}
-
-```
-
-From the example above, it is not possible to create an object of the Animal class:
-
-```java
-
-Animal myObj = new Animal(); // will generate an error
-
-```
-
-To access the abstract class, it must be inherited from another class. Let's convert the Animal class we used in the Polymorphism chapter to an abstract class:
-
-Remember from the Inheritance chapter that we use the extends keyword to inherit from a class.
-
-```java
-
-// Abstract class
-abstract class Animal {
-  // Abstract method (does not have a body)
-  public abstract void animalSound();
-  // Regular method
-  public void sleep() {
-    System.out.println("Zzz");
-  }
-}
-
-// Subclass (inherit from Animal)
-class Pig extends Animal {
-  public void animalSound() {
-    // The body of animalSound() is provided here
-    System.out.println("The pig says: wee wee");
-  }
-}
-
-class Main {
-  public static void main(String[] args) {
-    Pig myPig = new Pig(); // Create a Pig object
-    myPig.animalSound();
-    myPig.sleep();
-  }
-}
-
-```
-
-NOTE:  If a class has at least one method abstract, so this class is also abstract
-
-Why And When To Use Abstract Classes and Methods?
-
-To achieve security - hide certain details and only show the important details of an object.
-
-Note: Abstraction can also be achieved with Interfaces, which you will learn more about in the next chapter.
-
-Exercise: Write a program to read data from N figures (N provided by the user), and then show the areas of these figures in the same order in which they were entered.
-
-<br>
-
-<div align="center"><img src="img/abstraction-w1062-h461.png" width=1062 height=461><br><sub>Fig 44 - Exercise Abstraction - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-Class Color
-
-```java
-
-package entities.enums;
-
-public enum Color {
-	BLACK,
-	BLUE,
-	RED;
-}
-
-```
-
-Class Shape
-
-```java
-
-package entities;
-
-import entities.enums.Color;
-
-public abstract class Shape {
-
-	private Color color;
-	
-	public Shape() {
-	}
-	
-	public Shape(Color color) {
-		this.color = color;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	
-	public abstract double area(); //OBS: when you put abstract in the method, you are obligated to put abstract in the class Shape
-}
-
-```
-
-Class Circle
-
-```java
-
-package entities;
-
-import entities.enums.Color;
-
-public class Circle extends Shape {
-
-	private Double radius;
-	
-	public Circle() {
-		super();
-	}
-	
-	public Circle(Color color, Double radius) {
-		super(color);
-		this.radius = radius;
-	}
-
-	public Double getRadius() {
-		return radius;
-	}
-
-	public void setRadius(Double radius) {
-		this.radius = radius;
-	}
-
-	@Override
-	public double area() {
-		return Math.PI * radius * radius;
-	}
-}
-
-```
-
-Class Retangle
-
-```java
-
-package entities;
-
-import entities.enums.Color;
-
-public class Rectangle extends Shape {
-
-	private Double width;
-	private Double height;
-	
-	public Rectangle() {
-		super();
-	}
-
-	public Rectangle(Color color, Double width, Double height) {
-		super(color);
-		this.width = width;
-		this.height = height;
-	}
-
-	public Double getWidth() {
-		return width;
-	}
-
-	public void setWidth(Double width) {
-		this.width = width;
-	}
-
-	public Double getHeight() {
-		return height;
-	}
-
-	public void setHeight(Double height) {
-		this.height = height;
-	}
-
-	@Override
-	public double area() {
-		return width * height;
-	}
-}
-
-```
-
-Program
-
-```java
-
-package application;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
-
-import entities.Shape;
-import entities.Rectangle;
-import entities.Circle;
-import entities.enums.Color;
-
-public class Program {
-
-	public static void main(String[] args) {
-
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-		
-		List<Shape> list = new ArrayList<>();
-		
-		System.out.print("Enter the number of shapes: ");
-		int n = sc.nextInt();
-		
-		for (int i=1; i<=n; i++) {
-			System.out.println("Shape #" + i + " data:");
-			System.out.print("Rectangle or Circle (r/c)? ");
-			char ch = sc.next().charAt(0);
-			System.out.print("Color (BLACK/BLUE/RED): ");
-			Color color = Color.valueOf(sc.next());
-			if (ch == 'r') {
-				System.out.print("Width: ");
-				double width = sc.nextDouble();
-				System.out.print("Height: ");
-				double height = sc.nextDouble();
-				list.add(new Rectangle(color, width, height));
-			}
-			else {
-				System.out.print("Radius: ");
-				double radius = sc.nextDouble();
-				list.add(new Circle(color, radius));
-			}
-		}
-		
-		System.out.println();
-		System.out.println("SHAPE AREAS:");
-		for (Shape shape : list) {
-			System.out.println(String.format("%.2f", shape.area()));
-		}
-		
-		sc.close();
-	}
-}
-
-```
-	
-
 	
 <!-- URL's -->
