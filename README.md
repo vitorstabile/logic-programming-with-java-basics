@@ -10875,7 +10875,160 @@ Static variables and methods are used extensively in Java libraries and framewor
 
 #### <a name="chapter6part4"></a>Chapter 6 - Part 4: Understanding Access Modifiers: public, private, protected, default
 
+Access modifiers are a fundamental aspect of object-oriented programming in Java. They control the visibility and accessibility of classes, methods, and variables, playing a crucial role in encapsulation and information hiding. Understanding access modifiers is essential for writing robust, maintainable, and secure Java code. They allow you to define clear boundaries between different parts of your program, preventing unintended modifications and promoting modularity. This lesson will delve into the four access modifiers available in Java: public, private, protected, and the default (package-private) access level. We'll explore their meanings, usage scenarios, and implications for class design.
+
 #### <a name="chapter6part4.1"></a>Chapter 6 - Part 4.1: Understanding Access Modifiers
+
+Access modifiers in Java determine the visibility of class members (fields and methods) and classes themselves. They are keywords placed before the declaration of a member or class, specifying the level of access that other parts of the program have to that member or class. Java provides four access modifiers:
+
+- ```public```: Accessible from anywhere.
+- ```private```: Accessible only within the declaring class.
+- ```protected```: Accessible within the declaring class, within the same package, and by subclasses (even in different packages).
+- Default (no modifier): Accessible within the same package. This is also known as package-private access.
+
+Let's examine each of these in detail.
+
+**```public``` Access Modifier**
+
+The public access modifier grants the widest level of accessibility. A public class, method, or variable can be accessed from any other class, regardless of its package. This is useful for defining the public interface of a class, which is the set of methods and variables that are intended to be used by other classes.
+
+```java
+package com.example;
+
+public class PublicClass { // Accessible from any class
+    public int publicVariable; // Accessible from any class
+    public void publicMethod() { // Accessible from any class
+        System.out.println("This is a public method.");
+    }
+}
+
+package com.example.another;
+
+import com.example.PublicClass;
+
+public class AnotherClass {
+    public void accessPublicMembers() {
+        PublicClass obj = new PublicClass();
+        obj.publicVariable = 10; // Accessing public variable
+        obj.publicMethod(); // Accessing public method
+    }
+}
+```
+
+In this example, PublicClass, publicVariable, and publicMethod are all declared as public. Therefore, they can be accessed from AnotherClass in a different package.
+
+**```private``` Access Modifier**
+
+The private access modifier provides the most restrictive level of accessibility. A private member (method or variable) can only be accessed from within the class in which it is declared. This is a key aspect of encapsulation, as it allows you to hide the internal implementation details of a class and prevent other classes from directly manipulating its data.
+
+```java
+package com.example;
+
+public class PrivateClass {
+    private int privateVariable; // Accessible only within PrivateClass
+    private void privateMethod() { // Accessible only within PrivateClass
+        System.out.println("This is a private method.");
+    }
+
+    public void accessPrivateMembers() {
+        privateVariable = 20; // Accessing private variable within the class
+        privateMethod(); // Accessing private method within the class
+    }
+}
+
+package com.example.another;
+
+import com.example.PrivateClass;
+
+public class AnotherClass {
+    public void tryAccessPrivateMembers() {
+        PrivateClass obj = new PrivateClass();
+        // The following lines would cause compilation errors:
+        // obj.privateVariable = 30; // Cannot access private variable
+        // obj.privateMethod(); // Cannot access private method
+    }
+}
+```
+
+In this example, privateVariable and privateMethod are declared as private. Therefore, they cannot be accessed from AnotherClass, even though it's in a different package. Attempting to do so will result in a compilation error.
+
+**```protected``` Access Modifier**
+
+The protected access modifier provides a level of accessibility that is intermediate between public and private. A protected member can be accessed from within the same package as the declaring class, as well as from subclasses of the declaring class, even if the subclasses are in different packages.
+
+```java
+package com.example;
+
+public class ProtectedClass {
+    protected int protectedVariable; // Accessible within the package and by subclasses
+    protected void protectedMethod() { // Accessible within the package and by subclasses
+        System.out.println("This is a protected method.");
+    }
+}
+
+package com.example.another;
+
+import com.example.ProtectedClass;
+
+public class Subclass extends ProtectedClass {
+    public void accessProtectedMembers() {
+        protectedVariable = 40; // Accessing protected variable from a subclass
+        protectedMethod(); // Accessing protected method from a subclass
+    }
+}
+
+package com.example;
+
+public class AnotherClassInSamePackage {
+    public void accessProtectedMembers() {
+        ProtectedClass obj = new ProtectedClass();
+        obj.protectedVariable = 50; // Accessing protected variable from within the same package
+        obj.protectedMethod(); // Accessing protected method from within the same package
+    }
+}
+```
+
+In this example, protectedVariable and protectedMethod are declared as protected. Subclass in a different package can access these members because it is a subclass of ProtectedClass. AnotherClassInSamePackage can also access these members because it is in the same package as ProtectedClass.
+
+**Default (Package-Private) Access Modifier**
+
+If no access modifier is specified, the member or class has default (package-private) access. This means that it can only be accessed from within the same package. It is more restrictive than protected (as it doesn't allow access from subclasses in different packages) but less restrictive than private.
+
+```java
+package com.example;
+
+class DefaultClass { // Accessible only within the package
+    int defaultVariable; // Accessible only within the package
+    void defaultMethod() { // Accessible only within the package
+        System.out.println("This is a default method.");
+    }
+}
+
+package com.example.another;
+
+import com.example.DefaultClass; // Compilation error: The type com.example.DefaultClass is not visible
+
+public class AnotherClass {
+    public void tryAccessDefaultMembers() {
+        // The following lines would cause compilation errors:
+        // DefaultClass obj = new DefaultClass(); // Cannot access DefaultClass
+        // obj.defaultVariable = 60; // Cannot access default variable
+        // obj.defaultMethod(); // Cannot access default method
+    }
+}
+
+package com.example;
+
+public class AnotherClassInSamePackage {
+    public void accessDefaultMembers() {
+        DefaultClass obj = new DefaultClass();
+        obj.defaultVariable = 70; // Accessing default variable from within the same package
+        obj.defaultMethod(); // Accessing default method from within the same package
+    }
+}
+```
+
+In this example, DefaultClass, defaultVariable, and defaultMethod have default access. Therefore, they can be accessed from AnotherClassInSamePackage because it is in the same package as DefaultClass. However, they cannot be accessed from AnotherClass because it is in a different package.
 
 #### <a name="chapter6part4.2"></a>Chapter 6 - Part 4.2: Access Levels: A Summary
 
@@ -10889,11 +11042,84 @@ Static variables and methods are used extensively in Java libraries and framewor
 
 #### <a name="chapter6part4.3"></a>Chapter 6 - Part 4.3: Practical Examples and Demonstrations
 
-#### <a name="chapter6part4.4"></a>Chapter 6 - Part 4.4: Exercises
+Let's consider a scenario involving a BankAccount class to illustrate the use of access modifiers.
 
-#### <a name="chapter6part4.5"></a>Chapter 6 - Part 4.5: Summary and Next Steps
+```java
+package com.example.bank;
+
+public class BankAccount {
+    private String accountNumber;
+    protected double balance;
+    public String accountHolderName;
+
+    public BankAccount(String accountNumber, String accountHolderName, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = initialBalance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        } else {
+            System.out.println("Insufficient funds.");
+        }
+    }
+
+    private String getAccountNumber() {
+        return accountNumber;
+    }
+
+    protected double getBalance() {
+        return balance;
+    }
+}
+```
+
+In this example:
+
+- accountNumber is private: Only the BankAccount class can directly access or modify the account number. This ensures that the account number cannot be changed from outside the class, maintaining data integrity.
+- balance is protected: The balance can be accessed and modified by classes within the same package (e.g., other bank-related classes) and by subclasses (e.g., a SavingsAccount class in a different package). This allows for controlled access to the balance for - ------ specific purposes, such as calculating interest in a subclass.
+- accountHolderName is public: The accountHolderName can be accessed and modified from anywhere. This might be appropriate if the account holder's name needs to be displayed in various parts of the application.
+- getAccountNumber() is private: This method is only used internally within the BankAccount class and is not exposed to other classes. This is a good practice for hiding implementation details.
+- getBalance() is protected: This method can be accessed by classes within the same package and by subclasses. This allows subclasses to access the balance for specific purposes, such as calculating interest.
+
+Now, let's create a SavingsAccount class that extends BankAccount.
+
+```java
+package com.example.bank.accounts;
+
+import com.example.bank.BankAccount;
+
+public class SavingsAccount extends BankAccount {
+    private double interestRate;
+
+    public SavingsAccount(String accountNumber, String accountHolderName, double initialBalance, double interestRate) {
+        super(accountNumber, accountHolderName, initialBalance);
+        this.interestRate = interestRate;
+    }
+
+    public void applyInterest() {
+        // balance is protected, so we can access it directly in the subclass
+        balance += balance * interestRate;
+    }
+
+    public void displayBalance() {
+        // getBalance() is protected, so we can access it directly in the subclass
+        System.out.println("Current balance: " + getBalance());
+    }
+}
+```
+
+In this example, the SavingsAccount class extends BankAccount. Because balance and getBalance() are protected, the SavingsAccount class can access them directly. The accountNumber is private in the BankAccount class, so the SavingsAccount class cannot access it directly.
 
 #### <a name="chapter6part5"></a>Chapter 6 - Part 5: Introduction to Inheritance: Creating Hierarchies of Classes
+
+Inheritance is a fundamental concept in object-oriented programming (OOP) that allows you to create new classes based on existing ones. This promotes code reuse, reduces redundancy, and establishes a clear hierarchy among classes. By inheriting from a parent class, a child class gains access to the parent's attributes and methods, enabling you to build upon existing functionality and create more specialized classes. This lesson will delve into the core principles of inheritance, focusing on how to create class hierarchies using the extends keyword, override methods to customize behavior, and utilize the super keyword to access parent class members.
 
 #### <a name="chapter6part5.1"></a>Chapter 6 - Part 5.1: Object Class
 
@@ -11031,45 +11257,1060 @@ public class Program {
 
 #### <a name="chapter6part5.2"></a>Chapter 6 - Part 5.2: Understanding Inheritance
 
+Inheritance is a mechanism where a new class (called a subclass or child class) acquires the properties and behaviors of an existing class (called a superclass or parent class). The subclass inherits the attributes (fields) and methods of the superclass. This allows you to create a hierarchy of classes, where subclasses represent more specialized versions of their superclasses.
+
+**Key Benefits of Inheritance**:
+
+- **Code Reusability**: Avoid writing the same code multiple times. Subclasses inherit the code from their superclass, reducing redundancy.
+- **Extensibility**: Easily extend the functionality of existing classes by adding new attributes and methods in subclasses.
+- **Organization**: Create a clear hierarchy of classes, making your code more organized and easier to understand.
+- **Polymorphism**: (Covered in a later module) Inheritance is a prerequisite for polymorphism, which allows you to treat objects of different classes in a uniform way.
+
+**Real-World Examples:**
+
+- **Vehicles**: Consider a Vehicle class with attributes like speed, color, and methods like startEngine() and stopEngine(). You can create subclasses like Car, Truck, and Motorcycle that inherit these attributes and methods. Each subclass can then add its own specific attributes and methods, such as numberOfDoors for Car or cargoCapacity for Truck.
+
+- **Animals**: An Animal class can have attributes like name, age, and methods like eat() and sleep(). Subclasses like Dog, Cat, and Bird can inherit these and add their own specific behaviors, such as bark() for Dog or fly() for Bird.
+
+**Hypothetical Scenario:**
+
+Imagine you're developing a game. You have a base class called GameObject with attributes like x, y (coordinates), and methods like draw() and update(). You can create subclasses like Player, Enemy, and Projectile that inherit from GameObject. Each subclass can then implement its own specific draw() and update() methods to handle its unique behavior in the game.
+
 #### <a name="chapter6part5.3"></a>Chapter 6 - Part 5.3: The extends Keyword
+
+In Java, the extends keyword is used to establish an inheritance relationship between two classes. The syntax is as follows:
+
+```java
+class Subclass extends Superclass {
+    // Subclass members (attributes and methods)
+}
+```
+
+This declares that Subclass inherits from Superclass. The Subclass automatically gains all non-private members (attributes and methods) of the Superclass.
+
+Example:
+
+Let's create a simple example with a Animal class and a Dog subclass:
+
+```java
+// Superclass (Parent Class)
+class Animal {
+    String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+
+    public void sleep() {
+        System.out.println(name + " is sleeping.");
+    }
+}
+
+// Subclass (Child Class) inheriting from Animal
+class Dog extends Animal {
+    String breed;
+
+    public Dog(String name, String breed) {
+        super(name); // Call the constructor of the superclass
+        this.breed = breed;
+    }
+
+    public void bark() {
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog("Buddy", "Golden Retriever");
+        myDog.eat();   // Inherited from Animal
+        myDog.sleep(); // Inherited from Animal
+        myDog.bark();  // Specific to Dog
+        System.out.println(myDog.name); // Accessing inherited attribute
+    }
+}
+```
+
+**Explanation**:
+
+- The Dog class extends the Animal class, meaning it inherits the name, eat(), and sleep() members.
+- The Dog class has its own attribute, breed, and its own method, bark().
+- The super(name) call in the Dog constructor calls the constructor of the Animal class, initializing the name attribute. This is crucial for proper initialization of inherited attributes.
 
 #### <a name="chapter6part5.4"></a>Chapter 6 - Part 5.4: Method Overriding
 
+Method overriding allows a subclass to provide a specific implementation for a method that is already defined in its superclass. This enables you to customize the behavior of inherited methods in the subclass.
+
+**Rules for Method Overriding:**
+
+- The method in the subclass must have the same name, return type, and parameter list as the method in the superclass.
+- The access modifier of the overriding method in the subclass must be the same or more accessible than the method in the superclass (e.g., you can override a protected method with a public method, but not with a private method).
+- The @Override annotation is optional but highly recommended. It tells the compiler that you intend to override a method, and it will generate an error if the method does not actually override a method in the superclass.
+
+**Example**:
+
+Let's modify the Animal and Dog classes to demonstrate method overriding:
+
+```java
+class Animal {
+    String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+
+    public void sleep() {
+        System.out.println(name + " is sleeping.");
+    }
+}
+
+class Dog extends Animal {
+    String breed;
+
+    public Dog(String name, String breed) {
+        super(name);
+        this.breed = breed;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!"); // Overriding the makeSound() method
+    }
+
+    public void bark() {
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal myAnimal = new Animal("Generic Animal");
+        Dog myDog = new Dog("Buddy", "Golden Retriever");
+
+        myAnimal.makeSound(); // Output: Generic animal sound
+        myDog.makeSound();    // Output: Woof! (Overridden method)
+    }
+}
+```
+
+**Explanation**:
+
+- The Dog class overrides the makeSound() method from the Animal class.
+- When myAnimal.makeSound() is called, the makeSound() method in the Animal class is executed.
+- When myDog.makeSound() is called, the makeSound() method in the Dog class is executed, demonstrating method overriding.
+
 #### <a name="chapter6part5.5"></a>Chapter 6 - Part 5.5: The super Keyword
+
+The super keyword is used to access members (attributes and methods) of the superclass from within the subclass. It has two main uses:
+
+- **Calling the Superclass Constructor**: As seen in the previous examples, super(arguments) is used to call the constructor of the superclass. This is essential for initializing inherited attributes. It must be the first statement in the subclass constructor.
+
+- **Accessing Superclass Members**: super.member is used to access a specific attribute or method of the superclass. This is useful when you want to use the superclass's implementation of a method in addition to the subclass's implementation.
+
+**Example**:
+
+Let's extend the previous example to demonstrate both uses of super:
+
+```java
+class Animal {
+    String name;
+
+    public Animal(String name) {
+        this.name = name;
+        System.out.println("Animal constructor called");
+    }
+
+    public void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+
+    public void sleep() {
+        System.out.println(name + " is sleeping.");
+    }
+}
+
+class Dog extends Animal {
+    String breed;
+
+    public Dog(String name, String breed) {
+        super(name); // Calling the Animal constructor
+        System.out.println("Dog constructor called");
+        this.breed = breed;
+    }
+
+    @Override
+    public void makeSound() {
+        super.makeSound(); // Calling the Animal's makeSound() method
+        System.out.println("Woof!"); // Adding Dog-specific sound
+    }
+
+    public void displayBreed() {
+        System.out.println("Breed: " + breed);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog("Buddy", "Golden Retriever");
+        myDog.makeSound();
+        myDog.displayBreed();
+    }
+}
+```
+
+**Explanation**:
+
+- In the Dog constructor, super(name) calls the Animal constructor, initializing the name attribute. The output will show "Animal constructor called" before "Dog constructor called".
+
+- In the Dog's makeSound() method, super.makeSound() calls the makeSound() method of the Animal class, which prints "Generic animal sound". Then, the Dog's specific sound "Woof!" is printed.
 
 #### <a name="chapter6part6"></a>Chapter 6 - Part 6: The `extends` Keyword: Inheriting from a Parent Class
 
+Inheritance is a cornerstone of object-oriented programming, allowing you to create new classes based on existing ones. This promotes code reuse, reduces redundancy, and establishes a clear hierarchy among your classes. The extends keyword in Java is the mechanism for implementing inheritance, enabling a class to inherit the properties and behaviors of another class. Understanding how to effectively use extends is crucial for building robust and maintainable Java applications.
+
 #### <a name="chapter6part6.1"></a>Chapter 6 - Part 6.1: Understanding the extends Keyword
+
+The extends keyword in Java is used to create a new class that is a subclass (also known as a derived class or child class) of an existing class, called the superclass (also known as a base class or parent class). The subclass inherits the non-private members (fields and methods) of the superclass. This means the subclass automatically has those members as if they were declared within the subclass itself.
+
+**Syntax**
+
+The basic syntax for using extends is:
+
+```java
+class SubclassName extends SuperclassName {
+    // Class body with additional fields and methods,
+    // or overridden methods from the superclass
+}
+```
+
+- ```SubclassName```: The name of the new class you are creating.
+- ```SuperclassName```: The name of the existing class you are inheriting from.
+- The curly braces {} enclose the body of the subclass, where you can define new fields and methods, or override existing methods from the superclass.
+
+**Example: A Simple Inheritance Scenario**
+
+Let's consider a simple example with Animal and Dog classes:
+
+```java
+// Superclass (Parent Class)
+class Animal {
+    String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+
+    public void sleep() {
+        System.out.println(name + " is sleeping.");
+    }
+}
+
+// Subclass (Child Class) inheriting from Animal
+class Dog extends Animal {
+    String breed;
+
+    public Dog(String name, String breed) {
+        super(name); // Call the constructor of the Animal class
+        this.breed = breed;
+    }
+
+    public void bark() {
+        System.out.println("Woof! Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog("Buddy", "Golden Retriever");
+        myDog.eat();   // Inherited from Animal
+        myDog.sleep(); // Inherited from Animal
+        myDog.bark();  // Defined in Dog
+    }
+}
+```
+
+In this example:
+
+- Animal is the superclass, with a name field, an eat() method, and a sleep() method.
+- Dog is the subclass, inheriting from Animal. It adds its own breed field and bark() method.
+- The Dog constructor uses super(name) to call the Animal constructor, initializing the inherited name field.
+- In the Main class, we create a Dog object and call methods inherited from Animal (eat() and sleep()) as well as the Dog-specific method (bark()).
+
+**The super Keyword**
+
+The super keyword is used in a subclass to refer to the superclass. It has two primary uses:
+
+- **Calling the Superclass Constructor**: As seen in the Dog constructor, super(name) calls the constructor of the Animal class. This is necessary to initialize the inherited fields. If a subclass constructor does not explicitly call a superclass constructor, Java automatically inserts a call to the superclass's no-argument constructor (super()). If the superclass does not have a no-argument constructor, you must explicitly call one of the superclass's constructors using super().
+
+- **Accessing Superclass Members**: super can also be used to access fields and methods of the superclass that have been hidden or overridden in the subclass. We will explore method overriding in the next lesson.
+
+**Inheritance and Constructors**
+
+Constructors are not inherited. However, as mentioned above, the subclass constructor must call a superclass constructor, either explicitly using super() or implicitly (if the superclass has a no-argument constructor). If the superclass only defines parameterized constructors, the subclass must explicitly call one of them using super(arguments).
+
+**Single Inheritance**
+
+Java supports single inheritance, meaning a class can only inherit from one direct superclass. This is enforced by the extends keyword; you can only specify one class after extends. This restriction helps to avoid the complexities and ambiguities associated with multiple inheritance (where a class inherits from multiple superclasses).
+
+**Example: Inheritance with Multiple Levels**
+
+Inheritance can be multi-level. For example:
+
+```java
+// Superclass
+class Animal {
+    String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+}
+
+// Subclass of Animal
+class Mammal extends Animal {
+    public Mammal(String name) {
+        super(name);
+    }
+
+    public void giveBirth() {
+        System.out.println(name + " is giving birth to live young.");
+    }
+}
+
+// Subclass of Mammal
+class Dog extends Mammal {
+    String breed;
+
+    public Dog(String name, String breed) {
+        super(name);
+        this.breed = breed;
+    }
+
+    public void bark() {
+        System.out.println("Woof! Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog("Buddy", "Golden Retriever");
+        myDog.eat();        // Inherited from Animal
+        myDog.giveBirth();  // Inherited from Mammal
+        myDog.bark();       // Defined in Dog
+    }
+}
+```
+
+Here, Dog inherits from Mammal, which in turn inherits from Animal. Dog inherits members from both Mammal and Animal.
+
+**```protected``` Access Modifier and Inheritance**
+
+The protected access modifier plays a significant role in inheritance. Members declared as protected in a superclass are accessible to:
+
+- All classes within the same package.
+- All subclasses, regardless of the package they are in.
+
+This provides a level of access that is more restrictive than public (accessible everywhere) but less restrictive than private (accessible only within the class itself).
+
+```java
+// Superclass
+package com.example;
+
+class Animal {
+    protected String name; // Accessible to subclasses and classes in the same package
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    protected void eat() { // Accessible to subclasses and classes in the same package
+        System.out.println(name + " is eating.");
+    }
+}
+
+// Subclass in a different package
+package com.example.pets;
+
+import com.example.Animal;
+
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    public void displayAnimalName() {
+        System.out.println("The animal's name is: " + name); // Accessing protected member
+        eat(); // Accessing protected method
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog("Buddy");
+        myDog.displayAnimalName();
+    }
+}
+```
+
+In this example, even though Dog is in a different package, it can access the protected members (name and eat()) of the Animal class.
+
+**The Object Class**
+
+In Java, every class implicitly inherits from the Object class. If you don't explicitly use the extends keyword, your class still inherits from Object. The Object class provides fundamental methods like equals(), hashCode(), and toString(), which can be overridden in your classes to provide custom behavior.
 
 #### <a name="chapter6part6.2"></a>Chapter 6 - Part 6.2: Practical Examples and Demonstrations
 
-#### <a name="chapter6part6.3"></a>Chapter 6 - Part 6.3: Exercises
+Let's explore some more practical examples to solidify your understanding of inheritance.
 
-#### <a name="chapter6part6.4"></a>Chapter 6 - Part 6.4: Summary and Next Steps
+**Example 1: Shapes**
+
+```java
+// Superclass
+class Shape {
+    private String color;
+
+    public Shape(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public double getArea() {
+        return 0.0; // Default implementation
+    }
+}
+
+// Subclass: Circle
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+// Subclass: Rectangle
+class Rectangle extends Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(String color, double width, double height) {
+        super(color);
+        this.width = width;
+        this.height = height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    @Override
+    public double getArea() {
+        return width * height;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Circle myCircle = new Circle("Red", 5.0);
+        Rectangle myRectangle = new Rectangle("Blue", 4.0, 6.0);
+
+        System.out.println("Circle Area: " + myCircle.getArea());
+        System.out.println("Rectangle Area: " + myRectangle.getArea());
+    }
+}
+```
+
+In this example:
+
+- Shape is the superclass, defining a common color attribute and a default getArea() method.
+- Circle and Rectangle are subclasses that inherit from Shape and provide their own implementations of getArea() based on their specific properties (radius, width, and height).
+- The @Override annotation indicates that the getArea() method is overriding a method from the superclass (we will discuss method overriding in detail in the next lesson).
+
+**Example 2: Vehicles**
+
+```java
+// Superclass
+class Vehicle {
+    private String modelName;
+    private String brand;
+
+    public Vehicle(String modelName, String brand) {
+        this.modelName = modelName;
+        this.brand = brand;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+     public String getBrand() {
+        return brand;
+    }
+
+    public void startEngine() {
+        System.out.println("Engine started.");
+    }
+}
+
+// Subclass: Car
+class Car extends Vehicle {
+    private int numberOfDoors;
+
+    public Car(String modelName, String brand, int numberOfDoors) {
+        super(modelName, brand);
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    public int getNumberOfDoors() {
+        return numberOfDoors;
+    }
+
+    public void drive() {
+        System.out.println("Driving the car.");
+    }
+}
+
+// Subclass: Motorcycle
+class Motorcycle extends Vehicle {
+    private boolean hasSidecar;
+
+    public Motorcycle(String modelName, String brand, boolean hasSidecar) {
+        super(modelName, brand);
+        this.hasSidecar = hasSidecar;
+    }
+
+    public boolean hasSidecar() {
+        return hasSidecar;
+    }
+
+    public void wheelie() {
+        System.out.println("Performing a wheelie!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car("Sedan", "Toyota", 4);
+        Motorcycle myMotorcycle = new Motorcycle("Sportbike", "Honda", false);
+
+        myCar.startEngine();
+        myCar.drive();
+
+        myMotorcycle.startEngine();
+        myMotorcycle.wheelie();
+    }
+}
+```
+
+In this example:
+
+- Vehicle is the superclass, defining common attributes like modelName and brand, and a startEngine() method.
+- Car and Motorcycle are subclasses that inherit from Vehicle and add their own specific attributes (e.g., numberOfDoors for Car, hasSidecar for Motorcycle) and methods (e.g., drive() for Car, wheelie() for Motorcycle).
 
 #### <a name="chapter6part7"></a>Chapter 6 - Part 7: Method Overriding: Changing Inherited Behavior
 
+Method overriding is a cornerstone of object-oriented programming, allowing subclasses to provide specific implementations of methods that are already defined in their parent classes. This capability is crucial for achieving polymorphism and creating flexible, extensible software systems. By understanding method overriding, you can design classes that adapt and specialize inherited behavior to meet specific requirements, leading to more maintainable and reusable code. This lesson will delve into the mechanics of method overriding, its benefits, and how to use it effectively in Java.
+
 #### <a name="chapter6part7.1"></a>Chapter 6 - Part 7.1: Understanding Method Overriding
+
+Method overriding occurs when a subclass provides a different implementation for a method that is already defined in its superclass. The overriding method in the subclass must have the same method signature as the method in the superclass: the same name, the same parameters (including the order and type), and the same return type.
+
+**Key Principles of Method Overriding**
+
+- **Same Method Signature**: The overriding method must have the exact same name, parameters, and return type as the overridden method in the superclass. This ensures that the subclass method can be used wherever the superclass method is expected.
+- **Access Modifiers**: The access modifier of the overriding method in the subclass cannot be more restrictive than the access modifier of the overridden method in the superclass. For example, if the superclass method is protected, the overriding method can be protected or public, but not private. It can, however, be less restrictive.
+- **```@Override``` Annotation**: While not strictly required, it is highly recommended to use the @Override annotation when overriding a method. This annotation tells the compiler that you intend to override a method, and the compiler will generate an error if the method does not actually override a method in the superclass. This helps to catch errors early and ensures that your code is doing what you intend.
+- **Inheritance Requirement**: Method overriding can only occur in the context of inheritance. The subclass must inherit from the superclass in order to override its methods.
+- **Return Type Covariance**: In Java 5 and later, overriding methods can have covariant return types. This means that the return type of the overriding method can be a subclass of the return type of the overridden method.
+
+**Example: Basic Method Overriding**
+
+Consider a simple example with a Vehicle class and a Car class that extends Vehicle.
+
+```java
+class Vehicle {
+    public void startEngine() {
+        System.out.println("Generic vehicle engine starting.");
+    }
+
+    public String getDescription() {
+        return "Generic vehicle";
+    }
+}
+
+class Car extends Vehicle {
+    @Override
+    public void startEngine() {
+        System.out.println("Car engine starting.");
+    }
+
+    @Override
+    public String getDescription() {
+        return "Car";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle vehicle = new Vehicle();
+        Car car = new Car();
+
+        vehicle.startEngine(); // Output: Generic vehicle engine starting.
+        System.out.println(vehicle.getDescription()); // Output: Generic vehicle
+
+        car.startEngine(); // Output: Car engine starting.
+        System.out.println(car.getDescription()); // Output: Car
+    }
+}
+```
+
+In this example:
+
+- The Car class extends the Vehicle class.
+- The startEngine() and getDescription() methods are overridden in the Car class to provide a car-specific implementation.
+- The @Override annotation is used to indicate that these methods are intended to override methods in the superclass.
+- When startEngine() is called on a Car object, the Car's implementation is executed, not the Vehicle's.
+
+**Example: Access Modifiers and Overriding**
+
+```java
+class Animal {
+    protected void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() { // Can be protected or public, but not private
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        Dog dog = new Dog();
+
+        animal.makeSound(); // Output: Generic animal sound
+        dog.makeSound(); // Output: Woof!
+    }
+}
+```
+
+In this example, the makeSound() method in the Animal class is protected. The overriding method in the Dog class can be protected or public, but not private. If you try to make it private, you will get a compile-time error.
+
+**Example: Return Type Covariance**
+
+```java
+class Food {
+    public String getName() {
+        return "Generic Food";
+    }
+}
+
+class Fruit extends Food {
+    @Override
+    public String getName() {
+        return "Generic Fruit";
+    }
+}
+
+class Apple extends Fruit {
+    @Override
+    public String getName() {
+        return "Apple";
+    }
+}
+
+class Tree {
+    public Food produce() {
+        return new Food();
+    }
+}
+
+class AppleTree extends Tree {
+    @Override
+    public Apple produce() {
+        return new Apple();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Tree tree = new Tree();
+        AppleTree appleTree = new AppleTree();
+
+        Food food = tree.produce();
+        Apple apple = appleTree.produce();
+
+        System.out.println(food.getName()); // Output: Generic Food
+        System.out.println(apple.getName()); // Output: Apple
+    }
+}
+```
+
+In this example:
+
+- The produce() method in the Tree class returns a Food object.
+- The produce() method in the AppleTree class overrides the produce() method in the Tree class and returns an Apple object, which is a subclass of Food.
+- This is an example of return type covariance, where the return type of the overriding method is a subclass of the return type of the overridden method.
 
 #### <a name="chapter6part7.2"></a>Chapter 6 - Part 7.2: The super Keyword and Method Overriding
 
+The super keyword allows you to access members (methods and fields) of the superclass from within the subclass. In the context of method overriding, super is often used to call the overridden method in the superclass from within the overriding method in the subclass. This is useful when you want to extend the behavior of the superclass method rather than completely replace it.
+
+**Example: Using super to Extend Functionality**
+
+```java
+class Animal {
+    public void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        super.makeSound(); // Call the superclass method
+        System.out.println("Woof!"); // Add additional behavior
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.makeSound();
+        // Output:
+        // Generic animal sound
+        // Woof!
+    }
+}
+```
+
+In this example:
+
+- The makeSound() method in the Dog class overrides the makeSound() method in the Animal class.
+- The super.makeSound() call invokes the makeSound() method in the Animal class, which prints "Generic animal sound".
+- The System.out.println("Woof!") statement then adds additional behavior, printing "Woof!".
+- This allows the Dog class to extend the behavior of the Animal class without completely replacing it.
+
+**When to Use super**
+
+- **Extending Behavior**: Use super when you want to add additional behavior to the overridden method while still retaining the original behavior of the superclass method.
+- **Accessing Superclass Members**: Use super to access fields or methods in the superclass that have been hidden or overridden in the subclass.
+- **Calling Superclass Constructors**: Use super() to call the superclass constructor from within the subclass constructor. This is necessary to ensure that the superclass is properly initialized.
+
 #### <a name="chapter6part7.3"></a>Chapter 6 - Part 7.3: Method Overriding vs. Method Overloading
+
+It's important to distinguish between method overriding and method overloading, as they are often confused.
+
+|Feature	|Method Overriding	|Method Overloading|
+| :-------: | :-------: | :-------: |
+|Definition|	Providing a different implementation in a subclass|	Providing multiple methods with the same name in the same class|
+|Relationship|	Occurs between a superclass and a subclass|	Occurs within the same class|
+|Signature|	Must have the same name, parameters, and return type|	Must have the same name but different parameters|
+|Purpose|	To change the behavior of an inherited method|	To provide different ways to call a method|
+|Compile-time|	Resolved at runtime (dynamic binding)|	Resolved at compile time (static binding)|
+
+**Example: Overloading vs. Overriding**
+
+```java
+class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // Method Overloading: Same name, different parameters
+    public double add(double a, double b) {
+        return a + b;
+    }
+}
+
+class ScientificCalculator extends Calculator {
+    // Method Overriding: Same name, same parameters, same return type
+    @Override
+    public int add(int a, int b) {
+        System.out.println("Adding integers in ScientificCalculator");
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+        ScientificCalculator scientificCalculator = new ScientificCalculator();
+
+        System.out.println(calculator.add(2, 3)); // Output: 5
+        System.out.println(calculator.add(2.5, 3.5)); // Output: 6.0
+
+        System.out.println(scientificCalculator.add(2, 3));
+        // Output:
+        // Adding integers in ScientificCalculator
+        // 5
+    }
+}
+```
+
+In this example:
+
+- The Calculator class has two add() methods with different parameters, which is method overloading.
+- The ScientificCalculator class overrides the add(int a, int b) method from the Calculator class, which is method overriding.
 
 #### <a name="chapter6part7.4"></a>Chapter 6 - Part 7.4: Practical Examples and Demonstrations
 
-#### <a name="chapter6part7.5"></a>Chapter 6 - Part 7.5: Exercises
+**Example: Polymorphism and Method Overriding**
 
-#### <a name="chapter6part7.6"></a>Chapter 6 - Part 7.6: Summary
+Method overriding is a key enabler of polymorphism, which allows you to treat objects of different classes in a uniform way.
 
-#### <a name="chapter6part7.7"></a>Chapter 6 - Part 7.7: Next Steps and Future Learning Directions
+```java
+class Animal {
+    public void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal[] animals = new Animal[3];
+        animals[0] = new Animal();
+        animals[1] = new Dog();
+        animals[2] = new Cat();
+
+        for (Animal animal : animals) {
+            animal.makeSound();
+        }
+        // Output:
+        // Generic animal sound
+        // Woof!
+        // Meow!
+    }
+}
+```
+
+In this example:
+
+- An array of Animal objects is created, containing instances of Animal, Dog, and Cat.
+- The makeSound() method is called on each element of the array.
+- Due to method overriding, the appropriate makeSound() method is called for each object, resulting in different outputs for each animal.
+- This demonstrates polymorphism, where objects of different classes can be treated as objects of a common type (Animal) and respond differently to the same method call.
+
+**Example: Overriding toString() Method**
+
+The toString() method is a special method in Java that is used to provide a string representation of an object. It is defined in the Object class, which is the ultimate superclass of all Java classes. You can override the toString() method in your classes to provide a more meaningful string representation of your objects.
+
+```java
+class Point {
+    private int x;
+    private int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point [x=" + x + ", y=" + y + "]";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Point point = new Point(10, 20);
+        System.out.println(point); // Output: Point [x=10, y=20]
+    }
+}
+```
+
+In this example:
+
+- The toString() method is overridden in the Point class to provide a string representation of the Point object that includes the values of its x and y coordinates.
+- When System.out.println(point) is called, the toString() method is automatically invoked, and the resulting string is printed to the console.
 
 #### <a name="chapter6part8"></a>Chapter 6 - Part 8: The `super` Keyword: Accessing Parent Class Members
 
+The super keyword in Java is a crucial element in object-oriented programming, particularly when dealing with inheritance. It allows a subclass to access members (methods and variables) of its parent class, enabling code reuse and extension of functionality. Understanding super is essential for creating robust and maintainable class hierarchies. It's not just about accessing parent class members; it's about controlling how you access them, especially when method overriding is involved.
+
 #### <a name="chapter6part8.1"></a>Chapter 6 - Part 8.1: Understanding the super Keyword
 
-#### <a name="chapter6part8.2"></a>Chapter 6 - Part 8.2: Exercises
+The super keyword serves two primary purposes:
 
-#### <a name="chapter6part8.3"></a>Chapter 6 - Part 8.3: Summary
+- **Calling the Parent Class Constructor**: super() is used to invoke the constructor of the parent class. This is often necessary to initialize the inherited members of the subclass.
+- **Accessing Parent Class Members**: super.member is used to access methods or variables defined in the parent class, even if they are hidden or overridden in the subclass.
+
+**Calling the Parent Class Constructor**
+
+When a subclass is instantiated, the constructor of its parent class is automatically called before the subclass constructor. If you don't explicitly call a parent class constructor using super(), Java implicitly calls the no-argument constructor (the constructor with no parameters) of the parent class.
+
+- **Why is this important?** The parent class constructor often initializes important state for the object. Failing to call it can lead to unexpected behavior or errors.
+
+```java
+class Animal {
+    String name;
+
+    Animal() {
+        this("Generic Animal"); // Calls the other constructor in Animal
+        System.out.println("Animal constructor called");
+    }
+
+    Animal(String name) {
+        this.name = name;
+        System.out.println("Animal constructor with name called: " + name);
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super("Dog"); // Explicitly calls the Animal(String name) constructor
+        System.out.println("Dog constructor called");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        System.out.println("Dog's name: " + myDog.name);
+    }
+}
+```
+
+**Explanation**:
+
+- The Dog constructor calls super("Dog"), which invokes the Animal(String name) constructor.
+- This initializes the name field in the Animal class to "Dog".
+- If we didn't call super("Dog"), Java would try to call the Animal() constructor. If Animal only had the constructor with the name parameter, the code would not compile.
+- The output demonstrates the order of constructor calls: first the parent, then the child.
+
+- **Important Note**: The call to super() must be the first statement in the subclass constructor. This ensures that the parent class is properly initialized before the subclass attempts to initialize its own members.
+
+**Accessing Parent Class Members (Methods and Variables)**
+
+The super keyword can also be used to access methods and variables defined in the parent class. This is particularly useful when a subclass overrides a method from the parent class but still needs to access the original implementation.
+
+- **Why is this important?** Method overriding allows a subclass to provide its own specific implementation of a method inherited from the parent class. However, sometimes you need to extend the parent's behavior rather than completely replacing it. super allows you to do this.
+
+```java
+class Animal {
+    public void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        super.makeSound(); // Calls the makeSound() method in the Animal class
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.makeSound();
+    }
+}
+```
+
+**Explanation:**
+
+- The Dog class overrides the makeSound() method from the Animal class.
+- Inside the Dog's makeSound() method, super.makeSound() is called. This executes the makeSound() method defined in the Animal class, printing "Generic animal sound".
+- Then, the Dog's makeSound() method prints "Woof!".
+- The output shows that both the parent and child class methods are executed.
+
+- **Accessing Variables**: super can also be used to access variables (fields) of the parent class, even if they are hidden by variables with the same name in the subclass.
+
+```java
+class Animal {
+    String name = "Animal";
+}
+
+class Dog extends Animal {
+    String name = "Dog";
+
+    public void printNames() {
+        System.out.println("Dog's name: " + name); // Accesses the Dog's name variable
+        System.out.println("Animal's name: " + super.name); // Accesses the Animal's name variable
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.printNames();
+    }
+}
+```
+
+**Explanation:**
+
+- Both Animal and Dog have a variable named name.
+- Inside Dog's printNames() method, name refers to the Dog's name variable, while super.name refers to the Animal's name variable.
+- This demonstrates how super can be used to disambiguate between variables with the same name in the parent and child classes.
+
+**Practical Considerations and Best Practices**
+
+- **When to use super()**: Always use super() in a subclass constructor if the parent class requires initialization parameters. Even if the parent class has a no-argument constructor, it's often good practice to explicitly call super() to ensure proper initialization.
+- **When to use super.member**: Use super.member when you need to access a specific member (method or variable) of the parent class that has been hidden or overridden in the subclass. This is particularly useful when you want to extend the functionality of the parent class rather than completely replacing it.
+- **Avoiding Ambiguity**: If a class inherits from multiple levels of parent classes, using super will always refer to the immediate parent class. There's no direct way to access members of grandparent classes using super directly.
+- **Access Modifiers**: The ability to access parent class members using super is subject to access modifiers (public, protected, private, default). You cannot access private members of the parent class using super. protected members are accessible within the subclass and within the same package. public members are accessible everywhere. Default (package-private) members are accessible within the same package.
 
 #### <a name="chapter6part9"></a>Chapter 6 - Part 9: Class Composition and Polymorphism
 
