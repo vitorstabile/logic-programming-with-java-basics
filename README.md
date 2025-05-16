@@ -212,10 +212,11 @@
       - [Chapter 6 - Part 4.2: Access Levels: A Summary](#chapter6part4.2)
       - [Chapter 6 - Part 4.3: Practical Examples and Demonstrations](#chapter6part4.3)
     - [Chapter 6 - Part 5: Introduction to Inheritance: Creating Hierarchies of Classes](#chapter6part5)
-      - [Chapter 6 - Part 5.1: Understanding Inheritance](#chapter6part5.1)
-      - [Chapter 6 - Part 5.2: The extends Keyword](#chapter6part5.2)
-      - [Chapter 6 - Part 5.3: Method Overriding](#chapter6part5.3)
-      - [Chapter 6 - Part 5.4: The super Keyword](#chapter6part5.4)
+      - [Chapter 6 - Part 5.1: Object Class](#chapter6part5.1)
+      - [Chapter 6 - Part 5.2: Understanding Inheritance](#chapter6part5.2)
+      - [Chapter 6 - Part 5.3: The extends Keyword](#chapter6part5.3)
+      - [Chapter 6 - Part 5.4: Method Overriding](#chapter6part5.4)
+      - [Chapter 6 - Part 5.5: The super Keyword](#chapter6part5.5)
     - [Chapter 6 - Part 6: The `extends` Keyword: Inheriting from a Parent Class](#chapter6part6)
       - [Chapter 6 - Part 6.1: Understanding the extends Keyword](#chapter6part6.1)
       - [Chapter 6 - Part 6.2: Practical Examples and Demonstrations](#chapter6part6.2)
@@ -10005,17 +10006,147 @@ In this example, the getPrice() method applies a 10% discount before returning t
 
 #### <a name="chapter6part5"></a>Chapter 6 - Part 5: Introduction to Inheritance: Creating Hierarchies of Classes
 
-#### <a name="chapter6part5.1"></a>Chapter 6 - Part 5.1: Understanding Inheritance
+#### <a name="chapter6part5.1"></a>Chapter 6 - Part 5.1: Object Class
 
-#### <a name="chapter6part5.2"></a>Chapter 6 - Part 5.2: The extends Keyword
+**Object Class in Java**
 
-#### <a name="chapter6part5.3"></a>Chapter 6 - Part 5.3: Method Overriding
+The **Object class** is the parent class of all the classes in java by default. In other words, it is the topmost class of java.
 
-#### <a name="chapter6part5.4"></a>Chapter 6 - Part 5.4: The super Keyword
+The Object class is beneficial if you want to refer any object whose type you don't know. Notice that parent class reference variable can refer the child class object, know as upcasting.
 
-#### <a name="chapter6part5.5"></a>Chapter 6 - Part 5.5: Practice Activities
+<br>
 
-#### <a name="chapter6part5.6"></a>Chapter 6 - Part 5.6: Summary and Next Steps
+<div align="center"><img src="img/objectclass2-w612-h314.png" width=612 height=314><br><sub>Fig 30 - Class Object Inheritance in Java - (<a href='https://www.javatpoint.com/object-class'>Work by  java T Point</a>) </sub></div>
+
+<br>
+
+Let's take an example, there is getObject() method that returns an object but it can be of any type like Employee,Student etc, we can use Object class reference to refer that object. For example:
+
+```java
+
+Object obj=getObject();//we don't know what object will be returned from this method  
+
+```
+
+The Object class provides some common behaviors to all the objects such as object can be compared, object can be cloned, object can be notified etc. 
+
+
+<br>
+
+<div align="center"><img src="img/objectclass1-w696-h476.png" width=696 height=476><br><sub>Fig 31 - Class Object Methods in Java - (<a href='https://www.javatpoint.com/object-class'>Work by  java T Point</a>) </sub></div>
+
+<br>
+
+**Methods of Object class**
+
+| Method                                                                      | Description     |
+| :--------------------------------------------------------------------------:| :--------------:|
+| public final Class getClass()                                               | returns the Class class object of this object. The Class class can further be used to get the metadata of this class.       |
+| public int hashCode()                                                       | returns the hashcode number for this object. | 
+| public boolean equals(Object obj)                                           | compares the given object to this object.             |
+| protected Object clone() throws CloneNotSupportedException                  | creates and returns the exact copy (clone) of this object.       |
+| public String toString()                                                    |returns the string representation of this object.       |
+| public final void notify()                                                  | wakes up single thread, waiting on this object's monitor.       |
+| public final void notifyAll()                                               | wakes up all the threads, waiting on this object's monitor.       |
+| public final void wait(long timeout)throws InterruptedException             | causes the current thread to wait for the specified milliseconds, until another thread notifies (invokes notify() or notifyAll() method).       |
+| public final void wait(long timeout,int nanos)throws InterruptedException   | causes the current thread to wait for the specified milliseconds and nanoseconds, until another thread notifies (invokes notify() or notifyAll() method).       |
+| public final void wait()throws InterruptedException                         | causes the current thread to wait, until another thread notifies (invokes notify() or notifyAll() method).       |
+| protected void finalize()throws Throwable                                   | is invoked by the garbage collector before object is being garbage collected.       |
+
+
+Now, we will use the method ```toString()``` that will be able to display the name and attributes of the Product.
+
+**Class Product**
+
+```java
+
+public class Product {
+
+	public String name;
+	public double price;
+	public int quantity;
+
+	public double totalValueInStock() {
+		return price * quantity;
+	}
+
+	public void addProducts(int quantity) {
+		this.quantity += quantity;
+	}
+
+	public void removeProducts(int quantity) {
+		this.quantity -= quantity;
+	}
+	
+	public String toString() {
+		return name
+		+ ", $ "
+		+ String.format("%.2f", price)
+		+ ", "
+		+ quantity
+		+ " units, Total: $ "
+		+ String.format("%.2f", totalValueInStock());
+	}
+
+}
+
+```
+
+**Program**
+
+```java
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+	
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		Product product = new Product();
+		System.out.println("Enter product data: ");
+		System.out.print("Name: ");
+		product.name = sc.nextLine();
+		System.out.print("Price: ");
+		product.price = sc.nextDouble();
+		System.out.print("Quantity in stock: ");
+		product.quantity = sc.nextInt();
+		
+		System.out.println();
+		System.out.println("Product data: " + product);
+		
+		System.out.println();
+		System.out.print("Enter the number of products to be added in stock: ");
+		int quantity = sc.nextInt();
+		product.addProducts(quantity);
+		
+		System.out.println();
+		System.out.println("Updated data: " + product);
+		
+		System.out.println();
+		System.out.print("Enter the number of products to be removed from stock: ");
+		quantity = sc.nextInt();
+		product.removeProducts(quantity);
+		
+		System.out.println();
+		System.out.println("Updated data: " + product);
+		
+		sc.close();
+	}
+}
+
+```
+
+#### <a name="chapter6part5.2"></a>Chapter 6 - Part 5.2: Understanding Inheritance
+
+#### <a name="chapter6part5.3"></a>Chapter 6 - Part 5.3: The extends Keyword
+
+#### <a name="chapter6part5.4"></a>Chapter 6 - Part 5.4: Method Overriding
+
+#### <a name="chapter6part5.5"></a>Chapter 6 - Part 5.5: The super Keyword
 
 #### <a name="chapter6part6"></a>Chapter 6 - Part 6: The `extends` Keyword: Inheriting from a Parent Class
 
