@@ -14812,27 +14812,589 @@ In this example:
 
 #### <a name="chapter7part6"></a>Chapter 7 - Part 6: Reading Input from the Console: Using the `Scanner` Class
 
+The ability for a program to interact with the user is fundamental to creating useful and engaging applications. In Java, one of the most common ways to achieve this is by reading input directly from the console. This lesson will focus on using the Scanner class, a powerful tool in Java's standard library, to capture user input and integrate it into your programs. We'll explore how to create Scanner objects, read different types of data, and handle potential input errors, building upon the foundational concepts of data types and variables covered in Module 2.
+
 #### <a name="chapter7part6.1"></a>Chapter 7 - Part 6.1: Introduction to the Scanner Class
+
+The Scanner class, part of the java.util package, provides a convenient way to parse primitive types and strings from various input sources, including the console, files, and even strings. It essentially breaks down the input into tokens, which can then be converted into the desired data types.
+
+**Importing the Scanner Class**
+
+Before you can use the Scanner class, you need to import it into your Java program. This is done using the import statement at the beginning of your code:
+
+```java
+import java.util.Scanner;
+```
+
+This line tells the Java compiler that you intend to use the Scanner class from the java.util package.
+
+**Creating a Scanner Object**
+
+To start reading input, you need to create an instance of the Scanner class. When reading from the console, you typically pass System.in as the argument to the Scanner constructor. System.in represents the standard input stream, which is usually the keyboard.
+
+```java
+Scanner scanner = new Scanner(System.in);
+```
+
+This line creates a Scanner object named scanner that is ready to read input from the console. It's crucial to understand that scanner is just a variable name; you can choose any valid variable name you prefer.
+
+**Closing the Scanner**
+
+It's a good practice to close the Scanner object when you're finished using it to release the resources it's holding. This is done using the close() method:
+
+```java
+scanner.close();
+```
+
+While not strictly mandatory for System.in (as the stream is managed by the system), closing the scanner becomes essential when reading from files, as it ensures that the file is properly closed and any buffered data is written to disk. We will cover file I/O in a later lesson.
 
 #### <a name="chapter7part6.2"></a>Chapter 7 - Part 6.2: Reading Different Data Types
 
+The Scanner class provides various methods for reading different data types from the input stream. Here are some of the most commonly used methods:
+
+- ```nextInt()```: Reads an integer value.
+- ```nextDouble()```: Reads a double value.
+- ```nextFloat()```: Reads a float value.
+- ```nextBoolean()```: Reads a boolean value.
+- ```next()```: Reads the next token as a string (delimited by whitespace).
+- ```nextLine()```: Reads the entire line of input as a string.
+
+**Reading an Integer (nextInt())**
+
+The nextInt() method reads the next token from the input stream and attempts to parse it as an integer. If the input is not a valid integer, it will throw an InputMismatchException. We will cover exception handling in more detail later in this module.
+
+```java
+import java.util.Scanner;
+
+public class ReadInteger {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter an integer: ");
+        int number = scanner.nextInt(); // Reads an integer from the console
+
+        System.out.println("You entered: " + number);
+
+        scanner.close();
+    }
+}
+```
+
+In this example, the program prompts the user to enter an integer. The nextInt() method reads the input and stores it in the number variable. The program then prints the entered number to the console.
+
+Example:
+
+If the user enters 123, the output will be:
+
+```
+You entered: 123
+```
+
+Counterexample:
+
+If the user enters abc, the program will throw an InputMismatchException because abc is not a valid integer.
+
+**Reading a Double (nextDouble())**
+
+The nextDouble() method reads the next token from the input stream and attempts to parse it as a double-precision floating-point number. Similar to nextInt(), it throws an InputMismatchException if the input is not a valid double.
+
+```java
+import java.util.Scanner;
+
+public class ReadDouble {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a double: ");
+        double number = scanner.nextDouble(); // Reads a double from the console
+
+        System.out.println("You entered: " + number);
+
+        scanner.close();
+    }
+}
+```
+
+This program prompts the user to enter a double value, reads it using nextDouble(), and then prints the entered value.
+
+Example:
+
+If the user enters 3.14, the output will be:
+
+```
+You entered: 3.14
+```
+
+Counterexample:
+
+If the user enters hello, the program will throw an InputMismatchException because hello is not a valid double.
+
+**Reading a String (next() and nextLine())**
+
+The next() and nextLine() methods are used to read strings from the input stream, but they behave differently.
+
+- **next()**: Reads the next token, which is a sequence of characters delimited by whitespace (spaces, tabs, newlines).
+- **nextLine()**: Reads the entire line of input, including any leading or trailing whitespace, until it encounters a newline character.
+
+```java
+import java.util.Scanner;
+
+public class ReadString {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your first name: ");
+        String firstName = scanner.next(); // Reads the first name
+
+        System.out.print("Enter your last name: ");
+        String lastName = scanner.next(); // Reads the last name
+
+        System.out.println("Hello, " + firstName + " " + lastName + "!");
+
+        scanner.close();
+    }
+}
+```
+
+In this example, next() is used to read the first and last names separately. If the user enters "John Doe", firstName will be "John" and lastName will be "Doe".
+
+Now, let's look at nextLine():
+
+```java
+import java.util.Scanner;
+
+public class ReadLine {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your full name: ");
+        String fullName = scanner.nextLine(); // Reads the entire line
+
+        System.out.println("Hello, " + fullName + "!");
+
+        scanner.close();
+    }
+}
+```
+
+If the user enters "John Doe", fullName will be "John Doe".
+
+Important Note: A common issue arises when using nextLine() after nextInt(), nextDouble(), or other next...() methods. These methods do not consume the newline character that is generated when the user presses Enter. This can lead to nextLine() reading an empty string. To avoid this, you can add an extra nextLine() call to consume the newline character:
+
+```java
+import java.util.Scanner;
+
+public class NextLineProblem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your age: ");
+        int age = scanner.nextInt();
+
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Hello, " + name + "! You are " + age + " years old.");
+
+        scanner.close();
+    }
+}
+```
+
+Without scanner.nextLine(); after scanner.nextInt();, the name variable would be assigned an empty string because nextLine() would read the leftover newline character.
+
+**Reading a Boolean (nextBoolean())**
+
+The nextBoolean() method reads the next token from the input stream and attempts to parse it as a boolean value. It accepts "true" or "false" (case-insensitive) as valid boolean values.
+
+```java
+import java.util.Scanner;
+
+public class ReadBoolean {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter true or false: ");
+        boolean value = scanner.nextBoolean(); // Reads a boolean from the console
+
+        System.out.println("You entered: " + value);
+
+        scanner.close();
+    }
+}
+```
+
+Example:
+
+If the user enters true, the output will be:
+
+```
+You entered: true
+```
+
+If the user enters False, the output will be:
+
+```
+You entered: false
+```
+
+Counterexample:
+
+If the user enters yes, the program will throw an InputMismatchException because yes is not a valid boolean value.
+
 #### <a name="chapter7part6.3"></a>Chapter 7 - Part 6.3: Handling Input Mismatch Exceptions
+
+As mentioned earlier, the Scanner methods like nextInt(), nextDouble(), and nextBoolean() can throw an InputMismatchException if the input does not match the expected data type. To handle these exceptions, you can use a try-catch block, which we will cover in more detail later in this module. For now, here's a basic example:
+
+```java
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class ExceptionHandling {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter an integer: ");
+            int number = scanner.nextInt();
+            System.out.println("You entered: " + number);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter an integer.");
+            // Optionally, you can clear the invalid input from the scanner
+            scanner.next(); // Discards the invalid token
+        } finally {
+            scanner.close();
+        }
+    }
+}
+```
+
+In this example, the code that might throw an InputMismatchException is placed inside the try block. If an exception occurs, the code inside the catch block is executed, which prints an error message to the console. The finally block ensures that the Scanner is closed, regardless of whether an exception occurred or not.
 
 #### <a name="chapter7part6.4"></a>Chapter 7 - Part 6.4: Practical Examples and Demonstrations
 
-#### <a name="chapter7part6.5"></a>Chapter 7 - Part 6.5: Exercises
+Let's look at some more practical examples of using the Scanner class.
+
+**Example 1: Simple Calculator**
+
+This program takes two numbers as input from the user and performs a simple addition.
+
+```java
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the first number: ");
+        double num1 = scanner.nextDouble();
+
+        System.out.print("Enter the second number: ");
+        double num2 = scanner.nextDouble();
+
+        double sum = num1 + num2;
+
+        System.out.println("The sum is: " + sum);
+
+        scanner.close();
+    }
+}
+```
+
+**Example 2: Reading Multiple Inputs**
+
+This program reads a name, age, and salary from the user.
+
+```java
+import java.util.Scanner;
+
+public class ReadMultipleInputs {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter your age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter your salary: ");
+        double salary = scanner.nextDouble();
+
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Salary: " + salary);
+
+        scanner.close();
+    }
+}
+```
+
+**Example 3: Interactive Menu**
+
+This program presents a menu to the user and performs different actions based on their choice.
+
+```java
+import java.util.Scanner;
+
+public class InteractiveMenu {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Say Hello");
+            System.out.println("2. Calculate Square");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Hello!");
+                    break;
+                case 2:
+                    System.out.print("Enter a number: ");
+                    double number = scanner.nextDouble();
+                    System.out.println("Square: " + number * number);
+                    scanner.nextLine(); // Consume the newline character
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
+}
+```
 
 #### <a name="chapter7part7"></a>Chapter 7 - Part 7: Writing Output to the Console: Using `System.out.println()`
 
+System.out.println() is your primary tool for displaying information to the console in Java. It's fundamental for debugging, providing user feedback, and generally making your programs interactive. Mastering its use is essential for any Java programmer.
+
 #### <a name="chapter7part7.1"></a>Chapter 7 - Part 7.1: Understanding System.out.println()
+
+System.out.println() is a method in Java that prints a line of text to the console (standard output). Let's break down each part:
+
+- ```System```: This is a final class in the java.lang package that provides access to system-related resources. You don't need to import it because java.lang is automatically imported into every Java program.
+- ```out```: This is a static member field of the System class. It's an instance of the PrintStream class, which is responsible for directing output to the console.
+- ```println()```: This is a method of the PrintStream class. It prints a string of characters to the console and then moves the cursor to the next line. This is why subsequent output appears on a new line.
+
+**Different Ways to Use println()**
+
+The println() method is overloaded, meaning there are multiple versions of the method that accept different types of arguments. This allows you to print various data types directly without having to convert them to strings manually.
+
+Here are some common ways to use println():
+
+- **Printing a String Literal**:
+
+```java
+public class PrintString {
+    public static void main(String[] args) {
+        System.out.println("Hello, world!"); // Prints "Hello, world!" to the console
+    }
+}
+```
+
+This is the most basic usage. You simply pass a string of characters enclosed in double quotes to the println() method.
+
+- **Printing a Variable**:
+
+```java
+public class PrintVariable {
+    public static void main(String[] args) {
+        String message = "This is a message from a variable.";
+        System.out.println(message); // Prints the value of the 'message' variable
+    }
+}
+```
+
+You can print the value of a variable by passing the variable name to println(). Java will automatically convert the variable's value to a string representation.
+
+- **Printing Numbers**:
+
+```java
+public class PrintNumbers {
+    public static void main(String[] args) {
+        int age = 30;
+        double price = 19.99;
+        System.out.println(age);   // Prints 30
+        System.out.println(price); // Prints 19.99
+    }
+}
+```
+
+println() can handle integer and floating-point numbers directly.
+
+- **Printing Boolean Values**:
+
+```java
+public class PrintBoolean {
+    public static void main(String[] args) {
+        boolean isJavaFun = true;
+        System.out.println(isJavaFun); // Prints true
+    }
+}
+```
+
+Boolean values (true or false) can also be printed directly.
+
+- **Printing Characters**:
+
+```java
+public class PrintCharacter {
+    public static void main(String[] args) {
+        char initial = 'J';
+        System.out.println(initial); // Prints J
+    }
+}
+```
+
+Characters are printed as their character representation.
+
+- **Printing the Result of an Expression**:
+
+```java
+public class PrintExpression {
+    public static void main(String[] args) {
+        int x = 5;
+        int y = 10;
+        System.out.println(x + y); // Prints 15 (the result of the addition)
+    }
+}
+```
+
+You can include expressions directly within the println() method. Java will evaluate the expression and print the result.
+
+- **Concatenating Strings and Variables**:
+
+```java
+public class PrintConcatenation {
+    public static void main(String[] args) {
+        String name = "Alice";
+        int score = 100;
+        System.out.println("Name: " + name + ", Score: " + score); // Prints "Name: Alice, Score: 100"
+    }
+}
+```
+
+The + operator can be used to concatenate strings and variables. Java will convert the variables to their string representations and combine them into a single string.
+
+- **Using printf() for Formatted Output (Brief Mention)**:
+
+While the focus is on println(), it's worth briefly mentioning System.out.printf(). This method allows you to format your output using format specifiers (like %s for strings, %d for integers, and %f for floating-point numbers). We will not go into detail here, but it's a more advanced way to control the appearance of your output.
+
+```java
+public class PrintfExample {
+    public static void main(String[] args) {
+        String name = "Bob";
+        int age = 25;
+        System.out.printf("Name: %s, Age: %d%n", name, age); // Prints "Name: Bob, Age: 25"
+    }
+}
+```
+
+The %n is a platform-independent newline character, similar to what println() does automatically.
+
+**The Importance of Newlines**
+
+The println() method automatically adds a newline character (\n) at the end of the output. This means that each call to println() will print its output on a new line. If you don't want a newline, you can use System.out.print() instead.
+
+```java
+public class PrintVsPrintln {
+    public static void main(String[] args) {
+        System.out.print("This will be on the same line ");
+        System.out.println("as this.");
+
+        System.out.println("This will be on a new line.");
+    }
+}
+```
+
+Output:
+
+```
+This will be on the same line as this.
+This will be on a new line.
+```
 
 #### <a name="chapter7part7.2"></a>Chapter 7 - Part 7.2: Practical Examples and Demonstrations
 
-#### <a name="chapter7part7.3"></a>Chapter 7 - Part 7.3: Exercises
+Let's look at some more practical examples of how you might use System.out.println() in a Java program.
 
-#### <a name="chapter7part7.4"></a>Chapter 7 - Part 7.4: Summary
+**Example 1: Displaying User Input (Preparing for the Next Lesson)**
 
-#### <a name="chapter7part7.5"></a>Chapter 7 - Part 7.5: Next Steps
+While we haven't covered reading user input yet (that's the next lesson!), let's imagine we have a way to get the user's name and age. We can then use println() to display this information back to the user.
+
+```java
+public class DisplayUserInfo {
+    public static void main(String[] args) {
+        // Assume we have code here to get the user's name and age
+        String name = "Charlie"; // For now, let's hardcode the values
+        int age = 35;
+
+        System.out.println("User Information:");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+```
+
+This example demonstrates how println() can be used to present information to the user in a clear and organized way. The next lesson will cover how to actually get the user's name and age using the Scanner class.
+
+**Example 2: Debugging with println()**
+
+System.out.println() is invaluable for debugging. You can insert println() statements at various points in your code to check the values of variables and see if your code is executing as expected.
+
+```java
+public class DebuggingExample {
+    public static void main(String[] args) {
+        int x = 10;
+        int y = 0;
+
+        System.out.println("Before division: x = " + x + ", y = " + y); // Debugging statement
+
+        int result;
+        try {
+            result = x / y;
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Division by zero!");
+        }
+
+        System.out.println("After division (if it happened): Program continues..."); // Debugging statement
+    }
+}
+```
+
+In this example, the println() statements help you track the values of x and y before the division and confirm whether the ArithmeticException is being caught. This is a simplified example; in more complex scenarios, strategically placed println() statements can save you hours of debugging time.
+
+**Example 3: Displaying Array Contents**
+
+Let's revisit arrays from Module 4. You can use println() to display the contents of an array.
+
+```java
+public class PrintArray {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+
+        System.out.println("Array elements:");
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.println("Element at index " + i + ": " + numbers[i]);
+        }
+    }
+}
+```
+
+This example iterates through the numbers array and prints each element along with its index.
 
 #### <a name="chapter7part8"></a>Chapter 7 - Part 8: Introduction to File Input/Output: Reading and Writing Text Files
 
