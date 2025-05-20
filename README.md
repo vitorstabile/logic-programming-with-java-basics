@@ -15398,15 +15398,260 @@ This example iterates through the numbers array and prints each element along wi
 
 #### <a name="chapter7part8"></a>Chapter 7 - Part 8: Introduction to File Input/Output: Reading and Writing Text Files
 
+Introduction to File Input/Output: Reading and Writing Text Files is a crucial skill for any Java programmer. It allows your programs to interact with the outside world, persisting data beyond the program's runtime and processing information from external sources. This lesson will cover the fundamentals of reading from and writing to text files, providing you with the tools to build more robust and useful applications. We'll focus on the core Java classes used for file I/O and demonstrate how to handle potential errors gracefully.
+
 #### <a name="chapter7part8.1"></a>Chapter 7 - Part 8.1: Understanding File Input/Output (I/O)
+
+File I/O refers to the process of reading data from and writing data to files stored on a storage device (e.g., hard drive, SSD). In Java, this is achieved through streams, which represent a sequence of data flowing from a source (input stream) or to a destination (output stream).
+
+**Input Streams**
+
+An input stream is used to read data from a source, such as a file. Java provides several classes for reading data, including:
+
+- ```FileInputStream```: Reads data as raw bytes from a file.
+- ```FileReader```: Reads data as characters from a file, using the default character encoding.
+- ```BufferedReader```: Reads text from a character-input stream, buffering characters so as to provide for the efficient reading of characters, arrays, and lines.
+
+**Output Streams**
+
+An output stream is used to write data to a destination, such as a file. Java provides several classes for writing data, including:
+
+- ```FileOutputStream```: Writes data as raw bytes to a file.
+- ```FileWriter```: Writes data as characters to a file, using the default character encoding.
+- ```BufferedWriter```: Writes text to a character-output stream, buffering characters so as to provide for the efficient writing of characters, arrays, and lines.
+- ```PrintWriter```: Prints formatted representations of objects to a text-output stream.
+
+**Character Encoding**
+
+Character encoding is a system for representing characters as numbers. Different encodings exist, such as UTF-8, UTF-16, and ASCII. When reading or writing text files, it's important to be aware of the character encoding used to ensure that the data is interpreted correctly. The FileReader and FileWriter classes use the default character encoding of the system, which may vary depending on the operating system and locale. To specify a particular character encoding, you can use the InputStreamReader and OutputStreamWriter classes in conjunction with FileInputStream and FileOutputStream.
 
 #### <a name="chapter7part8.2"></a>Chapter 7 - Part 8.2: Reading Text Files
 
+Reading a text file involves opening the file, reading its contents, and then closing the file. It's crucial to handle potential exceptions that may occur during this process, such as FileNotFoundException (if the file doesn't exist) or IOException (if an error occurs during reading).
+
+**Using FileReader and BufferedReader**
+
+The FileReader class provides a simple way to read characters from a file. However, it's often more efficient to wrap a FileReader in a BufferedReader, which buffers the input and allows you to read the file line by line.
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadFileExample {
+
+    public static void main(String[] args) {
+        String fileName = "example.txt"; // Replace with your file name
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
+}
+```
+
+Explanation:
+
+- **Import necessary classes**: BufferedReader, FileReader, and IOException.
+- **Specify the file name**: The fileName variable stores the name of the file to be read.
+- **Try-with-resources**: The try block uses a try-with-resources statement, which automatically closes the BufferedReader when the block is finished, even if an exception occurs. This ensures that the file is properly closed and resources are released.
+- **Create a BufferedReader**: A BufferedReader is created, wrapping a FileReader that reads from the specified file.
+- **Read the file line by line**: The readLine() method reads a line of text from the file. The while loop continues as long as readLine() returns a non-null value (i.e., there are more lines to read).
+- **Print each line**: Each line read from the file is printed to the console using System.out.println().
+- **Catch IOException**: The catch block handles any IOException that may occur during the file reading process. It prints an error message to the console.
+
+**Handling FileNotFoundException**
+
+The previous example only catches IOException. It's good practice to specifically handle FileNotFoundException to provide a more informative error message if the file does not exist.
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+public class ReadFileExample {
+
+    public static void main(String[] args) {
+        String fileName = "example.txt"; // Replace with your file name
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close(); // Close the reader in a finally block (see below)
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + fileName);
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation of Changes**:
+
+- **Import FileNotFoundException**: The java.io.FileNotFoundException class is imported.
+- **Separate catch block**: A separate catch block is added to specifically handle FileNotFoundException.
+- **Informative error message**: If a FileNotFoundException is caught, an error message is printed to the console indicating that the file was not found.
+- **Reader closing**: The reader.close() method is called inside the try block. It's important to close the reader to release resources.
+
+**Ensuring Resources are Closed: The finally Block**
+
+While try-with-resources is the preferred approach, it's important to understand how to use a finally block to ensure resources are closed, especially when working with older code or situations where try-with-resources isn't applicable.
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+public class ReadFileExample {
+
+    public static void main(String[] args) {
+        String fileName = "example.txt"; // Replace with your file name
+        BufferedReader reader = null; // Initialize reader outside the try block
+
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + fileName);
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                System.err.println("Error closing the reader: " + e.getMessage());
+            }
+        }
+    }
+}
+```
+
+Explanation:
+
+- **reader declared outside try**: The BufferedReader is declared outside the try block and initialized to null. This makes it accessible in the finally block.
+- **finally block**: The finally block is guaranteed to execute regardless of whether an exception is thrown or not.
+- **Check for null**: Inside the finally block, we check if reader is not null before attempting to close it. This prevents a NullPointerException if the FileReader failed to initialize in the first place (e.g., due to a FileNotFoundException).
+- **Nested try-catch**: A nested try-catch block is used within the finally block to handle any IOException that may occur while closing the reader.
+
 #### <a name="chapter7part8.3"></a>Chapter 7 - Part 8.3: Writing Text Files
 
-#### <a name="chapter7part8.4"></a>Chapter 7 - Part 8.4: Practice Activities
+Writing to a text file involves opening the file for writing, writing data to the file, and then closing the file. Similar to reading, it's important to handle potential exceptions.
 
-#### <a name="chapter7part8.5"></a>Chapter 7 - Part 8.5: Summary
+**Using FileWriter and BufferedWriter**
+
+The FileWriter class provides a simple way to write characters to a file. For efficiency, it's often wrapped in a BufferedWriter.
+
+```java
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteFileExample {
+
+    public static void main(String[] args) {
+        String fileName = "output.txt"; // Replace with your desired file name
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("This is the first line.");
+            writer.newLine(); // Add a new line
+            writer.write("This is the second line.");
+            writer.newLine();
+            writer.write("And this is the third line.");
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- **Import necessary classes**: BufferedWriter, FileWriter, and IOException.
+- **Specify the file name**: The fileName variable stores the name of the file to be written to.
+- **Try-with-resources**: The try block uses a try-with-resources statement to automatically close the BufferedWriter.
+- **Create a BufferedWriter**: A BufferedWriter is created, wrapping a FileWriter that writes to the specified file.
+- **Write data to the file**: The write() method writes a string to the file.
+- **Add new lines**: The newLine() method adds a platform-specific line separator to the file. This ensures that the text is formatted correctly on different operating systems.
+- **Catch IOException**: The catch block handles any IOException that may occur during the file writing process.
+
+**Appending to a File**
+
+By default, FileWriter overwrites the contents of the file if it already exists. To append to an existing file, you can use the FileWriter constructor that takes an append parameter.
+
+```java
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class AppendFileExample {
+
+    public static void main(String[] args) {
+        String fileName = "output.txt"; // Replace with your desired file name
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) { // true for append mode
+            writer.newLine(); // Add a new line before appending
+            writer.write("This line is appended to the file.");
+        } catch (IOException e) {
+            System.err.println("An error occurred while appending to the file: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation of Changes:**
+
+- **FileWriter(fileName, true)**: The FileWriter constructor is called with the append parameter set to true. This tells the FileWriter to append to the file instead of overwriting it.
+- **newLine() before appending**: A newLine() method is called before writing the new line to ensure that the appended text starts on a new line.
+
+**Using PrintWriter for Formatted Output**
+
+The PrintWriter class provides a convenient way to write formatted output to a file, similar to using System.out.println() for console output.
+
+```java
+import java.io.PrintWriter;
+import java.io.IOException;
+
+public class PrintWriterExample {
+
+    public static void main(String[] args) {
+        String fileName = "formatted_output.txt"; // Replace with your desired file name
+
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+            String name = "Alice";
+            int age = 30;
+            double salary = 50000.0;
+
+            writer.printf("Name: %s, Age: %d, Salary: %.2f%n", name, age, salary);
+            writer.println("Another line of text.");
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- **Import PrintWriter**: The java.io.PrintWriter class is imported.
+- **Create a PrintWriter**: A PrintWriter is created, writing to the specified file.
+- **printf() method**: The printf() method is used to write formatted output to the file. The format string specifies the format of the output, and the arguments provide the values to be formatted.
+- **println() method**: The println() method is used to write a line of text to the file, followed by a newline character.
 
 ## <a name="chapter8"></a>Chapter 8: Java Date and Time
 
