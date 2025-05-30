@@ -17557,15 +17557,550 @@ Here, calculateSalary is overridden in SalariedEmployee and HourlyEmployee to pr
 
 #### <a name="chapter11part4"></a>Chapter 11 - Part 4: Exploring Design Patterns: Singleton and Factory
 
+Design patterns are reusable solutions to commonly occurring problems in software design. They represent best practices evolved over time and provide a template for solving recurring design challenges. This lesson explores two fundamental creational design patterns: Singleton and Factory. Creational patterns deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. Understanding these patterns will enable you to write more maintainable, flexible, and robust code.
+
 #### <a name="chapter11part4.1"></a>Chapter 11 - Part 4.1: Singleton Design Pattern
+
+The Singleton pattern ensures that a class has only one instance and provides a global point of access to it. This is useful when exactly one object is needed to coordinate actions across the system.
+
+**Core Principles**
+
+- **Single Instance**: Only one instance of the class can exist.
+- **Global Access**: A global point of access to that instance is provided.
+- **Lazy Initialization (Optional)**: The instance can be created only when it's needed.
+
+**Implementation**
+
+The implementation involves:
+
+- Making the constructor private to prevent direct instantiation from outside the class.
+- Creating a static instance of the class within the class itself.
+- Providing a static method that returns the instance of the class.
+
+Here's a basic implementation in Java:
+
+```java
+public class Singleton {
+
+    private static Singleton instance; // Static instance
+
+    private Singleton() {
+        // Private constructor to prevent external instantiation
+    }
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton(); // Lazy initialization
+        }
+        return instance;
+    }
+
+    public void doSomething() {
+        System.out.println("Singleton is doing something!");
+    }
+
+    public static void main(String[] args) {
+        Singleton singleton = Singleton.getInstance();
+        singleton.doSomething();
+    }
+}
+```
+
+Explanation:
+
+- private static Singleton instance;: This declares a static variable instance of type Singleton. This variable will hold the single instance of the Singleton class. It's declared private to prevent direct access from outside the class and static so that it belongs to the class itself, not to any specific instance.
+- private Singleton(): This declares a private constructor. By making the constructor private, you prevent other classes from directly creating instances of the Singleton class using the new keyword. This ensures that the Singleton class controls the instantiation process.
+- public static Singleton getInstance(): This is a static method that provides a global point of access to the Singleton instance. It first checks if the instance variable is null. If it is, it means that no instance of the Singleton class has been created yet. In this case, it creates a new instance of the Singleton class and assigns it to the instance variable. If the instance variable is not null, it means that an instance of the Singleton class already exists, so it simply returns the existing instance.
+- public void doSomething(): This is a sample method that demonstrates how to use the Singleton instance. In this example, it simply prints a message to the console.
+- Singleton singleton = Singleton.getInstance();: This line retrieves the Singleton instance using the getInstance() method and assigns it to the singleton variable.
+- singleton.doSomething();: This line calls the doSomething() method on the Singleton instance.
+
+**Thread Safety**
+
+The above implementation is not thread-safe. In a multithreaded environment, multiple threads could simultaneously enter the if (instance == null) block and create multiple instances. To make it thread-safe, you can use synchronization:
+
+```java
+public class Singleton {
+
+    private static Singleton instance;
+
+    private Singleton() {
+    }
+
+    public static synchronized Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    public void doSomething() {
+        System.out.println("Singleton is doing something!");
+    }
+}
+```
+
+Explanation:
+
+- public static synchronized Singleton getInstance(): The synchronized keyword ensures that only one thread can execute this method at a time. This prevents multiple threads from creating multiple instances of the Singleton class simultaneously.
+
+However, synchronizing the entire method can impact performance. A more efficient approach is to use double-checked locking:
+
+```java
+public class Singleton {
+
+    private static volatile Singleton instance;
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            synchronized (Singleton.class) {
+                if (instance == null) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public void doSomething() {
+        System.out.println("Singleton is doing something!");
+    }
+}
+```
+
+Explanation:
+
+- private static volatile Singleton instance;: The volatile keyword ensures that changes to the instance variable are immediately visible to all threads. This is important because without volatile, a thread might see a partially constructed Singleton instance.
+- The outer if (instance == null) check reduces the overhead of synchronization by only entering the synchronized block if the instance is null.
+- The inner if (instance == null) check ensures that only one thread creates the instance.
+
+**Eager Initialization**
+
+Another approach is eager initialization, where the instance is created when the class is loaded:
+
+```java
+public class Singleton {
+
+    private static final Singleton instance = new Singleton();
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        return instance;
+    }
+
+    public void doSomething() {
+        System.out.println("Singleton is doing something!");
+    }
+}
+```
+
+Explanation:
+
+- private static final Singleton instance = new Singleton();: The instance is created when the class is loaded, so there's no need for synchronization.
+- This approach guarantees thread safety but might not be suitable if the instance is resource-intensive and not always needed.
+
+**Real-World Examples**
+
+- **Logger**: A logging system often uses a Singleton to ensure that all log messages are written to the same file or console.
+- **Configuration Manager**: A configuration manager can be implemented as a Singleton to provide a single point of access to application configuration settings.
+- **Database Connection Pool**: A database connection pool can be implemented as a Singleton to manage a single pool of database connections.
 
 #### <a name="chapter11part4.2"></a>Chapter 11 - Part 4.2: Factory Design Pattern
 
+The Factory pattern provides an interface for creating objects but lets subclasses decide which class to instantiate. It promotes loose coupling by decoupling the object creation logic from the client code.
+
+**Core Principles**
+
+- **Abstraction**: Defines an interface for creating objects.
+- **Delegation**: Subclasses decide which class to instantiate.
+- **Loose Coupling**: Decouples object creation from client code.
+
+**Types of Factory Patterns**
+
+- **Simple Factory**: A single class that creates objects based on input parameters.
+- **Factory Method**: Defines an interface for creating objects, but lets subclasses alter the type of objects that will be created.
+- **Abstract Factory**: Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+**Simple Factory**
+
+The Simple Factory is not strictly a design pattern, but it's a common way to encapsulate object creation logic.
+
+```java
+interface Animal {
+    void makeSound();
+}
+
+class Dog implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+class Cat implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+
+class AnimalFactory {
+    public static Animal createAnimal(String type) {
+        if ("dog".equalsIgnoreCase(type)) {
+            return new Dog();
+        } else if ("cat".equalsIgnoreCase(type)) {
+            return new Cat();
+        } else {
+            throw new IllegalArgumentException("Unknown animal type: " + type);
+        }
+    }
+
+    public static void main(String[] args) {
+        Animal dog = AnimalFactory.createAnimal("dog");
+        dog.makeSound(); // Output: Woof!
+
+        Animal cat = AnimalFactory.createAnimal("cat");
+        cat.makeSound(); // Output: Meow!
+    }
+}
+```
+
+Explanation:
+
+- Animal interface: Defines the common interface for all animal types.
+- Dog and Cat classes: Implement the Animal interface and provide their specific implementations of the makeSound() method.
+- AnimalFactory class: Contains the createAnimal() method, which takes a string representing the animal type as input and returns an instance of the corresponding animal class.
+
+**Factory Method**
+
+The Factory Method pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate.
+
+```java
+interface Animal {
+    void makeSound();
+}
+
+class Dog implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+class Cat implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+
+abstract class AnimalFactory {
+    public abstract Animal createAnimal();
+
+    public static void main(String[] args) {
+        AnimalFactory dogFactory = new DogFactory();
+        Animal dog = dogFactory.createAnimal();
+        dog.makeSound(); // Output: Woof!
+
+        AnimalFactory catFactory = new CatFactory();
+        Animal cat = catFactory.createAnimal();
+        cat.makeSound(); // Output: Meow!
+    }
+}
+
+class DogFactory extends AnimalFactory {
+    @Override
+    public Animal createAnimal() {
+        return new Dog();
+    }
+}
+
+class CatFactory extends AnimalFactory {
+    @Override
+    public Animal createAnimal() {
+        return new Cat();
+    }
+}
+```
+
+Explanation:
+
+- Animal interface: Defines the common interface for all animal types.
+- Dog and Cat classes: Implement the Animal interface and provide their specific implementations of the makeSound() method.
+- AnimalFactory abstract class: Defines the createAnimal() method, which is responsible for creating an instance of an Animal. The createAnimal() method is declared as abstract, which means that subclasses must provide their own implementation of this method.
+- DogFactory and CatFactory classes: Extend the AnimalFactory class and provide their specific implementations of the createAnimal() method. The DogFactory class creates an instance of the Dog class, and the CatFactory class creates an instance of the Cat class.
+
+**Abstract Factory**
+
+The Abstract Factory pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+```java
+interface Button {
+    void paint();
+}
+
+interface Checkbox {
+    void paint();
+}
+
+class WindowsButton implements Button {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a Windows button");
+    }
+}
+
+class MacOSButton implements Button {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a MacOS button");
+    }
+}
+
+class WindowsCheckbox implements Checkbox {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a Windows checkbox");
+    }
+}
+
+class MacOSCheckbox implements Checkbox {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a MacOS checkbox");
+    }
+}
+
+interface GUIFactory {
+    Button createButton();
+    Checkbox createCheckbox();
+}
+
+class WindowsFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new WindowsButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new WindowsCheckbox();
+    }
+}
+
+class MacOSFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new MacOSButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new MacOSCheckbox();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        GUIFactory factory = new WindowsFactory();
+        Button button = factory.createButton();
+        Checkbox checkbox = factory.createCheckbox();
+
+        button.paint();
+        checkbox.paint();
+    }
+}
+```
+
+Explanation:
+
+- Button and Checkbox interfaces: Define the common interfaces for all button and checkbox types.
+- WindowsButton, MacOSButton, WindowsCheckbox, and MacOSCheckbox classes: Implement the Button and Checkbox interfaces and provide their specific implementations of the paint() method.
+- GUIFactory interface: Defines the createButton() and createCheckbox() methods, which are responsible for creating instances of Button and Checkbox objects.
+- WindowsFactory and MacOSFactory classes: Implement the GUIFactory interface and provide their specific implementations of the createButton() and createCheckbox() methods. The WindowsFactory class creates instances of WindowsButton and WindowsCheckbox objects, and the MacOSFactory class creates instances of MacOSButton and MacOSCheckbox objects.
+
+**Real-World Examples**
+
+- **Document Processing**: A document processing application might use a Factory to create different types of documents (e.g., PDF, Word, HTML) based on user input.
+- **UI Frameworks**: UI frameworks often use Factories to create different types of UI elements (e.g., buttons, text fields, labels) based on the platform or theme.
+- **Database Access**: A database access library might use a Factory to create different types of database connections (e.g., MySQL, PostgreSQL, Oracle) based on the configuration settings.
+
 #### <a name="chapter11part5"></a>Chapter 11 - Part 5: Implementing the Strategy Design Pattern
+
+The Strategy design pattern is a behavioral design pattern that enables you to select an algorithm at runtime. It defines a family of algorithms, encapsulates each one, and makes them interchangeable. This allows the client to choose an algorithm from a family of algorithms without modifying its code. This pattern is particularly useful when you have multiple ways of performing a specific task and you want to be able to switch between them easily. It promotes flexibility, reusability, and maintainability in your code.
 
 #### <a name="chapter11part5.1"></a>Chapter 11 - Part 5.1: Core Concepts of the Strategy Pattern
 
+The Strategy pattern revolves around three key components:
+
+- **The Context**: This is the class that contains a reference to a Strategy object. It doesn't implement the algorithm directly but delegates it to the chosen Strategy. The Context is responsible for using the Strategy to perform the desired operation.
+- **The Strategy Interface**: This interface defines the contract that all concrete Strategy classes must implement. It typically contains a single method that performs the algorithm.
+- **Concrete Strategies**: These classes implement the Strategy interface and provide the specific implementations of the algorithm. Each Concrete Strategy represents a different way of performing the task.
+
+**Benefits of Using the Strategy Pattern**
+
+- **Flexibility**: You can easily switch between different algorithms at runtime without modifying the Context class.
+- **Open/Closed Principle**: You can add new algorithms without modifying the existing Context or Strategy classes. This adheres to the Open/Closed Principle, which states that software entities should be open for extension but closed for modification.
+- **Code Reusability**: The Concrete Strategy classes can be reused in other parts of the application.
+- **Improved Maintainability**: The code is more modular and easier to understand, making it easier to maintain.
+- **Reduced Conditional Statements**: The Strategy pattern can help to eliminate large conditional statements (e.g., if-else or switch statements) that select the appropriate algorithm.
+
+**Drawbacks of Using the Strategy Pattern**
+
+- **Increased Number of Classes**: The Strategy pattern can lead to an increased number of classes, especially if you have many different algorithms.
+- **Client Awareness**: The client needs to be aware of the different Strategies in order to choose the appropriate one. This can add complexity to the client code.
+- **Communication Overhead**: There might be a slight performance overhead due to the indirection of calling the algorithm through the Strategy interface.
+
 #### <a name="chapter11part5.2"></a>Chapter 11 - Part 5.2: Implementing the Strategy Pattern in Java
+
+Let's illustrate the Strategy pattern with a practical example. Consider a scenario where you need to implement different sorting algorithms.
+
+**Example: Sorting Algorithms**
+
+In this example, we'll create a Sorter class (the Context) that can use different sorting algorithms (the Strategies) to sort an array of integers.
+
+- **1. Define the Strategy Interface**
+
+First, we define the SortingStrategy interface:
+
+```java
+// SortingStrategy.java
+interface SortingStrategy {
+    int[] sort(int[] array);
+}
+```
+
+This interface declares a single method, sort, which takes an array of integers as input and returns the sorted array.
+
+- **2. Implement Concrete Strategies**
+
+Next, we implement two concrete strategies: BubbleSort and QuickSort.
+
+```java
+// BubbleSort.java
+class BubbleSort implements SortingStrategy {
+    @Override
+    public int[] sort(int[] array) {
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    // swap array[j+1] and array[j]
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+        return array;
+    }
+}
+
+// QuickSort.java
+class QuickSort implements SortingStrategy {
+    @Override
+    public int[] sort(int[] array) {
+        quickSort(array, 0, array.length - 1);
+        return array;
+    }
+
+    private void quickSort(int[] array, int low, int high) {
+        if (low < high) {
+            int pi = partition(array, low, high);
+
+            quickSort(array, low, pi - 1);
+            quickSort(array, pi + 1, high);
+        }
+    }
+
+    private int partition(int[] array, int low, int high) {
+        int pivot = array[high];
+        int i = (low - 1); // index of smaller element
+        for (int j = low; j < high; j++) {
+            // If current element is smaller than or
+            // equal to pivot
+            if (array[j] <= pivot) {
+                i++;
+
+                // swap array[i] and array[j]
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        // swap array[i+1] and array[high] (or pivot)
+        int temp = array[i + 1];
+        array[i + 1] = array[high];
+        array[high] = temp;
+
+        return i + 1;
+    }
+}
+```
+
+These classes provide the specific implementations of the Bubble Sort and Quick Sort algorithms.
+
+- **3. Define the Context Class**
+
+Now, we define the Sorter class, which is the Context:
+
+```java
+// Sorter.java
+class Sorter {
+    private SortingStrategy strategy;
+
+    public Sorter(SortingStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(SortingStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public int[] sortArray(int[] array) {
+        return strategy.sort(array);
+    }
+}
+```
+
+The Sorter class has a SortingStrategy field, which is set in the constructor. It also has a setStrategy method that allows you to change the sorting strategy at runtime. The sortArray method delegates the sorting to the chosen strategy.
+
+- **4. Using the Strategy Pattern**
+
+Finally, let's see how to use the Strategy pattern:
+
+```java
+// Main.java
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] array = {5, 2, 8, 1, 9, 4};
+
+        // Use Bubble Sort
+        Sorter sorter = new Sorter(new BubbleSort());
+        int[] sortedArrayBubble = sorter.sortArray(Arrays.copyOf(array, array.length)); // Create a copy to avoid modifying the original
+        System.out.println("Sorted array using Bubble Sort: " + Arrays.toString(sortedArrayBubble));
+
+        // Use Quick Sort
+        sorter.setStrategy(new QuickSort());
+        int[] sortedArrayQuick = sorter.sortArray(Arrays.copyOf(array, array.length)); // Create a copy to avoid modifying the original
+        System.out.println("Sorted array using Quick Sort: " + Arrays.toString(sortedArrayQuick));
+    }
+}
+```
+
+In this example, we first create a Sorter object with the BubbleSort strategy. Then, we sort the array using the sortArray method. After that, we change the strategy to QuickSort and sort the array again.
+
+**Hypothetical Scenario: Tax Calculation**
+
+Imagine a system that calculates taxes based on different regions or tax laws. The TaxCalculator class would be the Context, the TaxStrategy interface would define the calculateTax method, and concrete strategies like USTaxStrategy, EUTaxStrategy, and AsianTaxStrategy would implement the specific tax calculation logic for each region. This allows the system to easily adapt to different tax regulations without modifying the core TaxCalculator class.
 
 #### <a name="chapter11part6"></a>Chapter 11 - Part 6: Case Study: Designing a Flexible Payment Processing System
 
