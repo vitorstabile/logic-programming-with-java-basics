@@ -16396,9 +16396,7 @@ If the hashCode of two objects is different, then the two objects are many diffe
 
 If the code of two objects is the same, most likely the objects they are the same
 
-Advanced Object-Oriented Programming
-
-## <a name="chapter11"></a>Chapter 11: Understanding and Implementing Abstract Classes
+## <a name="chapter11"></a>Chapter 11: Advanced Object-Oriented Programming
 
 #### <a name="chapter11part1"></a>Chapter 11 - Part 1: Understanding and Implementing Abstract Classes
 
