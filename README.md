@@ -16400,37 +16400,1160 @@ If the code of two objects is the same, most likely the objects they are the sam
 
 #### <a name="chapter11part1"></a>Chapter 11 - Part 1: Understanding and Implementing Abstract Classes
 
+Abstract classes are a cornerstone of object-oriented programming in Java, providing a powerful mechanism for defining common interfaces and behaviors while enforcing specific implementation requirements on subclasses. They enable you to create flexible and extensible class hierarchies, promoting code reuse and maintainability. Understanding abstract classes is crucial for designing robust and well-structured applications.
+
 #### <a name="chapter11part1.1"></a>Chapter 11 - Part 1.1: Understanding Abstract Classes
+
+An abstract class is a class that cannot be instantiated directly. It serves as a blueprint for other classes, defining a common interface and potentially providing partial implementations. Abstract classes are declared using the abstract keyword.
+
+**Key Characteristics of Abstract Classes**
+
+- **Cannot be instantiated**: You cannot create an object directly from an abstract class using the new keyword.
+- **May contain abstract methods**: An abstract method is a method declared without an implementation. It's essentially a placeholder that must be implemented by any concrete (non-abstract) subclass.
+- **May contain concrete methods**: Abstract classes can also contain methods with full implementations, which subclasses can inherit and use directly.
+- **Must be extended**: To be used, an abstract class must be extended (subclassed) by another class.
+- **Abstract methods must be implemented**: Any concrete subclass must provide implementations for all abstract methods inherited from the abstract class. If a subclass doesn't implement all abstract methods, it must also be declared as abstract.
+
+**Abstract Methods**
+
+Abstract methods are declared using the abstract keyword and do not have a body (implementation). They end with a semicolon.
+
+```java
+public abstract class Shape {
+    public abstract double getArea(); // Abstract method
+}
+```
+
+In this example, getArea() is an abstract method. Any concrete class that extends Shape must provide an implementation for getArea().
+
+**Concrete Methods**
+
+Abstract classes can also contain concrete methods (methods with implementations). These methods are inherited by subclasses and can be used as is or overridden.
+
+```java
+public abstract class Shape {
+    public abstract double getArea();
+
+    public String getDescription() {
+        return "This is a shape.";
+    }
+}
+```
+
+In this example, getDescription() is a concrete method. Subclasses of Shape inherit this method and can use it directly or override it to provide a more specific description.
+
+**Why Use Abstract Classes?**
+
+- **Define a common interface**: Abstract classes allow you to define a common interface for a group of related classes. This ensures that all subclasses have certain methods, promoting consistency and predictability.
+- **Provide partial implementation**: Abstract classes can provide a partial implementation of the interface, reducing code duplication and simplifying the development of subclasses.
+- **Enforce implementation requirements**: By declaring abstract methods, abstract classes force subclasses to provide specific implementations, ensuring that certain functionality is always present.
+- **Achieve abstraction**: Abstract classes hide the implementation details of the subclasses from the client code. The client code only interacts with the abstract class, which provides a high-level view of the functionality.
 
 #### <a name="chapter11part1.2"></a>Chapter 11 - Part 1.2: Implementing Abstract Classes
 
+Let's illustrate the implementation of abstract classes with a practical example. Consider a scenario where you're designing a system for handling different types of media files.
+
+**Example: Media File Processing**
+
+```java
+// Abstract class representing a generic media file
+public abstract class MediaFile {
+    private String filename;
+    private String fileType;
+
+    public MediaFile(String filename, String fileType) {
+        this.filename = filename;
+        this.fileType = fileType;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    // Abstract method to process the media file
+    public abstract void processFile();
+
+    // Concrete method to display file information
+    public void displayInfo() {
+        System.out.println("Filename: " + filename);
+        System.out.println("File Type: " + fileType);
+    }
+}
+
+// Concrete class representing an image file
+public class ImageFile extends MediaFile {
+    private int width;
+    private int height;
+
+    public ImageFile(String filename, int width, int height) {
+        super(filename, "image");
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public void processFile() {
+        System.out.println("Processing image file: " + getFilename());
+        System.out.println("Resizing image to " + width + "x" + height);
+        // Image processing logic here
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Width: " + width);
+        System.out.println("Height: " + height);
+    }
+}
+
+// Concrete class representing a video file
+public class VideoFile extends MediaFile {
+    private int duration;
+    private int frameRate;
+
+    public VideoFile(String filename, int duration, int frameRate) {
+        super(filename, "video");
+        this.duration = duration;
+        this.frameRate = frameRate;
+    }
+
+    @Override
+    public void processFile() {
+        System.out.println("Processing video file: " + getFilename());
+        System.out.println("Duration: " + duration + " seconds");
+        System.out.println("Frame Rate: " + frameRate + " fps");
+        // Video processing logic here
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Cannot instantiate MediaFile directly
+        // MediaFile file = new MediaFile("generic.media", "media"); // This will cause a compilation error
+
+        ImageFile image = new ImageFile("image.jpg", 800, 600);
+        VideoFile video = new VideoFile("video.mp4", 120, 30);
+
+        image.displayInfo();
+        image.processFile();
+
+        video.displayInfo();
+        video.processFile();
+    }
+}
+```
+
+In this example:
+
+- MediaFile is an abstract class that defines the common properties and behavior for all media files.
+- processFile() is an abstract method that must be implemented by subclasses.
+- displayInfo() is a concrete method that provides a default implementation for displaying file information.
+- ImageFile and VideoFile are concrete classes that extend MediaFile and provide specific implementations for processFile().
+- The Main class demonstrates how to create and use instances of the concrete classes.
+
+**Extending Abstract Classes**
+
+When extending an abstract class, you must provide implementations for all abstract methods. If you don't, the subclass must also be declared as abstract.
+
+```java
+public abstract class AbstractClass {
+    public abstract void abstractMethod1();
+    public abstract int abstractMethod2(int x);
+
+    public void concreteMethod() {
+        System.out.println("Concrete method in AbstractClass");
+    }
+}
+
+// Concrete subclass implementing all abstract methods
+public class ConcreteClass extends AbstractClass {
+    @Override
+    public void abstractMethod1() {
+        System.out.println("Implementation of abstractMethod1");
+    }
+
+    @Override
+    public int abstractMethod2(int x) {
+        System.out.println("Implementation of abstractMethod2");
+        return x * 2;
+    }
+}
+
+// Abstract subclass - doesn't implement all abstract methods
+public abstract class AnotherAbstractClass extends AbstractClass {
+    @Override
+    public void abstractMethod1() {
+        System.out.println("Partial implementation of abstractMethod1");
+    }
+
+    // abstractMethod2 is not implemented, so this class must be abstract
+}
+```
+
+**Abstract Classes and Constructors**
+
+Abstract classes can have constructors. However, since you cannot instantiate an abstract class directly, the constructor is only called when a subclass is instantiated. The constructor is used to initialize the state of the abstract class.
+
+```java
+public abstract class BaseClass {
+    private String name;
+
+    public BaseClass(String name) {
+        this.name = name;
+        System.out.println("BaseClass constructor called with name: " + name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public abstract void display();
+}
+
+public class DerivedClass extends BaseClass {
+    public DerivedClass(String name) {
+        super(name); // Calling the constructor of the BaseClass
+        System.out.println("DerivedClass constructor called");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("Name: " + getName());
+    }
+
+    public static void main(String[] args) {
+        DerivedClass derived = new DerivedClass("Test");
+        derived.display();
+    }
+}
+```
+
+In this example, when you create an instance of DerivedClass, the constructor of BaseClass is called first, initializing the name field.
+
 #### <a name="chapter11part1.3"></a>Chapter 11 - Part 1.3: Abstract Classes vs. Interfaces
+
+Abstract classes and interfaces are both used to define abstract types in Java, but they have some key differences.
+
+|Feature|	Abstract Class|	Interface|
+| :-----------: | :-----------: | :-----------: |
+|Instantiation|	Cannot be instantiated	|Cannot be instantiated|
+|Methods	|Can have abstract and concrete methods	|Can only have abstract methods (before Java 8)|
+|Multiple Inheritance	|Not supported|	Supported|
+|Fields	|Can have instance variables|	Can only have constants (final static)|
+|Constructor	|Can have constructors	|Cannot have constructors|
+|default methods	|Not applicable	|Supported (from Java 8)|
+|static methods	|Supported	|Supported (from Java 8)|
+
+**When to Use Abstract Classes**
+
+- When you want to define a common interface and provide a partial implementation.
+- When you want to enforce implementation requirements on subclasses.
+- When you need to have instance variables in the base class.
+- When you want to provide a common constructor for subclasses.
+
+**When to Use Interfaces**
+
+- When you want to define a contract for a class, specifying what methods it must implement.
+- When you want to achieve multiple inheritance.
+- When you only need to define constants and method signatures.
+- When you want to decouple the implementation from the interface.
 
 #### <a name="chapter11part2"></a>Chapter 11 - Part 2: Mastering Interfaces and Multiple Inheritance
 
+Interfaces are a cornerstone of object-oriented programming in Java, providing a powerful mechanism for abstraction and achieving a form of multiple inheritance. While Java doesn't support multiple inheritance of implementation, interfaces allow a class to implement multiple interfaces, inheriting multiple types. This capability is crucial for designing flexible, extensible, and maintainable software systems. Understanding interfaces and their proper usage is essential for any intermediate Java developer.
+
 #### <a name="chapter11part2.1"></a>Chapter 11 - Part 2.1: Understanding Interfaces
+
+An interface in Java is a blueprint of a class. It has static constants and abstract methods. The interface in Java is a mechanism to achieve abstraction. There can be only abstract methods in the Java interface, not method body. It is used to achieve abstraction and multiple inheritance in Java.
+
+**Defining Interfaces**
+
+An interface is declared using the ```interface``` keyword. All methods in an interface are implicitly ```public``` and ```abstract``` (before Java 8). Fields declared in an interface are implicitly ```public```, ```static```, and ```final```.
+
+```java
+interface MyInterface {
+    // Implicitly public, static, and final
+    int MY_CONSTANT = 10;
+
+    // Implicitly public and abstract
+    void myMethod();
+
+    String anotherMethod(int value);
+}
+```
+
+**Implementing Interfaces**
+
+A class implements an interface using the implements keyword. A class that implements an interface must provide concrete implementations for all the methods declared in the interface, unless the class is abstract.
+
+```java
+class MyClass implements MyInterface {
+    @Override
+    public void myMethod() {
+        System.out.println("Implementation of myMethod");
+    }
+
+    @Override
+    public String anotherMethod(int value) {
+        return "Implementation of anotherMethod with value: " + value;
+    }
+}
+```
+
+**Multiple Inheritance with Interfaces**
+
+Java does not allow a class to inherit from multiple classes (multiple inheritance of implementation). However, a class can implement multiple interfaces, achieving a form of multiple inheritance of type. This means a class can inherit multiple type definitions.
+
+```java
+interface InterfaceA {
+    void methodA();
+}
+
+interface InterfaceB {
+    void methodB();
+}
+
+class MyClass implements InterfaceA, InterfaceB {
+    @Override
+    public void methodA() {
+        System.out.println("Implementation of methodA");
+    }
+
+    @Override
+    public void methodB() {
+        System.out.println("Implementation of methodB");
+    }
+}
+```
+
+In this example, MyClass implements both InterfaceA and InterfaceB, effectively inheriting the method signatures from both.
 
 #### <a name="chapter11part2.2"></a>Chapter 11 - Part 2.2: Default Methods in Interfaces (Java 8+)
 
+Java 8 introduced default methods in interfaces. Default methods provide a default implementation for a method in an interface. This allows you to add new methods to an interface without breaking existing classes that implement the interface.
+
+```java
+interface MyInterface {
+    void myMethod();
+
+    default void defaultMethod() {
+        System.out.println("Default implementation of defaultMethod");
+    }
+}
+
+class MyClass implements MyInterface {
+    @Override
+    public void myMethod() {
+        System.out.println("Implementation of myMethod");
+    }
+    // Optionally override defaultMethod
+}
+
+class AnotherClass implements MyInterface {
+    @Override
+    public void myMethod() {
+        System.out.println("Implementation of myMethod in AnotherClass");
+    }
+
+    @Override
+    public void defaultMethod() {
+        System.out.println("Overridden implementation of defaultMethod in AnotherClass");
+    }
+}
+```
+
+In this example, MyClass inherits the default implementation of defaultMethod, while AnotherClass overrides it with its own implementation.
+
 #### <a name="chapter11part2.3"></a>Chapter 11 - Part 2.3: Static Methods in Interfaces (Java 8+)
+
+Java 8 also introduced static methods in interfaces. Static methods in interfaces are similar to static methods in classes. They are associated with the interface itself and can be called using the interface name.
+
+```java
+interface MyInterface {
+    void myMethod();
+
+    static void staticMethod() {
+        System.out.println("Static method in MyInterface");
+    }
+}
+
+public class InterfaceStaticMethodExample {
+    public static void main(String[] args) {
+        MyInterface.staticMethod(); // Calling the static method
+    }
+}
+```
 
 #### <a name="chapter11part2.4"></a>Chapter 11 - Part 2.4: Functional Interfaces (Java 8+)
 
+A functional interface is an interface that contains only one abstract method. They are also known as Single Abstract Method (SAM) interfaces. Functional interfaces can have any number of default or static methods. Functional interfaces are used extensively with lambda expressions and method references.
+
+```java
+@FunctionalInterface
+interface MyFunctionalInterface {
+    int myMethod(int a, int b);
+}
+
+public class FunctionalInterfaceExample {
+    public static void main(String[] args) {
+        // Using lambda expression to implement the functional interface
+        MyFunctionalInterface adder = (a, b) -> a + b;
+        System.out.println("Result: " + adder.myMethod(5, 3)); // Output: Result: 8
+    }
+}
+```
+
+The @FunctionalInterface annotation is optional but recommended. It instructs the compiler to enforce that the interface has only one abstract method.
+
 #### <a name="chapter11part2.5"></a>Chapter 11 - Part 2.5: Comparable Interfaces
+
+The Comparable interface in Java is used to define a natural ordering for objects of a class. By implementing this interface, you enable instances of your class to be compared with each other, which is essential for sorting and searching algorithms.
+
+**Key Concepts**
+
+- **Natural Ordering**: The Comparable interface defines the natural ordering of objects. This means it specifies how objects of a class are typically sorted.
+
+- **compareTo() Method**: The interface includes a single method, compareTo(Object o), which you must implement. This method compares the current object with the specified object and returns:
+  - A negative integer if the current object is less than the specified object.
+  - Zero if the current object is equal to the specified object.
+  - A positive integer if the current object is greater than the specified object.
+ 
+- **Single Implementation**: A class can implement only one Comparable interface because it defines the natural order.
+
+**Implementing the Comparable Interface**
+
+**Implementing the Comparable Interface**
+
+- **Declare the Implementation**: Modify your class declaration to include implements Comparable<YourClass>.
+
+- **Implement the compareTo() Method**: Provide an implementation for the compareTo() method that compares the current object with another object of the same class.
+
+```java
+public class Student implements Comparable<Student> {
+    private String name;
+    private int age;
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        // Compare based on age
+        return Integer.compare(this.age, other.age);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+               "name='" + name + '\'' +
+               ", age=" + age +
+               '}';
+    }
+
+    public static void main(String[] args) {
+        Student student1 = new Student("Alice", 20);
+        Student student2 = new Student("Bob", 22);
+        Student student3 = new Student("Charlie", 20);
+
+        System.out.println("Comparing Alice and Bob: " + student1.compareTo(student2)); // Output: Negative
+        System.out.println("Comparing Bob and Alice: " + student2.compareTo(student1)); // Output: Positive
+        System.out.println("Comparing Alice and Charlie: " + student1.compareTo(student3)); // Output: Zero
+    }
+}
+```
+
+In this example:
+
+- The Student class implements Comparable<Student>.
+- The compareTo() method compares Student objects based on their age.
+
+**Using Comparable for Sorting**
+
+Once a class implements Comparable, you can use it to sort collections of objects using methods like Collections.sort() or Arrays.sort().
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ComparableExample {
+
+    public static void main(String[] args) {
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Alice", 20));
+        students.add(new Student("Bob", 22));
+        students.add(new Student("Charlie", 20));
+        students.add(new Student("David", 18));
+
+        System.out.println("Before sorting: " + students);
+
+        Collections.sort(students);
+
+        System.out.println("After sorting: " + students);
+    }
+}
+```
+
+**Best Practices and Considerations**
+
+- **Consistency with equals()**: Ensure that your compareTo() method is consistent with your equals() method. If a.equals(b) is true, then a.compareTo(b) should return 0.
+- **Immutability**: If possible, make the fields used in the compareTo() method immutable to avoid unexpected behavior when the object's state changes after being used in a sorted collection.
+- **Null Handling**: Be careful when handling null values in the compareTo() method. A common approach is to throw a NullPointerException or treat null as either the smallest or largest possible value.
+
+**Use Cases**
+
+- **Sorting**: Sorting collections of custom objects based on a specific attribute.
+- **Searching**: Implementing binary search on collections of custom objects.
+- **Data Structures**: Using custom objects in sorted data structures like TreeSet and TreeMap.
 
 #### <a name="chapter11part2.6"></a>Chapter 11 - Part 2.6: Resolving Conflicts in Multiple Inheritance
 
+When a class implements multiple interfaces that have methods with the same signature, conflicts can arise. Java provides mechanisms to resolve these conflicts.
+
+**The Diamond Problem**
+
+The "diamond problem" is a common issue in multiple inheritance scenarios. It occurs when a class inherits from two interfaces that both inherit from a common interface, and both interfaces provide a default implementation for a method defined in the common interface.
+
+```java
+interface Animal {
+    default String makeSound() {
+        return "Generic animal sound";
+    }
+}
+
+interface Mammal extends Animal {
+    @Override
+    default String makeSound() {
+        return "Mammal sound";
+    }
+}
+
+interface Bird extends Animal {
+    @Override
+    default String makeSound() {
+        return "Bird sound";
+    }
+}
+
+class Bat implements Mammal, Bird {
+    // Need to override makeSound() to resolve the conflict
+    @Override
+    public String makeSound() {
+        return Mammal.super.makeSound(); // Or Bird.super.makeSound(); or a custom implementation
+    }
+}
+```
+
+In this example, Bat inherits two different implementations of makeSound() from Mammal and Bird. To resolve this conflict, Bat must override the makeSound() method and explicitly choose which implementation to use or provide its own.
+
+**Resolving Conflicts with super**
+
+When a class implements multiple interfaces with conflicting default methods, you can use the super keyword to specify which interface's default implementation to use.
+
+```java
+interface InterfaceA {
+    default void myMethod() {
+        System.out.println("InterfaceA's myMethod");
+    }
+}
+
+interface InterfaceB {
+    default void myMethod() {
+        System.out.println("InterfaceB's myMethod");
+    }
+}
+
+class MyClass implements InterfaceA, InterfaceB {
+    @Override
+    public void myMethod() {
+        InterfaceA.super.myMethod(); // Call InterfaceA's implementation
+        InterfaceB.super.myMethod(); // Call InterfaceB's implementation
+        System.out.println("MyClass's myMethod"); // Custom implementation
+    }
+}
+
+public class ConflictResolutionExample {
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.myMethod();
+    }
+}
+```
+
+In this example, MyClass implements both InterfaceA and InterfaceB, which both have a default method myMethod(). The MyClass overrides myMethod() and uses InterfaceA.super.myMethod() and InterfaceB.super.myMethod() to call the default implementations from both interfaces.
+
 #### <a name="chapter11part2.7"></a>Chapter 11 - Part 2.7: Practical Examples and Demonstrations
+
+**Example 1: Implementing Multiple Interfaces**
+
+Consider a scenario where you have different types of devices, such as printers and scanners. You can define interfaces for each functionality and then have a class implement multiple interfaces to provide combined functionality.
+
+```java
+interface Printable {
+    void print(String content);
+}
+
+interface Scannable {
+    String scan();
+}
+
+class MultiFunctionDevice implements Printable, Scannable {
+    @Override
+    public void print(String content) {
+        System.out.println("Printing: " + content);
+    }
+
+    @Override
+    public String scan() {
+        return "Scanned content";
+    }
+}
+```
+
+**Example 2: Using Default Methods for Extensibility**
+
+Suppose you have an existing Shape interface and you want to add a new method to calculate the area. You can use a default method to provide a default implementation without forcing all implementing classes to change.
+
+```java
+interface Shape {
+    double getArea();
+    double getPerimeter();
+
+    default String getDescription() {
+        return "This is a shape.";
+    }
+}
+
+class Circle implements Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+class Rectangle implements Shape {
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    @Override
+    public double getArea() {
+        return length * width;
+    }
+
+     @Override
+    public double getPerimeter() {
+        return 2 * (length + width);
+    }
+}
+```
+
+**Example 3: Functional Interfaces and Lambda Expressions**
+
+Functional interfaces are commonly used with lambda expressions to create concise and readable code.
+
+```java
+interface Calculator {
+    int operate(int a, int b);
+}
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        Calculator addition = (a, b) -> a + b;
+        Calculator subtraction = (a, b) -> a - b;
+
+        System.out.println("Addition: " + addition.operate(5, 3)); // Output: Addition: 8
+        System.out.println("Subtraction: " + subtraction.operate(5, 3)); // Output: Subtraction: 2
+    }
+}
+```
 
 #### <a name="chapter11part3"></a>Chapter 11 - Part 3: Deep Dive into Polymorphism and Dynamic Binding
 
+Polymorphism and dynamic binding are fundamental concepts in object-oriented programming, enabling flexibility and extensibility in software design. Polymorphism, meaning "many forms," allows objects of different classes to be treated as objects of a common type. Dynamic binding, also known as late binding, determines the specific method to be executed at runtime, based on the actual object type. Understanding these concepts is crucial for writing maintainable, scalable, and robust Java applications. This lesson will delve into the intricacies of polymorphism and dynamic binding, exploring their mechanisms and practical applications.
+
 #### <a name="chapter11part3.1"></a>Chapter 11 - Part 3.1: Understanding Polymorphism
+
+Polymorphism is the ability of an object to take on many forms. In Java, this is primarily achieved through inheritance and interfaces. There are two main types of polymorphism: compile-time polymorphism (also known as static polymorphism or method overloading) and runtime polymorphism (also known as dynamic polymorphism or method overriding).
+
+**Compile-Time Polymorphism (Method Overloading)**
+
+Compile-time polymorphism is achieved through method overloading. Method overloading allows a class to have multiple methods with the same name but different parameters (different number of parameters, different types of parameters, or different order of parameters). The compiler determines which method to call based on the arguments passed during the method call.
+
+```java
+class Calculator {
+    // Method to add two integers
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // Method to add three integers
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Method to add two doubles
+    public double add(double a, double b) {
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+        System.out.println(calculator.add(2, 3));       // Output: 5
+        System.out.println(calculator.add(2, 3, 4));    // Output: 9
+        System.out.println(calculator.add(2.5, 3.5));   // Output: 6.0
+    }
+}
+```
+
+In this example, the Calculator class has three add methods with different parameter lists. The compiler determines which add method to call based on the arguments passed in the main method. This is resolved at compile time, hence the name compile-time polymorphism.
+
+**Runtime Polymorphism (Method Overriding)**
+
+Runtime polymorphism is achieved through method overriding. Method overriding occurs when a subclass provides a specific implementation for a method that is already defined in its superclass. The method in the subclass must have the same name, return type, and parameter list as the method in the superclass. The specific method to be executed is determined at runtime based on the actual object type.
+
+```java
+class Animal {
+    public void makeSound() {
+        System.out.println("Generic animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal1 = new Animal();
+        Animal animal2 = new Dog();
+        Animal animal3 = new Cat();
+
+        animal1.makeSound(); // Output: Generic animal sound
+        animal2.makeSound(); // Output: Woof!
+        animal3.makeSound(); // Output: Meow!
+    }
+}
+```
+
+In this example, the Dog and Cat classes override the makeSound method of the Animal class. When makeSound is called on animal2 (which is a Dog object) and animal3 (which is a Cat object), the overridden methods in the respective subclasses are executed. This is determined at runtime, hence the name runtime polymorphism. The @Override annotation is optional but highly recommended as it instructs the compiler to verify that the method is indeed overriding a method from the superclass, preventing potential errors.
 
 #### <a name="chapter11part3.2"></a>Chapter 11 - Part 3.2: Dynamic Binding (Late Binding)
 
+Dynamic binding, also known as late binding, is the process of determining which method implementation to execute at runtime. This is a key aspect of runtime polymorphism. In Java, dynamic binding is primarily used when calling overridden methods.
+
+When a method is called on an object, the Java Virtual Machine (JVM) determines the actual type of the object at runtime and then searches for the appropriate method to execute. If the method is overridden in a subclass, the JVM will execute the overridden method in the subclass. If the method is not overridden, the JVM will execute the method in the superclass.
+
+Consider the previous Animal, Dog, and Cat example. When animal2.makeSound() is called, the JVM determines that animal2 is actually a Dog object at runtime. It then searches for the makeSound method in the Dog class and executes it. This dynamic determination of the method to be executed is dynamic binding.
+
+**How Dynamic Binding Works**
+
+- **Object Creation**: An object is created, and its type is determined at compile time based on the class used to instantiate it.
+- **Method Call**: A method is called on the object through a reference variable.
+- **Runtime Type Determination**: At runtime, the JVM determines the actual type of the object that the reference variable is pointing to.
+- **Method Lookup**: The JVM searches for the method to be executed, starting from the object's actual class and moving up the inheritance hierarchy until the method is found.
+- **Method Execution**: The JVM executes the method that was found.
+
+**Importance of Dynamic Binding**
+
+Dynamic binding is crucial for achieving flexibility and extensibility in object-oriented programming. It allows you to write code that can work with objects of different types without knowing their specific types at compile time. This makes it easier to add new classes and functionality to your application without modifying existing code.
+
 #### <a name="chapter11part3.3"></a>Chapter 11 - Part 3.3: Dependency Injection and How to Implement
 
+Dependency Injection is a design pattern that promotes loose coupling between classes. Instead of a class creating its dependencies, the dependencies are "injected" into the class from an external source. This makes the class more reusable, testable, and maintainable.
+
+**Key Concepts**
+
+- **Dependency**: A dependency is an object that another object (the client) uses.
+- **Injection**: The act of providing the dependencies to the client.
+- **Injector**: An external entity (framework or container) responsible for creating and injecting the dependencies.
+
+**How it Works**
+
+- **Identify Dependencies**: Determine what objects a class needs to function.
+- **Declare Dependencies**: Instead of creating the dependencies within the class, declare them as constructor parameters, setter methods, or interface injections.
+- **Injection**: An external injector (like a DI framework or a manual factory) creates the dependency objects and provides them to the class.
+
+**Types of Dependency Injection**
+
+- **Constructor Injection**: Dependencies are provided through the class constructor. This is generally the preferred method as it ensures that the class always has its required dependencies.
+- **Setter Injection**: Dependencies are provided through setter methods. This allows for optional dependencies.
+- **Interface Injection**: The class implements an interface that provides a method for setting the dependency. This is less common.
+
+**Benefits of Dependency Injection**
+
+- **Loose Coupling**: Classes are less dependent on concrete implementations, making the system more flexible.
+- **Increased Reusability**: Classes can be easily reused in different contexts with different dependencies.
+- **Improved Testability**: Dependencies can be easily mocked or stubbed for unit testing.
+- **Enhanced Maintainability**: Changes to dependencies have less impact on the dependent classes.
+
+**Example (Constructor Injection):**
+
+```java
+// Interface representing the dependency
+interface MessageService {
+    void sendMessage(String message);
+}
+
+// Concrete implementation of the dependency
+class EmailService implements MessageService {
+    @Override
+    public void sendMessage(String message) {
+        System.out.println("Sending email: " + message);
+    }
+}
+
+// Client class that depends on MessageService
+class NotificationService {
+    private final MessageService messageService;
+
+    // Constructor injection
+    public NotificationService(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+    public void sendNotification(String message) {
+        messageService.sendMessage(message);
+    }
+}
+
+// Main class to demonstrate Dependency Injection
+public class Main {
+    public static void main(String[] args) {
+        // Create the dependency
+        MessageService emailService = new EmailService();
+
+        // Inject the dependency into the client
+        NotificationService notificationService = new NotificationService(emailService);
+
+        // Use the client
+        notificationService.sendNotification("Hello, world!");
+    }
+}
+```
+
+In this example, NotificationService doesn't create EmailService itself. Instead, it receives an instance of MessageService through its constructor. This allows you to easily switch to a different message service (e.g., SMSService) without modifying NotificationService.
+
+
+**Setter Injection Example**
+
+```java
+// Interface representing the dependency
+interface Logger {
+    void log(String message);
+}
+
+// Concrete implementation of the dependency
+class FileLogger implements Logger {
+    @Override
+    public void log(String message) {
+        System.out.println("Logging to file: " + message);
+    }
+}
+
+// Client class that depends on Logger
+class Application {
+    private Logger logger;
+
+    // Setter injection
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public void run() {
+        if (logger != null) {
+            logger.log("Application started");
+        } else {
+            System.out.println("Logger not set. Running without logging.");
+        }
+        // Application logic here
+    }
+}
+
+// Main class to demonstrate Setter Injection
+public class Main {
+    public static void main(String[] args) {
+        // Create the dependency
+        Logger fileLogger = new FileLogger();
+
+        // Create the client
+        Application application = new Application();
+
+        // Inject the dependency using the setter method
+        application.setLogger(fileLogger);
+
+        // Run the application
+        application.run();
+    }
+}
+```
+
+In this example:
+
+- The Application class depends on the Logger interface.
+- The setLogger method is used to inject the Logger dependency.
+- The Main class creates an instance of FileLogger and injects it into the Application instance using the setter method.
+- Setter injection is useful when a dependency is optional. The application can still run even if the logger is not set.
+
+**Interface Injection Example**
+
+```java
+// Interface representing the dependency injector
+interface LoggerInjector {
+    void setLogger(Logger logger);
+}
+
+// Interface representing the dependency
+interface Logger {
+    void log(String message);
+}
+
+// Concrete implementation of the dependency
+class ConsoleLogger implements Logger {
+    @Override
+    public void log(String message) {
+        System.out.println("Logging to console: " + message);
+    }
+}
+
+// Client class that depends on Logger and implements LoggerInjector
+class Service implements LoggerInjector {
+    private Logger logger;
+
+    @Override
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public void doSomething() {
+        if (logger != null) {
+            logger.log("Service is doing something");
+        } else {
+            System.out.println("Logger not set. Cannot log.");
+        }
+    }
+}
+
+// Main class to demonstrate Interface Injection
+public class Main {
+    public static void main(String[] args) {
+        // Create the dependency
+        Logger consoleLogger = new ConsoleLogger();
+
+        // Create the client
+        Service service = new Service();
+
+        // Inject the dependency by calling the setLogger method
+        service.setLogger(consoleLogger);
+
+        // Use the service
+        service.doSomething();
+    }
+}
+```
+
+In this example:
+
+- The LoggerInjector interface defines the setLogger method, which is used to inject the Logger dependency.
+- The Service class implements the LoggerInjector interface and provides an implementation for the setLogger method.
+- The Main class creates an instance of ConsoleLogger and injects it into the Service instance by calling the setLogger method.
+- Interface injection is less common than constructor or setter injection. It requires the client class to implement a specific interface for dependency injection.
+
+**DI Frameworks**
+
+Popular Java DI frameworks include:
+
+- Spring: A comprehensive framework with a powerful DI container.
+- Guice: A lightweight and fast DI framework from Google.
+- CDI (Contexts and Dependency Injection): A standard DI framework for Java EE applications.
+
 #### <a name="chapter11part3.4"></a>Chapter 11 - Part 3.4: Practical Examples and Demonstrations
+
+**Example 1: Shape Hierarchy**
+
+Consider a scenario where you have a hierarchy of shapes, including Circle, Rectangle, and Triangle. Each shape has a method called draw that draws the shape on the screen.
+
+```java
+class Shape {
+    public void draw() {
+        System.out.println("Drawing a generic shape");
+    }
+}
+
+class Circle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a circle");
+    }
+}
+
+class Rectangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a rectangle");
+    }
+}
+
+class Triangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a triangle");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape[] shapes = new Shape[3];
+        shapes[0] = new Circle();
+        shapes[1] = new Rectangle();
+        shapes[2] = new Triangle();
+
+        for (Shape shape : shapes) {
+            shape.draw();
+        }
+    }
+}
+```
+
+In this example, the draw method is overridden in each subclass to provide a specific implementation for drawing that shape. The main method creates an array of Shape objects, each pointing to a different type of shape. When the draw method is called on each element in the array, the JVM dynamically determines the actual type of the object and executes the appropriate draw method.
+
+**Example 2: Payment Processing System**
+
+Building upon the "Flexible Payment Processing System" case study introduced in previous lessons, let's see how polymorphism and dynamic binding can be applied. Assume we have a PaymentProcessor class that processes payments using different payment methods.
+
+```java
+class PaymentMethod {
+    public void processPayment(double amount) {
+        System.out.println("Processing payment of $" + amount + " using a generic payment method");
+    }
+}
+
+class CreditCardPayment extends PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing credit card payment of $" + amount);
+    }
+}
+
+class PayPalPayment extends PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing PayPal payment of $" + amount);
+    }
+}
+
+class PaymentProcessor {
+    public void process(PaymentMethod paymentMethod, double amount) {
+        paymentMethod.processPayment(amount);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        PaymentProcessor paymentProcessor = new PaymentProcessor();
+        PaymentMethod creditCard = new CreditCardPayment();
+        PaymentMethod paypal = new PayPalPayment();
+
+        paymentProcessor.process(creditCard, 100.0); // Output: Processing credit card payment of $100.0
+        paymentProcessor.process(paypal, 50.0);    // Output: Processing PayPal payment of $50.0
+    }
+}
+```
+
+In this example, the PaymentProcessor class takes a PaymentMethod object as a parameter and calls its processPayment method. The specific implementation of processPayment that is executed depends on the actual type of the PaymentMethod object passed to the process method. This demonstrates how polymorphism and dynamic binding can be used to create a flexible and extensible payment processing system.
+
+**Example 3: Employee Salary Calculation**
+
+Consider a system for calculating employee salaries, where different types of employees (e.g., salaried, hourly) have different calculation methods.
+
+```java
+class Employee {
+    public double calculateSalary() {
+        return 0.0; // Default salary calculation
+    }
+}
+
+class SalariedEmployee extends Employee {
+    private double monthlySalary;
+
+    public SalariedEmployee(double monthlySalary) {
+        this.monthlySalary = monthlySalary;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return monthlySalary;
+    }
+}
+
+class HourlyEmployee extends Employee {
+    private double hourlyRate;
+    private double hoursWorked;
+
+    public HourlyEmployee(double hourlyRate, double hoursWorked) {
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return hourlyRate * hoursWorked;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Employee salariedEmployee = new SalariedEmployee(5000.0);
+        Employee hourlyEmployee = new HourlyEmployee(20.0, 160.0);
+
+        System.out.println("Salaried Employee Salary: $" + salariedEmployee.calculateSalary()); // Output: Salaried Employee Salary: $5000.0
+        System.out.println("Hourly Employee Salary: $" + hourlyEmployee.calculateSalary());   // Output: Hourly Employee Salary: $3200.0
+    }
+}
+```
+
+Here, calculateSalary is overridden in SalariedEmployee and HourlyEmployee to provide specific salary calculations. Dynamic binding ensures the correct calculation is performed based on the actual employee type.
 
 #### <a name="chapter11part4"></a>Chapter 11 - Part 4: Exploring Design Patterns: Singleton and Factory
 
