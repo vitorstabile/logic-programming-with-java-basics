@@ -307,10 +307,39 @@
       - [Chapter 11 - Part 6.4: Design Patterns: Strategy Pattern](#chapter11part6.4)
       - [Chapter 11 - Part 6.5: Handling Different Currencies](#chapter11part6.5)
       - [Chapter 11 - Part 6.6: Handling Regional Regulations](#chapter11part6.6)
-12. [Chapter 12: Collections](#chapter12)
-    - [Chapter 12 - Part 1: ArrayList](#chapter12part1)
-    - [Chapter 12 - Part 2: HashMap](#chapter12part2)
-    - [Chapter 12 - Part 3: HashSet](#chapter12part3)
+12. [Chapter 12: Collections Framework and Data Structures](#chapter12)
+    - [Chapter 12 - Part 1: Working with Lists: ArrayList vs. LinkedList Performance](#chapter12part1)
+      - [Chapter 12 - Part 1.1: ArrayList Internals and Performance](#chapter12part1.1)
+      - [Chapter 12 - Part 1.2: LinkedList Internals and Performance](#chapter12part1.2)
+      - [Chapter 12 - Part 1.3: Performance Comparison: ArrayList vs. LinkedList](#chapter12part1.3)
+    - [Chapter 12 - Part 2: Understanding Sets: HashSet, TreeSet, and LinkedHashSet](#chapter12part2)
+      - [Chapter 12 - Part 2.1: Understanding the Set Interface](#chapter12part2.1)
+      - [Chapter 12 - Part 2.2: HashSet: The Unordered Champion](#chapter12part2.2)
+      - [Chapter 12 - Part 2.3: TreeSet: The Sorted Set](#chapter12part2.3)
+      - [Chapter 12 - Part 2.4: LinkedHashSet: The Ordered Set](#chapter12part2.4)
+      - [Chapter 12 - Part 2.5: Performance Comparison](#chapter12part2.5)
+      - [Chapter 12 - Part 2.6: Choosing the Right Set Implementation](#chapter12part2.6)
+    - [Chapter 12 - Part 3: Mastering Maps: HashMap, TreeMap, and LinkedHashMap](#chapter12part3)
+      - [Chapter 12 - Part 3.1: Understanding the Map Interface](#chapter12part3.1)
+      - [Chapter 12 - Part 3.2: HashMap: The Unordered Champion](#chapter12part3.2)
+      - [Chapter 12 - Part 3.3: TreeMap: The Sorted Map](#chapter12part3.3)
+      - [Chapter 12 - Part 3.4: LinkedHashMap: The Ordered HashMap](#chapter12part3.4)
+      - [Chapter 12 - Part 3.5: Choosing the Right Map Implementation](#chapter12part3.5)
+    - [Chapter 12 - Part 4: Implementing Custom Data Structures: Linked List](#chapter12part4)
+      - [Chapter 12 - Part 4.1: Understanding Linked Lists](#chapter12part4.1)
+      - [Chapter 12 - Part 4.2: Implementing a Singly Linked List in Java](#chapter12part4.2)
+      - [Chapter 12 - Part 4.3: Implementing a Doubly Linked List in Java](#chapter12part4.3)
+      - [Chapter 12 - Part 4.4: Time Complexity Analysis](#chapter12part4.4)
+      - [Chapter 12 - Part 4.5: Advantages and Disadvantages of Linked Lists](#chapter12part4.5)
+    - [Chapter 12 - Part 5: Implementing Custom Data Structures: Binary Search Tree](#chapter12part5)
+      - [Chapter 12 - Part 5.1: Understanding Binary Search Tree Properties](#chapter12part5.1)
+      - [Chapter 12 - Part 5.2: Implementing Core BST Operations](#chapter12part5.2)
+      - [Chapter 12 - Part 5.3: Balancing BSTs](#chapter12part5.3)
+    - [Chapter 12 - Part 6: Practical Exercise: Building a Cache using HashMap](#chapter12part6)
+      - [Chapter 12 - Part 6.1: Understanding Caching and its Importance](#chapter12part6.1)
+      - [Chapter 12 - Part 6.2: Implementing a Simple Cache using HashMap](#chapter12part6.2)
+      - [Chapter 12 - Part 6.3: Implementing Cache Eviction Policies](#chapter12part6.3)
+      - [Chapter 12 - Part 6.4: Addressing Thread Safety](#chapter12part6.4)
 13. [Chapter 13: Java Lambda Expression](#chapter13)
     - [Chapter 13 - Part 1: Java Lambda Expression](#chapter13part1)
    
@@ -18416,815 +18445,69 @@ This RegionalSettings class stores regional settings such as tax rate and defaul
 
 <br>
 
-#### <a name="chapter12part1"></a>Chapter 12 - Part 1: ArrayList
+#### <a name="chapter12part1"></a>Chapter 12 - Part 1: Working with Lists: ArrayList vs. LinkedList Performance
 
-ArrayList is a data Structure:
-- Homogeneous (data of the same type)
-- Ordered (elements accessed through positions)
-- Starts empty, and its elements are allocated on demand
-- Each element occupies a "node" (or node) of the list
+#### <a name="chapter12part1.1"></a>Chapter 12 - Part 1.1: ArrayList Internals and Performance
 
-Type (interface): List
+#### <a name="chapter12part1.2"></a>Chapter 12 - Part 1.2: LinkedList Internals and Performance
 
-Implementing classes: ArrayList, LinkedList, etc
+#### <a name="chapter12part1.3"></a>Chapter 12 - Part 1.3: Performance Comparison: ArrayList vs. LinkedList
 
-Advantages:
-- Variable Size
-- Ease of insertion and deletion
+#### <a name="chapter12part2"></a>Chapter 12 - Part 2: Understanding Sets: HashSet, TreeSet, and LinkedHashSet
 
-Disadvantages:
-- Fixed Size
-- Sequential access to elements -> In the case of ArrayList, they are otimizaded
+#### <a name="chapter12part2.1"></a>Chapter 12 - Part 2.1: Understanding the Set Interface
 
-**Java ArrayList**
+#### <a name="chapter12part2.2"></a>Chapter 12 - Part 2.2: HashSet: The Unordered Champion
 
-The ```ArrayList``` class is a resizable array, which can be found in the ```java.util``` package.
+#### <a name="chapter12part2.3"></a>Chapter 12 - Part 2.3: TreeSet: The Sorted Set
 
-The difference between a built-in array and an ```ArrayList``` in Java, is that the size of an array cannot be modified (if you want to add or remove elements to/from an array, you have to create a new one). While elements can be added and removed from an ```ArrayList``` whenever you want. The syntax is also slightly different:
+#### <a name="chapter12part2.4"></a>Chapter 12 - Part 2.4: LinkedHashSet: The Ordered Set
 
-```java
+#### <a name="chapter12part2.5"></a>Chapter 12 - Part 2.5: Performance Comparison
 
-import java.util.ArrayList; // import the ArrayList class
+#### <a name="chapter12part2.6"></a>Chapter 12 - Part 2.6: Choosing the Right Set Implementation
 
-ArrayList<String> cars = new ArrayList<String>(); // Create an ArrayList object
+#### <a name="chapter12part3"></a>Chapter 12 - Part 3: Mastering Maps: HashMap, TreeMap, and LinkedHashMap
 
-```
+#### <a name="chapter12part3.1"></a>Chapter 12 - Part 3.1: Understanding the Map Interface
 
-- Add Items
+#### <a name="chapter12part3.2"></a>Chapter 12 - Part 3.2: HashMap: The Unordered Champion
 
-The ```ArrayList``` class has many useful methods. For example, to add elements to the ```ArrayList```, use the ```add()``` method:
+#### <a name="chapter12part3.3"></a>Chapter 12 - Part 3.3: TreeMap: The Sorted Map
 
-```java
+#### <a name="chapter12part3.4"></a>Chapter 12 - Part 3.4: LinkedHashMap: The Ordered HashMap
 
-import java.util.ArrayList;
+#### <a name="chapter12part3.5"></a>Chapter 12 - Part 3.5: Choosing the Right Map Implementation
 
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<String> cars = new ArrayList<String>();
-    cars.add("Volvo");
-    cars.add("BMW");
-    cars.add("Ford");
-    cars.add("Mazda");
-    System.out.println(cars);
-  }
-}
+#### <a name="chapter12part4"></a>Chapter 12 - Part 4: Implementing Custom Data Structures: Linked List
 
-```
+#### <a name="chapter12part4.1"></a>Chapter 12 - Part 4.1: Understanding Linked Lists
 
-- Access an Item
+#### <a name="chapter12part4.2"></a>Chapter 12 - Part 4.2: Implementing a Singly Linked List in Java
 
-To access an element in the ```ArrayList```, use the ```get()``` method and refer to the index number:
+#### <a name="chapter12part4.3"></a>Chapter 12 - Part 4.3: Implementing a Doubly Linked List in Java
 
-```java
+#### <a name="chapter12part4.4"></a>Chapter 12 - Part 4.4: Time Complexity Analysis
 
-cars.get(0);
+#### <a name="chapter12part4.5"></a>Chapter 12 - Part 4.5: Advantages and Disadvantages of Linked Lists
 
-```
+#### <a name="chapter12part5"></a>Chapter 12 - Part 5: Implementing Custom Data Structures: Binary Search Tree
 
-- Change an Item
+#### <a name="chapter12part5.1"></a>Chapter 12 - Part 5.1: Understanding Binary Search Tree Properties
 
-To modify an element, use the ```set()``` method and refer to the index number:
+#### <a name="chapter12part5.2"></a>Chapter 12 - Part 5.2: Implementing Core BST Operations
 
-```java
+#### <a name="chapter12part5.3"></a>Chapter 12 - Part 5.3: Balancing BSTs
 
-cars.set(0, "Opel");
+#### <a name="chapter12part6"></a>Chapter 12 - Part 6: Practical Exercise: Building a Cache using HashMap
 
-```
+#### <a name="chapter12part6.1"></a>Chapter 12 - Part 6.1: Understanding Caching and its Importance
 
-- Remove an Item
+#### <a name="chapter12part6.2"></a>Chapter 12 - Part 6.2: Implementing a Simple Cache using HashMap
 
-To remove an element, use the ```remove()``` method and refer to the index number:
+#### <a name="chapter12part6.3"></a>Chapter 12 - Part 6.3: Implementing Cache Eviction Policies
 
-```java
-
-cars.remove(0);
-
-```
-
-To remove all the elements in the ```ArrayList```, use the ```clear()``` method:
-
-```java
-
-cars.clear();
-
-```
-
-- ArrayList Size
-
-To find out how many elements an ArrayList have, use the ```size``` method:
-
-```java
-
-cars.size();
-
-```
-
-- Loop Through an ArrayList
-
-Loop through the elements of an ```ArrayList``` with a ```for``` loop, and use the ```size()``` method to specify how many times the loop should run:
-
-```java
-
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<String> cars = new ArrayList<String>();
-    cars.add("Volvo");
-    cars.add("BMW");
-    cars.add("Ford");
-    cars.add("Mazda");
-    for (int i = 0; i < cars.size(); i++) {
-      System.out.println(cars.get(i));
-    }
-  }
-}
-
-
-```
-
-You can also loop through an ArrayList with the for-each loop:
-
-```java
-
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<String> cars = new ArrayList<String>();
-    cars.add("Volvo");
-    cars.add("BMW");
-    cars.add("Ford");
-    cars.add("Mazda");
-    for (String i : cars) {
-      System.out.println(i);
-    }
-  }
-}
-
-
-```
-
-- Other Types
-
-Elements in an ArrayList are actually objects. In the examples above, we created elements (objects) of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: ```Integer```. For other primitive types, use: ```Boolean``` for boolean, ```Character``` for char, ```Double``` for double, etc:
-
-```java
-
-import java.util.ArrayList;
-
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<Integer> myNumbers = new ArrayList<Integer>();
-    myNumbers.add(10);
-    myNumbers.add(15);
-    myNumbers.add(20);
-    myNumbers.add(25);
-    for (int i : myNumbers) {
-      System.out.println(i);
-    }
-  }
-}
-
-
-```
-
-- Sort an ArrayList
-
-Another useful class in the ```java.util``` package is the ```Collections``` class, which include the ```sort()``` method for sorting lists alphabetically or numerically:
-
-Example: Sort an ArrayList of Strings:
-
-```java
-
-import java.util.ArrayList;
-import java.util.Collections;  // Import the Collections class
-
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<String> cars = new ArrayList<String>();
-    cars.add("Volvo");
-    cars.add("BMW");
-    cars.add("Ford");
-    cars.add("Mazda");
-    Collections.sort(cars);  // Sort cars
-    for (String i : cars) {
-      System.out.println(i);
-    }
-  }
-}
-
-
-```
-
-Example: Sort an ArrayList of Integers:
-
-```java
-
-import java.util.ArrayList;
-import java.util.Collections;  // Import the Collections class
-
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<Integer> myNumbers = new ArrayList<Integer>();
-    myNumbers.add(33);
-    myNumbers.add(15);
-    myNumbers.add(20);
-    myNumbers.add(34);
-    myNumbers.add(8);
-    myNumbers.add(12);
-
-    Collections.sort(myNumbers);  // Sort myNumbers
-
-    for (int i : myNumbers) {
-      System.out.println(i);
-    }
-  }
-}
-
-
-```
-
-```java
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class Program {
-
-	public static void main(String[] args) {
-
-		List<String> list = new ArrayList<>();
-
-		list.add("Maria");
-		list.add("Alex");
-		list.add("Bob");
-		list.add("Anna");
-		list.add(2, "Marco");
-
-		System.out.println(list.size()); // 5
-		for (String x : list) {
-			System.out.println(x); // Maria Alex Marco Bob Anna
-		}
-		System.out.println("---------------------");
-		list.removeIf(x -> x.charAt(0) == 'M');
-		for (String x : list) {
-			System.out.println(x); // Alex Bob Anna
-		}
-		System.out.println("---------------------");
-		System.out.println("Index of Bob: " + list.indexOf("Bob")); // -1
-		System.out.println("Index of Marco: " + list.indexOf("Marco")); // -1
-		System.out.println("---------------------");
-		List<String> result = list.stream().filter(x -> x.charAt(0) == 'A').collect(Collectors.toList());
-		for (String x : result) {
-			System.out.println(x); //Alex Anna
-		}
-		System.out.println("---------------------");
-		String name = list.stream().filter(x -> x.charAt(0) == 'J').findFirst().orElse(null);
-		System.out.println(name); //null
-	}
-}
-
-```
-
-Exercise: Make a program to read an integer N and then the data (id, name and salary) of N employees. There should be no repetition of id
-
-Then, increase the salary of a given employee by X percent. For this, the program must read an id and the value X. If the informed id does not exist, display a message and abort the operation. At the end, show the updated list of employees, according to examples.
-
-Remember to apply the encapsulation technique to not allow the salary to be changed freely. A salary can only be increased on the basis of a increase by given percentage
-
-<br>
-
-<div align="center"><img src="img/arraylist_exercise-w677-h786.png" width=677 height=786><br><sub>Fig 37 - ArrayList Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Neilo Alves</a>) </sub></div>
-
-<br>
-
-<div align="center"><img src="img/arraylist1_exercise-w428-h179.png" width=428 height=179><br><sub>Fig 38 - ArrayList Exercise - (<a href='https://www.udemy.com/course/java-curso-completo/'>Work by  Nelio Alves</a>) </sub></div>
-
-<br>
-
-Class Employe
-
-```java
-
-public class Employee {
-
-	private Integer id;
-	private String name;
-	private Double salary;
-	
-	public Employee() {
-	}
-	
-	public Employee(Integer id, String name, Double salary) {
-		this.id = id;
-		this.name = name;
-		this.salary = salary;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
-	
-	public void increaseSalary(double percentage) {
-		salary += salary * percentage / 100.0;
-	}
-	
-	public String toString() {
-		return id + ", " + name + ", " + String.format("%.2f", salary);
-	}
-}
-
-```
-
-Program
-
-```java
-
-package application;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
-
-import entities.Employee;
-
-public class Program {
-
-	public static void main(String[] args) {
-
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-
-		List<Employee> list = new ArrayList<>();
-		
-		// PART 1 - READING DATA:
-		
-		System.out.print("How many employees will be registered? ");
-		int n = sc.nextInt();
-		
-		for (int i=1; i<=n; i++) {
-			System.out.println();
-			System.out.println("Employee #" + i + ": ");
-
-			System.out.print("Id: ");
-			int id = sc.nextInt();
-			while (hasId(list, id)) {
-				System.out.print("Id already taken. Try again: ");
-				id = sc.nextInt();
-			}
-			
-			System.out.print("Name: ");
-			sc.nextLine();
-			String name = sc.nextLine();
-			System.out.print("Salary: ");
-			double salary = sc.nextDouble();
-			list.add(new Employee(id, name, salary));
-		}
-
-		// PART 2 - UPDATING SALARY OF GIVEN EMPLOYEE:
-		
-		System.out.println();
-		System.out.print("Enter the employee id that will have salary increase: ");
-		int id = sc.nextInt();
-		Employee emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
-		if (emp == null) {
-			System.out.println("This id does not exist!");
-		}
-		else {
-			System.out.print("Enter the percentage: ");
-			double percentage = sc.nextDouble();
-			emp.increaseSalary(percentage);
-		}
-		
-		// PART 3 - LISTING EMPLOYEES:
-		
-		System.out.println();
-		System.out.println("List of employees:");
-		for (Employee obj : list) {
-			System.out.println(obj);
-		}
-				
-		sc.close(); 
-	}
-	
-	public static boolean hasId(List<Employee> list, int id) {
-		Employee emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
-		return emp != null;
-	}
-}
-
-```
-
-#### <a name="chapter12part2"></a>Chapter 12 - Part 2: HashMap
-
-- It is a collection of key/value pairs
-  - Does not support key object repetitions
-  - Elements are indexed by the key object (have no position)
-  - Accessing, inserting and removing elements is fast
-
-- Common usage: cookies, local storage, any key-value model
-
-- Main implementations:
-  - HashMap: faster (O(1) operations on hash table) and unordered
-  - TreeMap: slower (O(log(n)) operations in red-black tree) and sorted by object compareTo (or Comparator)
-  - LinkedHashMap: intermediate speed and elements in the order they are added
-
-**Some important methods**
-
-- put(key, value), remove(key), containsKey(key), get(key)
-  - Based on equals and hashCode
-  - If equals and hashCode do not exist, pointer comparison is used
-
-- clear()
-
-- size()
-
-- keySet(): return a Set<K>
-
-- values(): return a Collection<V>
-
-	
-In the ```ArrayList``` chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (```int``` type). A ```HashMap``` however, store items in "**key/value**" pairs, and you can access them by an index of another type (e.g. a ```String```).
-	
-One object is used as a key (index) to another object (value). It can store different types: ```String``` keys and ```Integer``` values, or the same type, like: ```String``` keys and ```String``` values:
-	
-Example: Create a ```HashMap``` object called **capitalCities** that will store ```String``` keys and ```String``` values:
-	
-```java
-	
-import java.util.HashMap; // import the HashMap class
-
-HashMap<String, String> capitalCities = new HashMap<String, String>();
-	
-```
-	
-**Add Items**
-	
-The HashMap class has many useful methods. For example, to add items to it, use the ```put()``` method:
-	
-```java
-
-// Import the HashMap class
-import java.util.HashMap;
-
-public class Main {
-  public static void main(String[] args) {
-    // Create a HashMap object called capitalCities
-    HashMap<String, String> capitalCities = new HashMap<String, String>();
-
-    // Add keys and values (Country, City)
-    capitalCities.put("England", "London");
-    capitalCities.put("Germany", "Berlin");
-    capitalCities.put("Norway", "Oslo");
-    capitalCities.put("USA", "Washington DC");
-    System.out.println(capitalCities);
-  }
-}
-	
-```
-	
-**Access an Item**
-	
-To access a value in the HashMap, use the ```get()``` method and refer to its key:
-	
-```Java
-	
-capitalCities.get("England");
-	
-```
-	
-**Remove an Item**
-	
-To remove an item, use the ```remove()``` method and refer to the key:
-	
-```java
-	
-capitalCities.remove("England");
-	
-```
-	
-To remove all items, use the ```clear()``` method:
-	
-```java
-	
-capitalCities.clear();
-	
-```
-	
-**HashMap Size**
-	
-To find out how many items there are, use the ```size()``` method:
-	
-```java
-	
-capitalCities.size();
-	
-```
-	
-**Loop Through a HashMap**
-	
-Loop through the items of a HashMap with a for-each loop.
-
-Note: Use the keySet() method if you only want the keys, and use the values() method if you only want the values:
-	
-```java
-	
-// Print keys
-for (String i : capitalCities.keySet()) {
-  System.out.println(i);
-}
-	
-```
-	
-```java
-	
-// Print values
-for (String i : capitalCities.values()) {
-  System.out.println(i);
-}
-	
-```
-	
-```java
-	
-// Print keys and values
-for (String i : capitalCities.keySet()) {
-  System.out.println("key: " + i + " value: " + capitalCities.get(i));
-}
-	
-```
-	
-**Other Types**
-	
-Keys and values in a HashMap are actually objects. In the examples above, we used objects of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: Integer. For other primitive types, use: Boolean for boolean, Character for char, Double for double, etc:
-	
-```java
-	
-// Import the HashMap class
-import java.util.HashMap;
-
-public class Main {
-  public static void main(String[] args) {
-
-    // Create a HashMap object called people
-    HashMap<String, Integer> people = new HashMap<String, Integer>();
-
-
-    // Add keys and values (Name, Age)
-    people.put("John", 32);
-    people.put("Steve", 30);
-    people.put("Angie", 33);
-
-    for (String i : people.keySet()) {
-      System.out.println("key: " + i + " value: " + people.get(i));
-    }
-  }
-}
-	
-```
-
-#### <a name="chapter12part3"></a>Chapter 12 - Part 3: HashSet
-
-- Represents a set of elements (similar to Algebra)
-  - Does not allow repetitions
-  - Elements have no position
-  - Accessing, inserting and removing elements is fast
-  - Offers efficient set operations: intersection, union, difference.
-  
-- Main implementations:
-  - HashSet: faster (O(1) operations on hash table) and unordered
-  - TreeSet: slower (O(log(n)) operations in red-black tree) and sorted by object compareTo (or Comparator)
-  - LinkedHashSet: intermediate speed and elements in the order they are added
-
-**Some important methods**
-
-- add(obj), remove(obj), contains(obj)
-  - Based on equals and hashCode
-  - If equals and hashCode do not exist, pointer comparison is used
-
-- clear()
-
-- size()
-
-- RemoveIf(predicate)
-
-- addAll(other): union: adds the elements of the other set to the set, without repetition
-
-- retainAll(other): intersection: removes elements not contained in other from the set
-
-- removeAll(other): difference: removes elements contained in other from the set
-	
-A HashSet is a collection of items where every item is unique, and it is found in the ```java.util``` package:
-	
-Example: Create a HashSet object called cars that will store strings:
-	
-```java
-	
-import java.util.HashSet; // Import the HashSet class
-
-HashSet<String> cars = new HashSet<String>();
-	
-```
-	
-**Add Items**
-	
-The HashSet class has many useful methods. For example, to add items to it, use the ```add()``` method:
-	
-```java
-	
-// Import the HashSet class
-import java.util.HashSet;
-
-public class Main {
-  public static void main(String[] args) {
-    HashSet<String> cars = new HashSet<String>();
-    cars.add("Volvo");
-    cars.add("BMW");
-    cars.add("Ford");
-    cars.add("BMW");
-    cars.add("Mazda");
-    System.out.println(cars);
-  }
-}
-	
-```
-	
-Note: In the example above, even though BMW is added twice it only appears once in the set because every item in a set has to be unique.
-	
-**Check If an Item Exists**
-	
-To check whether an item exists in a HashSet, use the ```contains()``` method:
-	
-```java
-	
-cars.contains("Mazda");
-	
-```
-	
-**Remove an Item**
-	
-To remove an item, use the ```remove()``` method:
-	
-```java
-	
-cars.remove("Volvo");
-	
-```
-	
-To remove all items, use the ```clear()``` method:
-	
-```java
-	
-cars.clear();
-	
-```
-	
-**HashSet Size**
-
-To find out how many items there are, use the ```size``` method:
-	
-```java
-	
-cars.size();
-	
-```
-	
-**Loop Through a HashSet**
-	
-Loop through the items of an HashSet with a for-each loop:
-	
-```java
-	
-for (String i : cars) {
-  System.out.println(i);
-}
-	
-```
-	
-**Union**
-	
-```java
-	
-package application;
-	
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
-	
-public class Program {
-	
-	public static void main(String[] args) {
-	
-		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
-		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
-	
-		//union
-		Set<Integer> c = new TreeSet<>(a);
-		c.addAll(b);
-		System.out.println(c); // [0, 2, 4, 5, 6, 7, 8, 9, 10]
-	}
-}
-	
-```
-	
-**intersection**
-	
-```java
-	
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
-	
-public class Program {
-	
-	public static void main(String[] args) {
-	
-		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
-		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
-	
-		//intersection
-		Set<Integer> d = new TreeSet<>(a);
-		d.retainAll(b);
-		System.out.println(d); // [5, 6, 8, 10]
-	}
-}
-	
-```
-	
-**difference**
-	
-```java
-	
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
-	
-public class Program {
-	
-	public static void main(String[] args) {
-	
-		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
-		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
-	
-		//difference
-		Set<Integer> e = new TreeSet<>(a);
-		e.removeAll(b);
-		System.out.println(e); //[0, 2, 4]
-	}
-}
-	
-```
-	
-**Other Types**
-	
-Items in an HashSet are actually objects. In the examples above, we created items (objects) of type "String". Remember that a String in Java is an object (not a primitive type). To use other types, such as int, you must specify an equivalent wrapper class: Integer. For other primitive types, use: Boolean for boolean, Character for char, Double for double, etc:
-	
-```java
-	
-import java.util.HashSet;
-
-public class Main {
-  public static void main(String[] args) {
-
-    // Create a HashSet object called numbers
-    HashSet<Integer> numbers = new HashSet<Integer>();
-
-    // Add values to the set
-    numbers.add(4);
-    numbers.add(7);
-    numbers.add(8);
-
-    // Show which numbers between 1 and 10 are in the set
-    for(int i = 1; i <= 10; i++) {
-      if(numbers.contains(i)) {
-        System.out.println(i + " was found in the set.");
-      } else {
-        System.out.println(i + " was not found in the set.");
-      }
-    }
-  }
-}
-			  
-```
+#### <a name="chapter12part6.4"></a>Chapter 12 - Part 6.4: Addressing Thread Safety
 
 
 ## <a name="chapter13"></a>Chapter 13: Java Lambda Expression
