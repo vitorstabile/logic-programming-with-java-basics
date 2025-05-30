@@ -14803,6 +14803,115 @@ In this example:
 
 - **Unchecked Exceptions**: Extend RuntimeException. These do not need to be declared or caught. They are typically used for programming errors (like passing a null argument) that indicate a bug in the code.
 
+**Example: Creating a Checked Exception**
+
+```java
+// Custom checked exception for insufficient funds
+class InsufficientFundsException extends Exception {
+    private double amount;
+
+    // Default constructor
+    public InsufficientFundsException() {
+        super("Insufficient funds"); // Call the constructor of the Exception class with a default message
+    }
+
+    // Constructor with a custom message
+    public InsufficientFundsException(String message) {
+        super(message); // Call the constructor of the Exception class with the provided message
+    }
+
+    // Constructor with a custom message and the amount that caused the exception
+    public InsufficientFundsException(String message, double amount) {
+        super(message);
+        this.amount = amount;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
+// Example usage
+class BankAccount {
+    private double balance;
+
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    // Method to withdraw money
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount > balance) {
+            // Throw the custom exception if there are insufficient funds
+            throw new InsufficientFundsException("Withdrawal amount exceeds balance", amount);
+        }
+        balance -= amount;
+        System.out.println("Withdrawal successful. Remaining balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount(1000);
+        try {
+            account.withdraw(1500); // Attempt to withdraw more than the balance
+        } catch (InsufficientFundsException e) {
+            System.out.println("Exception caught: " + e.getMessage());
+            System.out.println("Amount requested: " + e.getAmount());
+        }
+    }
+}
+```
+
+In this example:
+
+- InsufficientFundsException extends Exception, making it a checked exception.
+- It has constructors to create the exception with a default message or a custom message.
+- It includes a field amount to store the amount that caused the exception.
+- The withdraw method throws the exception if the withdrawal amount exceeds the balance.
+- The main method catches the exception and prints the error message and the requested amount.
+
+**Example: Creating an Unchecked Exception**
+
+```java
+// Custom unchecked exception for invalid input
+class InvalidInputException extends IllegalArgumentException {
+
+    // Default constructor
+    public InvalidInputException() {
+        super("Invalid input");
+    }
+
+    // Constructor with a custom message
+    public InvalidInputException(String message) {
+        super(message);
+    }
+}
+
+// Example usage
+class DataValidator {
+    // Method to validate age
+    public void validateAge(int age) {
+        if (age < 0 || age > 150) {
+            // Throw the custom unchecked exception if the age is invalid
+            throw new InvalidInputException("Age must be between 0 and 150");
+        }
+        System.out.println("Age is valid: " + age);
+    }
+
+    public static void main(String[] args) {
+        DataValidator validator = new DataValidator();
+        // No try-catch block needed for unchecked exceptions (but you can use one)
+        validator.validateAge(-10); // Attempt to validate an invalid age
+    }
+}
+```
+
+In this example:
+
+- InvalidInputException extends IllegalArgumentException, making it an unchecked exception.
+- It has constructors to create the exception with a default message or a custom message.
+- The validateAge method throws the exception if the age is invalid.
+- The main method does not need to catch the exception (although it can).
+
 **Best Practices**
 
 - **Meaningful Names**: Give your custom exceptions clear, descriptive names that indicate the nature of the error.
