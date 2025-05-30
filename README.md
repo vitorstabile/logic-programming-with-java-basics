@@ -340,8 +340,34 @@
       - [Chapter 12 - Part 6.2: Implementing a Simple Cache using HashMap](#chapter12part6.2)
       - [Chapter 12 - Part 6.3: Implementing Cache Eviction Policies](#chapter12part6.3)
       - [Chapter 12 - Part 6.4: Addressing Thread Safety](#chapter12part6.4)
-13. [Chapter 13: Java Lambda Expression](#chapter13)
-    - [Chapter 13 - Part 1: Java Lambda Expression](#chapter13part1)
+13. [Chapter 13: Lambda Expressions and Functional Interfaces](#chapter13)
+    - [Chapter 13 - Part 1: Introduction to Lambda Expressions and Functional Programming](#chapter13part1)
+      - [Chapter 13 - Part 1.1: Understanding Lambda Expressions](#chapter13part1.1)
+      - [Chapter 13 - Part 1.2: Functional Interfaces](#chapter13part1.2)
+      - [Chapter 13 - Part 1.3: Common Functional Interfaces in Java](#chapter13part1.3)
+      - [Chapter 13 - Part 1.4: Practical Examples and Demonstrations](#chapter13part1.4)
+    - [Chapter 13 - Part 2: Understanding Functional Interfaces: Predicate, Function, Consumer, Supplier](#chapter13part2)
+      - [Chapter 13 - Part 2.1: Understanding Functional Interfaces](#chapter13part2.1)
+      - [Chapter 13 - Part 2.2: Predicate](#chapter13part2.2)
+      - [Chapter 13 - Part 2.3: Function](#chapter13part2.3)
+      - [Chapter 13 - Part 2.4: Consumer](#chapter13part2.4)
+      - [Chapter 13 - Part 2.5: Supplier](#chapter13part2.5)
+    - [Chapter 13 - Part 3: Using Lambda Expressions with Collections: Stream API](#chapter13part3)
+      - [Chapter 13 - Part 3.1: Understanding the Stream API](#chapter13part3.1)
+      - [Chapter 13 - Part 3.2: Using Lambda Expressions with Stream API](#chapter13part3.2)
+      - [Chapter 13 - Part 3.3: Practical Examples and Demonstrations](#chapter13part3.3)
+    - [Chapter 13 - Part 4: Performing Aggregate Operations with Streams: Map, Filter, Reduce](#chapter13part4)
+      - [Chapter 13 - Part 4.1: Understanding Aggregate Operations: Map, Filter, Reduce](#chapter13part4.1)
+      - [Chapter 13 - Part 4.2: Combining Map, Filter, and Reduce](#chapter13part4.2)
+    - [Chapter 13 - Part 5: Exploring Method References](#chapter13part5)
+      - [Chapter 13 - Part 5.1: Types of Method References](#chapter13part5.1)
+      - [Chapter 13 - Part 5.2: Practical Examples and Demonstrations](#chapter13part5.2)
+    - [Chapter 13 - Part 6: Case Study: Refactoring Code with Lambda Expressions and Streams](#chapter13part6)
+      - [Chapter 13 - Part 6.1: Identifying Refactoring Opportunities](#chapter13part6.1)
+      - [Chapter 13 - Part 6.2: Refactoring Anonymous Inner Classes](#chapter13part6.2)
+      - [Chapter 13 - Part 6.3: Refactoring Iterative Loops with Streams](#chapter13part6.3)
+      - [Chapter 13 - Part 6.4: Refactoring Verbose Conditional Logic](#chapter13part6.4)
+      - [Chapter 13 - Part 6.5: Refactoring Repetitive Code](#chapter13part6.5)
    
 |               |                 |                 |                 |                 |                 |                 |                 |                 | 
 | :-----------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
@@ -20089,107 +20115,2463 @@ Explanation:
 - The ConcurrentCache class uses a ConcurrentHashMap to store the cached data.
 - The ConcurrentHashMap provides thread-safe get and put operations, allowing multiple threads to access the cache concurrently without data corruption.
 
-## <a name="chapter13"></a>Chapter 13: Java Lambda Expression
+## <a name="chapter13"></a>Chapter 13: Lambda Expressions and Functional Interfaces
 
-#### <a name="chapter13part1"></a>Chapter 13 - Part 1: Java Lambda Expression
+Lambda expressions are a powerful feature introduced in Java 8 that enables functional programming paradigms. They allow you to treat functionality as a method argument, or code as data. This leads to more concise, readable, and maintainable code, especially when working with collections and streams. Lambda expressions are closely tied to functional interfaces, which provide the context for lambda expressions to operate. Understanding lambda expressions and functional interfaces is crucial for leveraging the full potential of the Stream API and writing modern, efficient Java code.
 
-Lambda Expressions were added in Java 8.
+#### <a name="chapter13part1"></a>Chapter 13 - Part 1: Introduction to Lambda Expressions and Functional Programming
 
-A lambda expression is a short block of code which takes in parameters and returns a value. Lambda expressions are similar to methods, but they do not need a name and they can be implemented right in the body of a method.
-	
-**Syntax**
-	
-The simplest lambda expression contains a single parameter and an expression:
-	
-```java
-	
-parameter -> expression
-	
+Lambda expressions are a powerful feature introduced in Java 8 that enables functional programming paradigms. They allow you to treat functionality as a method argument, or code as data. This leads to more concise, readable, and maintainable code, especially when working with collections and streams. Lambda expressions are closely tied to functional interfaces, which provide the context for lambda expressions to operate. Understanding lambda expressions and functional interfaces is crucial for leveraging the full potential of the Stream API and writing modern, efficient Java code.
+
+#### <a name="chapter13part1.1"></a>Chapter 13 - Part 1.1: Understanding Lambda Expressions
+
+A lambda expression is essentially an anonymous function – a function without a name. It can be passed around and executed. The basic syntax of a lambda expression is:
+
 ```
-	
-To use more than one parameter, wrap them in parentheses:
-	
-```java
-	
-(parameter1, parameter2) -> expression
-	
+(parameters) -> expression
 ```
-	
-Expressions are limited. They have to immediately return a value, and they cannot contain variables, assignments or statements such as if or for. In order to do more complex operations, a code block can be used with curly braces. If the lambda expression needs to return a value, then the code block should have a return statement.
-	
-```java
-	
-(parameter1, parameter2) -> { code block }
-	
+
+or
+
 ```
-	
-**Using Lambda Expressions**
-	
-Lambda expressions are usually passed as parameters to a function:
-	
-Use a lambda expression in the ArrayList's forEach() method to print every item in the list:
+(parameters) -> { statements; }
+```
+
+Let's break down the components:
+
+- **(parameters)**: This is a comma-separated list of input parameters, similar to a method. The data type of the parameters can be explicitly declared or inferred by the compiler. If there are no parameters, you use empty parentheses ().
+- **```->```**: This is the arrow operator, which separates the parameters from the lambda body.
+- **expression**: This is the body of the lambda expression. It can be a single expression or a block of statements enclosed in curly braces {}. If it's a single expression, the result of the expression is automatically returned. If it's a block of statements, you need to use the return keyword to return a value.
+
+**Examples of Lambda Expressions**
+
+Let's look at some examples to illustrate the different forms of lambda expressions:
+
+**No parameters:**
 
 ```java
+() -> System.out.println("Hello, Lambda!");
+```
 
-import java.util.ArrayList;
+This lambda expression takes no parameters and simply prints a message to the console.
 
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<Integer> numbers = new ArrayList<Integer>();
-    numbers.add(5);
-    numbers.add(9);
-    numbers.add(8);
-    numbers.add(1);
-    numbers.forEach( (n) -> { System.out.println(n); } );
-  }
+**Single parameter:**
+
+```java
+name -> System.out.println("Hello, " + name);
+```
+
+This lambda expression takes a single parameter name and prints a greeting. The type of name is inferred.
+
+**Multiple parameters:**
+
+```java
+(x, y) -> x + y
+```
+
+This lambda expression takes two parameters, x and y, and returns their sum. The types of x and y are inferred.
+
+**Explicitly typed parameters:**
+
+```java
+(int x, int y) -> x * y
+```
+
+This lambda expression takes two integer parameters, x and y, and returns their product. The types of x and y are explicitly declared as int.
+
+**Block of statements:**
+
+```java
+(String message) -> {
+    System.out.println("Processing message: " + message);
+    return message.toUpperCase();
+}
+```
+
+This lambda expression takes a string parameter message, prints a message to the console, converts the message to uppercase, and returns the uppercase version.
+
+**Type Inference**
+
+Java's compiler can often infer the data types of lambda expression parameters, which simplifies the syntax. This is known as type inference. However, you can explicitly declare the types if needed, especially when dealing with complex scenarios or when you want to improve code readability.
+
+For example, instead of:
+
+```java
+(x, y) -> x + y
+```
+
+You can write:
+
+```java
+(Integer x, Integer y) -> x + y
+```
+
+Both are valid, but the second version explicitly states that x and y are Integer objects.
+
+#### <a name="chapter13part1.2"></a>Chapter 13 - Part 1.2: Functional Interfaces
+
+Lambda expressions can only be used in the context of a functional interface. A functional interface is an interface that contains exactly one abstract method. It can have multiple default methods or static methods, but only one abstract method.
+
+The @FunctionalInterface annotation is used to mark an interface as a functional interface. Although it's not strictly required, it's a good practice to use it because the compiler will issue an error if the interface does not meet the requirements of a functional interface.
+
+**Examples of Functional Interfaces**
+
+Here are some examples of functional interfaces:
+
+**Runnable**:
+
+```java
+@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
+}
+```
+
+The Runnable interface has a single abstract method run(), which takes no arguments and returns nothing.
+
+**Callable:**
+
+```java
+@FunctionalInterface
+public interface Callable<V> {
+    V call() throws Exception;
+}
+```
+
+The Callable interface has a single abstract method call(), which takes no arguments and returns a value of type V. It can also throw an exception.
+
+**Custom Functional Interface:**
+
+```java
+@FunctionalInterface
+public interface MyInterface {
+    int myMethod(int x, int y);
+}
+```
+
+This is a custom functional interface with a single abstract method myMethod(), which takes two integer arguments and returns an integer.
+
+**Using Lambda Expressions with Functional Interfaces**
+
+Lambda expressions provide the implementation for the abstract method of a functional interface. The lambda expression's parameter list and return type must be compatible with the functional interface's abstract method.
+
+Let's see how we can use lambda expressions with the functional interfaces mentioned above:
+
+**Runnable:**
+
+```java
+Runnable myRunnable = () -> System.out.println("Running in a separate thread");
+new Thread(myRunnable).start();
+```
+
+Here, the lambda expression () -> System.out.println("Running in a separate thread") provides the implementation for the run() method of the Runnable interface.
+
+**Callable:**
+
+```java
+Callable<Integer> myCallable = () -> {
+    return 42;
+};
+
+ExecutorService executor = Executors.newFixedThreadPool(1);
+Future<Integer> future = executor.submit(myCallable);
+
+try {
+    Integer result = future.get();
+    System.out.println("Result: " + result);
+} catch (InterruptedException | ExecutionException e) {
+    e.printStackTrace();
+} finally {
+    executor.shutdown();
+}
+```
+
+The lambda expression () -> { return 42; } provides the implementation for the call() method of the Callable interface.
+
+**Custom Functional Interface:**
+
+```java
+@FunctionalInterface
+interface MyInterface {
+    int myMethod(int x, int y);
 }
 
+public class Main {
+    public static void main(String[] args) {
+        MyInterface adder = (a, b) -> a + b;
+        MyInterface multiplier = (a, b) -> a * b;
+
+        System.out.println("Sum: " + adder.myMethod(5, 3)); // Output: Sum: 8
+        System.out.println("Product: " + multiplier.myMethod(5, 3)); // Output: Product: 15
+    }
+}
 ```
-	
-Lambda expressions can be stored in variables if the variable's type is an interface which has only one method. The lambda expression should have the same number of parameters and the same return type as that method. Java has many of these kinds of interfaces built in, such as the ```Consumer``` interface (found in the ```java.util``` package) used by lists.
-	
-Use Java's Consumer interface to store a lambda expression in a variable:
-	
+
+In this example, we define a custom functional interface MyInterface and use lambda expressions to provide implementations for its myMethod() method.
+
+#### <a name="chapter13part1.3"></a>Chapter 13 - Part 1.3: Common Functional Interfaces in Java
+
+Java provides several built-in functional interfaces in the java.util.function package. These interfaces cover a wide range of common use cases and can significantly simplify your code. Here are some of the most commonly used functional interfaces:
+
+- **Predicate**: Represents a boolean-valued function of one argument. It has a single abstract method test(T t), which returns true if the input argument satisfies the predicate, and false otherwise.
+- **Function<T, R>**: Represents a function that accepts one argument of type T and produces a result of type R. It has a single abstract method apply(T t), which returns the result of applying the function to the input argument.
+- **Consumer**: Represents an operation that accepts a single input argument of type T and returns no result. It has a single abstract method accept(T t), which performs the operation on the input argument.
+- **Supplier**: Represents a supplier of results. It has a single abstract method get(), which takes no arguments and returns a value of type T.
+
+#### <a name="chapter13part1.4"></a>Chapter 13 - Part 1.4: Practical Examples and Demonstrations
+
+Let's look at some practical examples of using lambda expressions and functional interfaces to solve common programming problems.
+
+**Example 1: Filtering a List of Integers**
+
+Suppose you have a list of integers and you want to filter out the even numbers. You can use the Predicate functional interface and a lambda expression to achieve this:
+
 ```java
-	
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class FilterEvenNumbers {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Use a lambda expression to define a predicate that checks if a number is even
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+
+        // Use the filter method to filter the list based on the predicate
+        List<Integer> evenNumbers = numbers.stream()
+                .filter(isEven)
+                .collect(Collectors.toList());
+
+        System.out.println("Even numbers: " + evenNumbers); // Output: Even numbers: [2, 4, 6, 8, 10]
+    }
+}
+```
+
+In this example, the lambda expression n -> n % 2 == 0 provides the implementation for the test() method of the Predicate interface. It checks if a number is even and returns true if it is, and false otherwise.
+
+**Example 2: Transforming a List of Strings**
+
+Suppose you have a list of strings and you want to convert them to uppercase. You can use the Function functional interface and a lambda expression to achieve this:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class ConvertToUppercase {
+    public static void main(String[] args) {
+        List<String> strings = Arrays.asList("apple", "banana", "cherry");
+
+        // Use a lambda expression to define a function that converts a string to uppercase
+        Function<String, String> toUppercase = s -> s.toUpperCase();
+
+        // Use the map method to transform the list based on the function
+        List<String> uppercaseStrings = strings.stream()
+                .map(toUppercase)
+                .collect(Collectors.toList());
+
+        System.out.println("Uppercase strings: " + uppercaseStrings); // Output: Uppercase strings: [APPLE, BANANA, CHERRY]
+    }
+}
+```
+
+In this example, the lambda expression s -> s.toUpperCase() provides the implementation for the apply() method of the Function interface. It converts a string to uppercase and returns the uppercase version.
+
+**Example 3: Iterating over a List and Performing an Action**
+
+Suppose you have a list of names and you want to print each name to the console. You can use the Consumer functional interface and a lambda expression to achieve this:
+
+```java
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 
-public class Main {
-  public static void main(String[] args) {
-    ArrayList<Integer> numbers = new ArrayList<Integer>();
-    numbers.add(5);
-    numbers.add(9);
-    numbers.add(8);
-    numbers.add(1);
-    Consumer<Integer> method = (n) -> { System.out.println(n); };
-    numbers.forEach( method );
-  }
+public class PrintNames {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Use a lambda expression to define a consumer that prints a name to the console
+        Consumer<String> printName = name -> System.out.println("Hello, " + name);
+
+        // Use the forEach method to iterate over the list and perform the action for each element
+        names.forEach(printName);
+    }
 }
-	
 ```
-	
-To use a lambda expression in a method, the method should have a parameter with a single-method interface as its type. Calling the interface's method will run the lambda expression:
-	
+
+In this example, the lambda expression name -> System.out.println("Hello, " + name) provides the implementation for the accept() method of the Consumer interface. It prints a greeting to the console for each name.
+
+**Example 4: Generating a List of Random Numbers**
+
+Suppose you want to generate a list of random numbers. You can use the Supplier functional interface and a lambda expression to achieve this:
+
 ```java
-	
-interface StringFunction {
-  String run(String str);
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class GenerateRandomNumbers {
+    public static void main(String[] args) {
+        // Use a lambda expression to define a supplier that generates a random number
+        Supplier<Integer> randomNumberSupplier = () -> new Random().nextInt(100);
+
+        // Use the Stream.generate method to generate a stream of random numbers
+        List<Integer> randomNumbers = Stream.generate(randomNumberSupplier)
+                .limit(10)
+                .collect(Collectors.toList());
+
+        System.out.println("Random numbers: " + randomNumbers);
+    }
+}
+```
+
+In this example, the lambda expression () -> new Random().nextInt(100) provides the implementation for the get() method of the Supplier interface. It generates a random integer between 0 and 99.
+
+#### <a name="chapter13part2"></a>Chapter 13 - Part 2: Understanding Functional Interfaces: Predicate, Function, Consumer, Supplier
+
+Lambda expressions, introduced in Java 8, revolutionized how we approach functional programming. At the heart of this paradigm shift are functional interfaces. These interfaces, with their single abstract method, provide the target type for lambda expressions and method references, enabling concise and expressive code. Understanding the core functional interfaces – Predicate, Function, Consumer, and Supplier – is crucial for effectively utilizing lambda expressions and the Stream API, which we will explore in the upcoming lessons. This lesson will provide a comprehensive exploration of these interfaces, equipping you with the knowledge to leverage their power in your Java applications.
+
+#### <a name="chapter13part2.1"></a>Chapter 13 - Part 2.1: Understanding Functional Interfaces
+
+A functional interface is an interface that contains only one abstract method. While it can have default and static methods, the single abstract method (SAM) is what defines its functionality. Functional interfaces provide the target type for lambda expressions and method references. The @FunctionalInterface annotation is optional but recommended; it instructs the compiler to enforce the single abstract method rule.
+
+**The @FunctionalInterface Annotation**
+
+The @FunctionalInterface annotation is a safeguard. If you attempt to add a second abstract method to an interface marked with this annotation, the compiler will generate an error. This helps maintain the integrity of functional interfaces and prevents accidental breaking changes.
+
+```java
+@FunctionalInterface
+public interface MyFunctionalInterface {
+    void myMethod();
+    // void anotherMethod(); // Compilation error: Invalid '@FunctionalInterface' annotation; MyFunctionalInterface is not a functional interface
+}
+```
+
+**Core Functional Interfaces in java.util.function**
+
+Java provides a set of pre-defined functional interfaces in the java.util.function package. These interfaces cover common use cases and reduce the need to define custom functional interfaces for every scenario. We will focus on Predicate, Function, Consumer, and Supplier in this lesson.
+
+#### <a name="chapter13part2.2"></a>Chapter 13 - Part 2.2: Predicate
+
+The Predicate interface represents a boolean-valued function of one argument. It's used to test whether an object satisfies a certain condition.
+
+```java
+@FunctionalInterface
+public interface Predicate<T> {
+    boolean test(T t);
+}
+```
+
+**Example: Filtering a List of Numbers**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class PredicateExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Predicate to check if a number is even
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+
+        // Filter the list to get only even numbers
+        List<Integer> evenNumbers = numbers.stream()
+                .filter(isEven)
+                .collect(Collectors.toList());
+
+        System.out.println("Even numbers: " + evenNumbers); // Output: Even numbers: [2, 4, 6, 8, 10]
+
+        // Predicate to check if a number is greater than 5
+        Predicate<Integer> isGreaterThan5 = n -> n > 5;
+
+        // Combining predicates using and()
+        Predicate<Integer> isEvenAndGreaterThan5 = isEven.and(isGreaterThan5);
+
+        List<Integer> evenAndGreaterThan5 = numbers.stream()
+                .filter(isEvenAndGreaterThan5)
+                .collect(Collectors.toList());
+
+        System.out.println("Even numbers greater than 5: " + evenAndGreaterThan5); // Output: Even numbers greater than 5: [6, 8, 10]
+
+        // Combining predicates using or()
+        Predicate<Integer> isEvenOrGreaterThan5 = isEven.or(isGreaterThan5);
+
+        List<Integer> evenOrGreaterThan5 = numbers.stream()
+                .filter(isEvenOrGreaterThan5)
+                .collect(Collectors.toList());
+
+        System.out.println("Even or greater than 5: " + evenOrGreaterThan5); // Output: Even or greater than 5: [2, 4, 6, 7, 8, 9, 10]
+
+        // Negating a predicate using negate()
+        Predicate<Integer> isNotEven = isEven.negate();
+
+        List<Integer> oddNumbers = numbers.stream()
+                .filter(isNotEven)
+                .collect(Collectors.toList());
+
+        System.out.println("Odd numbers: " + oddNumbers); // Output: Odd numbers: [1, 3, 5, 7, 9]
+    }
+}
+```
+
+**Example: Validating User Input**
+
+```java
+import java.util.function.Predicate;
+
+public class UserValidation {
+
+    public static void main(String[] args) {
+        String username = "johndoe123";
+        String email = "john.doe@example.com";
+
+        Predicate<String> isValidUsername = u -> u.matches("^[a-zA-Z0-9._-]{3,20}$");
+        Predicate<String> isValidEmail = e -> e.contains("@") && e.contains(".");
+
+        if (isValidUsername.test(username)) {
+            System.out.println("Username is valid.");
+        } else {
+            System.out.println("Username is invalid.");
+        }
+
+        if (isValidEmail.test(email)) {
+            System.out.println("Email is valid.");
+        } else {
+            System.out.println("Email is invalid.");
+        }
+    }
+}
+```
+
+**Hypothetical Scenario: Access Control**
+
+Imagine a system where access to resources is determined by user roles and permissions. A Predicate could be used to check if a user has the necessary permissions to access a specific resource. For example:
+
+```java
+import java.util.function.Predicate;
+
+class Resource {
+    String name;
+    String requiredPermission;
+
+    public Resource(String name, String requiredPermission) {
+        this.name = name;
+        this.requiredPermission = requiredPermission;
+    }
 }
 
-public class Main {
-  public static void main(String[] args) {
-    StringFunction exclaim = (s) -> s + "!";
-    StringFunction ask = (s) -> s + "?";
-    printFormatted("Hello", exclaim);
-    printFormatted("Hello", ask);
-  }
-  public static void printFormatted(String str, StringFunction format) {
-    String result = format.run(str);
-    System.out.println(result);
-  }
+class User {
+    String username;
+    String role;
+    String permissions;
+
+    public User(String username, String role, String permissions) {
+        this.username = username;
+        this.role = role;
+        this.permissions = permissions;
+    }
 }
-	
+
+public class AccessControl {
+    public static void main(String[] args) {
+        Resource sensitiveData = new Resource("Sensitive Data", "read:sensitive");
+        User adminUser = new User("admin", "admin", "read:sensitive,write:sensitive");
+        User guestUser = new User("guest", "guest", "read:public");
+
+        Predicate<User> hasAccess = user -> adminUser.permissions.contains(sensitiveData.requiredPermission);
+
+        if (hasAccess.test(adminUser)) {
+            System.out.println(adminUser.username + " has access to " + sensitiveData.name);
+        } else {
+            System.out.println(adminUser.username + " does not have access to " + sensitiveData.name);
+        }
+
+        Predicate<User> guestHasAccess = user -> guestUser.permissions.contains(sensitiveData.requiredPermission);
+
+        if (guestHasAccess.test(guestUser)) {
+            System.out.println(guestUser.username + " has access to " + sensitiveData.name);
+        } else {
+            System.out.println(guestUser.username + " does not have access to " + sensitiveData.name);
+        }
+    }
+}
 ```
+
+#### <a name="chapter13part2.3"></a>Chapter 13 - Part 2.3: Function
+
+The Function interface represents a function that accepts one argument and produces a result. It's used to transform an object from one type to another.
+
+```java
+@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+}
+```
+
+**Example: Converting a String to an Integer**
+
+```java
+import java.util.function.Function;
+
+public class FunctionExample {
+    public static void main(String[] args) {
+        // Function to convert a String to an Integer
+        Function<String, Integer> stringToInt = s -> Integer.parseInt(s);
+
+        String numberString = "123";
+        Integer number = stringToInt.apply(numberString);
+
+        System.out.println("Number: " + number); // Output: Number: 123
+
+        // Function to square an Integer
+        Function<Integer, Integer> square = n -> n * n;
+
+        // Chaining functions using andThen()
+        Function<String, Integer> stringToIntThenSquare = stringToInt.andThen(square);
+
+        Integer squaredNumber = stringToIntThenSquare.apply(numberString);
+
+        System.out.println("Squared number: " + squaredNumber); // Output: Squared number: 15129
+
+        // Chaining functions using compose()
+        Function<Integer, String> intToString = i -> "Result: " + i;
+        Function<Integer, String> squareThenIntToString = intToString.compose(square);
+
+        String result = squareThenIntToString.apply(5);
+        System.out.println(result); // Output: Result: 25
+    }
+}
+```
+
+**Example: Extracting Data from Objects**
+
+```java
+import java.util.function.Function;
+
+class Person {
+    String name;
+    int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+public class PersonDataExtractor {
+    public static void main(String[] args) {
+        Person person = new Person("Alice", 30);
+
+        Function<Person, String> getName = Person::getName;
+        Function<Person, Integer> getAge = Person::getAge;
+
+        String name = getName.apply(person);
+        int age = getAge.apply(person);
+
+        System.out.println("Name: " + name); // Output: Name: Alice
+        System.out.println("Age: " + age); // Output: Age: 30
+    }
+}
+```
+
+**Hypothetical Scenario: Data Transformation Pipeline**
+
+Consider a data processing pipeline where data needs to be transformed through multiple stages. Each stage can be represented by a Function. For example, cleaning data, converting data types, and enriching data with external sources.
+
+```java
+import java.util.function.Function;
+
+public class DataPipeline {
+    public static void main(String[] args) {
+        String rawData = "  123.45  ";
+
+        // Function to trim whitespace
+        Function<String, String> trim = String::trim;
+
+        // Function to parse to Double
+        Function<String, Double> parseDouble = Double::parseDouble;
+
+        // Function to format as currency
+        Function<Double, String> formatCurrency = d -> String.format("$%.2f", d);
+
+        // Build the pipeline
+        Function<String, String> pipeline = trim.andThen(parseDouble).andThen(formatCurrency);
+
+        String formattedData = pipeline.apply(rawData);
+        System.out.println("Formatted data: " + formattedData); // Output: Formatted data: $123.45
+    }
+}
+```
+
+#### <a name="chapter13part2.4"></a>Chapter 13 - Part 2.4: Consumer
+
+The Consumer interface represents an operation that accepts a single input argument and returns no result. It's used to perform side-effects, such as printing to the console or updating an object's state.
+
+```java
+@FunctionalInterface
+public interface Consumer<T> {
+    void accept(T t);
+}
+```
+
+**Example: Printing a List of Names**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class ConsumerExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Consumer to print each name
+        Consumer<String> printName = name -> System.out.println("Hello, " + name + "!");
+
+        // Iterate through the list and apply the consumer
+        names.forEach(printName);
+        // Output:
+        // Hello, Alice!
+        // Hello, Bob!
+        // Hello, Charlie!
+
+        // Consumer to print the name in uppercase
+        Consumer<String> printNameUpperCase = name -> System.out.println("HELLO, " + name.toUpperCase() + "!");
+
+        // Chaining consumers using andThen()
+        Consumer<String> printNameAndUpperCase = printName.andThen(printNameUpperCase);
+
+        names.forEach(printNameAndUpperCase);
+        // Output:
+        // Hello, Alice!
+        // HELLO, ALICE!
+        // Hello, Bob!
+        // HELLO, BOB!
+        // Hello, Charlie!
+        // HELLO, CHARLIE!
+    }
+}
+```
+
+**Example: Updating Object Properties**
+
+```java
+import java.util.function.Consumer;
+
+class Product {
+    String name;
+    double price;
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
+}
+
+public class ProductUpdater {
+    public static void main(String[] args) {
+        Product product = new Product("Laptop", 1200.00);
+
+        Consumer<Product> applyDiscount = p -> p.setPrice(p.getPrice() * 0.9); // 10% discount
+
+        applyDiscount.accept(product);
+
+        System.out.println("Updated product: " + product); // Output: Updated product: Product{name='Laptop', price=1080.0}
+    }
+}
+```
+
+**Hypothetical Scenario: Logging Events**
+
+In a system that generates numerous events, a Consumer can be used to log these events to a file or database. This allows for auditing and debugging without affecting the core functionality of the system.
+
+```java
+import java.util.function.Consumer;
+
+class Event {
+    String type;
+    String message;
+
+    public Event(String type, String message) {
+        this.type = type;
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "type='" + type + '\'' +
+                ", message='" + message + '\'' +
+        '}';
+    }
+}
+
+public class EventLogger {
+    public static void main(String[] args) {
+        Event event = new Event("UserLogin", "User 'johndoe' logged in.");
+
+        Consumer<Event> logEvent = e -> System.out.println("Logging event: " + e); // In real scenario, log to file/DB
+
+        logEvent.accept(event); // Output: Logging event: Event{type='UserLogin', message='User 'johndoe' logged in.'}
+    }
+}
+```
+
+#### <a name="chapter13part2.5"></a>Chapter 13 - Part 2.5: Supplier
+
+The Supplier interface represents a function that takes no arguments and returns a result. It's used to generate new objects or provide access to existing resources.
+
+```java
+@FunctionalInterface
+public interface Supplier<T> {
+    T get();
+}
+```
+
+**Example: Generating Random Numbers**
+
+```java
+import java.util.Random;
+import java.util.function.Supplier;
+
+public class SupplierExample {
+    public static void main(String[] args) {
+        // Supplier to generate a random integer
+        Supplier<Integer> randomInteger = () -> new Random().nextInt(100);
+
+        // Get a random number
+        Integer randomNumber = randomInteger.get();
+
+        System.out.println("Random number: " + randomNumber); // Output: Random number: (a random number between 0 and 99)
+    }
+}
+```
+
+**Example: Creating New Objects**
+
+```java
+import java.util.function.Supplier;
+
+class Book {
+    String title;
+
+    public Book(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                '}';
+    }
+}
+
+public class BookFactory {
+    public static void main(String[] args) {
+        // Supplier to create a new Book object
+        Supplier<Book> bookSupplier = () -> new Book("The Lord of the Rings");
+
+        // Get a new book
+        Book newBook = bookSupplier.get();
+
+        System.out.println("New book: " + newBook); // Output: New book: Book{title='The Lord of the Rings'}
+    }
+}
+```
+
+**Hypothetical Scenario: Lazy Initialization**
+
+In scenarios where object creation is expensive or only needed under certain conditions, a Supplier can be used to implement lazy initialization. The object is only created when the get() method is called.
+
+```java
+import java.util.function.Supplier;
+
+class Configuration {
+    String databaseUrl;
+
+    public Configuration() {
+        System.out.println("Loading configuration...");
+        // Simulate loading configuration from a file or database
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.databaseUrl = "jdbc:mydb://localhost:5432/mydatabase";
+        System.out.println("Configuration loaded.");
+    }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+}
+
+public class LazyConfiguration {
+    public static void main(String[] args) {
+        // Supplier for lazy initialization of Configuration
+        Supplier<Configuration> configurationSupplier = Configuration::new;
+
+        // Configuration is only loaded when get() is called
+        System.out.println("Getting configuration...");
+        Configuration config = configurationSupplier.get();
+        System.out.println("Database URL: " + config.getDatabaseUrl());
+    }
+}
+```
+
+#### <a name="chapter13part3"></a>Chapter 13 - Part 3: Using Lambda Expressions with Collections: Stream API
+
+Lambda expressions provide a concise way to represent anonymous functions, and when combined with the Stream API, they offer a powerful mechanism for processing collections in Java. The Stream API introduces a functional programming style to collection manipulation, enabling you to perform complex operations like filtering, mapping, and reducing data in a declarative and efficient manner. This lesson explores how to effectively use lambda expressions with the Stream API to enhance code readability and performance when working with collections.
+
+#### <a name="chapter13part3.1"></a>Chapter 13 - Part 3.1: Understanding the Stream API
+
+The Stream API, introduced in Java 8, provides an abstraction for processing sequences of elements. A stream represents a sequence of objects from a source, which supports aggregate operations. These operations can be executed sequentially or in parallel. Streams do not store data; they operate on the source collection without modifying it.
+
+**Stream Creation**
+
+Streams can be created from various sources, including collections, arrays, and I/O channels.
+
+- **From a Collection**: The stream() method is used to create a stream from a Collection.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class StreamCreation {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        Stream<String> nameStream = names.stream(); // Creating a stream from a list
+        nameStream.forEach(System.out::println);
+    }
+}
+```
+
+- **From an Array**: The Arrays.stream() method is used to create a stream from an array.
+
+```java
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
+public class StreamFromArray {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        IntStream numberStream = Arrays.stream(numbers); // Creating a stream from an array
+        numberStream.forEach(System.out::println);
+    }
+}
+```
+
+- **Using Stream.of()**: The Stream.of() method can create a stream from individual elements.
+
+```java
+import java.util.stream.Stream;
+
+public class StreamOf {
+    public static void main(String[] args) {
+        Stream<String> stringStream = Stream.of("Java", "Stream", "API"); // Creating a stream from elements
+        stringStream.forEach(System.out::println);
+    }
+}
+```
+
+**Stream Operations**
+
+Stream operations are divided into intermediate and terminal operations. Intermediate operations return a new stream, allowing operations to be chained together. Terminal operations produce a result or side-effect and mark the end of the stream pipeline.
+
+**Intermediate Operations**
+
+- **filter(Predicate<T>)**: Filters elements based on a given predicate (a boolean-valued function).
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamFilter {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+        names.stream()
+             .filter(name -> name.startsWith("A")) // Filters names starting with "A"
+             .forEach(System.out::println); // Output: Alice
+    }
+}
+```
+
+- **map(Function<T, R>)**: Transforms each element to another value using a given function.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamMap {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        names.stream()
+             .map(String::toUpperCase) // Converts names to uppercase
+             .forEach(System.out::println); // Output: ALICE BOB CHARLIE
+    }
+}
+```
+
+- **flatMap(Function<T, Stream<R>>)**: Transforms each element to a stream of values, then flattens the resulting streams into a single stream.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class StreamFlatMap {
+    public static void main(String[] args) {
+        List<List<String>> listOfLists = Arrays.asList(
+                Arrays.asList("Alice", "Bob"),
+                Arrays.asList("Charlie", "David")
+        );
+
+        listOfLists.stream()
+                   .flatMap(List::stream) // Flattens the list of lists into a single stream
+                   .forEach(System.out::println); // Output: Alice Bob Charlie David
+    }
+}
+```
+
+- **distinct()**: Returns a stream consisting of the distinct elements (according to Object.equals(Object)).
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamDistinct {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Alice", "Charlie");
+        names.stream()
+             .distinct() // Removes duplicate names
+             .forEach(System.out::println); // Output: Alice Bob Charlie
+    }
+}
+```
+
+- **sorted()**: Returns a stream consisting of the elements sorted according to natural order.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamSorted {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+        names.stream()
+             .sorted() // Sorts names alphabetically
+             .forEach(System.out::println); // Output: Alice Bob Charlie
+    }
+}
+```
+
+- **peek(Consumer<T>)**: Returns a stream with the elements of the original stream, additionally performing the provided action on each element as it is consumed from the resulting stream. This is primarily useful for debugging.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamPeek {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        names.stream()
+             .peek(name -> System.out.println("Before: " + name)) // Prints each name before processing
+             .map(String::toUpperCase)
+             .peek(name -> System.out.println("After: " + name)) // Prints each name after processing
+             .forEach(System.out::println);
+    }
+}
+```
+
+- **limit(long maxSize)**: Returns a stream consisting of the elements of this stream, truncated to be no longer than maxSize in length.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamLimit {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+        names.stream()
+             .limit(2) // Limits the stream to the first 2 elements
+             .forEach(System.out::println); // Output: Alice Bob
+    }
+}
+```
+
+- **skip(long n)**: Returns a stream consisting of the remaining elements of this stream after discarding the first n elements of the stream.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamSkip {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+        names.stream()
+             .skip(2) // Skips the first 2 elements
+             .forEach(System.out::println); // Output: Charlie David
+    }
+}
+```
+
+**Terminal Operations**
+
+- **forEach(Consumer<T>)**: Performs an action for each element of the stream.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamForEach {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        names.stream()
+             .forEach(System.out::println); // Prints each name
+    }
+}
+```
+
+- **toArray()**: Returns an array containing the elements of the stream.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamToArray {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        String[] nameArray = names.stream().toArray(String[]::new); // Converts the stream to an array
+        System.out.println(Arrays.toString(nameArray)); // Output: [Alice, Bob, Charlie]
+    }
+}
+```
+
+- **reduce(BinaryOperator<T>)**: Reduces the elements of the stream to a single value.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamReduce {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        int sum = numbers.stream()
+                         .reduce(0, Integer::sum); // Calculates the sum of the numbers
+        System.out.println("Sum: " + sum); // Output: Sum: 15
+    }
+}
+```
+
+- **collect(Collector<T, A, R>)**: Collects the elements of the stream into a collection or other data structure.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamCollect {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        List<String> upperCaseNames = names.stream()
+                                           .map(String::toUpperCase)
+                                           .collect(Collectors.toList()); // Collects the uppercase names into a list
+        System.out.println(upperCaseNames); // Output: [ALICE, BOB, CHARLIE]
+    }
+}
+```
+
+- **min(Comparator<T>)**: Returns the minimum element of the stream according to the provided Comparator
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamMin {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(5, 2, 8, 1, 9);
+        Integer min = numbers.stream()
+                             .min(Integer::compare) // Finds the minimum number
+                             .orElse(null);
+        System.out.println("Min: " + min); // Output: Min: 1
+    }
+}
+```
+
+- **max(Comparator<T>)**: Returns the maximum element of the stream according to the provided Comparator.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamMax {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(5, 2, 8, 1, 9);
+        Integer max = numbers.stream()
+                             .max(Integer::compare) // Finds the maximum number
+                             .orElse(null);
+        System.out.println("Max: " + max); // Output: Max: 9
+    }
+}
+```
+
+- **count()**: Returns the number of elements in the stream.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamCount {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        long count = names.stream().count(); // Counts the number of names
+        System.out.println("Count: " + count); // Output: Count: 3
+    }
+}
+```
+
+- **anyMatch(Predicate<T>)**: Returns whether any elements of the stream match the provided predicate.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamAnyMatch {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        boolean anyMatch = names.stream()
+                                .anyMatch(name -> name.startsWith("A")); // Checks if any name starts with "A"
+        System.out.println("Any match: " + anyMatch); // Output: Any match: true
+    }
+}
+```
+
+- **allMatch(Predicate<T>)**: Returns whether all elements of the stream match the provided predicate.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamAllMatch {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        boolean allMatch = names.stream()
+                                .allMatch(name -> name.length() > 2); // Checks if all names have length greater than 2
+        System.out.println("All match: " + allMatch); // Output: All match: true
+    }
+}
+```
+
+- **noneMatch(Predicate<T>)**: Returns whether no elements of the stream match the provided predicate.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamNoneMatch {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        boolean noneMatch = names.stream()
+                                 .noneMatch(name -> name.startsWith("Z")); // Checks if no name starts with "Z"
+        System.out.println("None match: " + noneMatch); // Output: None match: true
+    }
+}
+```
+
+- **findFirst()**: Returns an Optional describing the first element of the stream, or an empty Optional if the stream is empty.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public class StreamFindFirst {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        Optional<String> first = names.stream().findFirst(); // Finds the first name
+        System.out.println("First: " + first.orElse(null)); // Output: First: Alice
+    }
+}
+```
+
+- **findAny()**: Returns an Optional describing some element of the stream, or an empty Optional if the stream is empty. This operation is useful for parallel streams.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public class StreamFindAny {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        Optional<String> any = names.stream().findAny(); // Finds any name
+        System.out.println("Any: " + any.orElse(null)); // Output: Any: Alice (may vary in parallel streams)
+    }
+}
+```
+
+#### <a name="chapter13part3.2"></a>Chapter 13 - Part 3.2: Using Lambda Expressions with Stream API
+
+Lambda expressions are instrumental in making the Stream API concise and readable. They provide the implementation for functional interfaces used in stream operations.
+
+**Filtering with Lambda Expressions**
+
+The filter() operation accepts a Predicate, which is a functional interface that tests a condition and returns a boolean. Lambda expressions provide a succinct way to define this condition.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaFilter {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+        // Filter even numbers using a lambda expression
+        numbers.stream()
+               .filter(n -> n % 2 == 0)
+               .forEach(System.out::println); // Output: 2 4 6
+    }
+}
+```
+
+In this example, n -> n % 2 == 0 is a lambda expression that checks if a number is even. The filter() operation applies this lambda expression to each element in the stream, keeping only the even numbers.
+
+**Mapping with Lambda Expressions**
+
+The map() operation accepts a Function, which is a functional interface that transforms an element from one type to another. Lambda expressions are used to define this transformation.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaMap {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Convert names to uppercase using a lambda expression
+        names.stream()
+             .map(name -> name.toUpperCase())
+             .forEach(System.out::println); // Output: ALICE BOB CHARLIE
+    }
+}
+```
+
+Here, name -> name.toUpperCase() is a lambda expression that converts a string to uppercase. The map() operation applies this lambda expression to each name in the stream, producing a new stream of uppercase names.
+
+**Reducing with Lambda Expressions**
+
+The reduce() operation accepts a BinaryOperator, which is a functional interface that combines two elements of the same type into a single result. Lambda expressions are used to define this combination logic.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaReduce {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Calculate the sum of numbers using a lambda expression
+        int sum = numbers.stream()
+                         .reduce(0, (a, b) -> a + b);
+        System.out.println("Sum: " + sum); // Output: Sum: 15
+    }
+}
+```
+
+In this example, (a, b) -> a + b is a lambda expression that adds two numbers together. The reduce() operation starts with an initial value of 0 and applies this lambda expression to each element in the stream, accumulating the sum.
+
+**Combining Operations**
+
+Lambda expressions can be combined with multiple stream operations to perform complex data manipulations in a single pipeline.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CombinedOperations {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "Anna", "David");
+
+        // Filter names starting with "A", convert to uppercase, and collect into a list
+        List<String> result = names.stream()
+                                   .filter(name -> name.startsWith("A"))
+                                   .map(String::toUpperCase)
+                                   .collect(Collectors.toList());
+
+        System.out.println(result); // Output: [ALICE, ANNA]
+    }
+}
+```
+
+This example demonstrates how to chain multiple stream operations using lambda expressions. First, it filters the names that start with "A", then converts them to uppercase, and finally collects the results into a list.
+
+#### <a name="chapter13part3.3"></a>Chapter 13 - Part 3.3: Practical Examples and Demonstrations
+
+**Example 1: Processing a List of Products**
+
+Consider a list of Product objects, each having a name, category, and price.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+class Product {
+    private String name;
+    private String category;
+    private double price;
+
+    public Product(String name, String category, double price) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+               "name='" + name + '\'' +
+               ", category='" + category + '\'' +
+               ", price=" + price +
+               '}';
+    }
+}
+
+public class ProductStream {
+    public static void main(String[] args) {
+        List<Product> products = Arrays.asList(
+                new Product("Laptop", "Electronics", 1200.0),
+                new Product("Keyboard", "Electronics", 75.0),
+                new Product("T-shirt", "Clothing", 25.0),
+                new Product("Jeans", "Clothing", 60.0)
+        );
+
+        // Filter products in the "Electronics" category and print their names
+        products.stream()
+                .filter(product -> product.getCategory().equals("Electronics"))
+                .forEach(product -> System.out.println(product.getName()));
+
+        // Calculate the average price of all products
+        double averagePrice = products.stream()
+                                     .mapToDouble(Product::getPrice)
+                                     .average()
+                                     .orElse(0.0);
+
+        System.out.println("Average price: " + averagePrice);
+
+        // Find the most expensive product
+        Product mostExpensive = products.stream()
+                                        .max((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice()))
+                                        .orElse(null);
+
+        System.out.println("Most expensive product: " + mostExpensive);
+    }
+}
+```
+
+This example demonstrates how to use lambda expressions with the Stream API to filter products by category, calculate the average price, and find the most expensive product.
+
+**Example 2: Processing a List of Orders**
+
+Consider a list of Order objects, each having an order ID, customer name, and total amount.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+class Order {
+    private int orderId;
+    private String customerName;
+    private double totalAmount;
+
+    public Order(int orderId, String customerName, double totalAmount) {
+        this.orderId = orderId;
+        this.customerName = customerName;
+        this.totalAmount = totalAmount;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+               "orderId=" + orderId +
+               ", customerName='" + customerName + '\'' +
+               ", totalAmount=" + totalAmount +
+               '}';
+    }
+}
+
+public class OrderStream {
+    public static void main(String[] args) {
+        List<Order> orders = Arrays.asList(
+                new Order(1, "Alice", 150.0),
+                new Order(2, "Bob", 200.0),
+                new Order(3, "Alice", 300.0),
+                new Order(4, "Charlie", 100.0)
+        );
+
+        // Calculate the total amount for each customer
+        orders.stream()
+              .forEach(order -> System.out.println(order.getCustomerName() + ": " + order.getTotalAmount()));
+
+        // Calculate the total amount for orders placed by "Alice"
+        double totalAlice = orders.stream()
+                                  .filter(order -> order.getCustomerName().equals("Alice"))
+                                  .mapToDouble(Order::getTotalAmount)
+                                  .sum();
+
+        System.out.println("Total amount for Alice: " + totalAlice);
+
+        // Find the order with the highest total amount
+        Order highestOrder = orders.stream()
+                                   .max((o1, o2) -> Double.compare(o1.getTotalAmount(), o2.getTotalAmount()))
+                                   .orElse(null);
+
+        System.out.println("Highest order: " + highestOrder);
+    }
+}
+```
+
+This example demonstrates how to use lambda expressions with the Stream API to process a list of orders, calculate the total amount for each customer, and find the order with the highest total amount.
+
+#### <a name="chapter13part4"></a>Chapter 13 - Part 4: Performing Aggregate Operations with Streams: Map, Filter, Reduce
+
+Lambda expressions and the Stream API have revolutionized how we process collections in Java. This lesson delves into the core aggregate operations offered by the Stream API: map, filter, and reduce. Mastering these operations is crucial for writing concise, readable, and efficient code when dealing with collections of data. We'll explore each operation in detail, providing practical examples and exercises to solidify your understanding.
+
+#### <a name="chapter13part4.1"></a>Chapter 13 - Part 4.1: Understanding Aggregate Operations: Map, Filter, Reduce
+
+The Stream API provides a powerful and flexible way to process collections of data. The map, filter, and reduce operations are fundamental building blocks for performing complex data transformations and aggregations. These operations are non-interfering (they don't modify the original data source) and stateless (they don't rely on any external state during processing), which makes them ideal for parallel processing.
+
+**Map: Transforming Elements**
+
+The map operation transforms each element in a stream into a new element. It applies a function to each element and returns a new stream containing the transformed elements. The function passed to map should be a stateless function, meaning its output depends only on the input element and not on any external state.
+
+**Example 1: Converting Strings to Uppercase**
+
+Let's say we have a list of strings and we want to convert each string to uppercase.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class MapExample {
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hello", "world", "java");
+
+        // Convert each word to uppercase using map
+        List<String> upperCaseWords = words.stream()
+                .map(String::toUpperCase) // Method reference to String.toUpperCase()
+                .collect(Collectors.toList());
+
+        System.out.println(upperCaseWords); // Output: [HELLO, WORLD, JAVA]
+    }
+}
+```
+
+In this example, we use the map operation to apply the toUpperCase method to each string in the words list. The String::toUpperCase is a method reference, a concise way to represent a lambda expression that calls an existing method. The collect(Collectors.toList()) part collects the transformed elements into a new list.
+
+**Example 2: Calculating the Length of Strings**
+
+We can also use map to transform elements into a different data type. For example, we can calculate the length of each string in a list.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class MapExample2 {
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hello", "world", "java");
+
+        // Calculate the length of each word using map
+        List<Integer> wordLengths = words.stream()
+                .map(String::length) // Method reference to String.length()
+                .collect(Collectors.toList());
+
+        System.out.println(wordLengths); // Output: [5, 5, 4]
+    }
+}
+```
+
+Here, we use map to apply the length method to each string, transforming each string into its corresponding length (an integer).
+
+**Example 3: Transforming Objects**
+
+Let's consider a Person class:
+
+```java
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+
+We can use map to extract the names of all people in a list:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class MapExample3 {
+
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+                new Person("Alice", 30),
+                new Person("Bob", 25),
+                new Person("Charlie", 35)
+        );
+
+        // Extract the names of all people using map
+        List<String> names = people.stream()
+                .map(Person::getName) // Method reference to Person.getName()
+                .collect(Collectors.toList());
+
+        System.out.println(names); // Output: [Alice, Bob, Charlie]
+    }
+}
+```
+
+In this case, map transforms each Person object into its name (a string).
+
+**Filter: Selecting Elements**
+
+The filter operation selects elements from a stream based on a given condition. It applies a predicate (a function that returns a boolean value) to each element and includes only the elements for which the predicate returns true in the resulting stream.
+
+**Example 1: Filtering Even Numbers**
+
+Let's say we have a list of integers and we want to filter out only the even numbers.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class FilterExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Filter out even numbers using filter
+        List<Integer> evenNumbers = numbers.stream()
+                .filter(n -> n % 2 == 0) // Lambda expression: n -> n % 2 == 0
+                .collect(Collectors.toList());
+
+        System.out.println(evenNumbers); // Output: [2, 4, 6, 8, 10]
+    }
+}
+```
+
+Here, we use the filter operation with a lambda expression n -> n % 2 == 0 that checks if a number is even. Only the even numbers are included in the resulting evenNumbers list.
+
+**Example 2: Filtering Strings by Length**
+
+We can also filter strings based on their length.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class FilterExample2 {
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hello", "world", "java", "python", "c++");
+
+        // Filter out words with length greater than 4
+        List<String> longWords = words.stream()
+                .filter(s -> s.length() > 4) // Lambda expression: s -> s.length() > 4
+                .collect(Collectors.toList());
+
+        System.out.println(longWords); // Output: [hello, world, python]
+    }
+}
+```
+
+In this example, we filter out words whose length is greater than 4.
+
+**Example 3: Filtering Objects**
+
+Using the Person class from the map examples, we can filter people based on their age.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class FilterExample3 {
+
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+                new Person("Alice", 30),
+                new Person("Bob", 25),
+                new Person("Charlie", 35)
+        );
+
+        // Filter out people older than 28
+        List<Person> olderPeople = people.stream()
+                .filter(p -> p.getAge() > 28) // Lambda expression: p -> p.getAge() > 28
+                .collect(Collectors.toList());
+
+        System.out.println(olderPeople); // Output: [Person{name='Alice', age=30}, Person{name='Charlie', age=35}]
+    }
+}
+```
+
+Here, we filter out people whose age is greater than 28.
+
+**Reduce: Combining Elements**
+
+The reduce operation combines the elements of a stream into a single result. It takes an identity value (an initial value) and an accumulator function. The accumulator function takes two arguments: the accumulated result so far and the next element in the stream. It returns a new accumulated result. The reduce operation applies the accumulator function repeatedly to combine the elements of the stream until a single result is obtained.
+
+**Example 1: Summing Numbers**
+
+Let's say we have a list of integers and we want to calculate their sum.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class ReduceExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Calculate the sum of numbers using reduce
+        int sum = numbers.stream()
+                .reduce(0, (a, b) -> a + b); // Identity: 0, Accumulator: (a, b) -> a + b
+
+        System.out.println(sum); // Output: 15
+    }
+}
+```
+
+In this example, the identity value is 0 (the initial sum), and the accumulator function is (a, b) -> a + b, which adds the current element b to the accumulated sum a.
+
+**Example 2: Concatenating Strings**
+
+We can also use reduce to concatenate strings.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class ReduceExample2 {
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hello", "world", "java");
+
+        // Concatenate strings using reduce
+        String concatenatedString = words.stream()
+                .reduce("", (a, b) -> a + " " + b); // Identity: "", Accumulator: (a, b) -> a + " " + b
+
+        System.out.println(concatenatedString); // Output:  hello world java
+    }
+}
+```
+
+Here, the identity value is an empty string, and the accumulator function concatenates the current word b to the accumulated string a, with a space in between.
+
+**Example 3: Finding the Oldest Person**
+
+Using the Person class, we can find the oldest person in a list.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public class ReduceExample3 {
+
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+                new Person("Alice", 30),
+                new Person("Bob", 25),
+                new Person("Charlie", 35)
+        );
+
+        // Find the oldest person using reduce
+        Optional<Person> oldestPerson = people.stream()
+                .reduce((p1, p2) -> p1.getAge() > p2.getAge() ? p1 : p2); // Accumulator: (p1, p2) -> p1.getAge() > p2.getAge() ? p1 : p2
+
+        oldestPerson.ifPresent(person -> System.out.println("Oldest person: " + person)); // Output: Oldest person: Person{name='Charlie', age=35}
+    }
+}
+```
+
+In this example, the accumulator function compares the ages of two people and returns the older person. Note that this version of reduce without an identity returns an Optional<Person> because the stream might be empty.
+
+#### <a name="chapter13part4.2"></a>Chapter 13 - Part 4.2: Combining Map, Filter, and Reduce
+
+The real power of the Stream API comes from combining these operations to perform complex data processing tasks.
+
+**Example: Finding the Sum of Ages of People Older Than 28**
+
+Let's combine map, filter, and reduce to find the sum of ages of people older than 28.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class CombinedExample {
+
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+                new Person("Alice", 30),
+                new Person("Bob", 25),
+                new Person("Charlie", 35)
+        );
+
+        // Find the sum of ages of people older than 28
+        int sumOfAges = people.stream()
+                .filter(p -> p.getAge() > 28) // Filter people older than 28
+                .map(Person::getAge)         // Map each person to their age
+                .reduce(0, Integer::sum);      // Reduce to calculate the sum of ages
+
+        System.out.println("Sum of ages of people older than 28: " + sumOfAges); // Output: Sum of ages of people older than 28: 65
+    }
+}
+```
+
+In this example, we first filter the list of people to include only those older than 28. Then, we map each person to their age. Finally, we reduce the stream of ages to calculate their sum.
+
+#### <a name="chapter13part5"></a>Chapter 13 - Part 5: Exploring Method References
+
+Method references provide a concise way to refer to methods or constructors without executing them. They are essentially shorthand lambda expressions for methods that already exist. Understanding method references is crucial for writing cleaner, more readable, and maintainable code, especially when working with functional interfaces and the Stream API. This lesson will explore the different types of method references, their syntax, and how they can be used to simplify lambda expressions.
+
+#### <a name="chapter13part5.1"></a>Chapter 13 - Part 5.1: Types of Method References
+
+Method references come in four flavors, each corresponding to a different way of referencing a method:
+
+- Static method references
+- Instance method references of a particular object
+- Instance method references of an arbitrary object of a particular type
+- Constructor references
+
+Let's examine each type in detail.
+
+**Static Method References**
+
+A static method reference refers to a static method of a class. The syntax is ClassName::staticMethodName.
+
+**Example:**
+
+Consider a functional interface Converter that converts a string to an integer:
+
+```java
+@FunctionalInterface
+interface Converter {
+    Integer convert(String from);
+}
+```
+
+We can use a lambda expression to implement this interface using the Integer.parseInt() static method:
+
+```java
+Converter converter = (from) -> Integer.parseInt(from);
+Integer result = converter.convert("123"); // result is 123
+```
+
+Using a static method reference, we can simplify this:
+
+```java
+Converter converter = Integer::parseInt;
+Integer result = converter.convert("123"); // result is 123
+```
+
+In this case, Integer::parseInt is equivalent to the lambda expression (from) -> Integer.parseInt(from). The compiler infers the type of the input parameter from from the functional interface Converter.
+
+**Explanation:**
+
+The method reference Integer::parseInt directly refers to the static method parseInt of the Integer class. When the convert method of the Converter interface is called, it effectively calls Integer.parseInt with the provided argument.
+
+**Another Example:**
+
+```java
+class StringUtils {
+    public static String toUpperCase(String s) {
+        return s.toUpperCase();
+    }
+}
+
+@FunctionalInterface
+interface StringConverter {
+    String convert(String s);
+}
+
+public class StaticMethodReferenceExample {
+    public static void main(String[] args) {
+        StringConverter converter = StringUtils::toUpperCase;
+        String result = converter.convert("hello"); // result is "HELLO"
+        System.out.println(result);
+    }
+}
+```
+
+Here, StringUtils::toUpperCase is a static method reference to the toUpperCase method in the StringUtils class.
+
+**Instance Method References of a Particular Object**
+
+An instance method reference of a particular object refers to a non-static method of a specific object. The syntax is object::instanceMethodName.
+
+```java
+class StringTransformer {
+    public String toLowerCase() {
+        return "EXAMPLE".toLowerCase();
+    }
+}
+
+@FunctionalInterface
+interface Transformer {
+    String transform();
+}
+
+public class InstanceMethodReferenceExample {
+    public static void main(String[] args) {
+        StringTransformer transformerObject = new StringTransformer();
+        Transformer transformer = transformerObject::toLowerCase;
+        String result = transformer.transform(); // result is "example"
+        System.out.println(result);
+    }
+}
+```
+
+In this example, transformerObject::toLowerCase refers to the toLowerCase method of the transformerObject instance.
+
+**Explanation:**
+
+The method reference transformerObject::toLowerCase is equivalent to a lambda expression like () -> transformerObject.toLowerCase(). The lambda expression captures the specific instance transformerObject and calls its toLowerCase method.
+
+**Another Example:**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class InstanceMethodReferenceExample2 {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        names.forEach(System.out::println); // Equivalent to names.forEach(name -> System.out.println(name));
+    }
+}
+```
+
+Here, System.out::println is an instance method reference where System.out is the object and println is the method.
+
+**Instance Method References of an Arbitrary Object of a Particular Type**
+
+An instance method reference of an arbitrary object of a particular type refers to a non-static method of any object of a specific class. The syntax is ClassName::instanceMethodName.
+
+Example:
+
+Consider a functional interface StringComparator that compares two strings:
+
+```java
+@FunctionalInterface
+interface StringComparator {
+    int compare(String a, String b);
+}
+```
+
+We can use a lambda expression to implement this interface using the String.compareTo() method:
+
+```java
+StringComparator comparator = (a, b) -> a.compareTo(b);
+int result = comparator.compare("apple", "banana"); // result is a negative number
+```
+
+Using an instance method reference of an arbitrary object, we can simplify this:
+
+```java
+StringComparator comparator = String::compareTo;
+int result = comparator.compare("apple", "banana"); // result is a negative number
+```
+
+In this case, String::compareTo is equivalent to the lambda expression (a, b) -> a.compareTo(b). The compiler infers that the first argument to the compare method should be used to call the compareTo method.
+
+**Explanation:**
+
+The method reference String::compareTo refers to the compareTo method of the String class. When the compare method of the StringComparator interface is called, it effectively calls a.compareTo(b) where a and b are the arguments passed to the compare method.
+
+**Another Example:**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class ArbitraryObjectMethodReferenceExample {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("apple", "banana", "kiwi", "orange");
+
+        // Sort the list alphabetically using String::compareToIgnoreCase
+        words.sort(String::compareToIgnoreCase);
+
+        System.out.println(words); // Output: [apple, banana, kiwi, orange]
+    }
+}
+```
+
+Here, String::compareToIgnoreCase is an instance method reference to the compareToIgnoreCase method of the String class.
+
+**Constructor References**
+
+A constructor reference refers to a constructor of a class. The syntax is ClassName::new.
+
+**Example:**
+
+Consider a functional interface StringFactory that creates a string:
+
+```java
+@FunctionalInterface
+interface StringFactory {
+    String create(char[] chars);
+}
+```
+
+We can use a lambda expression to implement this interface using the String constructor:
+
+```java
+StringFactory factory = (chars) -> new String(chars);
+String str = factory.create(new char[]{'h', 'e', 'l', 'l', 'o'}); // str is "hello"
+```
+
+Using a constructor reference, we can simplify this:
+
+```java
+StringFactory factory = String::new;
+String str = factory.create(new char[]{'h', 'e', 'l', 'l', 'o'}); // str is "hello"
+```
+
+In this case, String::new is equivalent to the lambda expression (chars) -> new String(chars). The compiler infers the type of the input parameter chars from the functional interface StringFactory.
+
+**Explanation:**
+
+The method reference String::new directly refers to the constructor of the String class. When the create method of the StringFactory interface is called, it effectively calls new String(chars) with the provided argument.
+
+**Another Example:**
+
+```java
+import java.util.function.Supplier;
+
+class MyClass {
+    private String message;
+
+    public MyClass() {
+        this.message = "Default Message";
+    }
+
+    public MyClass(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+
+public class ConstructorReferenceExample {
+    public static void main(String[] args) {
+        // Reference to the default constructor
+        Supplier<MyClass> defaultConstructor = MyClass::new;
+        MyClass obj1 = defaultConstructor.get();
+        System.out.println(obj1.getMessage()); // Output: Default Message
+
+        // Reference to the constructor with a String argument
+        java.util.function.Function<String, MyClass> parameterizedConstructor = MyClass::new;
+        MyClass obj2 = parameterizedConstructor.apply("Hello, Constructor!");
+        System.out.println(obj2.getMessage()); // Output: Hello, Constructor!
+    }
+}
+```
+
+Here, MyClass::new refers to the constructor of the MyClass class. The compiler selects the appropriate constructor based on the functional interface's method signature.
+
+#### <a name="chapter13part5.2"></a>Chapter 13 - Part 5.2: Practical Examples and Demonstrations
+
+Let's explore some practical examples of using method references in common scenarios.
+
+**Example 1: Sorting a List of Strings**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class SortingExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Charlie", "Alice", "Bob", "David");
+
+        // Using a lambda expression
+        names.sort((a, b) -> a.compareTo(b));
+        System.out.println("Sorted with lambda: " + names); // Output: [Alice, Bob, Charlie, David]
+
+        names = Arrays.asList("Charlie", "Alice", "Bob", "David"); // Reset the list
+
+        // Using a method reference
+        names.sort(String::compareTo);
+        System.out.println("Sorted with method reference: " + names); // Output: [Alice, Bob, Charlie, David]
+    }
+}
+```
+
+**Example 2: Using Method References with Streams**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> numbers = Arrays.asList("1", "2", "3", "4", "5");
+
+        // Using a lambda expression to convert strings to integers
+        List<Integer> integers = numbers.stream()
+                .map(s -> Integer.parseInt(s))
+                .collect(Collectors.toList());
+        System.out.println("Integers with lambda: " + integers); // Output: [1, 2, 3, 4, 5]
+
+        numbers = Arrays.asList("1", "2", "3", "4", "5"); // Reset the list
+
+        // Using a method reference to convert strings to integers
+        List<Integer> integersWithReference = numbers.stream()
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+        System.out.println("Integers with method reference: " + integersWithReference); // Output: [1, 2, 3, 4, 5]
+
+        // Using a method reference to convert strings to uppercase
+        List<String> names = Arrays.asList("alice", "bob", "charlie");
+        List<String> upperCaseNames = names.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+        System.out.println("Uppercase names: " + upperCaseNames); // Output: [ALICE, BOB, CHARLIE]
+    }
+}
+```
+
+**Example 3: Using Constructor References to Create Objects**
+
+```java
+import java.util.function.Supplier;
+
+class Person {
+    private String name;
+
+    public Person() {
+        this.name = "Unknown";
+    }
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+public class ConstructorReferenceExample2 {
+    public static void main(String[] args) {
+        // Using a lambda expression
+        Supplier<Person> personSupplier = () -> new Person();
+        Person person1 = personSupplier.get();
+        System.out.println("Person 1 name: " + person1.getName()); // Output: Unknown
+
+        // Using a constructor reference
+        Supplier<Person> personSupplierReference = Person::new;
+        Person person2 = personSupplierReference.get();
+        System.out.println("Person 2 name: " + person2.getName()); // Output: Unknown
+
+        java.util.function.Function<String, Person> personCreator = Person::new;
+        Person person3 = personCreator.apply("Alice");
+        System.out.println("Person 3 name: " + person3.getName());
+    }
+}
+```
+
+#### <a name="chapter13part6"></a>Chapter 13 - Part 6: Case Study: Refactoring Code with Lambda Expressions and Streams
+
+Refactoring code is a crucial skill for any developer, especially when transitioning to more modern and efficient paradigms. Lambda expressions and the Stream API provide powerful tools for simplifying and enhancing code readability and maintainability. This lesson explores how to leverage these features to refactor existing code, making it more concise, expressive, and less prone to errors. We'll focus on practical examples and demonstrate how to identify opportunities for refactoring using lambda expressions and streams.
+
+#### <a name="chapter13part6.1"></a>Chapter 13 - Part 6.1: Identifying Refactoring Opportunities
+
+Before diving into the refactoring process, it's essential to identify code segments that can benefit from lambda expressions and streams. Look for the following patterns:
+
+- **Anonymous Inner Classes**: Code that uses anonymous inner classes, especially for simple tasks like event handling or callbacks, can often be replaced with lambda expressions.
+- **Iterative Loops**: Traditional for loops or while loops used for filtering, transforming, or aggregating data within collections are prime candidates for Stream API operations.
+- **Verbose Conditional Logic**: Complex if-else statements or nested conditional blocks can sometimes be simplified using functional interfaces like Predicate and lambda expressions.
+- **Repetitive Code**: Code that performs similar operations on different data sets can be generalized and refactored using lambda expressions and higher-order functions.
+
+#### <a name="chapter13part6.2"></a>Chapter 13 - Part 6.2: Refactoring Anonymous Inner Classes
+
+Anonymous inner classes were commonly used before the introduction of lambda expressions to implement interfaces with a single method. Lambda expressions provide a more concise and readable alternative.
+
+**Example: Event Handling**
+
+Consider a scenario where you have a button and you want to add an action listener to it.
+
+**Before (Anonymous Inner Class):**
+
+```java
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AnonymousInnerClassExample {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Anonymous Inner Class Example");
+        JButton button = new JButton("Click Me");
+
+        // Anonymous inner class to handle button click
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Button clicked!");
+            }
+        });
+
+        frame.add(button);
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
+```
+
+**After (Lambda Expression):**
+
+```java
+import javax.swing.*;
+
+public class LambdaExpressionExample {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Lambda Expression Example");
+        JButton button = new JButton("Click Me");
+
+        // Lambda expression to handle button click
+        button.addActionListener(e -> System.out.println("Button clicked!"));
+
+        frame.add(button);
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
+```
+
+In this example, the anonymous inner class implementing ActionListener is replaced with a lambda expression e -> System.out.println("Button clicked!"). This significantly reduces the amount of boilerplate code and improves readability.
+
+#### <a name="chapter13part6.3"></a>Chapter 13 - Part 6.3: Refactoring Iterative Loops with Streams
+
+The Stream API provides a powerful and declarative way to process collections of data. Traditional for loops can often be replaced with Stream operations like filter, map, and reduce to make the code more concise and expressive.
+
+**Example: Filtering and Transforming a List**
+
+Consider a scenario where you have a list of integers and you want to filter out the even numbers and then square the remaining odd numbers.
+
+**Before (Iterative Loop):**
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class IterativeLoopExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> squaredOddNumbers = new ArrayList<>();
+
+        for (int number : numbers) {
+            if (number % 2 != 0) {
+                squaredOddNumbers.add(number * number);
+            }
+        }
+
+        System.out.println(squaredOddNumbers); // Output: [1, 9, 25, 49, 81]
+    }
+}
+```
+
+**After (Stream API):**
+
+```java
+import java.util.List;
+
+public class StreamAPIExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        List<Integer> squaredOddNumbers = numbers.stream()
+                .filter(number -> number % 2 != 0)
+                .map(number -> number * number)
+                .toList();
+
+        System.out.println(squaredOddNumbers); // Output: [1, 9, 25, 49, 81]
+    }
+}
+```
+
+In this example, the for loop is replaced with a stream pipeline that first filters the odd numbers using the filter operation and then squares them using the map operation. The toList() method collects the results into a new list. This approach is more declarative and easier to read.
+
+**Example: Aggregating Data**
+
+Consider calculating the sum of all even numbers in a list.
+
+**Before (Iterative Loop):**
+
+```java
+import java.util.List;
+
+public class IterativeSumExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        int sum = 0;
+
+        for (int number : numbers) {
+            if (number % 2 == 0) {
+                sum += number;
+            }
+        }
+
+        System.out.println("Sum of even numbers: " + sum); // Output: Sum of even numbers: 30
+    }
+}
+```
+
+**After (Stream API):**
+
+```java
+import java.util.List;
+
+public class StreamAPISumExample {
+
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        int sum = numbers.stream()
+                .filter(number -> number % 2 == 0)
+                .reduce(0, Integer::sum);
+
+        System.out.println("Sum of even numbers: " + sum); // Output: Sum of even numbers: 30
+    }
+}
+```
+
+Here, the reduce operation is used to calculate the sum of the even numbers. The Integer::sum is a method reference that provides a concise way to specify the summing operation.
+
+#### <a name="chapter13part6.4"></a>Chapter 13 - Part 6.4: Refactoring Verbose Conditional Logic
+
+Functional interfaces like Predicate, Function, Consumer, and Supplier, combined with lambda expressions, can help simplify complex conditional logic.
+
+**Example: Using Predicate for Filtering**
+
+Consider a scenario where you have a list of strings and you want to filter out the strings that start with a specific prefix.
+
+**Before (Verbose Conditional Logic):**
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class VerboseConditionalExample {
+
+    public static void main(String[] args) {
+        List<String> names = List.of("Alice", "Bob", "Charlie", "Anna", "David");
+        List<String> filteredNames = new ArrayList<>();
+        String prefix = "A";
+
+        for (String name : names) {
+            if (name.startsWith(prefix)) {
+                filteredNames.add(name);
+            }
+        }
+
+        System.out.println(filteredNames); // Output: [Alice, Anna]
+    }
+}
+```
+
+**After (Using Predicate):**
+
+```java
+import java.util.List;
+import java.util.function.Predicate;
+
+public class PredicateExample {
+
+    public static void main(String[] args) {
+        List<String> names = List.of("Alice", "Bob", "Charlie", "Anna", "David");
+        String prefix = "A";
+
+        Predicate<String> startsWithA = name -> name.startsWith(prefix);
+
+        List<String> filteredNames = names.stream()
+                .filter(startsWithA)
+                .toList();
+
+        System.out.println(filteredNames); // Output: [Alice, Anna]
+    }
+}
+```
+
+In this example, a Predicate is used to encapsulate the filtering logic. This makes the code more readable and reusable.
+
+#### <a name="chapter13part6.5"></a>Chapter 13 - Part 6.5: Refactoring Repetitive Code
+
+Lambda expressions can be used to abstract away repetitive code patterns, making the code more maintainable and less prone to errors.
+
+**Example: Using Function for Transformation**
+
+Consider a scenario where you have a list of strings and you want to convert them to uppercase and then to lowercase.
+
+**Before (Repetitive Code):**
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class RepetitiveCodeExample {
+
+    public static void main(String[] args) {
+        List<String> names = List.of("Alice", "Bob", "Charlie");
+        List<String> uppercaseNames = new ArrayList<>();
+        List<String> lowercaseNames = new ArrayList<>();
+
+        for (String name : names) {
+            uppercaseNames.add(name.toUpperCase());
+        }
+
+        for (String name : names) {
+            lowercaseNames.add(name.toLowerCase());
+        }
+
+        System.out.println("Uppercase: " + uppercaseNames); // Output: Uppercase: [ALICE, BOB, CHARLIE]
+        System.out.println("Lowercase: " + lowercaseNames); // Output: Lowercase: [alice, bob, charlie]
+    }
+}
+```
+
+**After (Using Function):**
+
+```java
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class FunctionExample {
+
+    public static void main(String[] args) {
+        List<String> names = List.of("Alice", "Bob", "Charlie");
+
+        Function<String, String> toUppercase = String::toUpperCase;
+        Function<String, String> toLowercase = String::toLowerCase;
+
+        List<String> uppercaseNames = names.stream()
+                .map(toUppercase)
+                .collect(Collectors.toList());
+
+        List<String> lowercaseNames = names.stream()
+                .map(toLowercase)
+                .collect(Collectors.toList());
+
+        System.out.println("Uppercase: " + uppercaseNames); // Output: Uppercase: [ALICE, BOB, CHARLIE]
+        System.out.println("Lowercase: " + lowercaseNames); // Output: Lowercase: [alice, bob, charlie]
+    }
+}
+```
+
+In this example, Function is used to define the transformation logic (uppercase and lowercase conversions). This avoids code duplication and makes the code more flexible.
 	
 <!-- URL's -->
