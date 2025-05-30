@@ -18447,68 +18447,1647 @@ This RegionalSettings class stores regional settings such as tax rate and defaul
 
 #### <a name="chapter12part1"></a>Chapter 12 - Part 1: Working with Lists: ArrayList vs. LinkedList Performance
 
+Understanding the performance characteristics of ArrayList and LinkedList is crucial for efficient Java development. Both implement the List interface, but their underlying data structures lead to different performance profiles for common operations. Choosing the right list implementation can significantly impact the performance of your application, especially when dealing with large datasets or performance-critical sections of code. This lesson will delve into the internal workings of each list type, analyze their time complexities for various operations, and provide practical guidance on when to use one over the other.
+
 #### <a name="chapter12part1.1"></a>Chapter 12 - Part 1.1: ArrayList Internals and Performance
+
+ArrayList is backed by a dynamically resizable array. This means that elements are stored in contiguous memory locations, allowing for fast access using an index.
+
+**Key Characteristics of ArrayList:**
+
+- **Underlying Data Structure**: Dynamically resizable array.
+- **Memory Allocation**: Contiguous memory allocation.
+- **Random Access**: Excellent (O(1)).
+- **Insertion/Deletion at the End**: Generally fast (O(1) amortized), but can be O(n) if resizing is required.
+- **Insertion/Deletion at the Beginning/Middle**: Slow (O(n)) due to element shifting.
+
+**Detailed Explanation:**
+
+When you create an ArrayList, it is initialized with a default capacity (typically 10). As you add elements, the ArrayList checks if the underlying array has enough space. If not, it creates a new array with a larger capacity (usually 1.5 times the original size), copies the existing elements to the new array, and then adds the new element. This resizing operation can be expensive, especially for large lists. However, because resizing doesn't happen with every insertion, the amortized time complexity for adding elements at the end is O(1).
+
+Accessing an element at a specific index is very efficient because the ArrayList can directly calculate the memory address of the element using the index. This is why random access has a time complexity of O(1).
+
+Inserting or deleting elements at the beginning or middle of the list requires shifting all subsequent elements to make space or fill the gap. This shifting operation takes O(n) time, where n is the number of elements that need to be shifted.
+
+**Code Example: ArrayList Operations**
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListExample {
+
+    public static void main(String[] args) {
+        // Creating an ArrayList
+        List<String> arrayList = new ArrayList<>();
+
+        // Adding elements
+        arrayList.add("Apple"); // O(1) amortized
+        arrayList.add("Banana"); // O(1) amortized
+        arrayList.add("Cherry"); // O(1) amortized
+
+        // Accessing an element
+        String element = arrayList.get(1); // O(1)
+        System.out.println("Element at index 1: " + element);
+
+        // Inserting an element at a specific index
+        arrayList.add(1, "Mango"); // O(n)
+        System.out.println("ArrayList after insertion: " + arrayList);
+
+        // Removing an element at a specific index
+        arrayList.remove(2); // O(n)
+        System.out.println("ArrayList after removal: " + arrayList);
+
+        //Adding multiple elements
+        List<String> moreFruits = new ArrayList<>();
+        moreFruits.add("Grapes");
+        moreFruits.add("Kiwi");
+        arrayList.addAll(moreFruits); // O(n), where n is the size of moreFruits
+        System.out.println("ArrayList after adding all: " + arrayList);
+    }
+}
+```
+
+**ArrayList Capacity and ensureCapacity()**
+
+The ArrayList class provides a method called ensureCapacity() that allows you to pre-allocate the underlying array's size. This can be useful when you know in advance how many elements you will be adding to the list, as it can prevent multiple resizing operations and improve performance.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListCapacityExample {
+
+    public static void main(String[] args) {
+        // Creating an ArrayList with an initial capacity
+        List<Integer> arrayList = new ArrayList<>(100); // Initial capacity of 100
+
+        // Ensuring capacity before adding elements
+        ((ArrayList<Integer>) arrayList).ensureCapacity(150); // Increase capacity to 150 if needed
+
+        // Adding elements
+        for (int i = 0; i < 120; i++) {
+            arrayList.add(i);
+        }
+
+        System.out.println("ArrayList size: " + arrayList.size());
+    }
+}
+```
+
+In this example, we create an ArrayList with an initial capacity of 100. Then, we use the ensureCapacity() method to ensure that the underlying array can hold at least 150 elements. This prevents the ArrayList from having to resize the array multiple times as we add elements, which can improve performance. Note the cast to ArrayList<Integer> is required to access the ensureCapacity() method, as it's not part of the List interface.
 
 #### <a name="chapter12part1.2"></a>Chapter 12 - Part 1.2: LinkedList Internals and Performance
 
+LinkedList is based on a doubly-linked list data structure. Each element in the list is stored in a node, which contains a reference to the previous and next nodes in the list.
+
+**Key Characteristics of LinkedList:**
+
+- **Underlying Data Structure**: Doubly-linked list.
+- **Memory Allocation**: Non-contiguous memory allocation.
+- **Random Access**: Poor (O(n)).
+- **Insertion/Deletion at the Beginning/End**: Fast (O(1)).
+- **Insertion/Deletion at the Middle**: Can be faster than ArrayList if the position is known (O(1) if you have a reference to the node, O(n) to find the node).
+
+**Detailed Explanation:**
+
+In a LinkedList, elements are not stored in contiguous memory locations. Instead, each element (node) contains a pointer to the next and previous elements in the list. This structure makes it easy to insert or delete elements at any position in the list, as it only requires updating the pointers of the surrounding nodes. However, accessing an element at a specific index requires traversing the list from the beginning or end until the desired index is reached, resulting in O(n) time complexity for random access.
+
+Adding or removing elements at the beginning or end of the list is very efficient because it only involves updating the head or tail pointers of the list. This operation takes O(1) time. Inserting or deleting elements in the middle of the list requires finding the node at the desired position, which takes O(n) time. However, if you already have a reference to the node where you want to insert or delete an element, the insertion or deletion operation itself takes only O(1) time.
+
+**Code Example: LinkedList Operations**
+
+```java
+import java.util.LinkedList;
+import java.util.List;
+
+public class LinkedListExample {
+
+    public static void main(String[] args) {
+        // Creating a LinkedList
+        List<String> linkedList = new LinkedList<>();
+
+        // Adding elements
+        linkedList.add("Apple"); // O(1)
+        linkedList.add("Banana"); // O(1)
+        linkedList.add("Cherry"); // O(1)
+
+        // Accessing an element (inefficient)
+        String element = linkedList.get(1); // O(n)
+        System.out.println("Element at index 1: " + element);
+
+        // Inserting an element at a specific index
+        linkedList.add(1, "Mango"); // O(n) to find index, O(1) to insert
+        System.out.println("LinkedList after insertion: " + linkedList);
+
+        // Removing an element at a specific index
+        linkedList.remove(2); // O(n) to find index, O(1) to remove
+        System.out.println("LinkedList after removal: " + linkedList);
+
+        // Adding element at the beginning
+        ((LinkedList<String>) linkedList).addFirst("Strawberry"); // O(1)
+        System.out.println("LinkedList after adding at the beginning: " + linkedList);
+
+        // Removing element from the end
+        ((LinkedList<String>) linkedList).removeLast(); // O(1)
+        System.out.println("LinkedList after removing from the end: " + linkedList);
+    }
+}
+```
+
+Note the casts to LinkedList<String> are required to access the addFirst() and removeLast() methods, as they're not part of the List interface.
+
 #### <a name="chapter12part1.3"></a>Chapter 12 - Part 1.3: Performance Comparison: ArrayList vs. LinkedList
+
+|Operation|	ArrayList|	LinkedList|
+| :-----------: | :-----------: | :-----------: |
+|Random Access (get(i))	|O(1)|	O(n)|
+|Insertion at Beginning	|O(n)|	O(1)|
+|Insertion at End	|O(1) amortized	|O(1)|
+|Insertion in Middle	|O(n)	|O(n)|
+|Deletion at Beginning	|O(n)	|O(1)|
+|Deletion at End	|O(1)	|O(1)|
+|Deletion in Middle|	O(n)|	O(n)|
+|Iteration	|O(n)	|O(n)|
+|Memory Overhead	|Lower	|Higher|
+
+**When to Use ArrayList:**
+
+- Frequent random access is required.
+- Insertion and deletion operations are mostly performed at the end of the list.
+- Memory usage is a concern.
+
+**When to Use LinkedList:**
+
+-Frequent insertion and deletion operations are required at the beginning or middle of the list.
+-Random access is not a primary requirement.
+-You need to implement a queue or a deque (double-ended queue).
 
 #### <a name="chapter12part2"></a>Chapter 12 - Part 2: Understanding Sets: HashSet, TreeSet, and LinkedHashSet
 
+Sets are a fundamental data structure in Java's Collections Framework, providing a way to store unique elements. Unlike lists, sets do not allow duplicate entries, and they don't guarantee any specific order of elements (unless a specific implementation enforces it). This lesson explores three primary implementations of the Set interface: HashSet, TreeSet, and LinkedHashSet, detailing their characteristics, performance implications, and use cases. Understanding the nuances of each implementation is crucial for selecting the most appropriate set type for a given task, optimizing performance, and writing efficient Java code.
+
 #### <a name="chapter12part2.1"></a>Chapter 12 - Part 2.1: Understanding the Set Interface
+
+The Set interface extends the Collection interface and represents a collection of unique elements. This means that a Set cannot contain duplicate elements. More formally, a Set contains no pair of elements e1 and e2 such that e1.equals(e2), and at most one null element.
+
+Key characteristics of the Set interface:
+
+- **Uniqueness**: Ensures that each element in the set is unique.
+- **No Indexing**: Does not support accessing elements by index, unlike lists.
+- **Core Operations**: Supports basic operations like adding elements, removing elements, checking for membership, and iterating over elements.
+
+Common methods defined in the Set interface include:
+
+- add(E e): Adds the specified element to the set if it is not already present.
+- remove(Object o): Removes the specified element from the set if it is present.
+- contains(Object o): Returns true if the set contains the specified element.
+- size(): Returns the number of elements in the set.
+- isEmpty(): Returns true if the set contains no elements.
+- iterator(): Returns an iterator over the elements in the set.
+- clear(): Removes all of the elements from this set.
 
 #### <a name="chapter12part2.2"></a>Chapter 12 - Part 2.2: HashSet: The Unordered Champion
 
+HashSet is a general-purpose implementation of the Set interface that uses a hash table for storage. It offers excellent performance for basic operations like adding, removing, and checking for the presence of elements, especially when the set contains a large number of elements. However, HashSet does not guarantee any specific order of elements.
+
+**Key Characteristics of HashSet**
+
+- **Implementation**: Uses a hash table (specifically, a HashMap instance) to store elements.
+- **Performance**: Provides constant-time performance (O(1)) for add, remove, and contains operations on average, assuming a good hash function and proper distribution of elements. Worst-case performance can degrade to O(n) if all elements hash to the same bucket.
+- **Ordering**: Does not guarantee any specific order of elements. The order may change over time as elements are added or removed.
+- **Null Elements**: Allows one null element.
+- **Synchronization**: Not synchronized. If multiple threads access a HashSet concurrently, and at least one of the threads modifies the set, it must be synchronized externally.
+
+**HashSet Example**
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+public class HashSetExample {
+
+    public static void main(String[] args) {
+        // Creating a HashSet
+        Set<String> hashSet = new HashSet<>();
+
+        // Adding elements to the HashSet
+        hashSet.add("Apple");
+        hashSet.add("Banana");
+        hashSet.add("Orange");
+        hashSet.add("Apple"); // Adding a duplicate element (ignored)
+        hashSet.add(null);    // Adding a null element
+
+        // Printing the HashSet
+        System.out.println("HashSet: " + hashSet); // Output: HashSet: [null, Orange, Banana, Apple] (order may vary)
+
+        // Checking if an element exists
+        boolean containsBanana = hashSet.contains("Banana");
+        System.out.println("Contains Banana: " + containsBanana); // Output: Contains Banana: true
+
+        // Removing an element
+        hashSet.remove("Orange");
+        System.out.println("HashSet after removing Orange: " + hashSet); // Output: HashSet after removing Orange: [null, Banana, Apple] (order may vary)
+
+        // Iterating over the HashSet
+        System.out.println("Iterating over HashSet:");
+        for (String element : hashSet) {
+            System.out.println(element); // Output: null, Banana, Apple (order may vary)
+        }
+    }
+}
+```
+
+**Understanding the Code**
+
+- The code creates a HashSet of strings.
+- It adds several elements, including a duplicate ("Apple"), which is ignored, and a null element, which is allowed.
+- The output demonstrates that the order of elements is not guaranteed.
+- The code then checks for the presence of an element and removes another element.
+- Finally, it iterates over the HashSet and prints each element.
+
+**HashSet and Custom Objects**
+
+When using HashSet with custom objects, it's crucial to override the hashCode() and equals() methods in the custom class. The hashCode() method provides a hash code for the object, which is used to determine the bucket in the hash table where the object is stored. The equals() method is used to compare objects for equality within the same bucket.
+
+If these methods are not properly overridden, HashSet may not function correctly, and duplicate objects may be added to the set.
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
+
+class Point {
+    private int x;
+    private int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+}
+
+public class HashSetCustomObjectExample {
+    public static void main(String[] args) {
+        Set<Point> points = new HashSet<>();
+
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(1, 2);
+        Point p3 = new Point(3, 4);
+
+        points.add(p1);
+        points.add(p2); // Duplicate, will not be added
+        points.add(p3);
+
+        System.out.println("HashSet of Points: " + points); // Output: HashSet of Points: [Point{x=3, y=4}, Point{x=1, y=2}]
+        System.out.println("Size of HashSet: " + points.size()); // Output: Size of HashSet: 2
+    }
+}
+```
+
+**Explanation of the Code**
+
+- The Point class represents a point in 2D space.
+- The equals() method compares two Point objects based on their x and y coordinates.
+- The hashCode() method generates a hash code based on the x and y coordinates.
+- The HashSet correctly identifies p1 and p2 as duplicates because they have the same coordinates and, therefore, the same hash code and are equal according to the equals() method.
+
 #### <a name="chapter12part2.3"></a>Chapter 12 - Part 2.3: TreeSet: The Sorted Set
+
+TreeSet is another implementation of the Set interface that uses a tree structure (specifically, a TreeMap) for storage. Unlike HashSet, TreeSet guarantees that the elements will be stored in ascending order, according to their natural ordering or a custom Comparator provided at the time of creation.
+
+**Key Characteristics of TreeSet**
+
+- **Implementation**: Uses a tree structure (specifically, a TreeMap instance) to store elements.
+- **Performance**: Provides logarithmic-time performance (O(log n)) for add, remove, and contains operations, where n is the number of elements in the set.
+- **Ordering**: Guarantees that elements are stored in ascending order, according to their natural ordering or a custom Comparator.
+- **Null Elements**: Does not allow null elements (unless a custom Comparator is provided that can handle null values).
+- **Synchronization**: Not synchronized. If multiple threads access a TreeSet concurrently, and at least one of the threads modifies the set, it must be synchronized externally.
+
+**TreeSet Example with Natural Ordering**
+
+```java
+import java.util.Set;
+import java.util.TreeSet;
+
+public class TreeSetExample {
+
+    public static void main(String[] args) {
+        // Creating a TreeSet with natural ordering
+        Set<String> treeSet = new TreeSet<>();
+
+        // Adding elements to the TreeSet
+        treeSet.add("Banana");
+        treeSet.add("Apple");
+        treeSet.add("Orange");
+        treeSet.add("Apple"); // Adding a duplicate element (ignored)
+
+        // Printing the TreeSet
+        System.out.println("TreeSet: " + treeSet); // Output: TreeSet: [Apple, Banana, Orange] (elements are sorted)
+
+        // Checking if an element exists
+        boolean containsBanana = treeSet.contains("Banana");
+        System.out.println("Contains Banana: " + containsBanana); // Output: Contains Banana: true
+
+        // Removing an element
+        treeSet.remove("Orange");
+        System.out.println("TreeSet after removing Orange: " + treeSet); // Output: TreeSet after removing Orange: [Apple, Banana]
+
+        // Iterating over the TreeSet
+        System.out.println("Iterating over TreeSet:");
+        for (String element : treeSet) {
+            System.out.println(element); // Output: Apple, Banana (elements are sorted)
+        }
+    }
+}
+```
+
+**Understanding the Code**
+
+- The code creates a TreeSet of strings, which uses the natural ordering of strings (alphabetical order).
+- The output demonstrates that the elements are stored in ascending order.
+- The code then checks for the presence of an element and removes another element.
+- Finally, it iterates over the TreeSet and prints each element in sorted order.
+
+**TreeSet with Custom Comparator**
+
+To use TreeSet with custom objects or to define a custom ordering, you can provide a Comparator to the TreeSet constructor. The Comparator interface defines a method called compare(T o1, T o2) that compares two objects and returns a negative integer, zero, or a positive integer if o1 is less than, equal to, or greater than o2, respectively.
+
+```java
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
+
+class Point {
+    private int x;
+    private int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+}
+
+public class TreeSetCustomComparatorExample {
+
+    public static void main(String[] args) {
+        // Creating a TreeSet with a custom comparator
+        Set<Point> treeSet = new TreeSet<>(Comparator.comparingInt(Point::getX).thenComparingInt(Point::getY));
+
+        // Adding elements to the TreeSet
+        treeSet.add(new Point(1, 2));
+        treeSet.add(new Point(1, 1));
+        treeSet.add(new Point(2, 1));
+        treeSet.add(new Point(1, 2)); // Adding a duplicate element (ignored)
+
+        // Printing the TreeSet
+        System.out.println("TreeSet: " + treeSet); // Output: TreeSet: [Point{x=1, y=1}, Point{x=1, y=2}, Point{x=2, y=1}] (elements are sorted by x, then by y)
+
+        // Iterating over the TreeSet
+        System.out.println("Iterating over TreeSet:");
+        for (Point element : treeSet) {
+            System.out.println(element); // Output: Point{x=1, y=1}, Point{x=1, y=2}, Point{x=2, y=1} (elements are sorted by x, then by y)
+        }
+    }
+}
+```
+
+**Explanation of the Code**
+
+- The code creates a TreeSet of Point objects, using a custom Comparator that compares points first by their x coordinate and then by their y coordinate.
+- The output demonstrates that the elements are stored in ascending order based on the custom Comparator.
 
 #### <a name="chapter12part2.4"></a>Chapter 12 - Part 2.4: LinkedHashSet: The Ordered Set
 
+LinkedHashSet is an implementation of the Set interface that combines the characteristics of HashSet and LinkedList. It uses a hash table for storage, like HashSet, but it also maintains a doubly-linked list of the elements in the order they were inserted. This means that LinkedHashSet provides constant-time performance for basic operations and also guarantees that the elements will be iterated in the order they were inserted.
+
+**Key Characteristics of LinkedHashSet**
+
+- **Implementation**: Uses a hash table (specifically, a HashMap instance) to store elements and a doubly-linked list to maintain insertion order.
+- **Performance**: Provides constant-time performance (O(1)) for add, remove, and contains operations on average, similar to HashSet.
+- **Ordering**: Guarantees that elements are iterated in the order they were inserted.
+- **Null Elements**: Allows one null element.
+- **Synchronization**: Not synchronized. If multiple threads access a LinkedHashSet concurrently, and at least one of the threads modifies the set, it must be synchronized externally.
+
+**LinkedHashSet Example**
+
+```java
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class LinkedHashSetExample {
+
+    public static void main(String[] args) {
+        // Creating a LinkedHashSet
+        Set<String> linkedHashSet = new LinkedHashSet<>();
+
+        // Adding elements to the LinkedHashSet
+        linkedHashSet.add("Banana");
+        linkedHashSet.add("Apple");
+        linkedHashSet.add("Orange");
+        linkedHashSet.add("Apple"); // Adding a duplicate element (ignored)
+        linkedHashSet.add(null);    // Adding a null element
+
+        // Printing the LinkedHashSet
+        System.out.println("LinkedHashSet: " + linkedHashSet); // Output: LinkedHashSet: [Banana, Apple, Orange, null] (elements are in insertion order)
+
+        // Checking if an element exists
+        boolean containsBanana = linkedHashSet.contains("Banana");
+        System.out.println("Contains Banana: " + containsBanana); // Output: Contains Banana: true
+
+        // Removing an element
+        linkedHashSet.remove("Orange");
+        System.out.println("LinkedHashSet after removing Orange: " + linkedHashSet); // Output: LinkedHashSet after removing Orange: [Banana, Apple, null]
+
+        // Iterating over the LinkedHashSet
+        System.out.println("Iterating over LinkedHashSet:");
+        for (String element : linkedHashSet) {
+            System.out.println(element); // Output: Banana, Apple, null (elements are in insertion order)
+        }
+    }
+}
+```
+
+**Understanding the Code**
+
+- The code creates a LinkedHashSet of strings.
+- The output demonstrates that the elements are stored and iterated in the order they were inserted.
+- The code then checks for the presence of an element and removes another element.
+- Finally, it iterates over the LinkedHashSet and prints each element in insertion order.
+
 #### <a name="chapter12part2.5"></a>Chapter 12 - Part 2.5: Performance Comparison
+
+|Feature	|HashSet	|TreeSet	|LinkedHashSet|
+| :-----------: | :-----------: | :-----------: | :-----------: |
+|Implementation|	Hash table|	Tree structure|	Hash table + Linked list|
+|Ordering|	Unordered|	Sorted (natural or Comparator)|	Insertion order|
+|Performance|	O(1) average, O(n) worst|	O(log n)|	O(1) average, O(n) worst|
+|Null Elements|	One null element allowed|	Not allowed|	One null element allowed|
+|Memory Usage|	Generally lower|	Higher|	Higher than HashSet|
 
 #### <a name="chapter12part2.6"></a>Chapter 12 - Part 2.6: Choosing the Right Set Implementation
 
+The choice of which Set implementation to use depends on the specific requirements of the application:
+
+**Use HashSet when:**
+- You need the best possible performance for add, remove, and contains operations.
+- The order of elements is not important.
+
+**Use TreeSet when:**
+- You need the elements to be stored in sorted order.
+- Performance is less critical than ordering.
+
+**Use LinkedHashSet when:**
+- You need to maintain the insertion order of elements.
+- Performance is important, but not as critical as with HashSet.
+
 #### <a name="chapter12part3"></a>Chapter 12 - Part 3: Mastering Maps: HashMap, TreeMap, and LinkedHashMap
+
+Maps are fundamental data structures that allow you to store and retrieve data using key-value pairs. In Java, the Map interface is implemented by several classes, each with its own unique characteristics and performance trade-offs. Understanding the differences between HashMap, TreeMap, and LinkedHashMap is crucial for choosing the right map implementation for your specific needs. This lesson will delve into the intricacies of these three classes, exploring their internal workings, performance characteristics, and use cases.
 
 #### <a name="chapter12part3.1"></a>Chapter 12 - Part 3.1: Understanding the Map Interface
 
+Before diving into the specific implementations, let's briefly review the Map interface itself. The Map interface, part of the Java Collections Framework, defines the contract for storing and retrieving data in key-value pairs. Key characteristics of a Map include:
+
+- Keys must be unique: A Map cannot contain duplicate keys.
+- Values can be duplicated: Multiple keys can map to the same value.
+- Provides methods for:
+  - put(key, value): Inserts a key-value pair into the map.
+  - get(key): Retrieves the value associated with the given key.
+  - remove(key): Removes the key-value pair associated with the given key.
+  - containsKey(key): Checks if the map contains the given key.
+  - containsValue(value): Checks if the map contains the given value.
+  - size(): Returns the number of key-value pairs in the map.
+  - isEmpty(): Checks if the map is empty.
+  - keySet(): Returns a Set view of the keys contained in the map.
+  - values(): Returns a Collection view of the values contained in the map.
+  - entrySet(): Returns a Set view of the key-value mappings contained in the map.
+
 #### <a name="chapter12part3.2"></a>Chapter 12 - Part 3.2: HashMap: The Unordered Champion
+
+HashMap is the most commonly used implementation of the Map interface in Java. It provides constant-time average performance for basic operations like get and put, assuming a good hash function and proper distribution of keys.
+
+**Internal Working of HashMap**
+
+HashMap works by using a hash function to compute an index (a hash code) for each key. This hash code is then used to determine the bucket in which the key-value pair will be stored. The buckets are typically implemented as an array of linked lists or, in more recent versions of Java (since Java 8), as an array of trees (specifically, balanced trees) when a bucket contains a large number of elements with colliding hash codes.
+
+When you call put(key, value), the HashMap calculates the hash code of the key, finds the appropriate bucket, and adds the key-value pair to that bucket. If the key already exists in the bucket, the old value is replaced with the new value.
+
+When you call get(key), the HashMap calculates the hash code of the key, finds the appropriate bucket, and searches the bucket for the key. If the key is found, the associated value is returned.
+
+**HashMap Example**
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class HashMapExample {
+    public static void main(String[] args) {
+        // Creating a HashMap
+        Map<String, Integer> studentGrades = new HashMap<>();
+
+        // Adding key-value pairs
+        studentGrades.put("Alice", 95);
+        studentGrades.put("Bob", 80);
+        studentGrades.put("Charlie", 90);
+
+        // Retrieving values
+        System.out.println("Alice's grade: " + studentGrades.get("Alice")); // Output: Alice's grade: 95
+
+        // Checking if a key exists
+        System.out.println("Contains key 'Bob': " + studentGrades.containsKey("Bob")); // Output: Contains key 'Bob': true
+
+        // Iterating over the HashMap
+        System.out.println("Student Grades:");
+        for (Map.Entry<String, Integer> entry : studentGrades.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        // Possible Output:
+        // Student Grades:
+        // Bob: 80
+        // Alice: 95
+        // Charlie: 90
+    }
+}
+```
+
+**HashMap Performance**
+
+- Average Case: O(1) for get, put, remove, and containsKey operations.
+- Worst Case: O(n) for get, put, remove, and containsKey operations, where n is the number of key-value pairs in the map. This occurs when all keys have the same hash code, resulting in all entries being placed in the same bucket. However, with the introduction of treeified buckets in Java 8, the worst-case performance degrades to O(log n) when a bucket exceeds a certain threshold (TREEIFY_THRESHOLD = 8).
+
+**HashMap Considerations**
+
+- HashMap allows one null key and multiple null values.
+- HashMap does not guarantee any specific order of elements. The order may change over time.
+- HashMap is not synchronized, meaning it is not thread-safe. If you need a thread-safe map, consider using ConcurrentHashMap (which will be covered in a later module) or synchronizing access to the HashMap externally.
 
 #### <a name="chapter12part3.3"></a>Chapter 12 - Part 3.3: TreeMap: The Sorted Map
 
+TreeMap is an implementation of the SortedMap interface, which means that it maintains its entries in a sorted order based on the keys. This sorting is achieved using a red-black tree data structure.
+
+**Internal Working of TreeMap**
+
+TreeMap stores its entries in a red-black tree. A red-black tree is a self-balancing binary search tree that guarantees logarithmic time complexity for basic operations. The keys are sorted according to their natural ordering (if they implement the Comparable interface) or according to a Comparator provided at the time of TreeMap creation.
+
+When you call put(key, value), the TreeMap inserts the key-value pair into the tree in the correct sorted position. If the key already exists, the old value is replaced with the new value.
+
+When you call get(key), the TreeMap searches the tree for the key, taking advantage of the sorted order to efficiently locate the key.
+
+**TreeMap Example**
+
+```java
+import java.util.Map;
+import java.util.TreeMap;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        // Creating a TreeMap
+        Map<String, Integer> studentAges = new TreeMap<>();
+
+        // Adding key-value pairs
+        studentAges.put("Charlie", 20);
+        studentAges.put("Alice", 18);
+        studentAges.put("Bob", 19);
+
+        // Iterating over the TreeMap (entries are sorted by key)
+        System.out.println("Student Ages (sorted by name):");
+        for (Map.Entry<String, Integer> entry : studentAges.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        // Output:
+        // Student Ages (sorted by name):
+        // Alice: 18
+        // Bob: 19
+        // Charlie: 20
+    }
+}
+```
+
+**TreeMap Performance**
+
+- Average Case: O(log n) for get, put, remove, and containsKey operations, where n is the number of key-value pairs in the map.
+- Worst Case: O(log n) for get, put, remove, and containsKey operations. Red-black trees guarantee logarithmic performance even in the worst case.
+
+**TreeMap Considerations**
+
+- TreeMap does not allow null keys if the TreeMap uses the natural ordering of its keys, because null cannot be compared. However, null values are allowed. If a Comparator is provided that can handle null keys, then null keys are allowed.
+- TreeMap maintains its entries in a sorted order based on the keys.
+- TreeMap is not synchronized, meaning it is not thread-safe.
+
 #### <a name="chapter12part3.4"></a>Chapter 12 - Part 3.4: LinkedHashMap: The Ordered HashMap
+
+LinkedHashMap is a subclass of HashMap that maintains the insertion order of its entries. It provides constant-time average performance for basic operations, like HashMap, but also preserves the order in which elements were inserted.
+
+**Internal Working of LinkedHashMap**
+
+LinkedHashMap uses a doubly-linked list to maintain the insertion order of its entries. In addition to the hash table used by HashMap, LinkedHashMap also maintains a linked list that connects all the entries in the order they were inserted.
+
+When you call put(key, value), the LinkedHashMap calculates the hash code of the key, finds the appropriate bucket, and adds the key-value pair to that bucket. It also updates the linked list to reflect the insertion order. If the key already exists, the old value is replaced with the new value, and the linked list is updated to reflect the access order (if access-order is enabled, see below).
+
+When you call get(key), the LinkedHashMap calculates the hash code of the key, finds the appropriate bucket, and searches the bucket for the key. If the key is found, the associated value is returned, and the linked list is updated to reflect the access order (if access-order is enabled).
+
+**LinkedHashMap Example**
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LinkedHashMapExample {
+    public static void main(String[] args) {
+        // Creating a LinkedHashMap
+        Map<String, Integer> studentScores = new LinkedHashMap<>();
+
+        // Adding key-value pairs
+        studentScores.put("Alice", 85);
+        studentScores.put("Bob", 92);
+        studentScores.put("Charlie", 78);
+
+        // Iterating over the LinkedHashMap (entries are in insertion order)
+        System.out.println("Student Scores (in insertion order):");
+        for (Map.Entry<String, Integer> entry : studentScores.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        // Output:
+        // Student Scores (in insertion order):
+        // Alice: 85
+        // Bob: 92
+        // Charlie: 78
+    }
+}
+```
+
+**LinkedHashMap Performance**
+
+- Average Case: O(1) for get, put, remove, and containsKey operations.
+- Worst Case: O(n) for get, put, remove, and containsKey operations (similar to HashMap, but mitigated by treeification in Java 8+).
+- Iteration over the entries is O(n), where n is the number of entries in the map, regardless of the map's capacity. This makes LinkedHashMap a good choice when you need to iterate over the entries in a predictable order.
+
+**LinkedHashMap Considerations**
+
+- LinkedHashMap allows one null key and multiple null values, just like HashMap.
+- LinkedHashMap maintains its entries in insertion order (by default) or access order (if specified in the constructor).
+- LinkedHashMap is not synchronized, meaning it is not thread-safe.
+- LinkedHashMap can be used to implement a simple LRU (Least Recently Used) cache by overriding the removeEldestEntry method.
+
+**Access-Order LinkedHashMap**
+
+LinkedHashMap provides an option to maintain entries in access order instead of insertion order. This is controlled by a constructor parameter:
+
+```java
+LinkedHashMap<KeyType, ValueType> map = new LinkedHashMap<>(initialCapacity, loadFactor, accessOrder);
+```
+
+- accessOrder = true: The map maintains entries in the order they were last accessed (i.e., the order in which get or put operations were called).
+- accessOrder = false: The map maintains entries in the order they were inserted (the default).
+
+When accessOrder is true, each time you access an element using get or put, that element is moved to the end of the linked list. This makes it easy to identify the least recently used elements in the map.
+
+**LRU Cache Implementation with LinkedHashMap**
+
+Here's an example of how to use LinkedHashMap to implement a simple LRU cache:
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+    private int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true); // accessOrder = true
+        this.capacity = capacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        return size() > capacity;
+    }
+
+    public static void main(String[] args) {
+        LRUCache<String, String> cache = new LRUCache<>(3);
+
+        cache.put("A", "Apple");
+        cache.put("B", "Banana");
+        cache.put("C", "Cherry");
+
+        System.out.println(cache); // Output: {A=Apple, B=Banana, C=Cherry}
+
+        cache.get("B"); // Access "B", moving it to the end
+        System.out.println(cache); // Output: {A=Apple, C=Cherry, B=Banana}
+
+        cache.put("D", "Date"); // "A" is the least recently used, so it's removed
+        System.out.println(cache); // Output: {C=Cherry, B=Banana, D=Date}
+    }
+}
+```
+
+In this example, the removeEldestEntry method is overridden to remove the eldest (least recently used) entry when the cache exceeds its capacity.
 
 #### <a name="chapter12part3.5"></a>Chapter 12 - Part 3.5: Choosing the Right Map Implementation
 
+The choice between HashMap, TreeMap, and LinkedHashMap depends on your specific requirements:
+
+- HashMap: Use HashMap when you need the fastest possible get and put operations and the order of elements doesn't matter.
+- TreeMap: Use TreeMap when you need to maintain the entries in a sorted order based on the keys.
+- LinkedHashMap: Use LinkedHashMap when you need to maintain the entries in insertion order or access order. This is useful for implementing caches or when you need to iterate over the entries in a predictable order.
+
+
+|Feature	|HashMap	|TreeMap	|LinkedHashMap|
+| :-----------: | :-----------: | :-----------: | :-----------: |
+|Ordering|	Unordered|	Sorted by key|	Insertion order or access order|
+|Performance|	O(1) average, O(n) worst case|	O(log n)|	O(1) average, O(n) worst case|
+|Null Keys|	One null key allowed|	Null keys not allowed (unless Comparator allows it)|	One null key allowed|
+|Implementation|	Hash table|	Red-black tree|	Hash table + doubly-linked list|
+|Memory Usage|	Generally lower than LinkedHashMap/TreeMap|	Higher than HashMap|	Higher than HashMap|
+|Use Cases|	General-purpose map|	Sorted data, range queries|	Caches, maintaining insertion order|
+
 #### <a name="chapter12part4"></a>Chapter 12 - Part 4: Implementing Custom Data Structures: Linked List
+
+Implementing a custom data structure like a linked list provides a deeper understanding of how data is organized and manipulated in memory. While Java's LinkedList class offers a ready-made implementation, building one from scratch allows you to appreciate the underlying mechanics and tailor the structure to specific needs. This lesson will cover the fundamental principles of linked lists, their different types, and how to implement them in Java. We'll explore the core operations, analyze their time complexities, and discuss the advantages and disadvantages of using linked lists compared to other data structures.
 
 #### <a name="chapter12part4.1"></a>Chapter 12 - Part 4.1: Understanding Linked Lists
 
+A linked list is a linear data structure where elements are not stored in contiguous memory locations. Instead, each element, called a node, contains a value and a pointer (or link) to the next node in the sequence. This structure allows for dynamic memory allocation and efficient insertion and deletion of elements at any position.
+
+**Core Concepts**
+
+- **Node**: The basic building block of a linked list. Each node contains two parts:
+  - **Data**: The actual value stored in the node. This can be of any data type.
+  - **Next**: A reference (or pointer) to the next node in the list. If it's the last node, the next reference is typically null.
+- **Head**: The first node in the linked list. It serves as the entry point to the list. If the list is empty, the head is null.
+- **Tail**: The last node in the linked list. The next reference of the tail node is always null.
+
+**Types of Linked Lists**
+
+There are several variations of linked lists, each with its own characteristics and use cases:
+
+- **Singly Linked List**: Each node points only to the next node in the sequence. Traversal is possible only in one direction, from head to tail.
+- **Doubly Linked List**: Each node contains pointers to both the next and the previous nodes. This allows for bidirectional traversal, making certain operations more efficient.
+- **Circular Linked List**: The last node points back to the first node, forming a circle. This type is useful for representing repeating sequences or when you need to traverse the list indefinitely.
+
 #### <a name="chapter12part4.2"></a>Chapter 12 - Part 4.2: Implementing a Singly Linked List in Java
+
+Let's start by implementing a singly linked list in Java. We'll define a Node class and a LinkedList class to manage the list.
+
+**The Node Class**
+
+```java
+public class Node {
+    public int data; // Data stored in the node
+    public Node next; // Reference to the next node
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null; // Initially, the next node is null
+    }
+}
+```
+
+This Node class is a simple representation of a node in a singly linked list. It contains an integer data field and a next field that points to the next node in the list. The constructor initializes the data field and sets the next field to null.
+
+**The LinkedList Class**
+
+```java
+public class LinkedList {
+    public Node head; // Reference to the first node in the list
+
+    public LinkedList() {
+        this.head = null; // Initially, the list is empty
+    }
+
+    // Method to insert a new node at the beginning of the list
+    public void insertAtBeginning(int data) {
+        Node newNode = new Node(data); // Create a new node
+        newNode.next = head; // Point the new node's next to the current head
+        head = newNode; // Update the head to the new node
+    }
+
+    // Method to insert a new node at the end of the list
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data); // Create a new node
+
+        if (head == null) {
+            // If the list is empty, the new node becomes the head
+            head = newNode;
+            return;
+        }
+
+        Node current = head;
+        while (current.next != null) {
+            // Traverse to the last node
+            current = current.next;
+        }
+
+        current.next = newNode; // Add the new node to the end
+    }
+
+    // Method to delete a node with a given value
+    public void deleteNode(int data) {
+        if (head == null) {
+            // If the list is empty, there's nothing to delete
+            return;
+        }
+
+        if (head.data == data) {
+            // If the head node contains the data to be deleted, update the head
+            head = head.next;
+            return;
+        }
+
+        Node current = head;
+        Node previous = null;
+
+        while (current != null && current.data != data) {
+            // Traverse the list to find the node to be deleted
+            previous = current;
+            current = current.next;
+        }
+
+        if (current == null) {
+            // If the data is not found in the list, do nothing
+            return;
+        }
+
+        // Remove the node by updating the previous node's next reference
+        previous.next = current.next;
+    }
+
+    // Method to print the linked list
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+```
+
+This LinkedList class provides the basic operations for managing a singly linked list:
+
+- insertAtBeginning(int data): Inserts a new node at the beginning of the list.
+- insertAtEnd(int data): Inserts a new node at the end of the list.
+- deleteNode(int data): Deletes a node with the specified data value.
+- printList(): Prints the elements of the list.
+
+**Example Usage**
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.insertAtEnd(1);
+        list.insertAtEnd(2);
+        list.insertAtEnd(3);
+
+        System.out.println("Linked List after inserting 1, 2, and 3 at the end:");
+        list.printList(); // Output: 1 2 3
+
+        list.insertAtBeginning(0);
+        System.out.println("Linked List after inserting 0 at the beginning:");
+        list.printList(); // Output: 0 1 2 3
+
+        list.deleteNode(2);
+        System.out.println("Linked List after deleting 2:");
+        list.printList(); // Output: 0 1 3
+    }
+}
+```
+
+This example demonstrates how to use the LinkedList class to create a linked list, insert elements, and delete elements.
 
 #### <a name="chapter12part4.3"></a>Chapter 12 - Part 4.3: Implementing a Doubly Linked List in Java
 
+A doubly linked list is similar to a singly linked list, but each node also has a reference to the previous node. This allows for bidirectional traversal.
+
+**The Doubly Linked Node Class**
+
+```java
+public class DoublyLinkedNode {
+    public int data;
+    public DoublyLinkedNode next;
+    public DoublyLinkedNode prev;
+
+    public DoublyLinkedNode(int data) {
+        this.data = data;
+        this.next = null;
+        this.prev = null;
+    }
+}
+```
+
+**The Doubly LinkedList Class**
+
+```java
+public class DoublyLinkedList {
+    public DoublyLinkedNode head;
+    public DoublyLinkedNode tail; // Keep track of the tail for efficient insertion at the end
+
+    public DoublyLinkedList() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    public void insertAtBeginning(int data) {
+        DoublyLinkedNode newNode = new DoublyLinkedNode(data);
+
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+
+    public void insertAtEnd(int data) {
+        DoublyLinkedNode newNode = new DoublyLinkedNode(data);
+
+        if (tail == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+
+    public void deleteNode(int data) {
+        DoublyLinkedNode current = head;
+
+        while (current != null) {
+            if (current.data == data) {
+                if (current == head) {
+                    head = current.next;
+                    if (head != null) {
+                        head.prev = null;
+                    } else {
+                        tail = null; // List is now empty
+                    }
+                } else if (current == tail) {
+                    tail = current.prev;
+                    tail.next = null;
+                } else {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                return;
+            }
+            current = current.next;
+        }
+    }
+
+    public void printList() {
+        DoublyLinkedNode current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+```
+
+The DoublyLinkedList class includes a tail reference for efficient insertion at the end. The deleteNode method handles different cases: deleting the head, deleting the tail, or deleting a node in the middle of the list.
+
 #### <a name="chapter12part4.4"></a>Chapter 12 - Part 4.4: Time Complexity Analysis
+
+Understanding the time complexity of linked list operations is crucial for choosing the right data structure for a particular application.
+
+|Operation	|Singly Linked List|	Doubly Linked List|
+| :-----------: | :-----------: | :-----------: |
+|Insert at Beginning|	O(1)|	O(1)|
+|Insert at End|	O(n)|	O(1)|
+|Delete Node (by value)|	O(n)|	O(n)|
+|Search (by value)|	O(n)|	O(n)|
+
+- **Insert at Beginning**: In both singly and doubly linked lists, inserting at the beginning takes constant time, O(1), as it only involves updating the head reference.
+- **Insert at End**: In a singly linked list, inserting at the end requires traversing the entire list to find the last node, resulting in O(n) time complexity. However, in a doubly linked list, if you maintain a tail pointer, you can insert at the end in O(1) time.
+- **Delete Node (by value)**: Deleting a node by value requires searching for the node first, which takes O(n) time. Once the node is found, the deletion process itself takes O(1) time, but the overall complexity remains O(n).
+- **Search (by value)**: Searching for a node with a specific value requires traversing the list, resulting in O(n) time complexity.
 
 #### <a name="chapter12part4.5"></a>Chapter 12 - Part 4.5: Advantages and Disadvantages of Linked Lists
 
+**Advantages**
+
+- **Dynamic Size**: Linked lists can grow or shrink dynamically at runtime, as memory is allocated for each node as needed.
+- **Efficient Insertion and Deletion**: Inserting or deleting elements at any position in a linked list is generally faster than in arrays, especially when the position is known.
+- **No Memory Wastage**: Memory is only allocated for the nodes that are actually in use, reducing memory wastage compared to arrays where a fixed amount of memory is allocated upfront.
+
+**Disadvantages**
+
+- **Memory Overhead**: Each node requires extra memory to store the pointer to the next (and previous, in the case of doubly linked lists) node.
+- **No Random Access**: Accessing an element in a linked list requires traversing the list from the head, resulting in O(n) time complexity. Arrays, on the other hand, provide random access with O(1) time complexity.
+- **Cache Inefficiency**: Linked list nodes are not stored in contiguous memory locations, which can lead to cache misses and reduced performance.
+
 #### <a name="chapter12part5"></a>Chapter 12 - Part 5: Implementing Custom Data Structures: Binary Search Tree
+
+Binary Search Trees (BSTs) are a fundamental data structure in computer science, offering efficient searching, insertion, and deletion operations. Unlike linear data structures like linked lists, BSTs provide logarithmic time complexity for these operations in the average case, making them suitable for large datasets. This lesson delves into the implementation of a custom Binary Search Tree in Java, covering the core concepts, algorithms, and practical considerations involved in building this essential data structure. We will build upon the concepts of linked lists from the previous lesson to understand how tree structures differ and where they excel.
 
 #### <a name="chapter12part5.1"></a>Chapter 12 - Part 5.1: Understanding Binary Search Tree Properties
 
+A Binary Search Tree is a tree-based data structure where each node has at most two children, referred to as the left child and the right child. The key property of a BST is that for any given node:
+
+- All nodes in its left subtree have keys less than the node's key.
+- All nodes in its right subtree have keys greater than the node's key.
+
+This property ensures that the tree is ordered, enabling efficient searching.
+
+**BST Node Structure**
+
+The basic building block of a BST is the node. A node typically contains the following:
+
+- ```key```: The value stored in the node (used for comparison).
+- ```left```: A reference to the left child node.
+- ```right```: A reference to the right child node.
+
+In Java, this can be represented as:
+
+```java
+class Node {
+    int key;
+    Node left, right;
+
+    public Node(int data){
+        key = data;
+        left = right = null;
+    }
+}
+```
+
+**BST Example**
+
+Consider the following set of numbers: 50, 30, 20, 40, 70, 60, 80. A BST constructed from these numbers would look like this:
+
+```
+        50
+       /  \
+      30   70
+     /  \ /  \
+    20  40 60  80
+```
+
+Notice how the BST property holds true for each node. For example, at node 50, all nodes in the left subtree (30, 20, 40) are less than 50, and all nodes in the right subtree (70, 60, 80) are greater than 50.
+
 #### <a name="chapter12part5.2"></a>Chapter 12 - Part 5.2: Implementing Core BST Operations
+
+The primary operations performed on a BST are insertion, deletion, searching, and traversal.
+
+**Insertion**
+
+The insertion operation involves adding a new node to the BST while maintaining the BST property. The algorithm is as follows:
+
+- Start at the root node.
+- Compare the key of the new node with the key of the current node.
+- If the new key is less than the current key, move to the left child.
+- If the new key is greater than the current key, move to the right child.
+- Repeat steps 2-4 until you reach a null node (an empty spot).
+- Insert the new node at that empty spot.
+
+```java
+class BinarySearchTree {
+    Node root;
+
+    BinarySearchTree() {
+        root = null;
+    }
+
+    void insert(int key) {
+        root = insertRec(root, key);
+    }
+
+    /* A recursive function to insert a new key in BST */
+    Node insertRec(Node root, int key) {
+
+        /* If the tree is empty, return a new node */
+        if (root == null) {
+            root = new Node(key);
+            return root;
+        }
+
+        /* Otherwise, recur down the tree */
+        if (key < root.key)
+            root.left = insertRec(root.left, key);
+        else if (key > root.key)
+            root.right = insertRec(root.right, key);
+
+        /* return the (unchanged) node pointer */
+        return root;
+    }
+    // Other methods will be added here
+}
+```
+
+Example: Inserting the value 55 into the BST above.
+
+- Start at the root (50). 55 > 50, so move to the right child (70).
+- 55 < 70, so move to the left child (60).
+- 55 < 60, so move to the left child. This is currently null.
+- Insert a new node with the key 55 as the left child of 60.
+
+The updated tree would be:
+
+```
+        50
+       /  \
+      30   70
+     /  \ /  \
+    20  40 60  80
+           /
+          55
+```
+
+**Searching**
+
+The search operation involves finding a node with a specific key in the BST. The algorithm is similar to insertion:
+
+- Start at the root node.
+- Compare the key being searched for with the key of the current node.
+- If the keys are equal, the node is found.
+- If the search key is less than the current key, move to the left child.
+- If the search key is greater than the current key, move to the right child.
+- Repeat steps 2-5 until the node is found or a null node is reached (in which case, the key is not in the tree).
+
+```java
+ // This method mainly calls searchRec()
+    boolean search(int key)  {
+        return searchRec(root, key);
+    }
+
+    // A recursive function to search a key in BST
+    boolean searchRec(Node root, int key) {
+        // Base Cases: root is null or key is present at root
+        if (root==null || root.key==key)
+            return root != null;
+
+        // Key is greater than root's key
+        if (root.key < key)
+            return searchRec(root.right, key);
+
+        // Key is smaller than root's key
+        return searchRec(root.left, key);
+    }
+```
+
+Example: Searching for the value 40 in the BST.
+
+- Start at the root (50). 40 < 50, so move to the left child (30).
+- 40 > 30, so move to the right child (40).
+- 40 == 40, so the node is found.
+
+**Deletion**
+
+The deletion operation involves removing a node from the BST while maintaining the BST property. This is the most complex operation, with three possible scenarios:
+
+- Node to be deleted is a leaf node: Simply remove the node.
+- Node to be deleted has one child: Replace the node with its child.
+- Node to be deleted has two children: Find the inorder successor (the smallest node in the right subtree) of the node to be deleted, replace the node to be deleted with the inorder successor, and then delete the inorder successor from its original position.
+
+```java
+  void deleteKey(int key) {
+        root = deleteRec(root, key);
+    }
+
+    /* A recursive function to delete a key in BST */
+    Node deleteRec(Node root, int key) {
+        /* Base Case: If the tree is empty */
+        if (root == null)  return root;
+
+        /* Otherwise, recur down the tree */
+        if (key < root.key)
+            root.left = deleteRec(root.left, key);
+        else if (key > root.key)
+            root.right = deleteRec(root.right, key);
+
+            // if key is same as root's key, then This is the node
+            // to be deleted
+        else {
+            // node with only one child or no child
+            if (root.left == null)
+                return root.right;
+            else if (root.right == null)
+                return root.left;
+
+            // node with two children: Get the inorder successor (smallest
+            // in the right subtree)
+            root.key = minValue(root.right);
+
+            // Delete the inorder successor
+            root.right = deleteRec(root.right, root.key);
+        }
+
+        return root;
+    }
+
+    int minValue(Node root) {
+        int minv = root.key;
+        while (root.left != null) {
+            minv = root.left.key;
+            root = root.left;
+        }
+        return minv;
+    }
+```
+
+Example: Deleting the value 70 from the BST.
+
+- Start at the root (50). 70 > 50, so move to the right child (70).
+- 70 == 70, so this is the node to be deleted.
+- Node 70 has two children (60 and 80).
+- Find the inorder successor of 70, which is 80.
+- Replace 70 with 80.
+- Delete the original node 80 (which is now a leaf node).
+
+The updated tree would be:
+
+```
+        50
+       /  \
+      30   80
+     /  \ /
+    20  40 60
+           /
+          55
+```
+
+**Traversal**
+
+Tree traversal involves visiting each node in the tree in a specific order. There are two main types of traversals:
+
+- **Inorder Traversal**: Visits the left subtree, then the current node, then the right subtree. For a BST, this traversal results in visiting the nodes in ascending order of their keys.
+- **Preorder Traversal**: Visits the current node, then the left subtree, then the right subtree.
+- **Postorder Traversal**: Visits the left subtree, then the right subtree, then the current node.
+
+```java
+ // Inorder traversal of the tree
+    void inorder() {
+        inorderRec(root);
+    }
+
+    // A recursive function to do inorder traversal of BST
+    void inorderRec(Node root) {
+        if (root != null) {
+            inorderRec(root.left);
+            System.out.print(root.key + " ");
+            inorderRec(root.right);
+        }
+    }
+```
+
+Example: Inorder traversal of the BST:
+
+```
+        50
+       /  \
+      30   70
+     /  \ /  \
+    20  40 60  80
+```
+
+The inorder traversal would produce the following output: 20 30 40 50 60 70 80
 
 #### <a name="chapter12part5.3"></a>Chapter 12 - Part 5.3: Balancing BSTs
 
+A significant issue with BSTs is that their performance degrades to O(n) in the worst-case scenario, which occurs when the tree becomes skewed (i.e., resembles a linked list). This happens when elements are inserted in a sorted order.
+
+To mitigate this, self-balancing BSTs are used. These trees automatically adjust their structure to maintain a balanced height, ensuring logarithmic time complexity for search, insertion, and deletion operations. Examples of self-balancing BSTs include AVL trees and Red-Black trees. While we won't implement these in this lesson (as they are more advanced), it's important to be aware of their existence and purpose.
+
 #### <a name="chapter12part6"></a>Chapter 12 - Part 6: Practical Exercise: Building a Cache using HashMap
+
+Building a Cache using HashMap is a fundamental exercise that demonstrates the practical application of the HashMap data structure. Caching is a crucial optimization technique used extensively in software development to improve performance by storing frequently accessed data in a fast-access location. This lesson will explore how to implement a simple cache using HashMap in Java, covering key concepts such as cache eviction policies and thread safety considerations.
 
 #### <a name="chapter12part6.1"></a>Chapter 12 - Part 6.1: Understanding Caching and its Importance
 
+Caching is a technique used to store frequently accessed data in a temporary storage location (the cache) to reduce the latency and improve the performance of data retrieval. Instead of fetching data from the original source (e.g., a database, a remote server), the application first checks the cache. If the data is present in the cache (a "cache hit"), it is retrieved quickly. If the data is not in the cache (a "cache miss"), it is fetched from the original source, stored in the cache, and then returned to the application.
+
+**Benefits of Caching**
+
+- **Reduced Latency**: Accessing data from the cache is significantly faster than fetching it from the original source.
+- **Improved Performance**: By serving data from the cache, the application can handle more requests and improve overall throughput.
+- **Reduced Load on Original Source**: Caching reduces the number of requests to the original data source, which can help prevent overload and improve scalability.
+- **Cost Savings**: In scenarios where accessing the original data source incurs costs (e.g., cloud-based services), caching can reduce these costs by minimizing the number of requests.
+
+**Real-World Examples of Caching**
+
+- **Web Browsers**: Web browsers cache static assets like images, CSS files, and JavaScript files to reduce page load times. When you revisit a website, the browser retrieves these assets from the cache instead of downloading them again from the server.
+- **Content Delivery Networks (CDNs)**: CDNs cache content closer to the end-users, reducing latency and improving the delivery of web content. When a user requests content, the CDN server closest to them serves the content from its cache.
+- **Database Caching**: Databases often use caching to store frequently accessed data in memory, reducing the need to read data from disk. This can significantly improve query performance.
+
+**Hypothetical Scenario**
+
+Imagine an e-commerce application that displays product details. Without caching, every time a user views a product, the application would need to fetch the product details from the database. This can be slow and resource-intensive, especially for popular products that are viewed frequently. By implementing a cache, the application can store the product details in memory and serve them directly from the cache, reducing the load on the database and improving the user experience.
+
 #### <a name="chapter12part6.2"></a>Chapter 12 - Part 6.2: Implementing a Simple Cache using HashMap
+
+HashMap is a suitable data structure for implementing a simple cache due to its fast average-case performance for get and put operations (O(1)). The keys of the HashMap represent the cache keys, and the values represent the cached data.
+
+**Basic Cache Implementation**
+
+Here's a basic implementation of a cache using HashMap in Java:
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class SimpleCache<K, V> {
+
+    private final Map<K, V> cache = new HashMap<>();
+
+    public V get(K key) {
+        return cache.get(key);
+    }
+
+    public void put(K key, V value) {
+        cache.put(key, value);
+    }
+
+    public void remove(K key) {
+        cache.remove(key);
+    }
+
+    public void clear() {
+        cache.clear();
+    }
+
+    public int size() {
+        return cache.size();
+    }
+
+    public static void main(String[] args) {
+        SimpleCache<String, String> cache = new SimpleCache<>();
+        cache.put("key1", "value1");
+        cache.put("key2", "value2");
+
+        System.out.println("Value for key1: " + cache.get("key1")); // Output: Value for key1: value1
+        System.out.println("Cache size: " + cache.size()); // Output: Cache size: 2
+
+        cache.remove("key1");
+        System.out.println("Cache size after removing key1: " + cache.size()); // Output: Cache size after removing key1: 1
+
+        cache.clear();
+        System.out.println("Cache size after clearing: " + cache.size()); // Output: Cache size after clearing: 0
+    }
+}
+```
+
+Explanation:
+
+- The SimpleCache class uses a HashMap to store the cached data.
+- The get method retrieves a value from the cache based on the key.
+- The put method adds a key-value pair to the cache.
+- The remove method removes a key-value pair from the cache.
+- The clear method clears the entire cache.
+- The size method returns the number of entries in the cache.
+
+**Limitations of the Basic Implementation**
+
+- **Unbounded Size**: The cache can grow indefinitely, potentially consuming excessive memory.
+- **No Eviction Policy**: There is no mechanism to remove stale or less frequently used data from the cache.
+- **Not Thread-Safe**: The HashMap is not thread-safe, which can lead to data corruption in concurrent environments.
 
 #### <a name="chapter12part6.3"></a>Chapter 12 - Part 6.3: Implementing Cache Eviction Policies
 
+To address the unbounded size issue, cache eviction policies are used to automatically remove entries from the cache when it reaches its maximum capacity. Common eviction policies include:
+
+- **Least Recently Used (LRU)**: Evicts the least recently accessed entry.
+- **Least Frequently Used (LFU)**: Evicts the least frequently accessed entry.
+- **First-In-First-Out (FIFO)**: Evicts the oldest entry.
+- **Time-To-Live (TTL)**: Evicts entries that have expired based on a specified time-to-live.
+
+**Implementing LRU Cache**
+
+LRU cache can be implemented using a LinkedHashMap, which maintains the order of insertion. By setting the accessOrder parameter to true in the LinkedHashMap constructor, the map will order entries by access time.
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+
+    private final int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true);
+        this.capacity = capacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        return size() > capacity;
+    }
+
+    public static void main(String[] args) {
+        LRUCache<String, String> cache = new LRUCache<>(3);
+        cache.put("key1", "value1");
+        cache.put("key2", "value2");
+        cache.put("key3", "value3");
+
+        System.out.println("Cache: " + cache); // Output: Cache: {key1=value1, key2=value2, key3=value3}
+
+        cache.get("key1"); // Access key1, moving it to the end of the access order
+        cache.put("key4", "value4"); // This will evict key2 as it's the least recently used
+
+        System.out.println("Cache after adding key4: " + cache); // Output: Cache after adding key4: {key3=value3, key1=value1, key4=value4}
+    }
+}
+```
+
+Explanation:
+
+- The LRUCache class extends LinkedHashMap and overrides the removeEldestEntry method.
+- The constructor takes the cache capacity as a parameter and initializes the LinkedHashMap with accessOrder set to true.
+- The removeEldestEntry method is called by put and putAll after inserting a new entry. It returns true if the eldest entry should be removed.
+- In this implementation, the eldest entry is removed when the cache size exceeds the capacity.
+
+**Implementing TTL Cache**
+
+TTL cache evicts entries based on their expiration time. This can be implemented by storing the expiration time along with the cached value.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class TTLCache<K, V> {
+
+    private final Map<K, CacheEntry<V>> cache = new HashMap<>();
+    private final long ttlMillis;
+
+    public TTLCache(long ttlMillis) {
+        this.ttlMillis = ttlMillis;
+    }
+
+    public V get(K key) {
+        CacheEntry<V> entry = cache.get(key);
+        if (entry != null && !entry.isExpired()) {
+            return entry.getValue();
+        } else {
+            cache.remove(key); // Remove expired entry
+            return null;
+        }
+    }
+
+    public void put(K key, V value) {
+        cache.put(key, new CacheEntry<>(value, System.currentTimeMillis() + ttlMillis));
+    }
+
+    private class CacheEntry<V> {
+        private final V value;
+        private final long expiryTime;
+
+        public CacheEntry(V value, long expiryTime) {
+            this.value = value;
+            this.expiryTime = expiryTime;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public boolean isExpired() {
+            return System.currentTimeMillis() > expiryTime;
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        TTLCache<String, String> cache = new TTLCache<>(2000); // TTL of 2 seconds
+        cache.put("key1", "value1");
+        System.out.println("Value for key1: " + cache.get("key1")); // Output: Value for key1: value1
+
+        Thread.sleep(3000); // Wait for 3 seconds
+
+        System.out.println("Value for key1 after TTL: " + cache.get("key1")); // Output: Value for key1 after TTL: null
+    }
+}
+```
+
+**Explanation**:
+
+- The TTLCache class uses a HashMap to store the cached data along with its expiration time.
+- The CacheEntry class holds the cached value and its expiry time.
+- The get method checks if the entry is expired before returning the value. If the entry is expired, it is removed from the cache.
+- The put method adds a new entry to the cache with the current time plus the TTL.
+
 #### <a name="chapter12part6.4"></a>Chapter 12 - Part 6.4: Addressing Thread Safety
 
+HashMap is not thread-safe, which means that concurrent access from multiple threads can lead to data corruption. To make the cache thread-safe, you can use one of the following approaches:
+
+- **Synchronized HashMap**: Use Collections.synchronizedMap to create a thread-safe wrapper around the HashMap.
+- **ConcurrentHashMap**: Use ConcurrentHashMap, which provides thread-safe concurrent access with better performance than a synchronized HashMap.
+- **Explicit Locking**: Use explicit locks (e.g., ReentrantLock) to synchronize access to the HashMap.
+
+**Using ConcurrentHashMap**
+
+ConcurrentHashMap provides thread-safe operations without the need for external synchronization. It uses internal locking mechanisms to allow concurrent read and write operations.
+
+```java
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
+
+public class ConcurrentCache<K, V> {
+
+    private final Map<K, V> cache = new ConcurrentHashMap<>();
+
+    public V get(K key) {
+        return cache.get(key);
+    }
+
+    public void put(K key, V value) {
+        cache.put(key, value);
+    }
+
+    public void remove(K key) {
+        cache.remove(key);
+    }
+
+    public void clear() {
+        cache.clear();
+    }
+
+    public int size() {
+        return cache.size();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ConcurrentCache<String, String> cache = new ConcurrentCache<>();
+
+        // Simulate multiple threads accessing the cache
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                cache.put("key" + i, "value" + i);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                cache.get("key" + i);
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        System.out.println("Cache size: " + cache.size()); // Output: Cache size: 1000 (approximately)
+    }
+}
+```
+
+Explanation:
+
+- The ConcurrentCache class uses a ConcurrentHashMap to store the cached data.
+- The ConcurrentHashMap provides thread-safe get and put operations, allowing multiple threads to access the cache concurrently without data corruption.
 
 ## <a name="chapter13"></a>Chapter 13: Java Lambda Expression
 
