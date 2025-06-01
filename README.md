@@ -368,6 +368,110 @@
       - [Chapter 13 - Part 6.3: Refactoring Iterative Loops with Streams](#chapter13part6.3)
       - [Chapter 13 - Part 6.4: Refactoring Verbose Conditional Logic](#chapter13part6.4)
       - [Chapter 13 - Part 6.5: Refactoring Repetitive Code](#chapter13part6.5)
+14. [Chapter 14: Generics and Reflection](#chapter14)
+    - [Chapter 14 - Part 1: Understanding Generic Classes and Methods](#chapter14part1)
+      - [Chapter 14 - Part 1.1: Understanding Generic Classes](#chapter14part1.1)
+      - [Chapter 14 - Part 1.2: Understanding Generic Methods](#chapter14part1.2)
+    - [Chapter 14 - Part 2: Implementing Bounded Type Parameters](#chapter14part2)
+      - [Chapter 14 - Part 2.1: Understanding Bounded Type Parameters](#chapter14part2.1)
+      - [Chapter 14 - Part 2.2: Practical Examples and Demonstrations](#chapter14part2.2)
+    - [Chapter 14 - Part 3: Exploring Wildcards in Generics](#chapter14part3)
+      - [Chapter 14 - Part 3.1: Understanding Wildcards: The Need for Flexibility](#chapter14part3.1)
+      - [Chapter 14 - Part 3.2: PECS: Producer Extends, Consumer Super](#chapter14part3.2)
+      - [Chapter 14 - Part 3.3: Practical Examples and Demonstrations](#chapter14part3.3)
+    - [Chapter 14 - Part 4: Introduction to Reflection and its Uses](#chapter14part4)
+      - [Chapter 14 - Part 4.1: Core Concepts of Reflection](#chapter14part4.1)
+      - [Chapter 14 - Part 4.2: Practical Examples and Demonstrations](#chapter14part4.2)
+      - [Chapter 14 - Part 4.3: Exercises](#chapter14part4.3)
+      - [Chapter 14 - Part 4.4: Uses of Reflection](#chapter14part4.4)
+      - [Chapter 14 - Part 4.5: Potential Drawbacks](#chapter14part4.5)
+    - [Chapter 14 - Part 5: Accessing and Modifying Class Members using Reflection](#chapter14part5)
+      - [Chapter 14 - Part 5.1: Accessing Fields Using Reflection](#chapter14part5.1)
+      - [Chapter 14 - Part 5.2: Accessing Methods Using Reflection](#chapter14part5.2)
+      - [Chapter 14 - Part 5.3: Modifying Final Fields](#chapter14part5.3)
+      - [Chapter 14 - Part 5.4: Practical Exercises](#chapter14part5.4)
+    - [Chapter 14 - Part 6: Practical Exercise: Building a Generic Data Validator](#chapter14part6)
+      - [Chapter 14 - Part 6.1: Understanding the Need for a Generic Data Validator](#chapter14part6.1)
+      - [Chapter 14 - Part 6.2: Implementing a Generic Data Validator](#chapter14part6.2)
+      - [Chapter 14 - Part 6.3: Advanced Validation Techniques](#chapter14part6.3)
+15. [Chapter 15: Input/Output (I/O) and Serialization](#chapter15)
+    - [Chapter 15 - Part 1: Working with Character Streams: Reader and Writer](#chapter15part1)
+      - [Chapter 15 - Part 1.1: Understanding Reader and Writer Classes](#chapter15part1.1)
+      - [Chapter 15 - Part 1.2: Common Reader and Writer Implementations](#chapter15part1.2)
+      - [Chapter 15 - Part 1.3: Best Practices for Character Stream Usage](#chapter15part1.3)
+    - [Chapter 15 - Part 2: Working with Byte Streams: InputStream and OutputStream](#chapter15part2)
+      - [Chapter 15 - Part 2.1: Understanding InputStream](#chapter15part2.1)
+      - [Chapter 15 - Part 2.2: Understanding OutputStream](#chapter15part2.2)
+      - [Chapter 15 - Part 2.3: Best Practices for Working with Byte Streams](#chapter15part2.3)
+    - [Chapter 15 - Part 3: Understanding File I/O and Directory Operations](#chapter15part3)
+      - [Chapter 15 - Part 3.1: Understanding java.io.File](#chapter15part3.1)
+      - [Chapter 15 - Part 3.2: Working with File Streams](#chapter15part3.2)
+    - [Chapter 15 - Part 4: Implementing Object Serialization and Deserialization](#chapter15part4)
+      - [Chapter 15 - Part 4.1: Understanding Object Serialization](#chapter15part4.1)
+      - [Chapter 15 - Part 4.2: Practical Examples and Demonstrations](#chapter15part4.2)
+    - [Chapter 15 - Part 5: Exploring Java NIO for Non-Blocking I/O](#chapter15part5)
+      - [Chapter 15 - Part 5.1: Core Components of Java NIO](#chapter15part5.1)
+      - [Chapter 15 - Part 5.2: Non-Blocking I/O](#chapter15part5.2)
+      - [Chapter 15 - Part 5.3: Practical Examples and Demonstrations](#chapter15part5.3)
+    - [Chapter 15 - Part 6: Practical Exercise: Building a File Compression Utility](#chapter15part6)
+      - [Chapter 15 - Part 6.1: Understanding File Compression](#chapter15part6.1)
+      - [Chapter 15 - Part 6.2: Implementing File Compression with GZIP](#chapter15part6.2)
+      - [Chapter 15 - Part 6.3: Implementing File Compression with Deflate](#chapter15part6.3)
+16. [Chapter 16: Multithreading and Concurrency](#chapter16)
+    - [Chapter 16 - Part 1: Introduction to Threads and Processes](#chapter16part1)
+      - [Chapter 16 - Part 1.1: Understanding Processes](#chapter16part1.1)
+      - [Chapter 16 - Part 1.2: Understanding Threads](#chapter16part1.2)
+      - [Chapter 16 - Part 1.3: Threads vs. Processes: A Detailed Comparison](#chapter16part1.3)
+      - [Chapter 16 - Part 1.4: Concurrency vs. Parallelism](#chapter16part1.4)
+      - [Chapter 16 - Part 1.5: Threads in Java](#chapter16part1.5)
+    - [Chapter 16 - Part 2: Creating and Managing Threads in Java](#chapter16part2)
+      - [Chapter 16 - Part 2.1: Ways to Create Threads](#chapter16part2.1)
+      - [Chapter 16 - Part 2.2: Thread Lifecycle](#chapter16part2.2)
+      - [Chapter 16 - Part 2.3: Thread Naming and Prioritization](#chapter16part2.3)
+    - [Chapter 16 - Part 3: Understanding Thread Synchronization and Locks](#chapter16part3)
+      - [Chapter 16 - Part 3.1: Understanding the Need for Thread Synchronization](#chapter16part3.1)
+      - [Chapter 16 - Part 3.2: Synchronization Techniques in Java](#chapter16part3.2)
+    - [Chapter 16 - Part 4: Exploring Concurrent Collections: ConcurrentHashMap and BlockingQueue](#chapter16part4)
+      - [Chapter 16 - Part 4.1: ConcurrentHashMap: Thread-Safe Hash Map](#chapter16part4.1)
+      - [Chapter 16 - Part 4.2: BlockingQueue: Thread-Safe Queue for Data Transfer](#chapter16part4.2)
+    - [Chapter 16 - Part 5: Implementing Thread Pools for Efficient Task Execution](#chapter16part5)
+      - [Chapter 16 - Part 5.1: Understanding Thread Pools](#chapter16part5.1)
+      - [Chapter 16 - Part 5.2: Implementing Thread Pools in Java](#chapter16part5.2)
+      - [Chapter 16 - Part 5.3: Thread Pool Configuration](#chapter16part5.3)
+      - [Chapter 16 - Part 5.4: Handling Rejected Tasks](#chapter16part5.4)
+      - [Chapter 16 - Part 5.5: Monitoring Thread Pools](#chapter16part5.5)
+    - [Chapter 16 - Part 6: Case Study: Building a Concurrent Web Server](#chapter16part6)
+      - [Chapter 16 - Part 6.1: Core Components of a Web Server](#chapter16part6.1)
+      - [Chapter 16 - Part 6.2: Threading Model for Concurrency](#chapter16part6.2)
+      - [Chapter 16 - Part 6.3: Implementing the Concurrent Web Server](#chapter16part6.3)
+      - [Chapter 16 - Part 6.4: Handling HTTP Requests](#chapter16part6.4)
+      - [Chapter 16 - Part 6.5: Resource Management and Synchronization](#chapter16part6.5)
+      - [Chapter 16 - Part 6.6: Error Handling and Logging](#chapter16part6.6)
+17. [Chapter 17: Working with Databases using JDBC](#chapter17)
+    - [Chapter 17 - Part 1: Introduction to JDBC and Database Connectivity](#chapter17part1)
+      - [Chapter 17 - Part 1.1: Understanding JDBC Architecture](#chapter17part1.1)
+      - [Chapter 17 - Part 1.2: Establishing a Database Connection](#chapter17part1.2)
+      - [Chapter 17 - Part 1.3: Practical Examples and Demonstrations](#chapter17part1.3)
+    - [Chapter 17 - Part 2: Performing CRUD Operations with JDBC](#chapter17part2)
+      - [Chapter 17 - Part 2.1: Creating Data (INSERT)](#chapter17part2.1)
+      - [Chapter 17 - Part 2.2: Reading Data (SELECT)](#chapter17part2.2)
+      - [Chapter 17 - Part 2.3: Updating Data (UPDATE)](#chapter17part2.3)
+      - [Chapter 17 - Part 2.4: Deleting Data (DELETE)](#chapter17part2.4)
+    - [Chapter 17 - Part 3: Understanding Prepared Statements and Preventing SQL Injection](#chapter17part3)
+      - [Chapter 17 - Part 3.1: Understanding Prepared Statements](#chapter17part3.1)
+      - [Chapter 17 - Part 3.2: Preventing SQL Injection](#chapter17part3.2)
+    - [Chapter 17 - Part 4: Managing Transactions in JDBC](#chapter17part4)
+      - [Chapter 17 - Part 4.1: Understanding ACID Properties](#chapter17part4.1)
+      - [Chapter 17 - Part 4.2: JDBC Transaction Management](#chapter17part4.2)
+      - [Chapter 17 - Part 4.3: Best Practices for Transaction Management](#chapter17part4.3)
+    - [Chapter 17 - Part 5: Exploring Connection Pooling for Performance Optimization](#chapter17part5)
+      - [Chapter 17 - Part 5.1: Understanding Connection Pooling](#chapter17part5.1)
+      - [Chapter 17 - Part 5.2: Implementing Connection Pooling in Java](#chapter17part5.2)
+    - [Chapter 17 - Part 6: Case Study: Building a Simple Inventory Management System](#chapter17part6)
+      - [Chapter 17 - Part 6.1: System Requirements and Design](#chapter17part6.1)
+      - [Chapter 17 - Part 6.2: Implementing the Inventory Management System](#chapter17part6.2)
+      - [Chapter 17 - Part 6.3: Complete InventoryManager Class](#chapter17part6.3)
+        
    
 |               |                 |                 |                 |                 |                 |                 |                 |                 | 
 | :-----------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
@@ -22573,5 +22677,212 @@ public class FunctionExample {
 ```
 
 In this example, Function is used to define the transformation logic (uppercase and lowercase conversions). This avoids code duplication and makes the code more flexible.
+
+## <a name="chapter14"></a>Chapter 14: Generics and Reflection
+
+#### <a name="chapter14part1"></a>Chapter 14 - Part 1: Understanding Generic Classes and Methods
+
+#### <a name="chapter14part1.1"></a>Chapter 14 - Part 1.1: Understanding Generic Classes
+
+#### <a name="chapter14part1.2"></a>Chapter 14 - Part 1.2: Understanding Generic Methods
+
+#### <a name="chapter14part2"></a>Chapter 14 - Part 2: Implementing Bounded Type Parameters
+
+#### <a name="chapter14part2.1"></a>Chapter 14 - Part 2.1: Understanding Bounded Type Parameters
+
+#### <a name="chapter14part2.2"></a>Chapter 14 - Part 2.2: Practical Examples and Demonstrations
+
+#### <a name="chapter14part3"></a>Chapter 14 - Part 3: Exploring Wildcards in Generics
+
+#### <a name="chapter14part3.1"></a>Chapter 14 - Part 3.1: Understanding Wildcards: The Need for Flexibility
+
+#### <a name="chapter14part3.2"></a>Chapter 14 - Part 3.2: PECS: Producer Extends, Consumer Super
+
+#### <a name="chapter14part3.3"></a>Chapter 14 - Part 3.3: Practical Examples and Demonstrations
+
+#### <a name="chapter14part4"></a>Chapter 14 - Part 4: Introduction to Reflection and its Uses
+
+#### <a name="chapter14part4.1"></a>Chapter 14 - Part 4.1: Core Concepts of Reflection
+
+#### <a name="chapter14part4.2"></a>Chapter 14 - Part 4.2: Practical Examples and Demonstrations
+
+#### <a name="chapter14part4.3"></a>Chapter 14 - Part 4.3: Exercises
+
+#### <a name="chapter14part4.4"></a>Chapter 14 - Part 4.4: Uses of Reflection
+
+#### <a name="chapter14part4.5"></a>Chapter 14 - Part 4.5: Potential Drawbacks
+
+#### <a name="chapter14part5"></a>Chapter 14 - Part 5: Accessing and Modifying Class Members using Reflection
+
+#### <a name="chapter14part5.1"></a>Chapter 14 - Part 5.1: Accessing Fields Using Reflection
+
+#### <a name="chapter14part5.2"></a>Chapter 14 - Part 5.2: Accessing Methods Using Reflection
+
+#### <a name="chapter14part5.3"></a>Chapter 14 - Part 5.3: Modifying Final Fields
+
+#### <a name="chapter14part5.4"></a>Chapter 14 - Part 5.4: Practical Exercises
+
+#### <a name="chapter14part6"></a>Chapter 14 - Part 6: Practical Exercise: Building a Generic Data Validator
+
+#### <a name="chapter14part6.1"></a>Chapter 14 - Part 6.1: Understanding the Need for a Generic Data Validator
+
+#### <a name="chapter14part6.2"></a>Chapter 14 - Part 6.2: Implementing a Generic Data Validator
+
+#### <a name="chapter14part6.3"></a>Chapter 14 - Part 6.3: Advanced Validation Techniques
+
+## <a name="chapter15"></a>Chapter 15: Input/Output (I/O) and Serialization
+
+#### <a name="chapter15part1"></a>Chapter 15 - Part 1: Working with Character Streams: Reader and Writer
+
+#### <a name="chapter15part1.1"></a>Chapter 15 - Part 1.1: Understanding Reader and Writer Classes
+
+#### <a name="chapter15part1.2"></a>Chapter 15 - Part 1.2: Common Reader and Writer Implementations
+
+#### <a name="chapter15part1.3"></a>Chapter 15 - Part 1.3: Best Practices for Character Stream Usage
+
+#### <a name="chapter15part2"></a>Chapter 15 - Part 2: Working with Byte Streams: InputStream and OutputStream
+
+#### <a name="chapter15part2.1"></a>Chapter 15 - Part 2.1: Understanding InputStream
+
+#### <a name="chapter15part2.2"></a>Chapter 15 - Part 2.2: Understanding OutputStream
+
+#### <a name="chapter15part2.3"></a>Chapter 15 - Part 2.3: Best Practices for Working with Byte Streams
+
+#### <a name="chapter15part3"></a>Chapter 15 - Part 3: Understanding File I/O and Directory Operations
+
+#### <a name="chapter15part3.1"></a>Chapter 15 - Part 3.1: Understanding java.io.File
+
+#### <a name="chapter15part3.2"></a>Chapter 15 - Part 3.2: Working with File Streams
+
+#### <a name="chapter15part4"></a>Chapter 15 - Part 4: Implementing Object Serialization and Deserialization
+
+#### <a name="chapter15part4.1"></a>Chapter 15 - Part 4.1: Understanding Object Serialization
+
+#### <a name="chapter15part4.2"></a>Chapter 15 - Part 4.2: Practical Examples and Demonstrations
+
+#### <a name="chapter15part5"></a>Chapter 15 - Part 5: Exploring Java NIO for Non-Blocking I/O
+
+#### <a name="chapter15part5.1"></a>Chapter 15 - Part 5.1: Core Components of Java NIO
+
+#### <a name="chapter15part5.2"></a>Chapter 15 - Part 5.2: Non-Blocking I/O
+
+#### <a name="chapter15part5.3"></a>Chapter 15 - Part 5.3: Practical Examples and Demonstrations
+
+#### <a name="chapter15part6"></a>Chapter 15 - Part 6: Practical Exercise: Building a File Compression Utility
+
+#### <a name="chapter15part6.1"></a>Chapter 15 - Part 6.1: Understanding File Compression
+
+#### <a name="chapter15part6.2"></a>Chapter 15 - Part 6.2: Implementing File Compression with GZIP
+
+#### <a name="chapter15part6.3"></a>Chapter 15 - Part 6.3: Implementing File Compression with Deflate
+
+## <a name="chapter16"></a>Chapter 16: Multithreading and Concurrency
+
+#### <a name="chapter16part1"></a>Chapter 16 - Part 1: Introduction to Threads and Processes
+
+#### <a name="chapter16part1.1"></a>Chapter 16 - Part 1.1: Understanding Processes
+
+#### <a name="chapter16part1.2"></a>Chapter 16 - Part 1.2: Understanding Threads
+
+#### <a name="chapter16part1.3"></a>Chapter 16 - Part 1.3: Threads vs. Processes: A Detailed Comparison
+
+#### <a name="chapter16part1.4"></a>Chapter 16 - Part 1.4: Concurrency vs. Parallelism
+
+#### <a name="chapter16part1.5"></a>Chapter 16 - Part 1.5: Threads in Java
+
+#### <a name="chapter16part2"></a>Chapter 16 - Part 2: Creating and Managing Threads in Java
+
+#### <a name="chapter16part2.1"></a>Chapter 16 - Part 2.1: Ways to Create Threads
+
+#### <a name="chapter16part2.2"></a>Chapter 16 - Part 2.2: Thread Lifecycle
+
+#### <a name="chapter16part2.3"></a>Chapter 16 - Part 2.3: Thread Naming and Prioritization
+
+#### <a name="chapter16part3"></a>Chapter 16 - Part 3: Understanding Thread Synchronization and Locks
+
+#### <a name="chapter16part3.1"></a>Chapter 16 - Part 3.1: Understanding the Need for Thread Synchronization
+
+#### <a name="chapter16part3.2"></a>Chapter 16 - Part 3.2: Synchronization Techniques in Java
+
+#### <a name="chapter16part4"></a>Chapter 16 - Part 4: Exploring Concurrent Collections: ConcurrentHashMap and BlockingQueue
+
+#### <a name="chapter16part4.1"></a>Chapter 16 - Part 4.1: ConcurrentHashMap: Thread-Safe Hash Map
+
+#### <a name="chapter16part4.2"></a>Chapter 16 - Part 4.2: BlockingQueue: Thread-Safe Queue for Data Transfer
+
+#### <a name="chapter16part5"></a>Chapter 16 - Part 5: Implementing Thread Pools for Efficient Task Execution
+
+#### <a name="chapter16part5.1"></a>Chapter 16 - Part 5.1: Understanding Thread Pools
+
+#### <a name="chapter16part5.2"></a>Chapter 16 - Part 5.2: Implementing Thread Pools in Java
+
+#### <a name="chapter16part5.3"></a>Chapter 16 - Part 5.3: Thread Pool Configuration
+
+#### <a name="chapter16part5.4"></a>Chapter 16 - Part 5.4: Handling Rejected Tasks
+
+#### <a name="chapter16part5.5"></a>Chapter 16 - Part 5.5: Monitoring Thread Pools
+
+#### <a name="chapter16part6"></a>Chapter 16 - Part 6: Case Study: Building a Concurrent Web Server
+
+#### <a name="chapter16part6.1"></a>Chapter 16 - Part 6.1: Core Components of a Web Server
+
+#### <a name="chapter16part6.2"></a>Chapter 16 - Part 6.2: Threading Model for Concurrency
+
+#### <a name="chapter16part6.3"></a>Chapter 16 - Part 6.3: Implementing the Concurrent Web Server
+
+#### <a name="chapter16part6.4"></a>Chapter 16 - Part 6.4: Handling HTTP Requests
+
+#### <a name="chapter16part6.5"></a>Chapter 16 - Part 6.5: Resource Management and Synchronization
+
+#### <a name="chapter16part6.6"></a>Chapter 16 - Part 6.6: Error Handling and Logging
+
+## <a name="chapter17"></a>Chapter 17: Working with Databases using JDBC
+
+#### <a name="chapter17part1"></a>Chapter 17 - Part 1: Introduction to JDBC and Database Connectivity
+
+#### <a name="chapter17part1.1"></a>Chapter 17 - Part 1.1: Understanding JDBC Architecture
+
+#### <a name="chapter17part1.2"></a>Chapter 17 - Part 1.2: Establishing a Database Connection
+
+#### <a name="chapter17part1.3"></a>Chapter 17 - Part 1.3: Practical Examples and Demonstrations
+
+#### <a name="chapter17part2"></a>Chapter 17 - Part 2: Performing CRUD Operations with JDBC
+
+#### <a name="chapter17part2.1"></a>Chapter 17 - Part 2.1: Creating Data (INSERT)
+
+#### <a name="chapter17part2.2"></a>Chapter 17 - Part 2.2: Reading Data (SELECT)
+
+#### <a name="chapter17part2.3"></a>Chapter 17 - Part 2.3: Updating Data (UPDATE)
+
+#### <a name="chapter17part2.4"></a>Chapter 17 - Part 2.4: Deleting Data (DELETE)
+
+#### <a name="chapter17part3"></a>Chapter 17 - Part 3: Understanding Prepared Statements and Preventing SQL Injection
+
+#### <a name="chapter17part3.1"></a>Chapter 17 - Part 3.1: Understanding Prepared Statements
+
+#### <a name="chapter17part3.2"></a>Chapter 17 - Part 3.2: Preventing SQL Injection
+
+#### <a name="chapter17part4"></a>Chapter 17 - Part 4: Managing Transactions in JDBC
+
+#### <a name="chapter17part4.1"></a>Chapter 17 - Part 4.1: Understanding ACID Properties
+
+#### <a name="chapter17part4.2"></a>Chapter 17 - Part 4.2: JDBC Transaction Management
+
+#### <a name="chapter17part4.3"></a>Chapter 17 - Part 4.3: Best Practices for Transaction Management
+
+#### <a name="chapter17part5"></a>Chapter 17 - Part 5: Exploring Connection Pooling for Performance Optimization
+
+#### <a name="chapter17part5.1"></a>Chapter 17 - Part 5.1: Understanding Connection Pooling
+
+#### <a name="chapter17part5.2"></a>Chapter 17 - Part 5.2: Implementing Connection Pooling in Java
+
+#### <a name="chapter17part6"></a>Chapter 17 - Part 6: Case Study: Building a Simple Inventory Management System
+
+#### <a name="chapter17part6.1"></a>Chapter 17 - Part 6.1: System Requirements and Design
+
+#### <a name="chapter17part6.2"></a>Chapter 17 - Part 6.2: Implementing the Inventory Management System
+
+#### <a name="chapter17part6.3"></a>Chapter 17 - Part 6.3: Complete InventoryManager Class
+
 	
 <!-- URL's -->
