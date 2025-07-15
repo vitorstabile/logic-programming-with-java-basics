@@ -24508,47 +24508,2363 @@ While building a custom validator can be useful for learning purposes, it's ofte
 
 #### <a name="chapter15part1"></a>Chapter 15 - Part 1: Working with Character Streams: Reader and Writer
 
+Character streams in Java provide a higher-level abstraction for handling text-based data compared to byte streams. They automatically handle character encoding and decoding, making it easier to work with text in different languages and character sets. This lesson will delve into the Reader and Writer classes, the foundation for all character streams in Java, and explore their common implementations and functionalities. We'll cover reading from and writing to various sources, including files and strings, and discuss best practices for efficient character stream usage.
+
 #### <a name="chapter15part1.1"></a>Chapter 15 - Part 1.1: Understanding Reader and Writer Classes
+
+The Reader and Writer classes are abstract classes that serve as the foundation for all character input and output streams in Java. They provide a set of methods for reading and writing character data.
+
+**Reader Class**
+
+The Reader class is the base class for character input streams. It provides methods for reading character data from a source, such as a file, a string, or a network connection.
+
+**Key Methods of the ```Reader``` Class:**
+
+- read(): Reads a single character or an array of characters. It returns the character read as an integer (or -1 if the end of the stream is reached) or the number of characters read into the array.
+- read(char[] cbuf, int off, int len): Reads up to len characters into a portion of an array, starting from offset off.
+- skip(long n): Skips n characters of input.
+- ready(): Tells whether this stream is ready to be read.
+- mark(int readAheadLimit): Marks the current position in the stream. Subsequent calls to reset() will reposition the stream to this point. Not all Reader implementations support marking.
+- reset(): Resets the stream to the most recent mark.
+- close(): Closes the stream and releases any system resources associated with it.
+
+**Example: Reading characters from a StringReader.**
+
+```java
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+
+public class StringReaderExample {
+    public static void main(String[] args) {
+        String data = "Hello, Reader!";
+        try (Reader reader = new StringReader(data)) { // try-with-resources ensures the reader is closed
+            int character;
+            while ((character = reader.read()) != -1) {
+                System.out.print((char) character);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+This example demonstrates reading characters from a string using StringReader. The try-with-resources statement ensures that the Reader is closed automatically after use, even if an exception occurs.
+
+**Writer Class**
+
+The Writer class is the base class for character output streams. It provides methods for writing character data to a destination, such as a file, a string, or a network connection.
+
+**Key Methods of the Writer Class:**
+
+- write(int c): Writes a single character.
+- write(char[] cbuf, int off, int len): Writes a portion of an array of characters.
+- write(String str, int off, int len): Writes a portion of a string.
+- flush(): Flushes the stream. This forces any buffered output to be written to the destination.
+- close(): Closes the stream and releases any system resources associated with it.
+
+**Example: Writing characters to a StringWriter.**
+
+```java
+import java.io.IOException;
+import java.io.Writer;
+import java.io.StringWriter;
+
+public class StringWriterExample {
+    public static void main(String[] args) {
+        try (Writer writer = new StringWriter()) { // try-with-resources ensures the writer is closed
+            writer.write("Hello, Writer!");
+            writer.flush(); // Ensure all data is written to the StringWriter's internal buffer
+            String content = writer.toString();
+            System.out.println(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+This example demonstrates writing characters to a string using StringWriter. The flush() method ensures that all buffered output is written to the underlying string buffer.
 
 #### <a name="chapter15part1.2"></a>Chapter 15 - Part 1.2: Common Reader and Writer Implementations
 
+Java provides several concrete implementations of the Reader and Writer classes for various input and output scenarios.
+
+**FileReader and FileWriter**
+
+FileReader and FileWriter are used for reading from and writing to files, respectively. They are convenience classes that assume the default character encoding of the system.
+
+Example: Reading from a file using FileReader.
+
+```java
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReaderExample {
+    public static void main(String[] args) {
+        try (FileReader fileReader = new FileReader("input.txt")) {
+            int character;
+            while ((character = fileReader.read()) != -1) {
+                System.out.print((char) character);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Example: Writing to a file using FileWriter.
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriterExample {
+    public static void main(String[] args) {
+        try (FileWriter fileWriter = new FileWriter("output.txt")) {
+            fileWriter.write("Hello, File!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**BufferedReader and BufferedWriter**
+
+BufferedReader and BufferedWriter provide buffering capabilities to improve the efficiency of reading and writing character data. They read and write data in larger chunks, reducing the number of I/O operations.
+
+Example: Reading from a file using BufferedReader.
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class BufferedReaderExample {
+    public static void main(String[] args) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Example: Writing to a file using BufferedWriter.
+
+```java
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class BufferedWriterExample {
+    public static void main(String[] args) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("output.txt"))) {
+            bufferedWriter.write("Hello, Buffered File!");
+            bufferedWriter.newLine(); // Writes a system-dependent line separator
+            bufferedWriter.write("Another line.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**InputStreamReader and OutputStreamWriter**
+
+InputStreamReader and OutputStreamWriter are bridge streams that convert byte streams to character streams and vice versa. They allow you to specify the character encoding to use when reading or writing data.
+
+Example: Reading from an InputStream using InputStreamReader with a specific encoding.
+
+```java
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class InputStreamReaderExample {
+    public static void main(String[] args) {
+        try (InputStream inputStream = new FileInputStream("input.txt");
+             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            int character;
+            while ((character = inputStreamReader.read()) != -1) {
+                System.out.print((char) character);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Example: Writing to an OutputStream using OutputStreamWriter with a specific encoding.
+
+```java
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class OutputStreamWriterExample {
+    public static void main(String[] args) {
+        try (OutputStream outputStream = new FileOutputStream("output.txt");
+             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_16)) {
+            outputStreamWriter.write("Hello, Encoded File!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**StringReader and StringWriter**
+
+StringReader and StringWriter allow you to treat strings as character streams. StringReader reads characters from a string, while StringWriter writes characters to a string buffer. Examples of these were already provided in the "Understanding Reader and Writer Classes" section.
+
 #### <a name="chapter15part1.3"></a>Chapter 15 - Part 1.3: Best Practices for Character Stream Usage
+
+- Always close streams: Ensure that you close streams after you are finished with them to release system resources. The try-with-resources statement is the recommended way to ensure that streams are closed automatically.
+- Use buffering: Use BufferedReader and BufferedWriter to improve the efficiency of reading and writing character data.
+- Specify character encoding: When working with byte streams, use InputStreamReader and OutputStreamWriter to specify the character encoding to use. This is especially important when working with text in different languages or character sets.
+- Handle exceptions: Always handle IOException when working with character streams.
+- Choose the appropriate stream: Select the appropriate Reader or Writer implementation based on the source or destination of the character data.
 
 #### <a name="chapter15part2"></a>Chapter 15 - Part 2: Working with Byte Streams: InputStream and OutputStream
 
+Input/Output (I/O) operations are fundamental to any programming language, allowing programs to interact with external resources like files, networks, and devices. In Java, byte streams provide a low-level mechanism for handling I/O, dealing directly with bytes of data. Understanding InputStream and OutputStream is crucial for tasks such as reading and writing binary files, handling network communication, and implementing custom data processing pipelines. This lesson will delve into the intricacies of these classes, exploring their functionalities, common implementations, and best practices for efficient and reliable I/O operations.
+
 #### <a name="chapter15part2.1"></a>Chapter 15 - Part 2.1: Understanding InputStream
+
+InputStream is an abstract class that represents an input stream of bytes. It serves as the foundation for all byte-oriented input streams in Java. The key methods defined in InputStream allow you to read data from a source, such as a file, network connection, or memory buffer.
+
+**Core Methods of InputStream**
+
+- int read(): Reads the next byte of data from the input stream. It returns an integer representing the byte value (0-255) or -1 if the end of the stream is reached.
+- int read(byte[] b): Reads up to b.length bytes of data from the input stream into the byte array b. It returns the total number of bytes read, or -1 if the end of the stream is reached.
+- int read(byte[] b, int off, int len): Reads up to len bytes of data from the input stream into the byte array b, starting at index off. It returns the total number of bytes read, or -1 if the end of the stream is reached.
+- long skip(long n): Skips over and discards n bytes of data from the input stream. It returns the actual number of bytes skipped, which may be less than n if the end of the stream is reached.
+- int available(): Returns an estimate of the number of bytes that can be read from the input stream without blocking. Note that this is only an estimate and should not be relied upon for precise control.
+- void close(): Closes the input stream and releases any system resources associated with it. It's crucial to close streams when you're finished with them to prevent resource leaks.
+- void mark(int readlimit): Marks the current position in the input stream. Subsequent calls to reset() will reposition the stream to the marked position. The readlimit argument specifies the maximum number of bytes that can be read after marking the position before the mark becomes invalid.
+- boolean markSupported(): Tests whether this input stream supports the mark() and reset() methods.
+- void reset(): Repositions the stream to the last marked position. Throws an IOException if the stream has not been marked or if the mark has become invalid.
+
+**Common InputStream Implementations**
+
+- FileInputStream: Reads bytes from a file.
+- ByteArrayInputStream: Reads bytes from a byte array.
+- BufferedInputStream: Provides buffering for another input stream, improving performance by reducing the number of physical read operations.
+- ObjectInputStream: Deserializes primitive data and objects previously written using an ObjectOutputStream. This will be covered in detail in a later lesson on Serialization.
+- PipedInputStream: Reads data from a PipedOutputStream. Useful for inter-thread communication.
+
+**Example: Reading from a FileInputStream**
+
+```java
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileInputStreamExample {
+
+    public static void main(String[] args) {
+        String filePath = "example.txt"; // Replace with your file path
+        FileInputStream fis = null;
+
+        try {
+            fis = new FileInputStream(filePath);
+
+            int byteRead;
+            while ((byteRead = fis.read()) != -1) {
+                System.out.print((char) byteRead); // Cast to char to print as text
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close(); // Always close the stream in a finally block
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- The code creates a FileInputStream to read from the specified file.
+- It reads bytes one by one using fis.read() until the end of the file is reached (-1 is returned).
+- Each byte is cast to a char and printed to the console.
+- The finally block ensures that the FileInputStream is closed, even if an exception occurs. This is crucial for releasing resources.
+
+**Example: Reading from a BufferedInputStream**
+
+```java
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class BufferedInputStreamExample {
+
+    public static void main(String[] args) {
+        String filePath = "example.txt"; // Replace with your file path
+        BufferedInputStream bis = null;
+        FileInputStream fis = null;
+
+        try {
+            fis = new FileInputStream(filePath);
+            bis = new BufferedInputStream(fis); // Wrap FileInputStream with BufferedInputStream
+
+            int byteRead;
+            while ((byteRead = bis.read()) != -1) {
+                System.out.print((char) byteRead);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bis != null) {
+                    bis.close(); // Closing BufferedInputStream also closes the underlying FileInputStream
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- This example wraps a FileInputStream with a BufferedInputStream.
+- The BufferedInputStream reads data in larger chunks from the file and stores it in a buffer. Subsequent read() calls retrieve data from the buffer, reducing the number of physical disk accesses.
+- Closing the BufferedInputStream automatically closes the underlying FileInputStream.
+
+**Example: Reading from a ByteArrayInputStream**
+
+```java
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+public class ByteArrayInputStreamExample {
+
+    public static void main(String[] args) {
+        byte[] byteArray = {72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100}; // "Hello World" in ASCII
+        ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+
+        int byteRead;
+        while ((byteRead = bais.read()) != -1) {
+            System.out.print((char) byteRead);
+        }
+
+        try {
+            bais.close(); // Closing ByteArrayInputStream has no effect, but it's good practice
+        } catch (IOException e) {
+            e.printStackTrace(); // This will likely not be executed
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- This example creates a ByteArrayInputStream from a byte array.
+- It reads bytes from the array until the end is reached.
+- Closing a ByteArrayInputStream has no effect because it doesn't hold any external resources, but it's still good practice to include the close() call for consistency.
 
 #### <a name="chapter15part2.2"></a>Chapter 15 - Part 2.2: Understanding OutputStream
 
+OutputStream is an abstract class that represents an output stream of bytes. It is the counterpart to InputStream and serves as the foundation for all byte-oriented output streams in Java. The key methods defined in OutputStream allow you to write data to a destination, such as a file, network connection, or memory buffer.
+
+**Core Methods of OutputStream**
+
+- void write(int b): Writes the specified byte to the output stream. The integer b represents the byte value (0-255).
+- void write(byte[] b): Writes b.length bytes from the byte array b to the output stream.
+- void write(byte[] b, int off, int len): Writes len bytes from the byte array b, starting at index off, to the output stream.
+- void flush(): Flushes the output stream. This forces any buffered output bytes to be written to the underlying stream.
+- void close(): Closes the output stream and releases any system resources associated with it. It's crucial to close streams when you're finished with them to prevent data loss and resource leaks.
+
+**Common OutputStream Implementations**
+
+- FileOutputStream: Writes bytes to a file.
+- ByteArrayOutputStream: Writes bytes to a byte array.
+- BufferedOutputStream: Provides buffering for another output stream, improving performance by reducing the number of physical write operations.
+- ObjectOutputStream: Serializes primitive data and objects to an OutputStream. This will be covered in detail in a later lesson on Serialization.
+- PipedOutputStream: Writes data to a PipedInputStream. Useful for inter-thread communication.
+
+**Example: Writing to a FileOutputStream**
+
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileOutputStreamExample {
+
+    public static void main(String[] args) {
+        String filePath = "output.txt"; // Replace with your desired file path
+        FileOutputStream fos = null;
+
+        try {
+            fos = new FileOutputStream(filePath);
+
+            String data = "Hello, OutputStream!";
+            byte[] bytes = data.getBytes(); // Convert the string to a byte array
+
+            fos.write(bytes); // Write the byte array to the file
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close(); // Always close the stream in a finally block
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- The code creates a FileOutputStream to write to the specified file.
+- It converts the string "Hello, OutputStream!" to a byte array using getBytes().
+- It writes the byte array to the file using fos.write(bytes).
+- The finally block ensures that the FileOutputStream is closed, even if an exception occurs.
+
+**Example: Writing to a BufferedOutputStream**
+
+```java
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class BufferedOutputStreamExample {
+
+    public static void main(String[] args) {
+        String filePath = "output_buffered.txt"; // Replace with your desired file path
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+
+        try {
+            fos = new FileOutputStream(filePath);
+            bos = new BufferedOutputStream(fos); // Wrap FileOutputStream with BufferedOutputStream
+
+            String data = "This is a buffered output stream example.";
+            byte[] bytes = data.getBytes();
+
+            bos.write(bytes); // Write to the buffer
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bos != null) {
+                    bos.close(); // Closing BufferedOutputStream also closes the underlying FileOutputStream and flushes the buffer
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- This example wraps a FileOutputStream with a BufferedOutputStream.
+- The BufferedOutputStream accumulates data in a buffer and writes it to the file in larger chunks, improving performance.
+- Closing the BufferedOutputStream automatically closes the underlying FileOutputStream and flushes any remaining data in the buffer to the file.
+
+**Example: Writing to a ByteArrayOutputStream**
+
+```java
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+public class ByteArrayOutputStreamExample {
+
+    public static void main(String[] args) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        String data = "Hello, ByteArrayOutputStream!";
+        byte[] bytes = data.getBytes();
+
+        baos.write(bytes);
+
+        byte[] byteArray = baos.toByteArray(); // Get the data as a byte array
+
+        String output = new String(byteArray); // Convert the byte array back to a string
+
+        System.out.println(output);
+
+        try {
+            baos.close(); // Closing ByteArrayOutputStream has no effect, but it's good practice
+        } catch (IOException e) {
+            e.printStackTrace(); // This will likely not be executed
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- This example creates a ByteArrayOutputStream.
+- It writes the byte array to the ByteArrayOutputStream.
+- The toByteArray() method retrieves the data written to the stream as a byte array.
+- Closing a ByteArrayOutputStream has no effect because it doesn't hold any external resources, but it's still good practice to include the close() call for consistency.
+
 #### <a name="chapter15part2.3"></a>Chapter 15 - Part 2.3: Best Practices for Working with Byte Streams
+
+- Always close streams in a finally block: This ensures that streams are closed and resources are released, even if exceptions occur. Using try-with-resources is the preferred approach in modern Java.
+- Use buffering for performance: Wrapping streams with BufferedInputStream and BufferedOutputStream can significantly improve performance by reducing the number of physical I/O operations.
+- Handle exceptions properly: I/O operations can throw IOExceptions. Make sure to catch and handle these exceptions appropriately.
+- Be aware of character encodings: When working with text data, be mindful of character encodings (e.g., UTF-8, ASCII). Use the appropriate encoding when converting between strings and byte arrays.
+- Consider using try-with-resources: Java's try-with-resources statement automatically closes resources that implement the AutoCloseable interface (which InputStream and OutputStream do) at the end of the block, simplifying resource management and reducing the risk of resource leaks.
+
+**Example: Using try-with-resources**
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class TryWithResourcesExample {
+
+    public static void main(String[] args) {
+        String inputFile = "input.txt";
+        String outputFile = "output.txt";
+
+        try (FileInputStream fis = new FileInputStream(inputFile);
+             FileOutputStream fos = new FileOutputStream(outputFile)) {
+
+            int byteRead;
+            while ((byteRead = fis.read()) != -1) {
+                fos.write(byteRead);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } // fis and fos are automatically closed here
+    }
+}
+```
+
+**Explanation:**
+
+- The try-with-resources statement declares and initializes the FileInputStream and FileOutputStream within the parentheses.
+- The streams are automatically closed at the end of the try block (or after any catch block), regardless of whether an exception occurred. This eliminates the need for a finally block to close the streams.
 
 #### <a name="chapter15part3"></a>Chapter 15 - Part 3: Understanding File I/O and Directory Operations
 
+File I/O and directory operations are fundamental to many Java applications. They allow programs to interact with the file system, read data from files, write data to files, and manage directories. Understanding these operations is crucial for tasks such as data storage, configuration management, and application logging. This lesson will cover the core concepts and techniques for working with files and directories in Java, building upon the character and byte stream knowledge from the previous lessons.
+
 #### <a name="chapter15part3.1"></a>Chapter 15 - Part 3.1: Understanding java.io.File
+
+The java.io.File class is the foundation for all file and directory operations in Java. It represents a file or directory path, not the actual content of the file. It provides methods for interacting with the file system, such as creating, deleting, renaming, and checking the existence of files and directories.
+
+**Creating File Objects**
+
+A File object is created by providing a path to the constructor. The path can be absolute or relative.
+
+```java
+// Absolute path
+File absoluteFile = new File("/path/to/my/file.txt");
+
+// Relative path (relative to the current working directory)
+File relativeFile = new File("data/my_file.txt");
+```
+
+It's important to note that creating a File object does not create the actual file or directory on the file system. It simply creates a Java object that represents the path.
+
+**Checking File and Directory Existence**
+
+The exists() method checks whether the file or directory represented by the File object actually exists on the file system.
+
+```java
+File file = new File("my_file.txt");
+if (file.exists()) {
+    System.out.println("File exists");
+} else {
+    System.out.println("File does not exist");
+}
+```
+
+The isFile() and isDirectory() methods can be used to determine whether the File object represents a file or a directory.
+
+```java
+File file = new File("my_file.txt");
+if (file.isFile()) {
+    System.out.println("It's a file");
+}
+
+File dir = new File("my_directory");
+if (dir.isDirectory()) {
+    System.out.println("It's a directory");
+}
+```
+
+**Creating Files and Directories**
+
+The createNewFile() method creates a new, empty file. It returns true if the file was successfully created, and false if a file with that name already exists. This method must be enclosed in a try-catch block to handle IOException.
+
+```java
+File file = new File("new_file.txt");
+try {
+    if (file.createNewFile()) {
+        System.out.println("File created successfully");
+    } else {
+        System.out.println("File already exists");
+    }
+} catch (IOException e) {
+    System.err.println("An error occurred: " + e.getMessage());
+}
+```
+
+The mkdir() method creates a new directory. It returns true if the directory was successfully created, and false otherwise (e.g., if a directory with that name already exists, or if the parent directory does not exist).
+
+```java
+File dir = new File("new_directory");
+if (dir.mkdir()) {
+    System.out.println("Directory created successfully");
+} else {
+    System.out.println("Failed to create directory");
+}
+```
+
+The mkdirs() method creates a new directory, including any necessary parent directories. This is useful when creating a directory structure that doesn't already exist.
+
+```java
+File dir = new File("parent/child/new_directory");
+if (dir.mkdirs()) {
+    System.out.println("Directory created successfully");
+} else {
+    System.out.println("Failed to create directory");
+}
+```
+
+**Deleting Files and Directories**
+
+The delete() method deletes the file or directory represented by the File object. It returns true if the deletion was successful, and false otherwise. Note that for a directory to be deleted, it must be empty.
+
+```java
+File file = new File("file_to_delete.txt");
+if (file.delete()) {
+    System.out.println("File deleted successfully");
+} else {
+    System.out.println("Failed to delete file");
+}
+
+File dir = new File("empty_directory");
+if (dir.delete()) {
+    System.out.println("Directory deleted successfully");
+} else {
+    System.out.println("Failed to delete directory (it might not be empty)");
+}
+```
+
+To delete a non-empty directory, you need to recursively delete all files and subdirectories within it.
+
+```java
+public static void deleteDirectory(File directory) {
+    File[] files = directory.listFiles();
+    if (files != null) {
+        for (File file : files) {
+            if (file.isDirectory()) {
+                deleteDirectory(file); // Recursive call
+            } else {
+                file.delete();
+            }
+        }
+    }
+    directory.delete();
+}
+
+File dir = new File("non_empty_directory");
+deleteDirectory(dir);
+```
+
+**Renaming Files and Directories**
+
+The renameTo() method renames the file or directory represented by the File object. It takes a File object representing the new name as an argument. It returns true if the renaming was successful, and false otherwise.
+
+```java
+File oldFile = new File("old_name.txt");
+File newFile = new File("new_name.txt");
+
+if (oldFile.renameTo(newFile)) {
+    System.out.println("File renamed successfully");
+} else {
+    System.out.println("Failed to rename file");
+}
+```
+
+**Getting File and Directory Information**
+
+The File class provides several methods for retrieving information about files and directories:
+
+- getName(): Returns the name of the file or directory.
+- getPath(): Returns the path of the file or directory.
+- getAbsolutePath(): Returns the absolute path of the file or directory.
+- getParent(): Returns the path of the parent directory, or null if the file is at the root of the file system.
+- length(): Returns the size of the file in bytes.
+- lastModified(): Returns the time the file was last modified, as a long representing milliseconds since the epoch.
+
+```java
+File file = new File("my_file.txt");
+System.out.println("Name: " + file.getName());
+System.out.println("Path: " + file.getPath());
+System.out.println("Absolute Path: " + file.getAbsolutePath());
+System.out.println("Parent: " + file.getParent());
+System.out.println("Length: " + file.length());
+System.out.println("Last Modified: " + file.lastModified());
+```
+
+**Listing Directory Contents**
+
+The listFiles() method returns an array of File objects representing the files and directories within a directory.
+
+```java
+File dir = new File("my_directory");
+File[] files = dir.listFiles();
+
+if (files != null) {
+    for (File file : files) {
+        System.out.println(file.getName());
+    }
+}
+```
+
+The list() method returns an array of String objects representing the names of the files and directories within a directory.
+
+```java
+File dir = new File("my_directory");
+String[] fileNames = dir.list();
+
+if (fileNames != null) {
+    for (String fileName : fileNames) {
+        System.out.println(fileName);
+    }
+}
+```
+
+You can also use a FilenameFilter to filter the files and directories that are returned by listFiles() or list().
+
+```java
+File dir = new File("my_directory");
+File[] files = dir.listFiles(new FilenameFilter() {
+    @Override
+    public boolean accept(File dir, String name) {
+        return name.endsWith(".txt");
+    }
+});
+
+if (files != null) {
+    for (File file : files) {
+        System.out.println(file.getName());
+    }
+}
+```
 
 #### <a name="chapter15part3.2"></a>Chapter 15 - Part 3.2: Working with File Streams
 
+While the File class allows you to manage files and directories, you need file streams (introduced in the previous lessons) to read and write data to files. You can use FileInputStream and FileOutputStream for byte streams, and FileReader and FileWriter for character streams.
+
+**Reading from a File**
+
+```java
+try (BufferedReader br = new BufferedReader(new FileReader("my_file.txt"))) {
+    String line;
+    while ((line = br.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) {
+    System.err.println("An error occurred: " + e.getMessage());
+}
+```
+
+**Writing to a File**
+
+```java
+try (BufferedWriter bw = new BufferedWriter(new FileWriter("my_file.txt"))) {
+    bw.write("This is a line of text.");
+    bw.newLine();
+    bw.write("This is another line of text.");
+} catch (IOException e) {
+    System.err.println("An error occurred: " + e.getMessage());
+}
+```
+
 #### <a name="chapter15part4"></a>Chapter 15 - Part 4: Implementing Object Serialization and Deserialization
+
+Object serialization is a crucial mechanism in Java that allows you to convert the state of an object into a byte stream, which can then be stored on disk or transmitted over a network. Deserialization is the reverse process, reconstructing the object from the byte stream. This capability is essential for persistence, inter-process communication, and distributed computing. Understanding the nuances of serialization, including how to control the process and handle potential issues, is vital for building robust and scalable Java applications.
 
 #### <a name="chapter15part4.1"></a>Chapter 15 - Part 4.1: Understanding Object Serialization
 
+Serialization is the process of converting an object's state into a byte stream. This byte stream can then be saved to a file, sent over a network, or stored in a database. Deserialization is the reverse process, where the byte stream is used to recreate the object in memory.
+
+**The Serializable Interface**
+
+The cornerstone of Java's serialization mechanism is the java.io.Serializable interface. A class must implement this interface to be serializable. The Serializable interface is a marker interface, meaning it doesn't declare any methods. Its purpose is simply to signal to the Java runtime that objects of this class can be serialized.
+
+```java
+import java.io.Serializable;
+
+public class Employee implements Serializable {
+    private String name;
+    private int age;
+    private String department;
+
+    public Employee(String name, int age, String department) {
+        this.name = name;
+        this.age = age;
+        this.department = department;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", department='" + department + '\'' +
+                '}';
+    }
+}
+```
+
+In this example, the Employee class implements Serializable. This means that instances of the Employee class can be serialized and deserialized.
+
+**The ObjectOutputStream and ObjectInputStream Classes**
+
+The ObjectOutputStream class is used to serialize objects, and the ObjectInputStream class is used to deserialize objects. These classes provide methods for writing and reading objects to and from streams.
+
+**Serializing an Object**
+
+To serialize an object, you create an instance of ObjectOutputStream, passing it an OutputStream (e.g., a FileOutputStream). Then, you call the writeObject() method to write the object to the stream.
+
+```java
+import java.io.*;
+
+public class SerializationExample {
+    public static void main(String[] args) {
+        Employee employee = new Employee("John Doe", 30, "Engineering");
+
+        try (FileOutputStream fileOut = new FileOutputStream("employee.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(employee);
+            System.out.println("Serialized data is saved in employee.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+}
+```
+
+In this example, an Employee object is serialized and saved to a file named "employee.ser". The try-with-resources statement ensures that the streams are closed properly after use.
+
+**Deserializing an Object**
+
+To deserialize an object, you create an instance of ObjectInputStream, passing it an InputStream (e.g., a FileInputStream). Then, you call the readObject() method to read the object from the stream. The readObject() method returns an Object, which you must cast to the appropriate class.
+
+```java
+import java.io.*;
+
+public class DeserializationExample {
+    public static void main(String[] args) {
+        Employee employee = null;
+        try (FileInputStream fileIn = new FileInputStream("employee.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            employee = (Employee) in.readObject();
+            System.out.println("Deserialized Employee...");
+            System.out.println(employee);
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+}
+```
+
+In this example, an Employee object is deserialized from the "employee.ser" file. The readObject() method returns an Object, which is then cast to an Employee. A ClassNotFoundException is caught in case the Employee class is not found during deserialization.
+
+**Controlling the Serialization Process**
+
+Sometimes, you may need to control how an object is serialized. For example, you might want to exclude certain fields from serialization or perform custom serialization logic.
+
+**The transient Keyword**
+
+The transient keyword is used to mark fields that should not be serialized. When an object is serialized, the values of transient fields are not included in the byte stream. Upon deserialization, transient fields are initialized to their default values (e.g., null for objects, 0 for integers, false for booleans).
+
+```java
+import java.io.Serializable;
+
+public class Employee implements Serializable {
+    private String name;
+    private int age;
+    private transient String password; // This field will not be serialized
+
+    public Employee(String name, int age, String password) {
+        this.name = name;
+        this.age = age;
+        this.password = password;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                '}';
+    }
+}
+```
+
+In this example, the password field is marked as transient. This means that the password will not be serialized when the Employee object is serialized. After deserialization, the password field will be null. This is commonly used for security reasons, to prevent sensitive data from being stored in serialized form.
+
+**The writeObject() and readObject() Methods**
+
+For more fine-grained control over the serialization process, you can define writeObject() and readObject() methods in your class. These methods allow you to customize how the object is serialized and deserialized. The signatures of these methods must be:
+
+```java
+private void writeObject(java.io.ObjectOutputStream out) throws IOException;
+private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException;
+```
+
+These methods are automatically called during serialization and deserialization, respectively.
+
+```java
+import java.io.*;
+
+public class CustomEmployee implements Serializable {
+    private String name;
+    private int age;
+    private transient String password;
+
+    public CustomEmployee(String name, int age, String password) {
+        this.name = name;
+        this.age = age;
+        this.password = password;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomEmployee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject(); // Serialize non-transient fields
+        // Encrypt the password before writing it to the stream
+        String encryptedPassword = encrypt(password);
+        out.writeObject(encryptedPassword);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject(); // Deserialize non-transient fields
+        // Decrypt the password after reading it from the stream
+        String encryptedPassword = (String) in.readObject();
+        this.password = decrypt(encryptedPassword);
+    }
+
+    private String encrypt(String password) {
+        // Implement encryption logic here (e.g., using AES)
+        return new StringBuilder(password).reverse().toString(); // Dummy encryption
+    }
+
+    private String decrypt(String encryptedPassword) {
+        // Implement decryption logic here (e.g., using AES)
+        return new StringBuilder(encryptedPassword).reverse().toString(); // Dummy decryption
+    }
+}
+```
+
+In this example, the writeObject() method first calls out.defaultWriteObject() to serialize the non-transient fields. Then, it encrypts the password field before writing it to the stream. The readObject() method performs the reverse process: it first calls in.defaultReadObject() to deserialize the non-transient fields, and then decrypts the password field after reading it from the stream. This allows you to encrypt sensitive data before serialization and decrypt it after deserialization.
+
+**Important Considerations:**
+
+- defaultWriteObject() and defaultReadObject(): These methods are crucial when implementing custom serialization. They handle the serialization and deserialization of the non-transient fields of the class. If you don't call these methods, the non-transient fields will not be serialized or deserialized correctly.
+- Order of Operations: The order in which you write and read fields in the writeObject() and readObject() methods must be the same. Otherwise, the deserialization process will fail.
+- Exception Handling: You must handle IOException and ClassNotFoundException in the readObject() method. These exceptions can occur if there are problems reading from the stream or if the class being deserialized is not found.
+
+**The Externalizable Interface**
+
+The java.io.Externalizable interface provides even more control over the serialization process than the Serializable interface. Unlike Serializable, Externalizable declares two methods: writeExternal() and readExternal(). You must implement these methods to control the serialization and deserialization of your object.
+
+```java
+import java.io.*;
+
+public class ExternalEmployee implements Externalizable {
+    private String name;
+    private int age;
+    private String department;
+
+    // Required: No-argument constructor
+    public ExternalEmployee() {
+    }
+
+    public ExternalEmployee(String name, int age, String department) {
+        this.name = name;
+        this.age = age;
+        this.department = department;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "ExternalEmployee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", department='" + department + '\'' +
+                '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(name);
+        out.writeInt(age);
+        out.writeObject(department);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name = (String) in.readObject();
+        age = in.readInt();
+        department = (String) in.readObject();
+    }
+}
+```
+
+In this example, the ExternalEmployee class implements Externalizable. The writeExternal() method writes the name, age, and department fields to the stream. The readExternal() method reads these fields from the stream and sets the corresponding fields of the object.
+
+**Important Considerations:**
+
+- No-Argument Constructor: When a class implements Externalizable, it must provide a no-argument constructor. This is because the serialization mechanism first creates an instance of the class using the no-argument constructor, and then calls the readExternal() method to populate the object's fields. If a no-argument constructor is not provided, a java.io.InvalidClassException will be thrown during deserialization.
+- Complete Control: With Externalizable, you have complete control over which fields are serialized and how they are serialized. You are responsible for writing and reading all of the object's state.
+- Version Control: Externalizable gives you more flexibility in handling version changes. You can implement logic in readExternal() to handle different versions of the serialized data.
+
+**Serialization and Inheritance**
+
+When a class implements Serializable, all of its superclasses must also be Serializable, or have a no-argument constructor. If a superclass is not Serializable and does not have a no-argument constructor, a java.io.NotSerializableException will be thrown during serialization.
+
+```java
+import java.io.Serializable;
+
+class Person { // Not Serializable, but has a no-argument constructor
+    private String address;
+
+    public Person() {
+        this.address = "Unknown";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
+
+class Student extends Person implements Serializable {
+    private String studentId;
+
+    public Student(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+}
+```
+
+In this example, the Person class is not Serializable, but it has a no-argument constructor. The Student class extends Person and implements Serializable. This is valid because the Person class has a no-argument constructor. When a Student object is serialized, the Person class's no-argument constructor will be called to initialize the address field.
+
+If the Person class did not have a no-argument constructor, a NotSerializableException would be thrown when trying to serialize a Student object.
+
+**The Serial Version UID**
+
+The serial version UID (serialVersionUID) is a unique identifier for a serializable class. It is used during deserialization to verify that the sender and receiver of a serialized object have compatible versions of the class. If the serial version UIDs do not match, a java.io.InvalidClassException will be thrown.
+
+You can explicitly declare the serial version UID by defining a static final long field named serialVersionUID in your class:
+
+```java
+import java.io.Serializable;
+
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int age;
+    private String department;
+
+    public Employee(String name, int age, String department) {
+        this.name = name;
+        this.age = age;
+        this.department = department;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", department='" + department + '\'' +
+                '}';
+    }
+}
+```
+
+If you do not explicitly declare the serial version UID, the Java runtime will generate one automatically based on the class's structure. However, this automatically generated UID is sensitive to changes in the class, such as adding or removing fields. Therefore, it is best practice to explicitly declare the serial version UID to ensure compatibility between different versions of your class.
+
+**Best Practices for Managing serialVersionUID:**
+
+- Explicit Declaration: Always explicitly declare the serialVersionUID in your serializable classes.
+- Initial Value: Start with a simple value like 1L.
+- Compatibility: When making changes to a serializable class, consider the impact on compatibility with previously serialized objects.
+  - Compatible Changes: Adding fields, changing access modifiers, or other minor changes generally do not require updating the serialVersionUID.
+  - Incompatible Changes: Removing fields, changing the type of fields, or significantly altering the class structure require careful consideration. If you want to maintain compatibility with older serialized objects, you may need to implement custom readObject() logic to handle the changes. If compatibility is not a concern, you can update the serialVersionUID to indicate that the class is no longer compatible with older serialized objects.
+- Tools: Some IDEs (like IntelliJ IDEA) can automatically generate serialVersionUID values and warn you when you make changes that might break compatibility.
+
+
 #### <a name="chapter15part4.2"></a>Chapter 15 - Part 4.2: Practical Examples and Demonstrations
+
+**Example 1: Serializing and Deserializing a Complex Object**
+
+This example demonstrates how to serialize and deserialize a more complex object with nested objects.
+
+```java
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+class Address implements Serializable {
+    private String street;
+    private String city;
+    private String zipCode;
+
+    public Address(String street, String city, String zipCode) {
+        this.street = street;
+        this.city = city;
+        this.zipCode = zipCode;
+    }
+
+    // Getters and setters
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                '}';
+    }
+}
+
+class Customer implements Serializable {
+    private String name;
+    private int age;
+    private Address address;
+    private List<String> orders;
+
+    public Customer(String name, int age, Address address, List<String> orders) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.orders = orders;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<String> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<String> orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", address=" + address +
+                ", orders=" + orders +
+                '}';
+    }
+}
+
+public class ComplexSerializationExample {
+    public static void main(String[] args) {
+        Address address = new Address("123 Main St", "Anytown", "12345");
+        List<String> orders = new ArrayList<>();
+        orders.add("Order 1");
+        orders.add("Order 2");
+        Customer customer = new Customer("Alice Smith", 25, address, orders);
+
+        // Serialize the customer object
+        try (FileOutputStream fileOut = new FileOutputStream("customer.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(customer);
+            System.out.println("Serialized data is saved in customer.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        // Deserialize the customer object
+        Customer deserializedCustomer = null;
+        try (FileInputStream fileIn = new FileInputStream("customer.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            deserializedCustomer = (Customer) in.readObject();
+            System.out.println("Deserialized Customer...");
+            System.out.println(deserializedCustomer);
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Customer class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+}
+```
+
+In this example, the Customer class has an Address object and a list of String objects as fields. Both Customer and Address implement the Serializable interface. When the Customer object is serialized, the Address object and the list of String objects are also serialized.
+
+**Example 2: Using transient to Exclude Fields**
+
+This example demonstrates how to use the transient keyword to exclude fields from serialization.
+
+```java
+import java.io.*;
+
+class User implements Serializable {
+    private String username;
+    private transient String password; // Exclude password from serialization
+    private String email;
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    // Getters and setters
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+}
+
+public class TransientExample {
+    public static void main(String[] args) {
+        User user = new User("johndoe", "secret", "johndoe@example.com");
+
+        // Serialize the user object
+        try (FileOutputStream fileOut = new FileOutputStream("user.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(user);
+            System.out.println("Serialized data is saved in user.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        // Deserialize the user object
+        User deserializedUser = null;
+        try (FileInputStream fileIn = new FileInputStream("user.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            deserializedUser = (User) in.readObject();
+            System.out.println("Deserialized User...");
+            System.out.println(deserializedUser);
+            System.out.println("Password after deserialization: " + deserializedUser.getPassword()); // Password will be null
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("User class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+}
+```
+
+In this example, the password field is marked as transient. When the User object is serialized, the password field is not included in the byte stream. After deserialization, the password field will be null.
+
+**Example 3: Implementing writeObject() and readObject() for Custom Serialization**
+
+This example demonstrates how to implement the writeObject() and readObject() methods to customize the serialization process.
+
+```java
+import java.io.*;
+
+class Data implements Serializable {
+    private String data;
+    private transient String sensitiveData;
+
+    public Data(String data, String sensitiveData) {
+        this.data = data;
+        this.sensitiveData = sensitiveData;
+    }
+
+    // Getters and setters
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getSensitiveData() {
+        return sensitiveData;
+    }
+
+    public void setSensitiveData(String sensitiveData) {
+        this.sensitiveData = sensitiveData;
+    }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+                "data='" + data + '\'' +
+                ", sensitiveData='" + sensitiveData + '\'' +
+                '}';
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        // Encrypt sensitive data before serialization
+        String encryptedData = encrypt(sensitiveData);
+        out.writeObject(encryptedData);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        // Decrypt sensitive data after deserialization
+        String encryptedData = (String) in.readObject();
+        this.sensitiveData = decrypt(encryptedData);
+    }
+
+    private String encrypt(String data) {
+        // Dummy encryption logic (replace with actual encryption)
+        return "ENCRYPTED_" + data;
+    }
+
+    private String decrypt(String data) {
+        // Dummy decryption logic (replace with actual decryption)
+        return data.substring(10); // Remove "ENCRYPTED_" prefix
+    }
+}
+
+public class CustomSerializationExample {
+    public static void main(String[] args) {
+        Data data = new Data("Some data", "Secret data");
+
+        // Serialize the data object
+        try (FileOutputStream fileOut = new FileOutputStream("data.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(data);
+            System.out.println("Serialized data is saved in data.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        // Deserialize the data object
+        Data deserializedData = null;
+        try (FileInputStream fileIn = new FileInputStream("data.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            deserializedData = (Data) in.readObject();
+            System.out.println("Deserialized Data...");
+            System.out.println(deserializedData);
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Data class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+}
+```
+
+In this example, the writeObject() method encrypts the sensitiveData field before writing it to the stream, and the readObject() method decrypts the sensitiveData field after reading it from the stream. This provides a way to protect sensitive data during serialization.
+
+**Example 4: Implementing Externalizable for Full Control**
+
+This example demonstrates how to implement the Externalizable interface to have full control over the serialization process.
+
+```java
+import java.io.*;
+
+class Configuration implements Externalizable {
+    private String setting1;
+    private int setting2;
+    private transient String sensitiveSetting;
+
+    // Required: No-argument constructor
+    public Configuration() {
+    }
+
+    public Configuration(String setting1, int setting2, String sensitiveSetting) {
+        this.setting1 = setting1;
+        this.setting2 = setting2;
+        this.sensitiveSetting = sensitiveSetting;
+    }
+
+    // Getters and setters
+    public String getSetting1() {
+        return setting1;
+    }
+
+    public void setSetting1(String setting1) {
+        this.setting1 = setting1;
+    }
+
+    public int getSetting2() {
+        return setting2;
+    }
+
+    public void setSetting2(int setting2) {
+        this.setting2 = setting2;
+    }
+
+    public String getSensitiveSetting() {
+        return sensitiveSetting;
+    }
+
+    public void setSensitiveSetting(String sensitiveSetting) {
+        this.sensitiveSetting = sensitiveSetting;
+    }
+
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "setting1='" + setting1 + '\'' +
+                ", setting2=" + setting2 +
+                ", sensitiveSetting='" + sensitiveSetting + '\'' +
+                '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(setting1);
+        out.writeInt(setting2);
+        // Do not serialize sensitiveSetting
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        setting1 = (String) in.readObject();
+        setting2 = in.readInt();
+        // sensitiveSetting is not deserialized, so it remains null
+    }
+}
+
+public class ExternalizableExample {
+    public static void main(String[] args) {
+        Configuration config = new Configuration("Value1", 123, "SecretValue");
+
+        // Serialize the configuration object
+        try (FileOutputStream fileOut = new FileOutputStream("config.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(config);
+            System.out.println("Serialized data is saved in config.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        // Deserialize the configuration object
+        Configuration deserializedConfig = null;
+        try (FileInputStream fileIn = new FileInputStream("config.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            deserializedConfig = (Configuration) in.readObject();
+            System.out.println("Deserialized Configuration...");
+            System.out.println(deserializedConfig);
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Configuration class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+}
+```
+
+In this example, the Configuration class implements Externalizable. The writeExternal() method writes the setting1 and setting2 fields to the stream, but it does not write the sensitiveSetting field. The readExternal() method reads the setting1 and setting2 fields from the stream, but it does not read the sensitiveSetting field. As a result, the sensitiveSetting field is not serialized or deserialized, and it remains null after deserialization.
 
 #### <a name="chapter15part5"></a>Chapter 15 - Part 5: Exploring Java NIO for Non-Blocking I/O
 
+Java NIO (New I/O) offers a different approach to input/output operations compared to the traditional I/O streams. It provides non-blocking I/O, which can significantly improve the performance and scalability of applications, especially those handling a large number of concurrent connections. This lesson will explore the core components of Java NIO and how to use them for non-blocking I/O operations.
+
 #### <a name="chapter15part5.1"></a>Chapter 15 - Part 5.1: Core Components of Java NIO
+
+Java NIO introduces several key components that enable non-blocking I/O:
+
+- Buffers: Buffers are containers for data. Unlike streams, which operate on a continuous flow of data, NIO works with blocks of data stored in buffers.
+- Channels: Channels represent connections to I/O services, such as files and sockets. They are similar to streams but can be used for both reading and writing.
+- Selectors: Selectors allow a single thread to monitor multiple channels for I/O events, such as data arriving on a socket. This is the key to non-blocking I/O.
+
+**Buffers**
+
+A buffer is a block of memory into which data can be written and from which data can be read. Java NIO provides several buffer types, each for a specific data type:
+
+- ByteBuffer: For byte data.
+- CharBuffer: For character data.
+- ShortBuffer: For short data.
+- IntBuffer: For integer data.
+- LongBuffer: For long data.
+- FloatBuffer: For float data.
+- DoubleBuffer: For double data.
+
+Buffers have three key properties:
+
+- Capacity: The maximum amount of data the buffer can hold.
+- Position: The index of the next element to be read or written.
+- Limit: The index of the first element that should not be read or written.
+
+Here's an example of creating and using a ByteBuffer:
+
+```java
+import java.nio.ByteBuffer;
+
+public class BufferExample {
+    public static void main(String[] args) {
+        // Create a ByteBuffer with a capacity of 1024 bytes
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+        System.out.println("Capacity: " + buffer.capacity()); // Output: 1024
+        System.out.println("Position: " + buffer.position()); // Output: 0
+        System.out.println("Limit: " + buffer.limit());     // Output: 1024
+
+        // Write data to the buffer
+        String message = "Hello, NIO!";
+        buffer.put(message.getBytes());
+
+        System.out.println("Position after writing: " + buffer.position()); // Output: 12
+
+        // Prepare the buffer for reading
+        buffer.flip();
+
+        System.out.println("Position after flip: " + buffer.position());   // Output: 0
+        System.out.println("Limit after flip: " + buffer.limit());      // Output: 12
+
+        // Read data from the buffer
+        byte[] data = new byte[buffer.limit()];
+        buffer.get(data);
+        System.out.println("Data read: " + new String(data)); // Output: Hello, NIO!
+
+        // Clear the buffer
+        buffer.clear();
+
+        System.out.println("Position after clear: " + buffer.position()); // Output: 0
+        System.out.println("Limit after clear: " + buffer.limit());     // Output: 1024
+    }
+}
+```
+
+Key buffer operations include:
+
+- allocate(int capacity): Creates a new buffer with the specified capacity.
+- put(byte b): Writes a byte to the buffer at the current position.
+- get(): Reads a byte from the buffer at the current position.
+- flip(): Prepares the buffer for reading by setting the limit to the current position and the position to 0.
+- clear(): Prepares the buffer for writing by setting the position to 0 and the limit to the capacity.
+- rewind(): Sets the position to 0, allowing the buffer to be reread. The limit is unchanged.
+- mark(): Sets the mark to the current position.
+- reset(): Resets the position to the previously marked position.
+
+**Channels**
+
+Channels represent open connections to entities that are capable of performing I/O operations, such as files and sockets. They are similar to streams but are more versatile and can be used for both reading and writing.
+
+Java NIO provides several channel implementations:
+
+- FileChannel: For reading and writing files.
+- SocketChannel: For TCP client sockets.
+- ServerSocketChannel: For TCP server sockets.
+- DatagramChannel: For UDP sockets.
+
+Here's an example of using a FileChannel to read data from a file:
+
+```java
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+public class FileChannelReadExample {
+    public static void main(String[] args) {
+        String filePath = "test.txt"; // Replace with your file path
+
+        try (FileChannel fileChannel = FileChannel.open(Paths.get(filePath), StandardOpenOption.READ)) {
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+            int bytesRead = fileChannel.read(buffer); // Read data into the buffer
+
+            while (bytesRead > 0) {
+                buffer.flip(); // Prepare the buffer for reading
+
+                byte[] data = new byte[buffer.limit()];
+                buffer.get(data);
+                System.out.println("Read: " + new String(data));
+
+                buffer.clear(); // Prepare the buffer for more reading
+                bytesRead = fileChannel.read(buffer);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+And here's an example of writing to a file using FileChannel:
+
+```java
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+public class FileChannelWriteExample {
+    public static void main(String[] args) {
+        String filePath = "output.txt"; // Replace with your desired file path
+        String message = "Hello, FileChannel!";
+
+        try (FileChannel fileChannel = FileChannel.open(Paths.get(filePath), StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+            ByteBuffer buffer = ByteBuffer.wrap(message.getBytes()); // Wrap the message in a buffer
+
+            fileChannel.write(buffer); // Write the buffer to the channel
+
+            System.out.println("Data written to file.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**Selectors**
+
+A selector allows a single thread to monitor multiple channels for I/O events. This is the core of non-blocking I/O. Instead of blocking and waiting for data on each channel, a selector allows you to check which channels are ready for reading, writing, or have encountered an error.
+
+Key concepts related to selectors:
+
+- SelectionKey: Represents the registration of a channel with a selector. It contains information about the channel, the selector, and the operations the channel is interested in (e.g., read, write, connect, accept).
+- Interest Set: The set of operations a channel is interested in. Possible values are:
+  - SelectionKey.OP_READ: The channel is ready for reading.
+  - SelectionKey.OP_WRITE: The channel is ready for writing.
+  - SelectionKey.OP_CONNECT: The channel is ready to complete a connection.
+  - SelectionKey.OP_ACCEPT: The channel is ready to accept a new connection.
+- Ready Set: The set of operations for which the channel is ready.
+
+Here's a basic example of using a Selector with a ServerSocketChannel:
+
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Set;
+
+public class SelectorExample {
+    public static void main(String[] args) {
+        try (ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+             Selector selector = Selector.open()) {
+
+            serverSocketChannel.bind(new InetSocketAddress("localhost", 8080));
+            serverSocketChannel.configureBlocking(false); // Non-blocking mode
+
+            // Register the channel with the selector, interested in accepting new connections
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+            System.out.println("Server started on port 8080");
+
+            while (true) {
+                // Block until at least one channel is ready for an event
+                selector.select();
+
+                // Get the set of keys with channels that are ready
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+                while (keyIterator.hasNext()) {
+                    SelectionKey key = keyIterator.next();
+
+                    if (key.isAcceptable()) {
+                        // A client is ready to connect
+                        ServerSocketChannel serverChannel = (ServerSocketChannel) key.channel();
+                        SocketChannel clientChannel = serverChannel.accept();
+                        clientChannel.configureBlocking(false);
+
+                        // Register the client channel with the selector, interested in reading
+                        clientChannel.register(selector, SelectionKey.OP_READ);
+
+                        System.out.println("Accepted new connection from: " + clientChannel.getRemoteAddress());
+                    } else if (key.isReadable()) {
+                        // A client is ready to send data
+                        SocketChannel clientChannel = (SocketChannel) key.channel();
+                        ByteBuffer buffer = ByteBuffer.allocate(1024);
+                        int bytesRead = clientChannel.read(buffer);
+
+                        if (bytesRead > 0) {
+                            buffer.flip();
+                            byte[] data = new byte[buffer.limit()];
+                            buffer.get(data);
+                            System.out.println("Received: " + new String(data) + " from " + clientChannel.getRemoteAddress());
+                        } else if (bytesRead == -1) {
+                            // Client disconnected
+                            System.out.println("Client disconnected: " + clientChannel.getRemoteAddress());
+                            clientChannel.close();
+                            key.cancel(); // Cancel the key
+                        }
+                    }
+
+                    keyIterator.remove(); // Remove the key from the selected set
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+In this example:
+
+- A ServerSocketChannel is opened and bound to a port.
+- The channel is configured as non-blocking using configureBlocking(false).
+- The channel is registered with a Selector, indicating interest in OP_ACCEPT events (new connections).
+- The selector.select() method blocks until at least one channel is ready for an event.
+- The selectedKeys() method returns a set of SelectionKey objects representing the channels that are ready.
+- The code iterates through the selected keys and handles the events accordingly. If the key is acceptable, a new SocketChannel is accepted and registered with the selector for OP_READ events. If the key is readable, data is read from the channel.
 
 #### <a name="chapter15part5.2"></a>Chapter 15 - Part 5.2: Non-Blocking I/O
 
+The key advantage of Java NIO is its support for non-blocking I/O. In traditional blocking I/O, a thread performing an I/O operation will block (wait) until the operation is complete. This can lead to inefficient use of resources, especially when handling a large number of concurrent connections.
+
+In non-blocking I/O, a thread can initiate an I/O operation without blocking. The operation may not complete immediately, but the thread can continue to perform other tasks while the operation is in progress. The selector is used to monitor the channels and notify the thread when an operation is ready to be performed.
+
+**Benefits of Non-Blocking I/O**
+
+- Improved Performance: Non-blocking I/O can significantly improve the performance of applications that handle a large number of concurrent connections. By avoiding blocking, threads can remain active and process other tasks while I/O operations are in progress.
+- Increased Scalability: Non-blocking I/O allows applications to scale more easily. A single thread can manage multiple connections, reducing the overhead of creating and managing a large number of threads.
+- Better Resource Utilization: Non-blocking I/O can lead to better utilization of system resources. Threads are not blocked waiting for I/O operations to complete, so they can be used more efficiently.
+
+**Considerations for Non-Blocking I/O**
+
+- Complexity: Non-blocking I/O can be more complex to implement than traditional blocking I/O. It requires careful management of channels, selectors, and buffers.
+- Event Handling: Non-blocking I/O relies on event handling. The application must be able to handle I/O events efficiently and respond appropriately.
+- Buffering: Non-blocking I/O typically involves buffering data. The application must manage buffers carefully to ensure that data is not lost or corrupted.
+
 #### <a name="chapter15part5.3"></a>Chapter 15 - Part 5.3: Practical Examples and Demonstrations
+
+**Example 1: Simple Non-Blocking Server**
+
+This example demonstrates a simple non-blocking server that listens for incoming connections and echoes back any data it receives.
+
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Set;
+
+public class NonBlockingServer {
+
+    private static final int PORT = 8080;
+    private static final int BUFFER_SIZE = 1024;
+
+    public static void main(String[] args) {
+        try (Selector selector = Selector.open();
+             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()) {
+
+            serverSocketChannel.bind(new InetSocketAddress(PORT));
+            serverSocketChannel.configureBlocking(false);
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+            System.out.println("Server started on port " + PORT);
+
+            ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+
+            while (true) {
+                selector.select();
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+                while (keyIterator.hasNext()) {
+                    SelectionKey key = keyIterator.next();
+                    keyIterator.remove();
+
+                    if (key.isAcceptable()) {
+                        // Accept a new connection
+                        SocketChannel clientChannel = serverSocketChannel.accept();
+                        clientChannel.configureBlocking(false);
+                        clientChannel.register(selector, SelectionKey.OP_READ);
+                        System.out.println("Accepted connection from " + clientChannel.getRemoteAddress());
+                    } else if (key.isReadable()) {
+                        // Read data from a client
+                        SocketChannel clientChannel = (SocketChannel) key.channel();
+                        buffer.clear();
+                        int bytesRead = clientChannel.read(buffer);
+
+                        if (bytesRead > 0) {
+                            buffer.flip();
+                            clientChannel.write(buffer); // Echo back the data
+                            System.out.println("Echoed " + bytesRead + " bytes to " + clientChannel.getRemoteAddress());
+                        } else if (bytesRead == -1) {
+                            // Client disconnected
+                            System.out.println("Disconnected from " + clientChannel.getRemoteAddress());
+                            clientChannel.close();
+                            key.cancel();
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**Example 2: Non-Blocking Client**
+
+This example demonstrates a simple non-blocking client that connects to the server and sends a message.
+
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+public class NonBlockingClient {
+
+    private static final String SERVER_ADDRESS = "localhost";
+    private static final int PORT = 8080;
+    private static final String MESSAGE = "Hello, Non-Blocking Server!";
+
+    public static void main(String[] args) {
+        try (SocketChannel socketChannel = SocketChannel.open()) {
+            socketChannel.configureBlocking(false);
+            socketChannel.connect(new InetSocketAddress(SERVER_ADDRESS, PORT));
+
+            while (!socketChannel.finishConnect()) {
+                // Wait until the connection is established
+                System.out.println("Connecting...");
+                Thread.sleep(100);
+            }
+
+            System.out.println("Connected to server.");
+
+            ByteBuffer buffer = ByteBuffer.wrap(MESSAGE.getBytes());
+            socketChannel.write(buffer);
+
+            System.out.println("Sent message: " + MESSAGE);
+
+            socketChannel.close();
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
 #### <a name="chapter15part6"></a>Chapter 15 - Part 6: Practical Exercise: Building a File Compression Utility
 
+Building a file compression utility is a practical way to solidify your understanding of Java's I/O streams and how they can be manipulated to achieve specific tasks. This exercise will involve reading data from a file, compressing it using a suitable algorithm (like GZIP or Deflate), and writing the compressed data to a new file. Conversely, the utility will also need to decompress compressed files back to their original state. This lesson will build upon the concepts of byte streams (InputStream and OutputStream) that we covered earlier, and it will prepare you for the next lesson on Java NIO, where we'll explore non-blocking I/O operations.
+
 #### <a name="chapter15part6.1"></a>Chapter 15 - Part 6.1: Understanding File Compression
+
+File compression is the process of reducing the size of a file by encoding its data using fewer bits than the original representation. This is achieved by identifying and eliminating redundancy in the data. There are two main types of compression: lossless and lossy. Lossless compression allows the original data to be perfectly reconstructed from the compressed data, while lossy compression sacrifices some data to achieve higher compression ratios. For our file compression utility, we will focus on lossless compression to ensure data integrity.
+
+**Lossless Compression Algorithms**
+
+Several lossless compression algorithms are available, each with its own strengths and weaknesses. Two popular algorithms commonly used in Java are:
+
+- GZIP: Based on the Deflate algorithm, GZIP is widely used for compressing individual files. It's relatively fast and provides good compression ratios for many types of data. The .gz file extension is commonly associated with GZIP-compressed files.
+- Deflate: A more general-purpose compression algorithm that forms the basis of GZIP and ZIP. It combines the LZ77 algorithm for finding repeated strings and Huffman coding for encoding the strings efficiently.
+
+**Real-World Examples of File Compression**
+
+- Software Distribution: Software vendors often compress their installation files using GZIP or ZIP to reduce download times and storage space. For example, Linux distributions commonly use .tar.gz archives, which are tar archives compressed with GZIP.
+- Web Content Delivery: Web servers use GZIP compression to compress HTML, CSS, and JavaScript files before sending them to the browser. This reduces the amount of data that needs to be transmitted, resulting in faster page load times.
+- Data Archiving: Organizations use file compression to archive large amounts of data, such as documents, images, and videos. This reduces the storage space required and makes it easier to manage the data.
+
+**Hypothetical Scenario**
+
+Imagine a small business that needs to regularly back up its financial records. These records consist of numerous text files and spreadsheets. By compressing these files using a lossless compression algorithm like GZIP, the business can significantly reduce the storage space required for backups, saving money on storage costs and making the backup process faster.
 
 #### <a name="chapter15part6.2"></a>Chapter 15 - Part 6.2: Implementing File Compression with GZIP
 
+Java provides built-in support for GZIP compression through the java.util.zip package. We can use the GZIPOutputStream class to compress data and the GZIPInputStream class to decompress data
+
+**Compressing a File**
+
+The following code snippet demonstrates how to compress a file using GZIPOutputStream:
+
+```java
+import java.io.*;
+import java.util.zip.GZIPOutputStream;
+
+public class GZIPCompressor {
+
+    public static void compressFile(String sourceFile, String destFile) throws IOException {
+        try (FileInputStream fis = new FileInputStream(sourceFile);
+             FileOutputStream fos = new FileOutputStream(destFile + ".gz");
+             GZIPOutputStream gzipOS = new GZIPOutputStream(fos)) {
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) != -1) {
+                gzipOS.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            System.err.println("Could not compress file: " + e.getMessage());
+            throw e; // Re-throw the exception to be handled by the caller
+        }
+    }
+
+    public static void main(String[] args) {
+        String sourceFile = "input.txt"; // Replace with your source file
+        String destFile = "output.txt"; // Replace with your desired destination file
+
+        // Create a dummy input file for testing
+        try (FileWriter fw = new FileWriter(sourceFile)) {
+            fw.write("This is a test file for compression.\n");
+            fw.write("It contains some sample text.\n");
+            for (int i = 0; i < 100; i++) {
+                fw.write("Repeating line " + i + "\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Could not create dummy file: " + e.getMessage());
+            return;
+        }
+
+        try {
+            compressFile(sourceFile, destFile);
+            System.out.println("File compressed successfully!");
+        } catch (IOException e) {
+            System.err.println("Compression failed: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- Import necessary classes: We import the required classes from the java.io and java.util.zip packages.
+- Create input and output streams: We create a FileInputStream to read data from the source file and a FileOutputStream to write the compressed data to the destination file. We wrap the FileOutputStream with a GZIPOutputStream to compress the data as it is written.
+- Read and write data in chunks: We read data from the input stream in chunks of 1024 bytes and write it to the output stream. The GZIPOutputStream automatically compresses the data before writing it to the file.
+- Close streams: The try-with-resources statement ensures that all streams are closed automatically, even if an exception occurs.
+- Error Handling: The try-catch block handles potential IOExceptions that might occur during file operations. It prints an error message to the console and re-throws the exception, allowing the calling method to handle it further.
+- Dummy File Creation: The main method includes code to create a dummy input.txt file for testing purposes. This ensures that the program can be run without requiring an existing input file.
+- File Extension: The compressed file is saved with the .gz extension, which is a common convention for GZIP-compressed files.
+
+**Decompressing a File**
+
+The following code snippet demonstrates how to decompress a GZIP-compressed file using GZIPInputStream:
+
+```java
+import java.io.*;
+import java.util.zip.GZIPInputStream;
+
+public class GZIPDecompressor {
+
+    public static void decompressFile(String sourceFile, String destFile) throws IOException {
+        try (FileInputStream fis = new FileInputStream(sourceFile);
+             GZIPInputStream gzipIS = new GZIPInputStream(fis);
+             FileOutputStream fos = new FileOutputStream(destFile)) {
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = gzipIS.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            System.err.println("Could not decompress file: " + e.getMessage());
+            throw e; // Re-throw the exception to be handled by the caller
+        }
+    }
+
+    public static void main(String[] args) {
+        String sourceFile = "output.txt.gz"; // Replace with your source file
+        String destFile = "decompressed.txt"; // Replace with your desired destination file
+
+        try {
+            decompressFile(sourceFile, destFile);
+            System.out.println("File decompressed successfully!");
+        } catch (IOException e) {
+            System.err.println("Decompression failed: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- Import necessary classes: We import the required classes from the java.io and java.util.zip packages.
+- Create input and output streams: We create a FileInputStream to read data from the compressed file and wrap it with a GZIPInputStream to decompress the data as it is read. We create a FileOutputStream to write the decompressed data to the destination file.
+- Read and write data in chunks: We read data from the input stream in chunks of 1024 bytes and write it to the output stream. The GZIPInputStream automatically decompresses the data before providing it to the output stream.
+- Close streams: The try-with-resources statement ensures that all streams are closed automatically, even if an exception occurs.
+- Error Handling: The try-catch block handles potential IOExceptions that might occur during file operations. It prints an error message to the console.
+
+
 #### <a name="chapter15part6.3"></a>Chapter 15 - Part 6.3: Implementing File Compression with Deflate
+
+While GZIP is a common choice, you can also use the Deflate algorithm directly using DeflaterOutputStream and InflaterInputStream. This gives you more control over the compression level.
+
+**Compressing a File with Deflate**
+
+```java
+import java.io.*;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.Deflater;
+
+public class DeflateCompressor {
+
+    public static void compressFile(String sourceFile, String destFile, int compressionLevel) throws IOException {
+        try (FileInputStream fis = new FileInputStream(sourceFile);
+             FileOutputStream fos = new FileOutputStream(destFile + ".deflate");
+             DeflaterOutputStream deflaterOS = new DeflaterOutputStream(fos, new Deflater(compressionLevel))) {
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) != -1) {
+                deflaterOS.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            System.err.println("Could not compress file: " + e.getMessage());
+            throw e; // Re-throw the exception to be handled by the caller
+        }
+    }
+
+    public static void main(String[] args) {
+        String sourceFile = "input.txt"; // Replace with your source file
+        String destFile = "output.txt"; // Replace with your desired destination file
+        int compressionLevel = Deflater.BEST_COMPRESSION; // You can adjust the compression level
+
+        // Create a dummy input file for testing
+        try (FileWriter fw = new FileWriter(sourceFile)) {
+            fw.write("This is a test file for Deflate compression.\n");
+            fw.write("It contains some sample text.\n");
+            for (int i = 0; i < 100; i++) {
+                fw.write("Repeating line " + i + "\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Could not create dummy file: " + e.getMessage());
+            return;
+        }
+
+        try {
+            compressFile(sourceFile, destFile, compressionLevel);
+            System.out.println("File compressed successfully!");
+        } catch (IOException e) {
+            System.err.println("Compression failed: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- Import necessary classes: We import the required classes from the java.io and java.util.zip packages. Notably, Deflater is imported to allow setting the compression level.
+- Create input and output streams: We create a FileInputStream to read data from the source file and a FileOutputStream to write the compressed data to the destination file. We wrap the FileOutputStream with a DeflaterOutputStream to compress the data as it is written. The DeflaterOutputStream is initialized with a Deflater object, allowing us to specify the compression level.
+- Compression Level: The compressionLevel parameter allows you to control the trade-off between compression ratio and compression speed. Common values include Deflater.BEST_COMPRESSION (highest compression, slowest speed), Deflater.BEST_SPEED (lowest compression, fastest speed), and Deflater.DEFAULT_COMPRESSION (a good compromise). You can also use integer values from 0 (no compression) to 9 (best compression).
+- Read and write data in chunks: We read data from the input stream in chunks of 1024 bytes and write it to the output stream. The DeflaterOutputStream automatically compresses the data before writing it to the file.
+- Close streams: The try-with-resources statement ensures that all streams are closed automatically, even if an exception occurs.
+- Error Handling: The try-catch block handles potential IOExceptions that might occur during file operations. It prints an error message to the console and re-throws the exception, allowing the calling method to handle it further.
+- Dummy File Creation: The main method includes code to create a dummy input.txt file for testing purposes. This ensures that the program can be run without requiring an existing input file.
+- File Extension: The compressed file is saved with the .deflate extension, which is a common convention for Deflate-compressed files.
+
+**Decompressing a File with Deflate**
+
+```java
+import java.io.*;
+import java.util.zip.InflaterInputStream;
+
+public class DeflateDecompressor {
+
+    public static void decompressFile(String sourceFile, String destFile) throws IOException {
+        try (FileInputStream fis = new FileInputStream(sourceFile);
+             InflaterInputStream inflaterIS = new InflaterInputStream(fis);
+             FileOutputStream fos = new FileOutputStream(destFile)) {
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = inflaterIS.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            System.err.println("Could not decompress file: " + e.getMessage());
+            throw e; // Re-throw the exception to be handled by the caller
+        }
+    }
+
+    public static void main(String[] args) {
+        String sourceFile = "output.txt.deflate"; // Replace with your source file
+        String destFile = "decompressed.txt"; // Replace with your desired destination file
+
+        try {
+            decompressFile(sourceFile, destFile);
+            System.out.println("File decompressed successfully!");
+        } catch (IOException e) {
+            System.err.println("Decompression failed: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- Import necessary classes: We import the required classes from the java.io and java.util.zip packages.
+- Create input and output streams: We create a FileInputStream to read data from the compressed file and wrap it with an InflaterInputStream to decompress the data as it is read. We create a FileOutputStream to write the decompressed data to the destination file.
+- Read and write data in chunks: We read data from the input stream in chunks of 1024 bytes and write it to the output stream. The InflaterInputStream automatically decompresses the data before providing it to the output stream.
+- Close streams: The try-with-resources statement ensures that all streams are closed automatically, even if an exception occurs.
+- Error Handling: The try-catch block handles potential IOExceptions that might occur during file operations. It prints an error message to the console.
 
 ## <a name="chapter16"></a>Chapter 16: Multithreading and Concurrency
 
