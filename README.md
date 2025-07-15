@@ -52,6 +52,7 @@
       - [Chapter 2 - Part 3.3: String Manipulation](#chapter2part3.3)
       - [Chapter 2 - Part 3.4: String Comparison](#chapter2part3.4)
       - [Chapter 2 - Part 3.5: String Methods](#chapter2part3.5)
+      - [Chapter 2 - Part 3.6: String Builder and String](#chapter2part3.6)
     - [Chapter 2 - Part 4: Arithmetic Operators: +, -, *, /, %](#chapter2part4)
       - [Chapter 2 - Part 4.1: Basic Arithmetic Operators](#chapter2part4.1)
       - [Chapter 2 - Part 4.2: Operator Precedence](#chapter2part4.2)
@@ -2481,6 +2482,97 @@ boolean endsWithWorld = text.endsWith("World");
 System.out.println(startsWithHello); // Output: true
 System.out.println(endsWithWorld);   // Output: true
 ```
+
+#### <a name="chapter2part3.6"></a>Chapter 2 - Part 3.6: String Builder and String Buffer
+
+**StringBuffer**
+
+- **Thread-safe**: StringBuffer is designed to be safe for use in multi-threaded environments. Its methods are synchronized, meaning only one thread can access them at a time.
+- **Performance**: Due to the synchronization overhead, StringBuffer is generally slower than StringBuilder.
+- **Use Case**: Use StringBuffer when you need to manipulate strings in a multi-threaded environment where multiple threads might be modifying the same string concurrently.
+
+**StringBuilder**
+
+- **Not Thread-safe**: StringBuilder is not thread-safe. If multiple threads access a StringBuilder instance concurrently, it can lead to unpredictable results.
+- **Performance**: StringBuilder is faster than StringBuffer because it doesn't have the overhead of synchronization.
+- **Use Case**: Use StringBuilder in single-threaded environments or when you can guarantee that only one thread will be modifying the string at a time. This is the most common use case.
+
+If you're working in a multi-threaded environment, use StringBuffer. Otherwise, use StringBuilder for better performance. In the vast majority of cases, you'll be using StringBuilder.
+
+**Basic Usage (StringBuilder - the more common one):**
+
+```java
+public class StringBuilderExample {
+    public static void main(String[] args) {
+        // Creating a StringBuilder
+        StringBuilder sb = new StringBuilder("Hello");
+
+        // Appending to the StringBuilder
+        sb.append(" World");
+        System.out.println(sb); // Output: Hello World
+
+        // Inserting into the StringBuilder
+        sb.insert(5, ",");
+        System.out.println(sb); // Output: Hello, World
+
+        // Replacing characters
+        sb.replace(0, 5, "Hi");
+        System.out.println(sb); // Output: Hi, World
+
+        // Deleting characters
+        sb.delete(3, 9);
+        System.out.println(sb); // Output: Hi,ld
+
+        // Getting the length
+        int length = sb.length();
+        System.out.println("Length: " + length); // Output: Length: 5
+
+        // Converting to a String
+        String finalString = sb.toString();
+        System.out.println(finalString); // Output: Hi,ld
+    }
+}
+```
+
+**Important Points:**
+
+- Mutability: The key advantage of StringBuilder and StringBuffer is that they are mutable. This means you can change the contents of the object without creating a new object each time. This is much more efficient when you need to perform a lot of string manipulations.
+- toString(): When you're finished modifying the StringBuilder or StringBuffer, you need to call the toString() method to get a regular, immutable String object.
+
+**Example demonstrating the performance difference (very simplified):**
+
+```java
+public class StringConcatPerformance {
+    public static void main(String[] args) {
+        int iterations = 100000;
+
+        // Using String (immutable)
+        long startTime = System.nanoTime();
+        String str = "";
+        for (int i = 0; i < iterations; i++) {
+            str += "a";  // Creates a new String object each time
+        }
+        long endTime = System.nanoTime();
+        long stringDuration = (endTime - startTime) / 1000000; // in milliseconds
+
+        // Using StringBuilder (mutable)
+        startTime = System.nanoTime();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < iterations; i++) {
+            sb.append("a"); // Modifies the existing StringBuilder object
+        }
+        endTime = System.nanoTime();
+        long stringBuilderDuration = (endTime - startTime) / 1000000; // in milliseconds
+
+        System.out.println("String concatenation time: " + stringDuration + " ms");
+        System.out.println("StringBuilder concatenation time: " + stringBuilderDuration + " ms");
+    }
+}
+```
+
+You'll see a significant performance difference, especially with a large number of iterations. This is because the String version creates a new String object in each iteration, copying the entire string. StringBuilder just modifies its internal character array.
+
+In summary, use StringBuilder for most string manipulation tasks in Java for better performance. Use StringBuffer only when thread safety is a must.
 
 #### <a name="chapter2part4"></a>Chapter 2 - Part 4: Arithmetic Operators: +, -, *, /, %
 
@@ -26870,61 +26962,1824 @@ public class DeflateDecompressor {
 
 #### <a name="chapter16part1"></a>Chapter 16 - Part 1: Introduction to Threads and Processes
 
+Multithreading and concurrency are fundamental concepts in modern software development, especially in Java. As applications become more complex and demand higher performance, understanding how to effectively utilize threads and processes becomes crucial. This lesson provides a comprehensive introduction to threads and processes, laying the groundwork for more advanced topics in concurrency. We'll explore the differences between them, their advantages and disadvantages, and how they relate to Java programming.
+
 #### <a name="chapter16part1.1"></a>Chapter 16 - Part 1.1: Understanding Processes
+
+A process is an instance of a computer program that is being executed. It's an independent entity with its own memory space, resources, and execution context. Think of it as a self-contained application running on your operating system.
+
+**Key Characteristics of Processes**
+
+- **Isolation**: Processes are isolated from each other. This means that one process cannot directly access the memory or resources of another process without explicit mechanisms like inter-process communication (IPC).
+- **Resource Intensive**: Creating and managing processes is relatively resource-intensive. Each process requires its own memory space and operating system resources.
+- **Context Switching Overhead**: Switching between processes involves saving and restoring the entire process state, which can be a time-consuming operation.
+- **Robustness**: If one process crashes, it typically does not affect other processes in the system due to their isolation.
+
+**Process States**
+
+A process can exist in various states during its lifetime:
+
+- **New**: The process is being created.
+- **Ready**: The process is waiting to be assigned to a processor.
+- **Running**: The process is being executed by the processor.
+- **Waiting/Blocked**: The process is waiting for some event to occur (e.g., I/O completion, resource availability).
+- **Terminated**: The process has completed its execution.
+
+**Example of Processes**
+
+- **Web Browser**: Each tab in a web browser can often be a separate process. This prevents one crashing tab from bringing down the entire browser.
+- **Word Processor**: A word processor like Microsoft Word or Google Docs runs as a process.
+- **Operating System Services**: Many operating system services, such as print spoolers or network daemons, run as separate processes.
+
+**Hypothetical Scenario**
+
+Imagine you're running a video editing software. The software itself runs as a process. If you open multiple video files for editing, each file might be handled by a separate process or thread (depending on the software's design). If one video file is corrupted and causes its associated process to crash, the main video editing software (the parent process) can remain unaffected, allowing you to continue working on other files.
 
 #### <a name="chapter16part1.2"></a>Chapter 16 - Part 1.2: Understanding Threads
 
+A thread is a lightweight unit of execution within a process. A process can have multiple threads running concurrently, sharing the same memory space and resources. Threads are often referred to as "lightweight processes."
+
+**Key Characteristics of Threads**
+
+- **Shared Memory Space**: Threads within the same process share the same memory space, which allows them to easily communicate and share data.
+- **Lightweight**: Creating and managing threads is less resource-intensive than creating and managing processes.
+- **Faster Context Switching**: Switching between threads within the same process is generally faster than switching between processes because the memory space does not need to be switched.
+- **Concurrency**: Threads enable concurrency within a process, allowing multiple tasks to be executed seemingly simultaneously.
+- **Risk of Shared Resources**: Because threads share the same memory space, they must be carefully synchronized to avoid race conditions and other concurrency issues. If one thread corrupts data, it can affect all other threads in the process.
+
+**Thread States**
+
+Similar to processes, threads also have states:
+
+- **New**: The thread is being created.
+- **Runnable**: The thread is ready to run and is waiting for its turn to be executed by the CPU.
+- **Running**: The thread is currently being executed by the CPU.
+- **Blocked/Waiting**: The thread is waiting for a specific event to occur, such as a lock to be released or I/O completion.
+- **Timed Waiting**: Similar to blocked, but the thread will only wait for a specified amount of time.
+- **Terminated**: The thread has completed its execution.
+
+**Example of Threads**
+
+- **Web Server**: A web server can use multiple threads to handle incoming client requests concurrently. Each thread can process a separate request, improving the server's throughput.
+- **GUI Applications**: Graphical user interface (GUI) applications often use threads to keep the user interface responsive while performing long-running tasks in the background. For example, one thread might handle user input, while another thread performs network operations.
+- **Game Development**: Games use threads for various tasks like rendering graphics, handling user input, and simulating game physics.
+
+**Hypothetical Scenario**
+
+Consider a multi-player online game. The game server runs as a process. Within that process, multiple threads are used to handle different aspects of the game: one thread might manage player input, another might handle game physics, and another might manage network communication with clients. This allows the server to handle multiple players and game events concurrently.
+
 #### <a name="chapter16part1.3"></a>Chapter 16 - Part 1.3: Threads vs. Processes: A Detailed Comparison
+
+| Feature       |                 |                 |                 |                 |                 |                 |                 |                 | 
+| :-----------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| Memory Space              |                 |                 |                 |                 |                 |                 |                 |                 |
+
+|Feature	|Process	|Thread|
+| :-----: | :-----: | :-----: |
+|Memory Space|	Separate memory space|	Shared memory space within the process|
+|Resource Usage|	Higher resource usage	|Lower resource usage|
+|Context Switching|	Slower context switching	|Faster context switching|
+|Communication|	Requires IPC mechanisms (e.g., pipes, sockets)	|Direct access to shared memory|
+|Isolation|	High isolation	|Lower isolation; one thread can affect others|
+|Creation Overhead|	Higher creation overhead	|Lower creation overhead|
+|Failure Impact|	Failure of one process typically doesn't affect others|	Failure of one thread can affect the entire process|
 
 #### <a name="chapter16part1.4"></a>Chapter 16 - Part 1.4: Concurrency vs. Parallelism
 
+It's important to distinguish between concurrency and parallelism, as these terms are often used interchangeably but have distinct meanings.
+
+**Concurrency**
+
+Concurrency is the ability of a program to handle multiple tasks at the same time. This doesn't necessarily mean that the tasks are executed simultaneously. Instead, the program can switch between tasks rapidly, giving the illusion of simultaneous execution. Concurrency can be achieved on a single-core processor by interleaving the execution of different tasks.
+
+
+**Parallelism**
+
+Parallelism is the ability of a program to execute multiple tasks simultaneously. This requires multiple processing cores, where each core can execute a different task at the same time. Parallelism is a form of concurrency, but it's a more powerful form that can significantly improve performance for computationally intensive tasks.
+
+**Analogy**
+
+Imagine you're a chef preparing a meal.
+
+- **Concurrency**: You're switching between chopping vegetables, stirring a sauce, and checking the oven. You're handling multiple tasks, but you're only doing one thing at any given moment.
+- **Parallelism**: You have multiple chefs working in the kitchen. One chef is chopping vegetables, another is stirring the sauce, and another is checking the oven. All tasks are being done simultaneously.
+
 #### <a name="chapter16part1.5"></a>Chapter 16 - Part 1.5: Threads in Java
+
+Java provides built-in support for multithreading through the Thread class and the Runnable interface. The java.util.concurrent package provides a rich set of concurrency utilities, such as thread pools, concurrent collections, and synchronization primitives. We will explore these in later lessons.
+
+**Creating Threads**
+
+There are two primary ways to create threads in Java:
+
+- **Extending the Thread class**: Create a class that extends the Thread class and overrides the run() method. The run() method contains the code that will be executed by the thread.
+
+```java
+// Creating a thread by extending the Thread class
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is running");
+    }
+
+    public static void main(String[] args) {
+        MyThread thread1 = new MyThread();
+        thread1.start(); // Start the thread
+        MyThread thread2 = new MyThread();
+        thread2.start(); // Start another thread
+    }
+}
+```
+
+In this example, MyThread extends the Thread class and overrides the run() method to print a message indicating that the thread is running. The start() method is called to begin the execution of the thread.
+
+- **Implementing the Runnable interface**: Create a class that implements the Runnable interface and provides an implementation for the run() method. Then, create a Thread object, passing the Runnable object to the Thread constructor.
+
+```java
+// Creating a thread by implementing the Runnable interface
+class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is running");
+    }
+
+    public static void main(String[] args) {
+        MyRunnable myRunnable = new MyRunnable();
+        Thread thread1 = new Thread(myRunnable);
+        thread1.start(); // Start the thread
+        Thread thread2 = new Thread(myRunnable);
+        thread2.start(); // Start another thread
+    }
+}
+```
+
+In this example, MyRunnable implements the Runnable interface and provides the run() method. A Thread object is created, passing the MyRunnable object to the constructor. The start() method is then called to begin the execution of the thread.
+
+**Starting Threads**
+
+The start() method is used to begin the execution of a thread. When start() is called, the Java Virtual Machine (JVM) creates a new thread and calls the run() method of the Thread object.
+
+Important: You should never call the run() method directly. Calling run() directly will execute the code in the current thread, not in a new thread.
+
+**Thread Lifecycle**
+
+A thread goes through several stages during its lifecycle:
+
+- **New**: The thread is created but has not yet started.
+- **Runnable**: The thread is ready to run and is waiting for its turn to be executed by the CPU.
+- **Running**: The thread is currently being executed by the CPU.
+- **Blocked/Waiting**: The thread is waiting for a specific event to occur, such as a lock to be released or I/O completion.
+- **Terminated**: The thread has completed its execution.
+
+**Thread Priorities**
+
+Each thread has a priority, which is an integer value that indicates the relative importance of the thread. Thread priorities range from Thread.MIN_PRIORITY (1) to Thread.MAX_PRIORITY (10), with Thread.NORM_PRIORITY (5) being the default priority.
+
+The thread scheduler uses thread priorities to determine which thread to execute next. However, thread priorities are not guaranteed to be honored by the operating system. The actual behavior depends on the underlying operating system's scheduling algorithm.
+
+```java
+public class ThreadPriorityExample {
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(() -> {
+            System.out.println("Thread 1 is running with priority: " + Thread.currentThread().getPriority());
+        });
+
+        Thread thread2 = new Thread(() -> {
+            System.out.println("Thread 2 is running with priority: " + Thread.currentThread().getPriority());
+        });
+
+        thread1.setPriority(Thread.MIN_PRIORITY); // Set to minimum priority
+        thread2.setPriority(Thread.MAX_PRIORITY); // Set to maximum priority
+
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+In this example, thread1 is set to the minimum priority, and thread2 is set to the maximum priority. The output may vary depending on the operating system's scheduling algorithm, but generally, thread2 will be given preference over thread1.
 
 #### <a name="chapter16part2"></a>Chapter 16 - Part 2: Creating and Managing Threads in Java
 
+Creating and managing threads is fundamental to multithreaded programming in Java. Understanding how to properly create, start, and control threads is essential for building concurrent applications that can efficiently utilize system resources. This lesson will cover the different ways to create threads, how to manage their lifecycle, and the importance of thread naming and prioritization.
+
 #### <a name="chapter16part2.1"></a>Chapter 16 - Part 2.1: Ways to Create Threads
+
+Java provides two primary ways to create threads: by extending the Thread class or by implementing the Runnable interface. Each approach has its own advantages and use cases.
+
+**Extending the Thread Class**
+
+The Thread class represents a thread of execution. By extending this class, you can create a new thread type that overrides the run() method to define the thread's task.
+
+```java
+// Creating a thread by extending the Thread class
+class MyThread extends Thread {
+    private String threadName;
+
+    public MyThread(String name) {
+        this.threadName = name;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Thread " + threadName + " is running");
+        try {
+            Thread.sleep(1000); // Simulate some work
+        } catch (InterruptedException e) {
+            System.out.println("Thread " + threadName + " interrupted.");
+        }
+        System.out.println("Thread " + threadName + " finished");
+    }
+
+    public static void main(String[] args) {
+        MyThread thread1 = new MyThread("Thread-1");
+        MyThread thread2 = new MyThread("Thread-2");
+        thread1.start(); // Start the thread
+        thread2.start(); // Start the thread
+    }
+}
+```
+
+In this example:
+
+- MyThread extends the Thread class.
+- The run() method contains the code that will be executed by the thread.
+- The start() method is called to begin the thread's execution. Calling run() directly will execute the code in the current thread, not a new thread.
+- The Thread.sleep() method pauses the thread's execution for a specified time, simulating work and allowing other threads to run.
+- A try-catch block handles InterruptedException, which can occur if the thread is interrupted while sleeping.
+
+**Advantages**:
+
+- Simple and straightforward to implement.
+- You have direct access to the Thread class's methods.
+
+**Disadvantages**:
+
+- Java does not support multiple inheritance. If you extend the Thread class, your class cannot extend any other class.
+- Tight coupling: Your class is tightly coupled with the threading mechanism.
+
+**Implementing the Runnable Interface**
+
+The Runnable interface provides a more flexible way to define a thread's task. It contains a single method, run(), which you must implement. You then create a Thread object, passing your Runnable implementation to its constructor.
+
+```java
+// Creating a thread by implementing the Runnable interface
+class MyRunnable implements Runnable {
+    private String runnableName;
+
+    public MyRunnable(String name) {
+        this.runnableName = name;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Runnable " + runnableName + " is running");
+        try {
+            Thread.sleep(1000); // Simulate some work
+        } catch (InterruptedException e) {
+            System.out.println("Runnable " + runnableName + " interrupted.");
+        }
+        System.out.println("Runnable " + runnableName + " finished");
+    }
+
+    public static void main(String[] args) {
+        MyRunnable runnable1 = new MyRunnable("Runnable-1");
+        MyRunnable runnable2 = new MyRunnable("Runnable-2");
+        Thread thread1 = new Thread(runnable1);
+        Thread thread2 = new Thread(runnable2);
+        thread1.start(); // Start the thread
+        thread2.start(); // Start the thread
+    }
+}
+```
+
+In this example:
+
+- MyRunnable implements the Runnable interface.
+- The run() method contains the code that will be executed by the thread.
+- A Thread object is created, passing the MyRunnable instance to its constructor.
+- The start() method of the Thread object is called to begin the thread's execution.
+
+**Advantages**:
+
+- Allows your class to extend another class, as it only implements an interface.
+- Decoupling: Separates the task to be executed from the threading mechanism, promoting better design.
+
+**Disadvantages**:
+
+- Slightly more verbose than extending the Thread class.
+- You need to create a Thread object explicitly.
+
+**Choosing the Right Approach**
+
+The Runnable interface is generally preferred because it promotes better separation of concerns and allows your class to inherit from another class if needed. Extending the Thread class is simpler for basic use cases but less flexible in the long run.
 
 #### <a name="chapter16part2.2"></a>Chapter 16 - Part 2.2: Thread Lifecycle
 
+A thread goes through several states during its lifecycle:
+
+- New: The thread has been created but not yet started.
+- Runnable: The thread is ready to run and is waiting for its turn to be executed by the CPU. This doesn't mean the thread is running, just that it can run.
+- Running: The thread is currently being executed by the CPU.
+- Blocked/Waiting/Timed Waiting: The thread is paused, waiting for a resource, a signal, or a specific amount of time.
+- Terminated: The thread has completed its execution or has been terminated due to an exception.
+
+Understanding these states is crucial for debugging and managing threads effectively.
+
+**Controlling Thread Execution**
+
+Java provides several methods to control thread execution:
+
+- start(): Starts the thread, transitioning it from the New state to the Runnable state.
+- run(): Contains the code to be executed by the thread. Should not be called directly to start a new thread.
+- sleep(long millis): Pauses the thread's execution for a specified number of milliseconds, transitioning it to the Timed Waiting state.
+- join(): Waits for the thread to terminate. The calling thread will block until the target thread completes its execution.
+- interrupt(): Interrupts the thread, potentially causing it to throw an InterruptedException if it's in a waiting state.
+- isAlive(): Checks if the thread is still alive (i.e., it has been started and has not yet terminated).
+
+**Example: Thread Lifecycle Demonstration**
+
+```java
+class LifecycleThread implements Runnable {
+    private String threadName;
+
+    public LifecycleThread(String name) {
+        this.threadName = name;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Thread " + threadName + " is running");
+        try {
+            Thread.sleep(2000); // Simulate some work
+            System.out.println("Thread " + threadName + " is waking up");
+        } catch (InterruptedException e) {
+            System.out.println("Thread " + threadName + " interrupted.");
+        }
+        System.out.println("Thread " + threadName + " finished");
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        LifecycleThread runnable = new LifecycleThread("Lifecycle-Thread");
+        Thread thread = new Thread(runnable);
+
+        System.out.println("Thread state before start: " + thread.getState()); // NEW
+        thread.start();
+        System.out.println("Thread state after start: " + thread.getState()); // RUNNABLE or RUNNING
+
+        Thread.sleep(100); // Give the thread a chance to start running
+
+        System.out.println("Thread is alive: " + thread.isAlive()); // true
+
+        thread.join(); // Wait for the thread to finish
+
+        System.out.println("Thread state after join: " + thread.getState()); // TERMINATED
+        System.out.println("Thread is alive after join: " + thread.isAlive()); // false
+    }
+}
+```
+
+This example demonstrates the different states of a thread and how to use methods like start(), sleep(), join(), and isAlive() to manage its lifecycle.
+
 #### <a name="chapter16part2.3"></a>Chapter 16 - Part 2.3: Thread Naming and Prioritization
+
+Naming threads and setting their priorities can be helpful for debugging and managing concurrent applications.
+
+**Thread Naming**
+
+Assigning meaningful names to threads can make it easier to identify and debug them, especially in complex applications with many threads.
+
+```java
+// Naming a thread
+class NamedThread implements Runnable {
+    @Override
+    public void run() {
+        Thread currentThread = Thread.currentThread();
+        System.out.println("Thread " + currentThread.getName() + " is running");
+    }
+
+    public static void main(String[] args) {
+        NamedThread runnable = new NamedThread();
+        Thread thread1 = new Thread(runnable, "First-Thread"); // Naming the thread during creation
+        Thread thread2 = new Thread(runnable);
+        thread2.setName("Second-Thread"); // Naming the thread after creation
+
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+In this example:
+
+- The Thread constructor is used to assign a name to the thread during creation.
+- The setName() method is used to change the name of the thread after it has been created.
+- The getName() method is used to retrieve the name of the current thread.
+
+**Thread Prioritization**
+
+Java allows you to set the priority of a thread, which can influence the order in which threads are executed by the CPU. Thread priorities are integers between Thread.MIN_PRIORITY (1) and Thread.MAX_PRIORITY (10), with Thread.NORM_PRIORITY (5) being the default.
+
+```java
+// Setting thread priority
+class PriorityThread implements Runnable {
+    @Override
+    public void run() {
+        Thread currentThread = Thread.currentThread();
+        System.out.println("Thread " + currentThread.getName() + " is running with priority " + currentThread.getPriority());
+    }
+
+    public static void main(String[] args) {
+        PriorityThread runnable = new PriorityThread();
+        Thread thread1 = new Thread(runnable, "High-Priority-Thread");
+        Thread thread2 = new Thread(runnable, "Low-Priority-Thread");
+
+        thread1.setPriority(Thread.MAX_PRIORITY);
+        thread2.setPriority(Thread.MIN_PRIORITY);
+
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+In this example:
+
+- The setPriority() method is used to set the priority of the thread.
+- The getPriority() method is used to retrieve the priority of the thread.
+
+**Important Considerations**:
+
+- Thread priorities are hints to the operating system, not guarantees. The actual scheduling of threads depends on the operating system's scheduling algorithm, which may not always respect thread priorities.
+- Over-reliance on thread priorities can lead to unpredictable behavior and should be used sparingly.
+- Thread priorities are more effective on some operating systems than others.
 
 #### <a name="chapter16part3"></a>Chapter 16 - Part 3: Understanding Thread Synchronization and Locks
 
+Thread synchronization is a fundamental concept in concurrent programming, ensuring that multiple threads can access shared resources without causing data corruption or unexpected behavior. It's crucial for building robust and reliable multithreaded applications. Without proper synchronization mechanisms, race conditions, deadlocks, and other concurrency-related issues can arise, leading to unpredictable and potentially disastrous outcomes. This lesson will delve into the core principles of thread synchronization, exploring various techniques and tools available in Java to manage concurrent access to shared resources effectively.
+
 #### <a name="chapter16part3.1"></a>Chapter 16 - Part 3.1: Understanding the Need for Thread Synchronization
+
+When multiple threads access and modify shared data concurrently, the order in which they execute can lead to inconsistent or incorrect results. This is known as a race condition. Thread synchronization provides a way to control the access of multiple threads to shared resources, preventing race conditions and ensuring data integrity.
+
+**Race Conditions: A Detailed Look**
+
+A race condition occurs when the outcome of a program depends on the unpredictable order in which multiple threads execute. Consider a simple example where two threads are incrementing a shared counter:
+
+```java
+class Counter {
+    private int count = 0;
+
+    public void increment() {
+        count = count + 1;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+class IncrementingThread extends Thread {
+    private Counter counter;
+
+    public IncrementingThread(Counter counter) {
+        this.counter = counter;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 1000; i++) {
+            counter.increment();
+        }
+    }
+}
+
+public class RaceConditionExample {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        IncrementingThread thread1 = new IncrementingThread(counter);
+        IncrementingThread thread2 = new IncrementingThread(counter);
+
+        thread1.start();
+        thread2.start();
+
+        thread1.join();
+        thread2.join();
+
+        System.out.println("Final count: " + counter.getCount());
+    }
+}
+```
+
+In this example, even though each thread increments the counter 1000 times, the final count is often less than 2000. This is because the increment() method is not atomic. It can be broken down into three steps:
+
+- Read the current value of count.
+- Add 1 to the value.
+- Write the new value back to count.
+
+If two threads execute these steps concurrently, they might both read the same value of count, increment it, and then write it back. This results in one of the increments being lost.
+
+**Critical Sections**
+
+A critical section is a section of code that accesses shared resources and must be executed atomically. In the previous example, the increment() method is a critical section. Thread synchronization mechanisms are used to protect critical sections and ensure that only one thread can execute them at a time.
+
+**Real-World Examples of Race Conditions**
+
+- **Banking System**: Imagine two threads trying to withdraw money from the same bank account simultaneously. If the withdrawal operations are not synchronized, it's possible for both threads to read the same balance, deduct their respective amounts, and update the balance, potentially leading to an overdraft.
+- **Inventory Management**: Consider an e-commerce platform where multiple users are trying to purchase the last item in stock. Without proper synchronization, the system might allow multiple users to complete the purchase, resulting in overselling.
+
+**Hypothetical Scenario**
+
+Imagine a multi-threaded game where multiple players are interacting with the same game object. If the object's state (e.g., health, position) is not properly synchronized, players might experience inconsistencies or glitches, such as seeing the object in different locations or with different health levels.
 
 #### <a name="chapter16part3.2"></a>Chapter 16 - Part 3.2: Synchronization Techniques in Java
 
+Java provides several mechanisms for thread synchronization, including:
+
+- synchronized keyword
+- Locks (e.g., ReentrantLock)
+- Semaphores
+- Monitors
+
+**The synchronized Keyword**
+
+The synchronized keyword is the most basic way to achieve thread synchronization in Java. It can be used to synchronize a method or a block of code.
+
+**Synchronized Methods**
+
+When a method is declared as synchronized, Java acquires a lock on the object associated with the method before executing it. Only one thread can hold the lock on an object at a time, ensuring that only one synchronized method of that object can be executed concurrently.
+
+```java
+class SynchronizedCounter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count = count + 1;
+    }
+
+    public synchronized int getCount() {
+        return count;
+    }
+}
+```
+
+In this example, the increment() and getCount() methods are synchronized. This means that only one thread can execute either of these methods at a time, preventing race conditions.
+
+**Synchronized Blocks**
+
+The synchronized keyword can also be used to synchronize a block of code. This allows you to synchronize only a specific part of a method, rather than the entire method.
+
+```java
+class SynchronizedCounter {
+    private int count = 0;
+    private final Object lock = new Object();
+
+    public void increment() {
+        synchronized (lock) {
+            count = count + 1;
+        }
+    }
+
+    public int getCount() {
+        synchronized (lock) {
+            return count;
+        }
+    }
+}
+```
+
+In this example, the synchronized block uses a lock object to synchronize access to the count variable. Only one thread can hold the lock on the lock object at a time, ensuring that only one thread can execute the code within the synchronized block.
+
+Important Note: When using synchronized blocks, it's crucial to use a private Object instance as the lock. Using this as the lock can lead to unexpected behavior if other parts of the code also synchronize on the same object.
+
+**Locks: The ReentrantLock**
+
+The java.util.concurrent.locks package provides more flexible and powerful locking mechanisms than the synchronized keyword. The ReentrantLock is a commonly used implementation of the Lock interface.
+
+**Basic Usage of ReentrantLock**
+
+```java
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class ReentrantLockCounter {
+    private int count = 0;
+    private final Lock lock = new ReentrantLock();
+
+    public void increment() {
+        lock.lock();
+        try {
+            count = count + 1;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public int getCount() {
+        lock.lock();
+        try {
+            return count;
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+```
+
+In this example, the ReentrantLock is used to protect the increment() and getCount() methods. The lock.lock() method acquires the lock, and the lock.unlock() method releases the lock. It's crucial to release the lock in a finally block to ensure that the lock is always released, even if an exception occurs.
+
+**Advantages of ReentrantLock over synchronized**
+
+- **Fairness**: ReentrantLock can be configured to be fair, meaning that threads are granted access to the lock in the order in which they requested it. The synchronized keyword does not guarantee fairness.
+- **Interruptibility**: Threads waiting to acquire a ReentrantLock can be interrupted.
+- **TryLock**: The tryLock() method allows a thread to attempt to acquire the lock without blocking. If the lock is not available, the method returns false.
+- **Multiple Condition Variables**: A ReentrantLock can have multiple condition variables, which can be used to implement more complex synchronization scenarios.
+
+**Example of tryLock()**
+
+```java
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class TryLockExample {
+    private final Lock lock = new ReentrantLock();
+
+    public void performTask() {
+        if (lock.tryLock()) {
+            try {
+                System.out.println("Lock acquired, performing task...");
+                // Simulate some work
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                System.out.println("Releasing lock.");
+                lock.unlock();
+            }
+        } else {
+            System.out.println("Lock not available, task cannot be performed.");
+        }
+    }
+
+    public static void main(String[] args) {
+        TryLockExample example = new TryLockExample();
+
+        Thread thread1 = new Thread(() -> example.performTask());
+        Thread thread2 = new Thread(() -> example.performTask());
+
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+In this example, each thread attempts to acquire the lock using tryLock(). If the lock is available, the thread performs the task and then releases the lock. If the lock is not available, the thread simply prints a message and exits.
+
+**Deadlocks**
+
+A deadlock occurs when two or more threads are blocked indefinitely, waiting for each other to release resources. Deadlocks can be difficult to debug and can cause applications to hang.
+
+**Example of a Deadlock**
+
+```java
+class DeadlockExample {
+    private static final Object lock1 = new Object();
+    private static final Object lock2 = new Object();
+
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(() -> {
+            synchronized (lock1) {
+                System.out.println("Thread 1: Acquired lock1");
+                try { Thread.sleep(100); } catch (InterruptedException e) {}
+
+                synchronized (lock2) {
+                    System.out.println("Thread 1: Acquired lock2");
+                }
+            }
+        });
+
+        Thread thread2 = new Thread(() -> {
+            synchronized (lock2) {
+                System.out.println("Thread 2: Acquired lock2");
+                try { Thread.sleep(100); } catch (InterruptedException e) {}
+
+                synchronized (lock1) {
+                    System.out.println("Thread 2: Acquired lock1");
+                }
+            }
+        });
+
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+In this example, thread1 acquires lock1 and then tries to acquire lock2, while thread2 acquires lock2 and then tries to acquire lock1. If both threads acquire their first lock before the other thread can acquire its lock, they will be blocked indefinitely, waiting for each other to release the lock.
+
+**Preventing Deadlocks**
+
+- **Lock Ordering**: Always acquire locks in the same order.
+- **Lock Timeout**: Use the tryLock() method with a timeout to avoid waiting indefinitely for a lock.
+- **Deadlock Detection**: Use tools to detect deadlocks in your application.
+
 #### <a name="chapter16part4"></a>Chapter 16 - Part 4: Exploring Concurrent Collections: ConcurrentHashMap and BlockingQueue
+
+Concurrent collections are essential tools for building high-performance, thread-safe applications in Java. They provide alternatives to traditional synchronized collections, offering improved concurrency and scalability. This lesson explores two fundamental concurrent collections: ConcurrentHashMap and BlockingQueue. We'll delve into their functionalities, use cases, and how they contribute to efficient multithreaded programming. Understanding these collections is crucial for managing shared data and coordinating tasks between threads in a robust and scalable manner.
 
 #### <a name="chapter16part4.1"></a>Chapter 16 - Part 4.1: ConcurrentHashMap: Thread-Safe Hash Map
 
+ConcurrentHashMap is a thread-safe implementation of the ConcurrentMap interface, providing concurrent access to its elements. Unlike HashMap, which requires external synchronization for thread safety, ConcurrentHashMap achieves concurrency through internal segmentation and lock striping. This allows multiple threads to access different parts of the map concurrently without blocking each other, significantly improving performance in multithreaded environments.
+
+**Internal Segmentation and Lock Striping**
+
+ConcurrentHashMap divides its internal data into segments, each of which is a separate hash table. Each segment has its own lock, allowing multiple threads to access different segments concurrently. This technique, known as lock striping, reduces contention and improves overall throughput.
+
+Example: Imagine a library with multiple sections (segments). Each section has its own librarian (lock). Multiple people (threads) can browse different sections simultaneously without waiting for others, as long as they don't need to access the same section.
+
+**Key Features of ConcurrentHashMap**
+
+- Thread Safety: Built-in thread safety without external synchronization.
+- Concurrency: Allows multiple threads to access the map concurrently.
+- Atomicity: Provides atomic operations for common tasks like putIfAbsent, remove, and replace.
+- Performance: Generally offers better performance than synchronized HashMap in multithreaded scenarios.
+- Iteration: Iterators are weakly consistent, meaning they reflect the state of the map at some point during the iteration but are not guaranteed to reflect all updates made during the iteration.
+
+**Basic Operations with ConcurrentHashMap**
+
+```java
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ConcurrentHashMapExample {
+
+    public static void main(String[] args) {
+        // Creating a ConcurrentHashMap
+        ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+
+        // Adding elements
+        map.put("A", 1);
+        map.put("B", 2);
+        map.put("C", 3);
+
+        // Retrieving elements
+        System.out.println("Value of A: " + map.get("A")); // Output: Value of A: 1
+
+        // Removing elements
+        map.remove("B");
+
+        // Checking if a key exists
+        System.out.println("Contains key B: " + map.containsKey("B")); // Output: Contains key B: false
+
+        // Replacing a value
+        map.replace("C", 3, 4);
+        System.out.println("Value of C after replace: " + map.get("C")); // Output: Value of C after replace: 4
+
+        // putIfAbsent example
+        map.putIfAbsent("D", 5);
+        System.out.println("Value of D: " + map.get("D")); // Output: Value of D: 5
+
+        // Iterating over the map
+        map.forEach((key, value) -> System.out.println(key + ": " + value));
+    }
+}
+```
+
+Explanation:
+
+- The code demonstrates basic operations like put, get, remove, containsKey, replace, and putIfAbsent.
+- putIfAbsent adds a key-value pair only if the key is not already present in the map, ensuring atomicity.
+- forEach provides a convenient way to iterate over the map's entries.
+
+**Advanced Operations and Use Cases**
+
+ConcurrentHashMap offers more advanced operations that are particularly useful in concurrent scenarios.
+
+**Atomic Operations**
+
+ConcurrentHashMap provides atomic operations like putIfAbsent, remove(key, value), and replace(key, oldValue, newValue) that ensure thread safety without requiring explicit synchronization.
+
+```java
+import java.util.concurrent.ConcurrentHashMap;
+
+public class AtomicConcurrentHashMapExample {
+
+    public static void main(String[] args) {
+        ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+        map.put("A", 1);
+
+        // Atomically replace value only if it's currently 1
+        boolean replaced = map.replace("A", 1, 5);
+        System.out.println("Replaced: " + replaced); // Output: Replaced: true
+        System.out.println("Value of A: " + map.get("A")); // Output: Value of A: 5
+
+        // Atomically remove only if value is 5
+        boolean removed = map.remove("A", 5);
+        System.out.println("Removed: " + removed); // Output: Removed: true
+        System.out.println("Contains key A: " + map.containsKey("A")); // Output: Contains key A: false
+    }
+}
+```
+
+Explanation:
+
+- replace(key, oldValue, newValue) atomically replaces the value associated with the key only if the current value matches oldValue.
+- remove(key, value) atomically removes the key-value pair only if the value matches the specified value.
+
+**Computing Values**
+
+ConcurrentHashMap provides methods like compute, computeIfAbsent, and computeIfPresent that allow you to atomically compute values based on the current state of the map.
+
+```java
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ComputeConcurrentHashMapExample {
+
+    public static void main(String[] args) {
+        ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+
+        // Compute if absent
+        map.computeIfAbsent("A", key -> key.length());
+        System.out.println("Value of A: " + map.get("A")); // Output: Value of A: 1
+
+        // Compute if present
+        map.put("B", 2);
+        map.computeIfPresent("B", (key, value) -> value * 2);
+        System.out.println("Value of B: " + map.get("B")); // Output: Value of B: 4
+
+        // Compute
+        map.compute("C", (key, value) -> (value == null) ? 0 : value + 1);
+        System.out.println("Value of C: " + map.get("C")); // Output: Value of C: 0
+
+        map.compute("C", (key, value) -> (value == null) ? 0 : value + 1);
+        System.out.println("Value of C: " + map.get("C")); // Output: Value of C: 1
+    }
+}
+```
+
+Explanation:
+
+- computeIfAbsent(key, function) computes a value using the provided function only if the key is not already present.
+- computeIfPresent(key, function) computes a new value using the provided function only if the key is already present.
+- compute(key, function) computes a new value for the key, regardless of whether the key is present or not.
+
+**Real-World Scenario: Concurrent Cache**
+
+ConcurrentHashMap is often used to implement concurrent caches. A cache stores frequently accessed data in memory for faster retrieval. In a multithreaded environment, ConcurrentHashMap ensures that the cache is accessed and updated safely.
+
+```java
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ConcurrentCache<K, V> {
+
+    private final ConcurrentHashMap<K, V> cache = new ConcurrentHashMap<>();
+
+    public V get(K key) {
+        return cache.get(key);
+    }
+
+    public V get(K key, java.util.function.Function<K, V> mappingFunction) {
+        return cache.computeIfAbsent(key, mappingFunction);
+    }
+
+    public void put(K key, V value) {
+        cache.put(key, value);
+    }
+
+    public void remove(K key) {
+        cache.remove(key);
+    }
+
+    public static void main(String[] args) {
+        ConcurrentCache<String, String> userCache = new ConcurrentCache<>();
+
+        // Simulate fetching user data from a database
+        java.util.function.Function<String, String> fetchUserData = userId -> {
+            System.out.println("Fetching user data for " + userId + " from database.");
+            // Simulate database retrieval delay
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            return "User data for " + userId;
+        };
+
+        // First access: Fetch from database and store in cache
+        String user1Data = userCache.get("user1", fetchUserData);
+        System.out.println("User 1 data: " + user1Data);
+
+        // Second access: Retrieve from cache
+        String user1DataCached = userCache.get("user1", fetchUserData);
+        System.out.println("User 1 data (cached): " + user1DataCached);
+
+        // Another user
+        String user2Data = userCache.get("user2", fetchUserData);
+        System.out.println("User 2 data: " + user2Data);
+    }
+}
+```
+
+Explanation:
+
+- The ConcurrentCache class uses ConcurrentHashMap to store cached data.
+- The get(K key, Function<K, V> mappingFunction) method retrieves data from the cache if it exists; otherwise, it fetches the data using the provided mappingFunction, stores it in the cache, and returns it.
+- This ensures that the data is fetched from the database only once, and subsequent accesses retrieve it from the cache, improving performance.
+
 #### <a name="chapter16part4.2"></a>Chapter 16 - Part 4.2: BlockingQueue: Thread-Safe Queue for Data Transfer
+
+BlockingQueue is an interface that represents a queue that additionally supports operations that wait for the queue to become non-empty when retrieving an element, and wait for space to become available in the queue when storing an element. It is a fundamental building block for implementing producer-consumer patterns and other concurrent data transfer scenarios.
+
+**Key Features of BlockingQueue**
+
+- Thread Safety: Built-in thread safety for concurrent access.
+- Blocking Operations: Provides blocking put and take operations that wait when the queue is full or empty, respectively.
+- Capacity: Can be bounded or unbounded, depending on the implementation.
+- Fairness: Some implementations offer fairness policies to ensure that threads waiting for the queue are served in a FIFO (First-In-First-Out) manner.
+
+**Common Implementations of BlockingQueue**
+
+- ArrayBlockingQueue: A bounded blocking queue backed by an array. It is FIFO and provides fairness options.
+- LinkedBlockingQueue: An optionally bounded blocking queue backed by a linked list. It generally has higher throughput than ArrayBlockingQueue but may exhibit less predictable behavior under high contention.
+- PriorityBlockingQueue: An unbounded blocking queue that orders elements according to their priority.
+- DelayQueue: An unbounded blocking queue that holds elements until a certain delay has expired.
+- SynchronousQueue: A blocking queue in which each insert operation must wait for a corresponding remove operation by another thread, and vice versa. It has no internal capacity.
+
+**Basic Operations with BlockingQueue**
+
+```java
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
+
+public class BlockingQueueExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        // Creating a BlockingQueue with a capacity of 3
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(3);
+
+        // Producer thread
+        Thread producer = new Thread(() -> {
+            try {
+                queue.put("A");
+                System.out.println("Produced: A");
+                queue.put("B");
+                System.out.println("Produced: B");
+                queue.put("C");
+                System.out.println("Produced: C");
+                //queue.put("D"); // This will block because the queue is full
+                System.out.println("Produced: D");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        // Consumer thread
+        Thread consumer = new Thread(() -> {
+            try {
+                Thread.sleep(1000); // Simulate some work
+                System.out.println("Consumed: " + queue.take());
+                System.out.println("Consumed: " + queue.take());
+                System.out.println("Consumed: " + queue.take());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        producer.start();
+        consumer.start();
+
+        producer.join();
+        consumer.join();
+    }
+}
+```
+
+Explanation:
+
+- The code demonstrates the basic put and take operations of BlockingQueue.
+- The producer thread adds elements to the queue, and the consumer thread removes elements from the queue.
+- If the queue is full, the put operation blocks until space becomes available.
+- If the queue is empty, the take operation blocks until an element becomes available.
+
+**Advanced Operations and Use Cases**
+
+BlockingQueue offers more advanced operations and is used in various concurrent scenarios.
+
+**Offer and Poll with Timeout**
+
+The offer and poll methods provide non-blocking alternatives to put and take with a timeout. They allow you to attempt to add or remove an element without blocking indefinitely.
+
+```java
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+public class BlockingQueueTimeoutExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(2);
+
+        // Offer with timeout
+        boolean offered = queue.offer("A", 1, TimeUnit.SECONDS);
+        System.out.println("Offered A: " + offered); // Output: Offered A: true
+
+        offered = queue.offer("B", 1, TimeUnit.SECONDS);
+        System.out.println("Offered B: " + offered); // Output: Offered B: true
+
+        offered = queue.offer("C", 1, TimeUnit.SECONDS);
+        System.out.println("Offered C: " + offered); // Output: Offered C: false (timeout)
+
+        // Poll with timeout
+        String element = queue.poll(1, TimeUnit.SECONDS);
+        System.out.println("Polled: " + element); // Output: Polled: A
+
+        element = queue.poll(1, TimeUnit.SECONDS);
+        System.out.println("Polled: " + element); // Output: Polled: B
+
+        element = queue.poll(1, TimeUnit.SECONDS);
+        System.out.println("Polled: " + element); // Output: Polled: null (timeout)
+    }
+}
+```
+
+Explanation:
+
+- offer(element, timeout, unit) attempts to add an element to the queue within the specified timeout. It returns true if the element was added successfully, and false if the timeout expires before space becomes available.
+- poll(timeout, unit) attempts to remove an element from the queue within the specified timeout. It returns the element if it was removed successfully, and null if the timeout expires before an element becomes available.
+
+**Drain to**
+
+The drainTo method removes all available elements from the queue and adds them to another collection.
+
+```java
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BlockingQueueDrainToExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(5);
+        queue.put("A");
+        queue.put("B");
+        queue.put("C");
+
+        List<String> list = new ArrayList<>();
+        int drained = queue.drainTo(list, 2); // Drain at most 2 elements
+        System.out.println("Drained: " + drained); // Output: Drained: 2
+        System.out.println("List: " + list); // Output: List: [A, B]
+        System.out.println("Queue: " + queue); // Output: Queue: [C]
+    }
+}
+```
+
+Explanation:
+
+- drainTo(collection, maxElements) removes at most maxElements from the queue and adds them to the specified collection. It returns the number of elements drained.
+
+**Real-World Scenario: Producer-Consumer Pattern**
+
+BlockingQueue is commonly used to implement the producer-consumer pattern, where one or more producer threads generate data and one or more consumer threads process the data. The BlockingQueue acts as a buffer between the producers and consumers, allowing them to operate independently and at different speeds.
+
+```java
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Random;
+
+public class ProducerConsumerExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
+        Random random = new Random();
+
+        // Producer thread
+        Thread producer = new Thread(() -> {
+            try {
+                while (true) {
+                    int value = random.nextInt(100);
+                    queue.put(value);
+                    System.out.println("Produced: " + value);
+                    Thread.sleep(random.nextInt(1000)); // Simulate producing
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        // Consumer thread
+        Thread consumer = new Thread(() -> {
+            try {
+                while (true) {
+                    int value = queue.take();
+                    System.out.println("Consumed: " + value);
+                    Thread.sleep(random.nextInt(1000)); // Simulate consuming
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        producer.start();
+        consumer.start();
+
+        // Let the simulation run for a while
+        Thread.sleep(5000);
+
+        producer.interrupt();
+        consumer.interrupt();
+
+        producer.join();
+        consumer.join();
+    }
+}
+```
+
+Explanation:
+
+- The producer thread generates random integers and adds them to the queue.
+- The consumer thread removes integers from the queue and processes them.
+- The BlockingQueue ensures that the producer does not add elements to the queue when it is full, and the consumer does not try to remove elements from the queue when it is empty.
 
 #### <a name="chapter16part5"></a>Chapter 16 - Part 5: Implementing Thread Pools for Efficient Task Execution
 
+Thread pools are a fundamental concept in concurrent programming, providing a mechanism to manage and reuse threads, thereby reducing the overhead associated with creating new threads for each task. This approach is crucial for building scalable and efficient applications, especially in scenarios where numerous short-lived tasks need to be executed concurrently. By pre-creating a pool of threads, we can significantly improve performance and resource utilization compared to creating and destroying threads on demand.
+
 #### <a name="chapter16part5.1"></a>Chapter 16 - Part 5.1: Understanding Thread Pools
+
+A thread pool is a collection of worker threads that are available to perform tasks. Instead of creating a new thread for each task, the task is submitted to the thread pool, and a worker thread from the pool picks up the task and executes it. Once the task is completed, the worker thread returns to the pool, ready to execute another task.
+
+**Core Components of a Thread Pool**
+
+- **Thread Pool Manager**: This component is responsible for managing the thread pool, including creating and destroying threads, assigning tasks to threads, and monitoring the pool's performance.
+- **Worker Threads**: These are the actual threads that execute the tasks submitted to the pool.
+- **Task Queue**: This is a queue that holds the tasks waiting to be executed. When a worker thread becomes available, it retrieves a task from the queue and executes it.
+
+**Benefits of Using Thread Pools**
+
+- **Reduced Overhead**: Creating a new thread is an expensive operation. Thread pools reduce this overhead by reusing existing threads.
+- **Improved Performance**: By reusing threads, thread pools can significantly improve the performance of concurrent applications.
+- **Resource Management**: Thread pools allow you to control the number of threads that are created, preventing the application from consuming too many resources.
+- **Simplified Code**: Thread pools simplify the code by abstracting away the details of thread management.
 
 #### <a name="chapter16part5.2"></a>Chapter 16 - Part 5.2: Implementing Thread Pools in Java
 
+Java provides the java.util.concurrent package, which includes a powerful and flexible Executor framework for working with thread pools. The ExecutorService interface represents an asynchronous execution mechanism that can execute tasks concurrently.
+
+**The ExecutorService Interface**
+
+The ExecutorService interface provides methods for submitting tasks to the thread pool, managing the lifecycle of the pool, and retrieving the results of the tasks.
+
+Key methods of the ExecutorService interface:
+
+- execute(Runnable command): Executes the given command at some time in the future.
+- submit(Callable<T> task): Submits a value-returning task for execution and returns a Future representing the pending results of the task.
+- shutdown(): Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
+- shutdownNow(): Attempts to stop all actively executing tasks, halts the processing of waiting tasks, and returns a list of the tasks that were awaiting execution.
+- awaitTermination(long timeout, TimeUnit unit): Blocks until all tasks have completed execution after a shutdown request, or the timeout occurs, or the current thread is interrupted, whichever happens first.
+
+**Creating Thread Pools using Executors**
+
+The Executors class provides factory methods for creating different types of thread pools.
+
+Common types of thread pools:
+
+- newFixedThreadPool(int nThreads): Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. If all threads are busy, tasks are queued until a thread becomes available. If more than nThreads tasks are submitted, the extra tasks will wait in the queue.
+- newCachedThreadPool(): Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available. Threads that have not been used for sixty seconds are terminated and removed from the cache. This is suitable for short-lived asynchronous tasks.
+- newSingleThreadExecutor(): Creates an Executor that uses a single worker thread operating off an unbounded queue. This is useful for serializing tasks.
+- newScheduledThreadPool(int corePoolSize): Creates a thread pool that can schedule commands to run after a given delay, or to execute periodically.
+
+**Example: Using a Fixed Thread Pool**
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class FixedThreadPoolExample {
+
+    public static void main(String[] args) {
+        // Create a fixed thread pool with 5 threads
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+
+        // Submit 10 tasks to the thread pool
+        for (int i = 0; i < 10; i++) {
+            int taskNumber = i;
+            executor.execute(() -> {
+                System.out.println("Task " + taskNumber + " is being executed by " + Thread.currentThread().getName());
+                try {
+                    // Simulate a long-running task
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Task " + taskNumber + " is completed by " + Thread.currentThread().getName());
+            });
+        }
+
+        // Shutdown the executor
+        executor.shutdown();
+
+        // Wait for all tasks to complete
+        try {
+            executor.awaitTermination(1, java.util.concurrent.TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("All tasks completed");
+    }
+}
+```
+
+Explanation:
+
+- We create a fixed thread pool with 5 threads using Executors.newFixedThreadPool(5).
+- We submit 10 tasks to the thread pool using executor.execute(). Each task is a Runnable that prints a message indicating which thread is executing it and then sleeps for 1 second to simulate a long-running task.
+- We shut down the executor using executor.shutdown(). This prevents the executor from accepting new tasks.
+- We wait for all tasks to complete using executor.awaitTermination(). This blocks until all tasks have completed or the timeout occurs.
+
+**Example: Using a Cached Thread Pool**
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class CachedThreadPoolExample {
+
+    public static void main(String[] args) {
+        // Create a cached thread pool
+        ExecutorService executor = Executors.newCachedThreadPool();
+
+        // Submit 10 tasks to the thread pool
+        for (int i = 0; i < 10; i++) {
+            int taskNumber = i;
+            executor.execute(() -> {
+                System.out.println("Task " + taskNumber + " is being executed by " + Thread.currentThread().getName());
+                try {
+                    // Simulate a long-running task
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Task " + taskNumber + " is completed by " + Thread.currentThread().getName());
+            });
+        }
+
+        // Shutdown the executor
+        executor.shutdown();
+
+        // Wait for all tasks to complete
+        try {
+            executor.awaitTermination(1, java.util.concurrent.TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("All tasks completed");
+    }
+}
+```
+
+**Explanation**:
+
+- We create a cached thread pool using Executors.newCachedThreadPool().
+- We submit 10 tasks to the thread pool using executor.execute(). Each task is a Runnable that prints a message indicating which thread is executing it and then sleeps for 1 second to simulate a long-running task.
+- We shut down the executor using executor.shutdown(). This prevents the executor from accepting new tasks.
+- We wait for all tasks to complete using executor.awaitTermination(). This blocks until all tasks have completed or the timeout occurs.
+
+**Submitting Tasks with submit() and Future**
+
+The submit() method allows you to submit tasks that return a value. It returns a Future object, which represents the result of the asynchronous computation. You can use the Future object to check if the task is complete, retrieve the result of the task, or cancel the task.
+
+```java
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class SubmitExample {
+
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        Callable<Integer> task = () -> {
+            System.out.println("Task is being executed by " + Thread.currentThread().getName());
+            Thread.sleep(2000);
+            return 42;
+        };
+
+        Future<Integer> future = executor.submit(task);
+
+        System.out.println("Task submitted. Waiting for result...");
+
+        Integer result = future.get(); // Blocks until the result is available
+
+        System.out.println("Result: " + result);
+
+        executor.shutdown();
+        executor.awaitTermination(1, java.util.concurrent.TimeUnit.MINUTES);
+    }
+}
+```
+
+**Explanation**:
+
+- We create a Callable task that returns an Integer.
+- We submit the task to the executor using executor.submit(), which returns a Future<Integer>.
+- We call future.get() to retrieve the result of the task. This method blocks until the result is available.
+
 #### <a name="chapter16part5.3"></a>Chapter 16 - Part 5.3: Thread Pool Configuration
+
+Configuring a thread pool involves setting various parameters to optimize its performance for a specific workload. Key parameters include:
+
+- **Core Pool Size**: The minimum number of threads to keep alive in the pool, even when they are idle.
+- **Maximum Pool Size**: The maximum number of threads to allow in the pool.
+- **Keep-Alive Time**: The amount of time that idle threads will remain alive before being terminated.
+- **BlockingQueue**: The queue used to hold tasks waiting to be executed. Different types of queues can be used, such as LinkedBlockingQueue, ArrayBlockingQueue, and PriorityBlockingQueue.
+- **Thread Factory**: The factory used to create new threads. This allows you to customize the threads that are created, such as setting their names or priority.
+- **RejectedExecutionHandler**: The handler used to handle tasks that cannot be accepted by the pool. This can happen if the queue is full and the maximum pool size has been reached.
+
+**Example: Configuring a ThreadPoolExecutor**
+
+```java
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+public class ThreadPoolExecutorExample {
+
+    public static void main(String[] args) {
+        int corePoolSize = 2;
+        int maxPoolSize = 4;
+        long keepAliveTime = 10;
+        TimeUnit unit = TimeUnit.SECONDS;
+        ArrayBlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(2); // Bounded queue
+
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                corePoolSize,
+                maxPoolSize,
+                keepAliveTime,
+                unit,
+                workQueue,
+                new ThreadPoolExecutor.CallerRunsPolicy() // Rejection policy
+        );
+
+        for (int i = 0; i < 6; i++) {
+            int taskNumber = i;
+            executor.execute(() -> {
+                System.out.println("Task " + taskNumber + " is being executed by " + Thread.currentThread().getName());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Task " + taskNumber + " is completed by " + Thread.currentThread().getName());
+            });
+        }
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("All tasks completed");
+    }
+}
+```
+
+**Explanation**:
+
+- We create a ThreadPoolExecutor with a core pool size of 2, a maximum pool size of 4, a keep-alive time of 10 seconds, and a bounded queue with a capacity of 2.
+- We use a CallerRunsPolicy as the rejection policy. This means that if a task cannot be accepted by the pool, the task will be executed by the calling thread.
+- We submit 6 tasks to the executor. Since the queue has a capacity of 2 and the core pool size is 2, the first 4 tasks will be accepted immediately. The remaining 2 tasks will be rejected and executed by the calling thread.
+
+**Choosing the Right Thread Pool Type**
+
+The choice of thread pool type depends on the specific requirements of the application.
+
+- **Fixed Thread Pool**: Use when you need to limit the number of threads that are created and you want to ensure that there are always a certain number of threads available to execute tasks. Suitable for CPU-bound tasks.
+- **Cached Thread Pool**: Use when you have a large number of short-lived tasks and you want to minimize the overhead of creating new threads. Suitable for I/O-bound tasks.
+- **Single-Thread Executor**: Use when you need to serialize tasks and ensure that they are executed in a specific order.
+- **Scheduled Thread Pool**: Use when you need to schedule tasks to run after a given delay or to execute periodically.
 
 #### <a name="chapter16part5.4"></a>Chapter 16 - Part 5.4: Handling Rejected Tasks
 
+When a thread pool is unable to accept a new task, it uses a RejectedExecutionHandler to handle the rejected task. Java provides several built-in rejection policies:
+
+- **AbortPolicy**: This policy throws a RejectedExecutionException when a task is rejected. This is the default policy.
+- **CallerRunsPolicy**: This policy executes the rejected task in the calling thread. This can be useful for preventing tasks from being lost.
+- **DiscardPolicy**: This policy silently discards the rejected task.
+- **DiscardOldestPolicy**: This policy discards the oldest unhandled task in the queue and then tries to execute the current task.
+
+You can also create your own custom RejectedExecutionHandler to implement custom rejection logic.
+
+**Example: Custom RejectedExecutionHandler**
+
+```java
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadPoolExecutor;
+
+public class CustomRejectedExecutionHandler implements RejectedExecutionHandler {
+
+    @Override
+    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+        System.out.println("Task rejected: " + r.toString() + " Executor: " + executor.toString());
+        // Implement custom logic here, such as logging the rejection or retrying the task later
+    }
+}
+```
+
 #### <a name="chapter16part5.5"></a>Chapter 16 - Part 5.5: Monitoring Thread Pools
+
+Monitoring thread pools is essential for understanding their performance and identifying potential bottlenecks. You can monitor thread pools using the ThreadPoolExecutor class, which provides methods for retrieving information about the pool's state.
+
+Key metrics to monitor:
+
+- getActiveCount(): Returns the approximate number of threads that are actively executing tasks.
+- getCompletedTaskCount(): Returns the total number of tasks that have completed execution.
+- getCorePoolSize(): Returns the core number of threads.
+- getLargestPoolSize(): Returns the largest number of threads that have ever been in the pool.
+- getMaximumPoolSize(): Returns the maximum allowed number of threads.
+- getPoolSize(): Returns the current number of threads in the pool.
+- getQueue().size(): Returns the number of tasks in the queue.
+- getTaskCount(): Returns the total number of tasks that have been submitted to the executor.
+
+**Example: Monitoring a Thread Pool**
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+public class ThreadPoolMonitoringExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+
+        for (int i = 0; i < 5; i++) {
+            int taskNumber = i;
+            executor.execute(() -> {
+                System.out.println("Task " + taskNumber + " is being executed by " + Thread.currentThread().getName());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Task " + taskNumber + " is completed by " + Thread.currentThread().getName());
+            });
+        }
+
+        // Monitor the thread pool every 500 milliseconds
+        while (executor.getCompletedTaskCount() < 5) {
+            System.out.println("Active Threads : " + executor.getActiveCount());
+            System.out.println("Completed Tasks : " + executor.getCompletedTaskCount());
+            System.out.println("Queue Size : " + executor.getQueue().size());
+            Thread.sleep(500);
+        }
+
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.MINUTES);
+        System.out.println("All tasks completed");
+    }
+}
+```
 
 #### <a name="chapter16part6"></a>Chapter 16 - Part 6: Case Study: Building a Concurrent Web Server
 
+Building a Concurrent Web Server is a classic problem in concurrent programming. It allows us to apply our knowledge of threads, thread pools, and synchronization to create a practical, real-world application. In this lesson, we'll explore the design and implementation of a concurrent web server in Java, focusing on how to handle multiple client requests simultaneously and efficiently. We'll cover the core components of a web server, the threading model used to achieve concurrency, and the techniques for managing resources and preventing common concurrency issues.
+
 #### <a name="chapter16part6.1"></a>Chapter 16 - Part 6.1: Core Components of a Web Server
+
+A web server fundamentally listens for incoming client requests, processes them, and sends back responses. Let's break down the key components:
+
+- **Listening Socket**: The entry point for incoming client connections. The server binds to a specific port and listens for connection requests.
+- **Connection Handling**: Once a client connects, the server accepts the connection and establishes a socket for communication.
+- **Request Processing**: The server reads the client's request (typically an HTTP request), parses it, and determines the appropriate action.
+- **Resource Access**: The server may need to access files, databases, or other resources to fulfill the request.
+- **Response Generation**: The server constructs an HTTP response containing the requested data or an error message.
+- **Response Sending**: The server sends the response back to the client through the socket.
 
 #### <a name="chapter16part6.2"></a>Chapter 16 - Part 6.2: Threading Model for Concurrency
 
+To handle multiple client requests concurrently, we'll employ a multithreaded approach. Here's how it works:
+
+- **Main Thread**: The main thread is responsible for listening for incoming connections.
+- **Worker Threads**: When a client connection is accepted, the main thread delegates the handling of the request to a worker thread.
+- **Thread Pool**: A thread pool manages a set of worker threads, reusing them to handle multiple requests efficiently. This avoids the overhead of creating a new thread for each request.
+
+**Benefits of Using a Thread Pool**
+
+- **Reduced Overhead**: Creating a new thread for each request is expensive. Thread pools reuse existing threads, reducing the overhead.
+- **Improved Responsiveness**: Requests can be processed immediately if a thread is available in the pool.
+- **Resource Management**: Thread pools can limit the number of active threads, preventing the server from being overwhelmed by too many concurrent requests.
+
+**Example: Thread Pool Configuration**
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ThreadPoolExample {
+
+    public static void main(String[] args) {
+        // Create a thread pool with a fixed number of threads (e.g., 10)
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        // Submit tasks to the thread pool
+        for (int i = 0; i < 100; i++) {
+            int taskNumber = i;
+            executor.submit(() -> {
+                System.out.println("Task " + taskNumber + " executed by " + Thread.currentThread().getName());
+                // Simulate some work
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+        }
+
+        // Shut down the executor when all tasks are finished
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+            // Wait for all tasks to complete
+        }
+        System.out.println("All tasks finished");
+    }
+}
+```
+
+In this example, Executors.newFixedThreadPool(10) creates a thread pool with 10 threads. The executor.submit() method submits tasks to the pool, and the threads execute them concurrently.
+
 #### <a name="chapter16part6.3"></a>Chapter 16 - Part 6.3: Implementing the Concurrent Web Server
+
+Let's outline the steps involved in building a concurrent web server:
+
+- **Create a Server Socket**: Create a ServerSocket that listens on a specific port.
+- **Create a Thread Pool**: Create an ExecutorService to manage worker threads.
+- **Accept Connections**: In a loop, accept incoming client connections using serverSocket.accept().
+- **Submit Tasks to the Thread Pool**: For each accepted connection, create a Runnable task that handles the client request and submit it to the thread pool using executor.submit().
+- **Implement Request Handling**: In the Runnable task, read the client's request, process it, generate a response, and send the response back to the client.
+- **Close Connections**: After processing the request, close the client socket.
+- **Graceful Shutdown**: When the server needs to shut down, gracefully shut down the thread pool and close the server socket.
+
+**Code Example: Basic Concurrent Web Server**
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ConcurrentWebServer {
+
+    private static final int PORT = 8080;
+    private static final int NUM_THREADS = 10;
+
+    public static void main(String[] args) throws IOException {
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Server listening on port " + PORT);
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
+                executor.submit(new ClientHandler(clientSocket));
+            }
+        } finally {
+            executor.shutdown();
+        }
+    }
+
+    private static class ClientHandler implements Runnable {
+        private final Socket clientSocket;
+
+        public ClientHandler(Socket clientSocket) {
+            this.clientSocket = clientSocket;
+        }
+
+        @Override
+        public void run() {
+            try (
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
+            ) {
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    System.out.println("Received: " + inputLine);
+                    out.println("Server received: " + inputLine);
+                }
+            } catch (IOException e) {
+                System.err.println("Error handling client: " + e.getMessage());
+            } finally {
+                try {
+                    clientSocket.close();
+                    System.out.println("Client disconnected: " + clientSocket.getInetAddress().getHostAddress());
+                } catch (IOException e) {
+                    System.err.println("Error closing socket: " + e.getMessage());
+                }
+            }
+        }
+    }
+}
+```
+
+In this example:
+
+- The ConcurrentWebServer class creates a ServerSocket and an ExecutorService.
+- The main method listens for incoming connections and submits a ClientHandler task to the thread pool for each connection.
+- The ClientHandler class implements the Runnable interface and handles the client request. It reads input from the client, prints it to the console, and sends a response back to the client.
+- The try-with-resources statement ensures that the BufferedReader, PrintWriter, and Socket are closed properly after use.
 
 #### <a name="chapter16part6.4"></a>Chapter 16 - Part 6.4: Handling HTTP Requests
 
+The previous example simply echoes back the input it receives. A real web server needs to parse and handle HTTP requests. Let's extend the example to handle basic HTTP GET requests.
+
+**Parsing HTTP Requests**
+
+An HTTP request consists of a request line, headers, and an optional body. The request line contains the HTTP method (e.g., GET, POST), the requested resource (e.g., /index.html), and the HTTP version.
+
+**Example: Handling a GET Request**
+
+```java
+// Inside the ClientHandler class, replace the input processing loop with the following:
+                String requestLine = in.readLine();
+                if (requestLine != null) {
+                    System.out.println("Received request: " + requestLine);
+
+                    // Parse the request line
+                    String[] requestParts = requestLine.split(" ");
+                    if (requestParts.length == 3 && requestParts[0].equals("GET")) {
+                        String resource = requestParts[1];
+                        System.out.println("Requested resource: " + resource);
+
+                        // Serve the resource (e.g., read a file and send it back)
+                        String response = "<html><body><h1>Hello from " + resource + "</h1></body></html>";
+                        out.println("HTTP/1.1 200 OK");
+                        out.println("Content-Type: text/html");
+                        out.println("Content-Length: " + response.length());
+                        out.println(); // Empty line to separate headers from body
+                        out.println(response);
+                    } else {
+                        // Handle invalid requests
+                        String response = "HTTP/1.1 400 Bad Request\r\n\r\n";
+                        out.println(response);
+                    }
+                }
+```
+
+In this example:
+
+- We read the first line of the request, which is the request line.
+- We split the request line into parts to extract the HTTP method and the requested resource.
+- If the method is GET, we serve the resource by constructing an HTML response and sending it back to the client.
+- We also send the appropriate HTTP headers, such as Content-Type and Content-Length.
+- If the request is invalid, we send a "400 Bad Request" error.
+
 #### <a name="chapter16part6.5"></a>Chapter 16 - Part 6.5: Resource Management and Synchronization
 
+When multiple threads access shared resources (e.g., files, databases), it's crucial to manage these resources carefully and ensure proper synchronization to prevent data corruption and race conditions.
+
+**Common Issues**
+
+- **Race Conditions**: Multiple threads trying to access and modify the same resource simultaneously can lead to unpredictable results.
+- **Deadlocks**: Two or more threads are blocked indefinitely, waiting for each other to release resources.
+- **Resource Exhaustion**: The server runs out of resources (e.g., memory, file handles) due to excessive concurrent requests.
+
+**Techniques for Resource Management**
+
+- **Thread-Local Storage**: Use ThreadLocal variables to give each thread its own copy of a resource. This avoids the need for synchronization.
+- **Synchronization**: Use synchronized blocks or Lock objects to protect shared resources from concurrent access.
+- **Resource Pooling**: Use connection pools or object pools to reuse resources and reduce the overhead of creating new resources.
+
+**Example: Synchronizing Access to a Shared Counter**
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class CounterExample {
+
+    private static AtomicInteger counter = new AtomicInteger(0);
+
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        for (int i = 0; i < 1000; i++) {
+            executor.submit(() -> {
+                // Increment the counter atomically
+                counter.incrementAndGet();
+            });
+        }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+            // Wait for all tasks to complete
+        }
+
+        System.out.println("Counter value: " + counter.get());
+    }
+}
+```
+
+In this example, we use an AtomicInteger to ensure that the counter is incremented atomically, preventing race conditions.
+
 #### <a name="chapter16part6.6"></a>Chapter 16 - Part 6.6: Error Handling and Logging
+
+Robust error handling and logging are essential for a production-ready web server.
+
+**Error Handling**
+
+- **Catch Exceptions**: Catch exceptions that may occur during request processing and handle them gracefully.
+- **Send Error Responses**: Send appropriate HTTP error responses to the client (e.g., 404 Not Found, 500 Internal Server Error).
+- **Log Errors**: Log errors to a file or database for debugging and monitoring purposes.
+
+**Logging**
+
+- **Log Requests**: Log incoming requests, including the client IP address, requested resource, and request headers.
+- **Log Errors**: Log any errors that occur during request processing.
+- **Log Performance Metrics**: Log performance metrics, such as request processing time and thread pool utilization.
+
+**Example: Logging with Log4j 2**
+
+First, add the Log4j 2 dependencies to your pom.xml (if using Maven):
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.17.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.17.1</version>
+    </dependency>
+</dependencies>
+```
+
+Then, create a log4j2.xml configuration file in your src/main/resources directory:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="File" fileName="server.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+Finally, use Log4j 2 in your web server code:
+
+```java
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class ConcurrentWebServer {
+
+    private static final Logger logger = LogManager.getLogger(ConcurrentWebServer.class);
+
+    // ...
+
+    private static class ClientHandler implements Runnable {
+        // ...
+
+        @Override
+        public void run() {
+            try {
+                logger.info("Handling client request from: " + clientSocket.getInetAddress().getHostAddress());
+                // ...
+            } catch (IOException e) {
+                logger.error("Error handling client: " + e.getMessage(), e);
+            } finally {
+                // ...
+            }
+        }
+    }
+}
+```
+
+In this example, we use Log4j 2 to log information about incoming requests and any errors that occur during request processing.
 
 ## <a name="chapter17"></a>Chapter 17: Working with Databases using JDBC
 
