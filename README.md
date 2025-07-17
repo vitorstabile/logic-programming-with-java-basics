@@ -28787,49 +28787,1842 @@ In this example, we use Log4j 2 to log information about incoming requests and a
 
 #### <a name="chapter17part1"></a>Chapter 17 - Part 1: Introduction to JDBC and Database Connectivity
 
+JDBC (Java Database Connectivity) is the cornerstone of Java's interaction with relational databases. It provides a standard API for Java applications to access and manipulate data stored in various databases, such as MySQL, PostgreSQL, Oracle, and SQL Server. Understanding JDBC is crucial for any Java developer who needs to build data-driven applications. This lesson will cover the fundamentals of JDBC, including its architecture, core components, and the essential steps for establishing a connection to a database. We'll explore the different types of JDBC drivers and their implications for application performance and deployment. By the end of this lesson, you'll have a solid foundation for performing database operations in Java and be well-prepared for the more advanced topics in subsequent lessons.
+
 #### <a name="chapter17part1.1"></a>Chapter 17 - Part 1.1: Understanding JDBC Architecture
+
+JDBC architecture is designed to provide a flexible and database-independent way for Java applications to interact with databases. It consists of two main layers: the JDBC API and the JDBC driver.
+
+**JDBC API**
+
+The JDBC API (Application Programming Interface) is a set of interfaces and classes provided by the Java platform. It defines a standard way for Java applications to interact with databases. The JDBC API provides the following functionalities:
+
+- Establishing a connection with a database
+- Sending SQL statements to the database
+- Processing the results received from the database
+
+The core classes and interfaces in the JDBC API include:
+
+- ```DriverManager```: Manages the loading of JDBC drivers and establishes connections to databases.
+- ```Connection```: Represents a session with a specific database. It provides methods for creating statements, managing transactions, and retrieving database metadata.
+- ```Statement```: An interface for executing static SQL statements.
+- ```PreparedStatement```: An interface for executing precompiled SQL statements, which can improve performance and prevent SQL injection. We will cover this in detail in the next lesson.
+- ```CallableStatement```: An interface for executing stored procedures.
+- ```ResultSet```: Represents the result set of a database query. It provides methods for accessing the data returned by the query.
+- ```SQLException```: A class that represents an error or warning that occurred during a database operation.
+
+**JDBC Driver**
+
+A JDBC driver is a software component that enables a Java application to interact with a specific database. Each database vendor provides its own JDBC driver, which implements the JDBC API and translates JDBC calls into the database's native protocol.
+
+There are four types of JDBC drivers:
+
+- **Type 1: JDBC-ODBC Bridge Driver**: This driver uses ODBC (Open Database Connectivity) to access the database. It's the simplest type of driver but is generally not recommended for production environments due to its reliance on ODBC, which can introduce performance overhead and platform dependencies.
+
+Example: Accessing an MS Access database on Windows using the JDBC-ODBC bridge.
+
+- **Type 2: Native-API Driver**: This driver uses the database vendor's client-side library to interact with the database. It offers better performance than the JDBC-ODBC bridge driver but is still platform-dependent because it requires the native client library to be installed on the client machine.
+
+Example: Using the Oracle Call Interface (OCI) driver to connect to an Oracle database.
+
+- **Type 3: Network-Protocol Driver**: This driver uses a middleware server to communicate with the database. The middleware server translates JDBC calls into the database's native protocol. This type of driver provides good scalability and can be used to access multiple databases from a single application.
+
+Example: Using a JBoss Data Virtualization server to connect to multiple data sources.
+
+- **Type 4: Pure Java Driver**: This driver directly communicates with the database using the database's network protocol. It's the most preferred type of driver because it's platform-independent and provides the best performance.
+
+Example: Using the MySQL Connector/J driver to connect to a MySQL database.
+
+Hypothetical Scenario: Imagine a large e-commerce platform needing to connect to a PostgreSQL database. A Type 4 driver would be the ideal choice due to its platform independence and direct communication with the database, ensuring optimal performance and scalability.
 
 #### <a name="chapter17part1.2"></a>Chapter 17 - Part 1.2: Establishing a Database Connection
 
+Establishing a connection to a database is the first step in any JDBC application. The process involves loading the JDBC driver, specifying the connection URL, and providing the necessary credentials.
+
+**Loading the JDBC Driver**
+
+Before you can connect to a database, you need to load the appropriate JDBC driver. This is typically done using the Class.forName() method. While this method was commonly used in older versions of JDBC, modern JDBC drivers often automatically register themselves when they are present in the classpath, making this step optional. However, it's still a good practice to explicitly load the driver to ensure that it's available.
+
+```java
+try {
+    // For older drivers, explicitly load the driver class
+    Class.forName("com.mysql.cj.jdbc.Driver"); // Example for MySQL
+    System.out.println("MySQL JDBC Driver loaded successfully!");
+} catch (ClassNotFoundException e) {
+    System.out.println("Could not find the MySQL JDBC Driver class!");
+    e.printStackTrace();
+    return;
+}
+```
+
+In this example, com.mysql.cj.jdbc.Driver is the class name of the MySQL JDBC driver. You'll need to replace this with the appropriate class name for your database.
+
+**Constructing the Connection URL**
+
+The connection URL (Uniform Resource Locator) specifies the location of the database and any additional connection parameters. The format of the connection URL varies depending on the database vendor.
+
+Here are some examples of connection URLs for different databases:
+
+- **MySQL**: jdbc:mysql://localhost:3306/mydatabase
+- **PostgreSQL**: jdbc:postgresql://localhost:5432/mydatabase
+- **Oracle**: jdbc:oracle:thin:@localhost:1521:orcl
+- **SQL Server**: jdbc:sqlserver://localhost:1433;databaseName=mydatabase
+
+The connection URL typically includes the following information:
+
+- The JDBC protocol (jdbc)
+- The database subprotocol (e.g., mysql, postgresql, oracle, sqlserver)
+- The database server address (e.g., localhost)
+- The database port number (e.g., 3306, 5432, 1521, 1433)
+- The database name (e.g., mydatabase, orcl)
+
+You can also include additional connection parameters in the connection URL, such as character encoding, connection timeout, and SSL settings. Refer to the documentation for your specific database for a complete list of available parameters.
+
+**Establishing the Connection**
+
+Once you've loaded the JDBC driver and constructed the connection URL, you can establish a connection to the database using the DriverManager.getConnection() method. This method takes the connection URL, username, and password as parameters.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseConnector {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/mydatabase"; // Replace with your database URL
+        String user = "myuser";       // Replace with your database username
+        String password = "mypassword";   // Replace with your database password
+
+        try {
+            Connection connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Connection to database established successfully!");
+
+            // Perform database operations here (e.g., create statements, execute queries)
+
+            connection.close(); // Close the connection when finished
+            System.out.println("Connection closed.");
+
+        } catch (SQLException e) {
+            System.out.println("Could not connect to the database!");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+In this example, we're establishing a connection to a MySQL database running on localhost with the database name mydatabase. We're also providing the username and password for the database.
+
+It's important to close the connection when you're finished with it to release database resources. You can do this by calling the connection.close() method.
+
+**Handling SQLExceptions**
+
+Database operations can throw SQLExceptions for various reasons, such as invalid SQL syntax, connection errors, or data integrity violations. It's important to handle these exceptions properly to prevent your application from crashing and to provide informative error messages to the user.
+
+In the previous example, we're catching SQLExceptions in a try-catch block and printing the stack trace to the console. In a real-world application, you might want to log the exception to a file or display a user-friendly error message.
+
 #### <a name="chapter17part1.3"></a>Chapter 17 - Part 1.3: Practical Examples and Demonstrations
+
+Let's consider a scenario where you're building an application to manage a library's book inventory. You'll need to connect to a database to store and retrieve book information.
+
+- **Setting up the Database**: First, you'll need to create a database and a table to store the book information. For example, using MySQL:
+
+```sql
+CREATE DATABASE library;
+
+USE library;
+
+CREATE TABLE books (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    isbn VARCHAR(20) UNIQUE,
+    publication_year INT
+);
+```
+
+- **Connecting to the Database**: Next, you'll need to write Java code to connect to the database.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class LibraryDatabaseConnector {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/library"; // Replace with your database URL
+        String user = "your_username";       // Replace with your database username
+        String password = "your_password";   // Replace with your database password
+
+        try {
+            Connection connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Connected to the Library database!");
+
+            // Perform database operations here (e.g., insert, select, update, delete books)
+
+            connection.close();
+            System.out.println("Connection closed.");
+
+        } catch (SQLException e) {
+            System.err.println("Error connecting to the database:");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+- **Performing Basic Operations**: Once connected, you can perform basic database operations such as inserting, selecting, updating, and deleting books. We will cover these operations in the next lesson.
 
 #### <a name="chapter17part2"></a>Chapter 17 - Part 2: Performing CRUD Operations with JDBC
 
+Performing CRUD (Create, Read, Update, Delete) operations is fundamental to interacting with databases. This lesson will delve into how to execute these operations using JDBC (Java Database Connectivity). Understanding CRUD operations is essential for building any data-driven Java application, as it forms the basis for managing and manipulating data stored in a relational database. We will build upon the database connectivity concepts introduced in the previous lesson and explore the use of Statement objects for executing SQL commands. While Statement objects are suitable for basic CRUD operations, we will also introduce PreparedStatement objects, which are crucial for preventing SQL injection vulnerabilities and improving performance, a topic we will explore in greater detail in the next lesson.
+
 #### <a name="chapter17part2.1"></a>Chapter 17 - Part 2.1: Creating Data (INSERT)
+
+The INSERT statement is used to add new records to a database table. In JDBC, you can execute INSERT statements using the Statement object's executeUpdate() method. This method returns an integer representing the number of rows affected by the operation.
+
+**Basic INSERT Example**
+
+Let's consider a simple products table with columns id, name, and price.
+
+```sql
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    price DECIMAL(10, 2)
+);
+```
+
+Here's how you can insert a new product into this table using JDBC:
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class InsertExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String insertSql = "INSERT INTO products (id, name, price) VALUES (1, 'Laptop', 1200.00)";
+            int rowsAffected = statement.executeUpdate(insertSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error inserting data: " + e.getMessage());
+        }
+    }
+}
+```
+
+Explanation:
+
+- **Establish Connection**: The code first establishes a connection to the database using DriverManager.getConnection(). Remember to replace the URL, username, and password with your actual database credentials.
+- **Create Statement**: A Statement object is created using connection.createStatement().
+- **Define SQL Query**: The insertSql variable holds the INSERT statement.
+- **Execute Update**: The statement.executeUpdate(insertSql) method executes the SQL statement. The executeUpdate() method is used for INSERT, UPDATE, and DELETE statements.
+- **Handle Result**: The rowsAffected variable stores the number of rows that were successfully inserted (in this case, it should be 1).
+- **Error Handling**: The try-catch block handles potential SQLExceptions that might occur during the database operation.
+
+**Inserting Multiple Rows**
+
+You can insert multiple rows by executing multiple INSERT statements within the same connection. However, for performance reasons, batch processing (which we will cover in a later module) is generally preferred for inserting large numbers of rows.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class MultipleInserts {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String insertSql1 = "INSERT INTO products (id, name, price) VALUES (2, 'Mouse', 25.00)";
+            String insertSql2 = "INSERT INTO products (id, name, price) VALUES (3, 'Keyboard', 75.00)";
+
+            int rowsAffected1 = statement.executeUpdate(insertSql1);
+            int rowsAffected2 = statement.executeUpdate(insertSql2);
+
+            System.out.println("Rows affected for insert 1: " + rowsAffected1);
+            System.out.println("Rows affected for insert 2: " + rowsAffected2);
+
+        } catch (SQLException e) {
+            System.err.println("Error inserting data: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Inserting Data with Different Data Types**
+
+The INSERT statement can handle various data types. Ensure that the values you insert match the data types defined in your table schema.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class InsertDifferentTypes {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String insertSql = "INSERT INTO products (id, name, price) VALUES (4, 'Webcam', 50.50)";
+            int rowsAffected = statement.executeUpdate(insertSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error inserting data: " + e.getMessage());
+        }
+    }
+}
+```
 
 #### <a name="chapter17part2.2"></a>Chapter 17 - Part 2.2: Reading Data (SELECT)
 
+The SELECT statement is used to retrieve data from a database table. In JDBC, you execute SELECT statements using the Statement object's executeQuery() method. This method returns a ResultSet object, which represents the result set of the query.
+
+**Basic SELECT Example**
+
+Let's retrieve all products from the products table.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SelectExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String selectSql = "SELECT id, name, price FROM products";
+            ResultSet resultSet = statement.executeQuery(selectSql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+
+                System.out.println("ID: " + id + ", Name: " + name + ", Price: " + price);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving data: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- **Establish Connection**: Same as in the INSERT example.
+- **Create Statement**: Same as in the INSERT example.
+- **Define SQL Query**: The selectSql variable holds the SELECT statement.
+- **Execute Query**: The statement.executeQuery(selectSql) method executes the SQL statement and returns a ResultSet.
+- **Process ResultSet**:
+  - The resultSet.next() method moves the cursor to the next row in the result set. It returns true if there is a next row and false if there are no more rows.
+  - resultSet.getInt("id"), resultSet.getString("name"), and resultSet.getDouble("price") retrieve the values of the id, name, and price columns, respectively, from the current row. You can access columns either by their name (as shown here) or by their index (e.g., resultSet.getInt(1) for the first column). Using column names is generally preferred for readability and maintainability.
+- **Error Handling**: The try-catch block handles potential SQLExceptions.
+
+**Filtering Data with WHERE Clause**
+
+The WHERE clause allows you to filter the data retrieved by the SELECT statement based on specific conditions.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SelectWhereExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String selectSql = "SELECT id, name, price FROM products WHERE price > 50.00";
+            ResultSet resultSet = statement.executeQuery(selectSql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+
+                System.out.println("ID: " + id + ", Name: " + name + ", Price: " + price);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving data: " + e.getMessage());
+        }
+    }
+}
+```
+
+This example retrieves only the products with a price greater than 50.00.
+
+**Ordering Data with ORDER BY Clause**
+
+The ORDER BY clause allows you to sort the data retrieved by the SELECT statement based on one or more columns.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SelectOrderByExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String selectSql = "SELECT id, name, price FROM products ORDER BY price DESC";
+            ResultSet resultSet = statement.executeQuery(selectSql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+
+                System.out.println("ID: " + id + ", Name: " + name + ", Price: " + price);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving data: " + e.getMessage());
+        }
+    }
+}
+```
+
+This example retrieves all products, sorted by price in descending order (DESC). You can use ASC for ascending order (which is the default if you omit the ASC or DESC keyword).
+
 #### <a name="chapter17part2.3"></a>Chapter 17 - Part 2.3: Updating Data (UPDATE)
+
+The UPDATE statement is used to modify existing records in a database table. In JDBC, you execute UPDATE statements using the Statement object's executeUpdate() method, similar to the INSERT statement.
+
+**Basic UPDATE Example**
+
+Let's update the price of a product in the products table.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class UpdateExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String updateSql = "UPDATE products SET price = 1300.00 WHERE id = 1";
+            int rowsAffected = statement.executeUpdate(updateSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error updating data: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- **Establish Connection**: Same as in the previous examples.
+- **Create Statement**: Same as in the previous examples.
+- **Define SQL Query**: The updateSql variable holds the UPDATE statement. The WHERE clause specifies which record(s) to update. If you omit the WHERE clause, all rows in the table will be updated, which is usually not what you want.
+- **Execute Update**: The statement.executeUpdate(updateSql) method executes the SQL statement.
+- **Handle Result**: The rowsAffected variable stores the number of rows that were successfully updated.
+- **Error Handling**: The try-catch block handles potential SQLExceptions.
+
+**Updating Multiple Columns**
+
+You can update multiple columns in a single UPDATE statement.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class UpdateMultipleColumns {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String updateSql = "UPDATE products SET name = 'Laptop Pro', price = 1400.00 WHERE id = 1";
+            int rowsAffected = statement.executeUpdate(updateSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error updating data: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Using Expressions in UPDATE Statements**
+
+You can use expressions in the UPDATE statement to perform calculations or manipulate data.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class UpdateWithExpression {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String updateSql = "UPDATE products SET price = price * 1.10 WHERE id = 1"; // Increase price by 10%
+            int rowsAffected = statement.executeUpdate(updateSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error updating data: " + e.getMessage());
+        }
+    }
+}
+```
+
+This example increases the price of the product with id = 1 by 10%.
 
 #### <a name="chapter17part2.4"></a>Chapter 17 - Part 2.4: Deleting Data (DELETE)
 
+The DELETE statement is used to remove records from a database table. In JDBC, you execute DELETE statements using the Statement object's executeUpdate() method.
+
+**Basic DELETE Example**
+
+Let's delete a product from the products table.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DeleteExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String deleteSql = "DELETE FROM products WHERE id = 4";
+            int rowsAffected = statement.executeUpdate(deleteSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting data: " + e.getMessage());
+        }
+    }
+}
+```
+
+Explanation:
+
+- **Establish Connection**: Same as in the previous examples.
+- **Create Statement**: Same as in the previous examples.
+- **Define SQL Query**: The deleteSql variable holds the DELETE statement. The WHERE clause specifies which record(s) to delete. If you omit the WHERE clause, all rows in the table will be deleted, so be very careful!
+- **Execute Update**: The statement.executeUpdate(deleteSql) method executes the SQL statement.
+- **Handle Result**: The rowsAffected variable stores the number of rows that were successfully deleted.
+- **Error Handling**: The try-catch block handles potential SQLExceptions.
+
+**Deleting with Conditions**
+
+You can use the WHERE clause to specify conditions for deleting records.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DeleteWithCondition {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+        String user = "root"; // Replace with your database username
+        String password = "password"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String deleteSql = "DELETE FROM products WHERE price < 30.00";
+            int rowsAffected = statement.executeUpdate(deleteSql);
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting data: " + e.getMessage());
+        }
+    }
+}
+```
+
+This example deletes all products with a price less than 30.00.
+
 #### <a name="chapter17part3"></a>Chapter 17 - Part 3: Understanding Prepared Statements and Preventing SQL Injection
+
+Prepared statements are a crucial tool in JDBC for executing precompiled SQL queries efficiently and securely. They offer significant performance benefits over standard statements, especially when executing the same query multiple times with different parameters. More importantly, prepared statements are the primary defense against SQL injection attacks, a common and dangerous security vulnerability. Understanding and utilizing prepared statements correctly is essential for building robust and secure Java applications that interact with databases.
 
 #### <a name="chapter17part3.1"></a>Chapter 17 - Part 3.1: Understanding Prepared Statements
 
+A PreparedStatement is a precompiled SQL statement. This means that the database parses, compiles, and optimizes the SQL query before any parameters are supplied. When you execute the prepared statement with different parameters, the database can reuse the precompiled execution plan, resulting in faster execution times.
+
+**How Prepared Statements Work**
+
+- **Preparation**: The SQL statement is sent to the database server for compilation. The statement contains placeholders (represented by ?) for parameters that will be supplied later.
+- **Parameter Binding**: You provide the values for the placeholders using the setXXX() methods of the PreparedStatement interface (e.g., setString(), setInt(), setDate()).
+- **Execution**: The prepared statement is executed with the bound parameters. The database reuses the precompiled execution plan, substituting the provided parameters into the query.
+
+**Benefits of Prepared Statements**
+
+- **Performance**: Precompilation leads to faster execution, especially for repeated queries.
+- **Security**: Automatic parameter escaping prevents SQL injection attacks.
+- **Readability**: Code is often cleaner and easier to understand.
+
+**Creating Prepared Statements**
+
+You create a PreparedStatement using the prepareStatement() method of the Connection object.
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class CreatePreparedStatement {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/your_database";
+        String user = "your_user";
+        String password = "your_password";
+
+        try (Connection connection = java.sql.DriverManager.getConnection(url, user, password)) {
+            // SQL query with placeholders
+            String sql = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
+
+            // Create a PreparedStatement
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            System.out.println("PreparedStatement created successfully!");
+
+        } catch (SQLException e) {
+            System.err.println("Error creating PreparedStatement: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Setting Parameters**
+
+The PreparedStatement interface provides various setXXX() methods to set the values of the parameters. The XXX part represents the data type of the parameter (e.g., setString, setInt, setDate, setDouble). The first argument to these methods is the index of the parameter (starting from 1), and the second argument is the value to be set.
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class SetParameters {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/your_database";
+        String user = "your_user";
+        String password = "your_password";
+
+        try (Connection connection = java.sql.DriverManager.getConnection(url, user, password)) {
+            String sql = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // Set the parameters
+            preparedStatement.setString(1, "Laptop"); // Parameter 1: name (String)
+            preparedStatement.setString(2, "High-performance laptop"); // Parameter 2: description (String)
+            preparedStatement.setDouble(3, 1200.00); // Parameter 3: price (Double)
+
+            System.out.println("Parameters set successfully!");
+
+        } catch (SQLException e) {
+            System.err.println("Error setting parameters: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Executing Prepared Statements**
+
+Once the parameters are set, you can execute the prepared statement using one of the following methods:
+
+- executeQuery(): For SELECT statements that return a result set.
+- executeUpdate(): For INSERT, UPDATE, and DELETE statements that modify data. Returns the number of rows affected.
+- execute(): For statements that may return multiple results or don't have a known result type.
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class ExecutePreparedStatement {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/your_database";
+        String user = "your_user";
+        String password = "your_password";
+
+        try (Connection connection = java.sql.DriverManager.getConnection(url, user, password)) {
+            String sql = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, "Tablet");
+            preparedStatement.setString(2, "10-inch Android tablet");
+            preparedStatement.setDouble(3, 300.00);
+
+            // Execute the PreparedStatement
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.err.println("Error executing PreparedStatement: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Example: Retrieving Data with Prepared Statements**
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class RetrieveDataPreparedStatement {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/your_database";
+        String user = "your_user";
+        String password = "your_password";
+
+        try (Connection connection = java.sql.DriverManager.getConnection(url, user, password)) {
+            String sql = "SELECT id, name, price FROM products WHERE price > ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // Set the parameter (minimum price)
+            preparedStatement.setDouble(1, 500.00);
+
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+
+                System.out.println("ID: " + id + ", Name: " + name + ", Price: " + price);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving data: " + e.getMessage());
+        }
+    }
+}
+```
+
 #### <a name="chapter17part3.2"></a>Chapter 17 - Part 3.2: Preventing SQL Injection
+
+SQL injection is a security vulnerability that allows attackers to inject malicious SQL code into your queries, potentially gaining unauthorized access to your database or manipulating data. Prepared statements are the most effective way to prevent SQL injection because they treat parameter values as data, not as part of the SQL command.
+
+**How SQL Injection Works (and Why Prepared Statements Prevent It)**
+
+Consider the following example using a standard Statement:
+
+```java
+String userInput = "'; DROP TABLE users; --"; // Malicious input
+String sql = "SELECT * FROM users WHERE username = '" + userInput + "'";
+
+// Vulnerable code (using Statement)
+Statement statement = connection.createStatement();
+ResultSet resultSet = statement.executeQuery(sql);
+```
+
+In this case, the userInput string is directly concatenated into the SQL query. The attacker's input includes SQL code (DROP TABLE users) that will be executed by the database, potentially deleting the entire users table.
+
+Prepared statements prevent this because the database knows that the ? placeholders represent data values. The database driver automatically escapes or encodes the parameter values to ensure they are treated as literal strings, not as executable SQL code.
+
+**Example: Preventing SQL Injection with Prepared Statements**
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class PreventSQLInjection {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/your_database";
+        String user = "your_user";
+        String password = "your_password";
+
+        try (Connection connection = java.sql.DriverManager.getConnection(url, user, password)) {
+            String userInput = "'; DROP TABLE products; --"; // Malicious input
+            String sql = "SELECT * FROM products WHERE name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // Set the parameter (user input)
+            preparedStatement.setString(1, userInput);
+
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+
+                System.out.println("ID: " + id + ", Name: " + name + ", Price: " + price);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving data: " + e.getMessage());
+        }
+    }
+}
+```
+
+In this example, even though userInput contains malicious SQL code, the PreparedStatement treats it as a literal string. The database will search for a product with the name exactly matching the malicious input string, and it will not execute the DROP TABLE command.
+
+**Best Practices for Preventing SQL Injection**
+
+- **Always use Prepared Statements**: This is the most important rule.
+- **Never concatenate user input directly into SQL queries**: Avoid using standard Statement objects with string concatenation.
+- **Use Parameterized Queries in ORM Frameworks**: If you're using an ORM framework like Hibernate or JPA, ensure that you're using parameterized queries or named parameters, which provide the same protection as prepared statements.
+- **Input Validation**: While prepared statements prevent SQL injection, it's still good practice to validate user input to prevent other types of errors or attacks. For example, you can check the length of input strings or ensure that numeric inputs are within a valid range.
+- **Principle of Least Privilege**: Ensure that the database user your application uses has only the necessary permissions to perform its tasks. Avoid using a database user with administrative privileges.
 
 #### <a name="chapter17part4"></a>Chapter 17 - Part 4: Managing Transactions in JDBC
 
+Transactions are a cornerstone of reliable database operations, ensuring data consistency and integrity even when faced with unexpected errors or system failures. They provide a way to group a series of database operations into a single logical unit of work, which either completely succeeds or completely fails, preventing partial updates and maintaining the database in a consistent state. Understanding and properly managing transactions is crucial for building robust and dependable Java applications that interact with databases.
+
 #### <a name="chapter17part4.1"></a>Chapter 17 - Part 4.1: Understanding ACID Properties
+
+Transactions in database systems adhere to the ACID properties, which guarantee reliability and data integrity. ACID stands for:
+
+- **Atomicity**: This property ensures that a transaction is treated as a single, indivisible unit of work. Either all operations within the transaction are successfully completed, or none of them are. If any part of the transaction fails, the entire transaction is rolled back to its initial state, as if it never occurred.
+
+Example: Consider a bank transfer from account A to account B. Atomicity ensures that either the money is deducted from account A and added to account B, or neither operation happens. If the deduction from A succeeds but the addition to B fails (e.g., due to a network error), the transaction is rolled back, and the money is not deducted from A.
+
+Hypothetical Scenario: Imagine an e-commerce system processing an order. The transaction involves updating inventory, creating an order record, and charging the customer. If updating inventory succeeds but charging the customer fails, the entire transaction must be rolled back to prevent an order from being created without payment.
+
+- **Consistency**: A transaction must maintain the database's integrity constraints. It transforms the database from one valid state to another valid state. This means that the transaction must not violate any defined rules, such as primary key constraints, foreign key constraints, or data type constraints.
+
+Example: If a database has a constraint that an account balance cannot be negative, a transaction that attempts to withdraw more money than is available in the account will be rolled back to maintain consistency.
+
+Real-World Application: In a hospital management system, a consistency rule might state that a patient can only be assigned to one ward at a time. A transaction that attempts to assign a patient to two different wards simultaneously would violate this rule and be rolled back.
+
+- **Isolation**: This property ensures that concurrent transactions do not interfere with each other. Each transaction operates as if it were the only transaction running on the system, even though multiple transactions may be executing simultaneously. Isolation levels control the degree to which transactions are isolated from each other.
+
+Example: If two transactions are trying to update the same account balance concurrently, isolation ensures that one transaction completes before the other starts, preventing data corruption.
+
+Hypothetical Scenario: Consider an airline reservation system where multiple agents are booking seats on the same flight. Isolation ensures that each agent sees a consistent view of available seats and that no seats are overbooked.
+
+- **Durability**: Once a transaction is committed, its changes are permanent and will survive even system failures such as power outages or crashes. The database system guarantees that the committed data will be stored persistently and will be recoverable.
+
+Example: After a bank transfer transaction is committed, the changes to the account balances are permanently stored and will not be lost even if the database server crashes immediately afterward.
+
+Real-World Application: In a financial trading system, durability ensures that once a trade is executed and confirmed, the record of the trade is permanently stored and cannot be lost, even in the event of a system failure.
 
 #### <a name="chapter17part4.2"></a>Chapter 17 - Part 4.2: JDBC Transaction Management
 
+JDBC provides mechanisms to control transactions programmatically. By default, JDBC connections operate in auto-commit mode, where each SQL statement is treated as a separate transaction and is automatically committed after execution. To manage transactions explicitly, you need to disable auto-commit mode and then use the commit() and rollback() methods to control the transaction boundaries.
+
+**Disabling Auto-Commit**
+
+To disable auto-commit mode, use the setAutoCommit(false) method on the Connection object:
+
+```java
+Connection connection = DriverManager.getConnection(url, user, password);
+connection.setAutoCommit(false); // Disable auto-commit mode
+```
+
+**Committing Transactions**
+
+To commit a transaction, use the commit() method on the Connection object. This makes all changes made within the transaction permanent in the database:
+
+```java
+try {
+    // Perform database operations
+    Statement statement = connection.createStatement();
+    statement.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+    statement.executeUpdate("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+
+    connection.commit(); // Commit the transaction
+    System.out.println("Transaction committed successfully.");
+
+} catch (SQLException e) {
+    // Handle exceptions
+    e.printStackTrace();
+}
+```
+
+**Rolling Back Transactions**
+
+If an error occurs during a transaction, you can use the rollback() method on the Connection object to undo all changes made within the transaction and restore the database to its previous state:
+
+```java
+try {
+    // Perform database operations
+    Statement statement = connection.createStatement();
+    statement.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+    // Simulate an error
+    if (true) {
+        throw new SQLException("Simulated error");
+    }
+    statement.executeUpdate("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+
+    connection.commit(); // Commit the transaction
+    System.out.println("Transaction committed successfully.");
+
+} catch (SQLException e) {
+    try {
+        connection.rollback(); // Rollback the transaction
+        System.out.println("Transaction rolled back.");
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    e.printStackTrace();
+}
+```
+
+**Example: Transferring Funds**
+
+Here's a complete example demonstrating a transaction to transfer funds between two accounts:
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class TransactionExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/bankdb";
+        String user = "root";
+        String password = "password";
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            connection.setAutoCommit(false); // Disable auto-commit
+
+            try (Statement statement = connection.createStatement()) {
+                // Deduct from account 1
+                statement.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+
+                // Add to account 2
+                statement.executeUpdate("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+
+                connection.commit(); // Commit the transaction
+                System.out.println("Funds transferred successfully.");
+
+            } catch (SQLException e) {
+                connection.rollback(); // Rollback on error
+                System.err.println("Transaction failed. Rolling back.");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Database connection failed.");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+In this example:
+
+- We disable auto-commit mode using connection.setAutoCommit(false).
+- We execute two SQL statements to deduct funds from one account and add them to another.
+- If both statements execute successfully, we commit the transaction using connection.commit().
+- If any exception occurs, we roll back the transaction using connection.rollback().
+- The try-with-resources statement ensures that the connection and statement are closed properly, even if exceptions occur.
+
+**Setting Isolation Levels**
+
+JDBC allows you to set the transaction isolation level to control the degree to which transactions are isolated from each other. The isolation level determines the types of concurrency issues that can occur, such as dirty reads, non-repeatable reads, and phantom reads.
+
+The Connection interface provides the setTransactionIsolation() method to set the isolation level. The following constants are defined in the Connection interface:
+
+- TRANSACTION_NONE: Transactions are not supported.
+- TRANSACTION_READ_UNCOMMITTED: Allows dirty reads, non-repeatable reads, and phantom reads.
+- TRANSACTION_READ_COMMITTED: Prevents dirty reads but allows non-repeatable reads and phantom reads.
+- TRANSACTION_REPEATABLE_READ: Prevents dirty reads and non-repeatable reads but allows phantom reads.
+- TRANSACTION_SERIALIZABLE: Provides the highest level of isolation, preventing dirty reads, non-repeatable reads, and phantom reads.
+
+Here's an example of setting the transaction isolation level to TRANSACTION_READ_COMMITTED:
+
+```java
+Connection connection = DriverManager.getConnection(url, user, password);
+connection.setAutoCommit(false);
+connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+```
+
+Note: The supported isolation levels and their behavior may vary depending on the database system being used.
+
+**Savepoints**
+
+Savepoints allow you to create intermediate points within a transaction to which you can roll back selectively. This can be useful for handling complex transactions where you want to undo only a portion of the changes made.
+
+To create a savepoint, use the setSavepoint() method on the Connection object:
+
+```java
+Savepoint savepoint1 = connection.setSavepoint("Savepoint1");
+```
+
+To roll back to a savepoint, use the rollback(Savepoint savepoint) method:
+
+```java
+connection.rollback(savepoint1);
+```
+
+Here's an example demonstrating the use of savepoints:
+
+```java
+import java.sql.*;
+
+public class SavepointExample {
+
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/bankdb";
+        String user = "root";
+        String password = "password";
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            connection.setAutoCommit(false);
+
+            try (Statement statement = connection.createStatement()) {
+                // Initial update
+                statement.executeUpdate("UPDATE accounts SET balance = balance - 50 WHERE id = 1");
+                Savepoint savepoint1 = connection.setSavepoint("deduct50");
+
+                // Another update
+                statement.executeUpdate("UPDATE accounts SET balance = balance + 25 WHERE id = 2");
+
+                // Simulate an error - decide to rollback to savepoint1
+                if (true) {
+                    System.out.println("Rolling back to savepoint deduct50");
+                    connection.rollback(savepoint1);
+                    statement.executeUpdate("UPDATE accounts SET balance = balance + 50 WHERE id = 1"); //redo the deduction
+                }
+
+                connection.commit();
+                System.out.println("Transaction committed successfully.");
+
+            } catch (SQLException e) {
+                connection.rollback();
+                System.err.println("Transaction failed. Rolling back.");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Database connection failed.");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+In this example, if an error occurs after the second update, the transaction is rolled back to savepoint1, undoing only the second update.
+
 #### <a name="chapter17part4.3"></a>Chapter 17 - Part 4.3: Best Practices for Transaction Management
+
+- **Keep transactions short**: Long-running transactions can hold locks on database resources for extended periods, reducing concurrency and potentially causing performance issues.
+- **Handle exceptions properly**: Always handle SQLExceptions and roll back the transaction if an error occurs.
+- **Use try-with-resources**: Use the try-with-resources statement to ensure that connections, statements, and result sets are closed properly, even if exceptions occur.
+- **Choose the appropriate isolation level**: Select the lowest isolation level that meets the application's requirements to maximize concurrency.
+- **Avoid deadlocks**: Deadlocks can occur when two or more transactions are blocked indefinitely, waiting for each other to release locks. Design your transactions to minimize the risk of deadlocks.
+- **Consider using a transaction manager**: For complex applications, consider using a transaction manager such as Spring Transaction Management to simplify transaction management and ensure consistency across multiple resources.
 
 #### <a name="chapter17part5"></a>Chapter 17 - Part 5: Exploring Connection Pooling for Performance Optimization
 
+Connection pooling is a crucial technique for optimizing database performance in Java applications using JDBC. Establishing a database connection is an expensive operation, involving network communication, authentication, and resource allocation. Without connection pooling, each database operation would require creating a new connection, executing the query, and then closing the connection. This overhead can significantly impact application performance, especially in high-traffic scenarios. Connection pooling addresses this issue by creating and managing a pool of database connections that can be reused by multiple threads or requests. This reduces the overhead of repeatedly creating and closing connections, leading to improved response times and overall application efficiency.
+
 #### <a name="chapter17part5.1"></a>Chapter 17 - Part 5.1: Understanding Connection Pooling
+
+Connection pooling is a technique where a cache of database connections is maintained so that connections can be reused when future requests to the database are required. Connection pools are particularly useful in environments where database connections are frequently opened and closed.
+
+**How Connection Pooling Works**
+
+- **Connection Creation**: When the application starts or the connection pool is initialized, a set of database connections is created and stored in the pool. The number of connections created initially is configurable.
+- **Connection Request**: When the application needs to execute a database operation, it requests a connection from the pool.
+- **Connection Allocation**: If a connection is available in the pool, it is provided to the application. If all connections are in use and the pool has not reached its maximum size, a new connection may be created and added to the pool (depending on the pool's configuration). If all connections are in use and the pool has reached its maximum size, the request may be queued or an exception may be thrown.
+- **Connection Usage**: The application uses the connection to execute the database operation.
+- **Connection Return**: After the database operation is completed, the application returns the connection to the pool. The connection is not closed but is instead made available for reuse.
+- **Connection Management**: The connection pool manager monitors the connections in the pool, ensuring that they are valid and available. It may also close idle connections to conserve resources.
+
+**Benefits of Connection Pooling**
+
+- **Improved Performance**: Reduces the overhead of creating and closing database connections for each request.
+- **Reduced Resource Consumption**: Prevents the exhaustion of database resources by limiting the number of active connections.
+- **Enhanced Scalability**: Allows the application to handle a larger number of concurrent requests.
+- **Simplified Connection Management**: Provides a centralized mechanism for managing database connections.
+
+**Connection Pool Configuration Parameters**
+
+Connection pools are typically configured with several parameters that control their behavior:
+
+- **Minimum Pool Size**: The minimum number of connections that the pool should maintain.
+- **Maximum Pool Size**: The maximum number of connections that the pool can create.
+- **Connection Timeout**: The maximum amount of time to wait for a connection to become available.
+- **Idle Timeout**: The maximum amount of time that a connection can remain idle before being closed.
+- **Maximum Lifetime**: The maximum amount of time that a connection can remain open.
+- **Validation Query**: A SQL query used to validate that a connection is still valid before being provided to the application.
 
 #### <a name="chapter17part5.2"></a>Chapter 17 - Part 5.2: Implementing Connection Pooling in Java
 
+Several connection pooling libraries are available for Java, including:
+
+- **HikariCP**: A high-performance JDBC connection pooling library.
+- **Apache Commons DBCP**: A widely used connection pooling library from the Apache Commons project.
+- **C3P0**: An open-source JDBC connection pooling library.
+
+We will focus on HikariCP due to its performance and ease of use.
+
+**Using HikariCP**
+
+- **Add the HikariCP Dependency**: Include the HikariCP dependency in your project's pom.xml (if using Maven) or build.gradle (if using Gradle).
+
+```java
+<!-- Maven -->
+<dependency>
+    <groupId>com.zaxxer</groupId>
+    <artifactId>HikariCP</artifactId>
+    <version>5.0.1</version>
+</dependency>
+```
+
+```
+// Gradle
+implementation 'com.zaxxer:HikariCP:5.0.1'
+```
+
+- **Configure the Connection Pool**: Create a HikariConfig object and set the necessary properties, such as the JDBC URL, username, and password.
+
+```java
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public class DataSource {
+
+    private static HikariConfig config = new HikariConfig();
+    private static HikariDataSource ds;
+
+    static {
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/inventorydb"); // Replace with your database URL
+        config.setUsername("username"); // Replace with your database username
+        config.setPassword("password"); // Replace with your database password
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver"); // Replace with your database driver class name
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.setMinimumIdle(5);
+        config.setMaximumPoolSize(20);
+        config.setConnectionTimeout(30000);
+        config.setIdleTimeout(600000);
+        config.setMaxLifetime(1800000);
+        ds = new HikariDataSource(config);
+    }
+
+    private DataSource() {}
+
+    public static Connection getConnection() throws SQLException {
+        return ds.getConnection();
+    }
+}
+```
+
+  - jdbcUrl: Specifies the URL for connecting to the database. Make sure to replace "jdbc:mysql://localhost:3306/inventorydb" with the actual URL for your database.
+  - username: Specifies the username for connecting to the database. Replace "username" with the actual username for your database.
+  - password: Specifies the password for connecting to the database. Replace "password" with the actual password for your database.
+  - driverClassName: Specifies the JDBC driver class name. Replace "com.mysql.cj.jdbc.Driver" with the correct driver class name for your database.
+  - cachePrepStmts: Enables or disables the prepared statement cache.
+  - prepStmtCacheSize: Sets the size of the prepared statement cache.
+  - prepStmtCacheSqlLimit: Sets the maximum length of SQL statements that can be cached.
+  - minimumIdle: Sets the minimum number of idle connections in the pool.
+  - maximumPoolSize: Sets the maximum number of connections in the pool.
+  - connectionTimeout: Sets the maximum time to wait for a connection to be available.
+  - idleTimeout: Sets the maximum time that a connection can remain idle before being closed.
+  - maxLifetime: Sets the maximum lifetime of a connection.
+
+- **Obtain a Connection from the Pool**: Use the getConnection() method of the HikariDataSource to obtain a connection from the pool.
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class InventoryDAO {
+
+    public String getItemName(int itemId) {
+        String itemName = null;
+        try (Connection connection = DataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT name FROM items WHERE id = ?")) {
+
+            preparedStatement.setInt(1, itemId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    itemName = resultSet.getString("name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return itemName;
+    }
+}
+```
+
+- The DataSource.getConnection() method retrieves a connection from the HikariCP connection pool.
+- The try-with-resources statement ensures that the connection, prepared statement, and result set are closed automatically after use, even if an exception occurs.
+
+**Example with the Inventory Management System**
+
+Continuing with the inventory management system introduced in previous lessons, let's integrate connection pooling using HikariCP. Assume we have a database named inventorydb with a table named items.
+
+- **Update the DataSource class**: Modify the DataSource class to use HikariCP for connection pooling, as shown in the previous example. Ensure the JDBC URL, username, and password are correct for your inventorydb database.
+
+- **Use the DataSource in your DAO classes**: Modify your Data Access Object (DAO) classes to obtain connections from the DataSource. For example, the InventoryDAO class might look like this:
+
+```java
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class InventoryDAO {
+
+    public String getItemName(int itemId) {
+        String itemName = null;
+        try (Connection connection = DataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT name FROM items WHERE id = ?")) {
+
+            preparedStatement.setInt(1, itemId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    itemName = resultSet.getString("name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return itemName;
+    }
+
+    public void updateItemQuantity(int itemId, int quantity) {
+        try (Connection connection = DataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE items SET quantity = ? WHERE id = ?")) {
+
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setInt(2, itemId);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+  - The getItemName method retrieves the name of an item from the items table based on its ID.
+  - The updateItemQuantity method updates the quantity of an item in the items table.
+  - Both methods obtain a connection from the DataSource and use it to execute the database operations.
+
+**Monitoring and Tuning Connection Pools**
+
+Monitoring and tuning connection pools is essential for ensuring optimal performance. Key metrics to monitor include:
+
+- **Active Connections**: The number of connections currently in use.
+- **Idle Connections**: The number of connections currently idle in the pool.
+- **Wait Time**: The amount of time that requests are waiting for a connection.
+- **Connection Usage**: The frequency with which connections are being used.
+
+Based on these metrics, you can adjust the connection pool configuration parameters to optimize performance. For example, if the wait time is consistently high, you may need to increase the maximum pool size. If the number of idle connections is consistently high, you may need to decrease the minimum pool size or the idle timeout.
+
 #### <a name="chapter17part6"></a>Chapter 17 - Part 6: Case Study: Building a Simple Inventory Management System
+
+Building a Simple Inventory Management System using JDBC provides a practical application of the concepts we've covered in this module. This case study will demonstrate how to connect to a database, perform CRUD (Create, Read, Update, Delete) operations, use prepared statements to prevent SQL injection, and manage transactions, all within the context of a real-world application. By building this system, you'll solidify your understanding of JDBC and gain valuable experience in database interaction.
 
 #### <a name="chapter17part6.1"></a>Chapter 17 - Part 6.1: System Requirements and Design
 
+Before diving into the code, let's define the requirements for our inventory management system. We'll keep it simple for this case study, focusing on the core functionalities.
+
+- **Data Storage**: We need a database to store information about our inventory items. We'll use a relational database (like MySQL, PostgreSQL, or H2) and a table named products.
+
+- **Product Attributes**: Each product will have the following attributes
+  - product_id (INT, Primary Key, Auto-Increment)
+  - product_name (VARCHAR)
+  - description (VARCHAR)
+  - quantity (INT)
+  - price (DECIMAL)
+ 
+- **Functionalities**: The system should support the following operations:
+  - Create: Add a new product to the inventory.
+  - Read: Retrieve product information by ID or list all products.
+  - Update: Modify existing product information (name, description, quantity, price).
+  - Delete: Remove a product from the inventory.
+ 
+**Database Schema**
+
+Here's the SQL script to create the products table (example for MySQL):
+
+```
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+```
+
+This script defines the structure of our products table, including data types, constraints (like NOT NULL), and the primary key.
+
 #### <a name="chapter17part6.2"></a>Chapter 17 - Part 6.2: Implementing the Inventory Management System
 
+Now, let's implement the Java code to interact with the database. We'll create a class called InventoryManager that encapsulates the database operations.
+
+**Setting up the JDBC Connection**
+
+First, we need to establish a connection to the database. This involves loading the JDBC driver and creating a Connection object.
+
+```java
+import java.sql.*;
+
+public class InventoryManager {
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+    private static final String DB_USER = "your_username"; // Replace with your database username
+    private static final String DB_PASSWORD = "your_password"; // Replace with your database password
+
+    private Connection connection;
+
+    public InventoryManager() throws SQLException {
+        try {
+            // Load the JDBC driver (optional in modern JDBC versions)
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Replace with your driver class name if needed
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            System.out.println("Connected to the database!");
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBC driver not found!");
+            throw new SQLException(e);
+        } catch (SQLException e) {
+            System.err.println("Database connection failed!");
+            throw e;
+        }
+    }
+
+    public void closeConnection() throws SQLException {
+        if (connection != null) {
+            connection.close();
+            System.out.println("Connection closed.");
+        }
+    }
+
+    // CRUD operations will be added here
+}
+```
+
+**Explanation:**
+
+- We define constants for the database URL, username, and password. Important: Never hardcode credentials in production code. Use environment variables or a configuration file.
+- The constructor attempts to load the JDBC driver (if needed) and establish a connection to the database using DriverManager.getConnection().
+- The closeConnection() method closes the connection when it's no longer needed. It's crucial to close connections to release database resources.
+- Error handling is included to catch potential ClassNotFoundException (if the driver is not found) and SQLException (if the connection fails).
+
+**Creating a Product (Create Operation)**
+
+Let's implement the createProduct() method to add a new product to the inventory. We'll use a PreparedStatement to prevent SQL injection.
+
+```java
+public void createProduct(String productName, String description, int quantity, double price) throws SQLException {
+    String sql = "INSERT INTO products (product_name, description, quantity, price) VALUES (?, ?, ?, ?)";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setString(1, productName);
+        preparedStatement.setString(2, description);
+        preparedStatement.setInt(3, quantity);
+        preparedStatement.setDouble(4, price);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("Product created successfully!");
+        } else {
+            System.out.println("Product creation failed.");
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- We define the SQL INSERT statement with placeholders (?) for the values.
+- We create a PreparedStatement using connection.prepareStatement(). This pre-compiles the SQL statement, improving performance and preventing SQL injection.
+- We set the values for the placeholders using the setXXX() methods of the PreparedStatement (e.g., setString(), setInt(), setDouble()).
+- We execute the statement using preparedStatement.executeUpdate(), which returns the number of rows affected by the operation.
+- We use a try-with-resources statement to ensure that the PreparedStatement is closed automatically after use, even if an exception occurs.
+
+**Retrieving Product Information (Read Operation)**
+
+Now, let's implement the getProductById() and getAllProducts() methods to retrieve product information.
+
+```java
+public void getProductById(int productId) throws SQLException {
+    String sql = "SELECT * FROM products WHERE product_id = ?";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setInt(1, productId);
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                System.out.println("Product ID: " + resultSet.getInt("product_id"));
+                System.out.println("Product Name: " + resultSet.getString("product_name"));
+                System.out.println("Description: " + resultSet.getString("description"));
+                System.out.println("Quantity: " + resultSet.getInt("quantity"));
+                System.out.println("Price: " + resultSet.getDouble("price"));
+            } else {
+                System.out.println("Product not found with ID: " + productId);
+            }
+        }
+    }
+}
+
+public void getAllProducts() throws SQLException {
+    String sql = "SELECT * FROM products";
+
+    try (Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(sql)) {
+
+        while (resultSet.next()) {
+            System.out.println("Product ID: " + resultSet.getInt("product_id"));
+            System.out.println("Product Name: " + resultSet.getString("product_name"));
+            System.out.println("Description: " + resultSet.getString("description"));
+            System.out.println("Quantity: " + resultSet.getInt("quantity"));
+            System.out.println("Price: " + resultSet.getDouble("price"));
+            System.out.println("--------------------");
+        }
+    }
+}
+```
+
+Explanation:
+
+- getProductById() retrieves a specific product by its ID using a PreparedStatement.
+- getAllProducts() retrieves all products from the database using a Statement. Since we're not taking user input directly in this method, we can use a regular Statement instead of a PreparedStatement.
+- Both methods use a ResultSet to iterate over the results of the query.
+- resultSet.next() moves the cursor to the next row in the result set.
+- resultSet.getXxx() methods retrieve the values of the columns in the current row (e.g., getInt(), getString(), getDouble()).
+- We use try-with-resources statements to ensure that the ResultSet and Statement (or PreparedStatement) are closed automatically.
+
+**Updating Product Information (Update Operation)**
+
+Let's implement the updateProduct() method to modify existing product information.
+
+```java
+public void updateProduct(int productId, String productName, String description, int quantity, double price) throws SQLException {
+    String sql = "UPDATE products SET product_name = ?, description = ?, quantity = ?, price = ? WHERE product_id = ?";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setString(1, productName);
+        preparedStatement.setString(2, description);
+        preparedStatement.setInt(3, quantity);
+        preparedStatement.setDouble(4, price);
+        preparedStatement.setInt(5, productId);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("Product updated successfully!");
+        } else {
+            System.out.println("Product not found with ID: " + productId);
+        }
+    }
+}
+```
+
+**Explanation:**
+
+- We define the SQL UPDATE statement with placeholders for the values and the WHERE clause to identify the product to update.
+- We create a PreparedStatement and set the values for the placeholders.
+- We execute the statement using preparedStatement.executeUpdate().
+
+**Deleting a Product (Delete Operation)**
+
+Finally, let's implement the deleteProduct() method to remove a product from the inventory.
+
+```java
+public void deleteProduct(int productId) throws SQLException {
+    String sql = "DELETE FROM products WHERE product_id = ?";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setInt(1, productId);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("Product deleted successfully!");
+        } else {
+            System.out.println("Product not found with ID: " + productId);
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- We define the SQL DELETE statement with a placeholder for the product ID in the WHERE clause.
+- We create a PreparedStatement and set the value for the placeholder.
+- We execute the statement using preparedStatement.executeUpdate().
+
+**Transaction Management**
+
+To ensure data consistency, especially when performing multiple related operations, we can use transactions. Let's consider a scenario where we want to update the quantity of a product and log the change in a separate table. If either operation fails, we want to roll back the entire transaction.
+
+```java
+public void updateQuantityAndLog(int productId, int newQuantity, String logMessage) throws SQLException {
+    Connection localConnection = null; // Use a local connection for the transaction
+    try {
+        localConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        localConnection.setAutoCommit(false); // Disable auto-commit to start a transaction
+
+        // 1. Update the product quantity
+        String updateSql = "UPDATE products SET quantity = ? WHERE product_id = ?";
+        try (PreparedStatement updateStatement = localConnection.prepareStatement(updateSql)) {
+            updateStatement.setInt(1, newQuantity);
+            updateStatement.setInt(2, productId);
+            updateStatement.executeUpdate();
+        }
+
+        // 2. Log the quantity change
+        String logSql = "INSERT INTO product_log (product_id, log_message, log_time) VALUES (?, ?, NOW())"; // Assuming you have a product_log table
+        try (PreparedStatement logStatement = localConnection.prepareStatement(logSql)) {
+            logStatement.setInt(1, productId);
+            logStatement.setString(2, logMessage);
+            logStatement.executeUpdate();
+        }
+
+        localConnection.commit(); // Commit the transaction if both operations succeed
+        System.out.println("Quantity updated and log entry created successfully!");
+
+    } catch (SQLException e) {
+        if (localConnection != null) {
+            try {
+                localConnection.rollback(); // Rollback the transaction if any operation fails
+                System.err.println("Transaction rolled back.  Quantity and log not updated.");
+            } catch (SQLException rollbackException) {
+                System.err.println("Error rolling back transaction: " + rollbackException.getMessage());
+            }
+        }
+        throw e; // Re-throw the original exception
+    } finally {
+        if (localConnection != null) {
+            try {
+                localConnection.setAutoCommit(true); // Restore auto-commit
+                localConnection.close(); // Close the local connection
+            } catch (SQLException closeException) {
+                System.err.println("Error closing connection: " + closeException.getMessage());
+            }
+        }
+    }
+}
+```
+
+**Explanation**:
+
+- We obtain a new Connection object specifically for this transaction. This is important to avoid interfering with other operations.
+- We disable auto-commit using connection.setAutoCommit(false) to start a transaction.
+- We perform the update and logging operations within the try block.
+- If both operations succeed, we commit the transaction using connection.commit().
+- If any exception occurs, we roll back the transaction using connection.rollback() to undo any changes made during the transaction.
+- In the finally block, we restore auto-commit to its default value (true) and close the connection. This ensures that the connection is always closed, even if an exception occurs.
+
+**Important Considerations:**
+
+- **Isolation Levels**: JDBC supports different transaction isolation levels, which control the degree to which concurrent transactions are isolated from each other. The default isolation level depends on the database system. You can set the isolation level using connection.setTransactionIsolation(). Understanding isolation levels is crucial for preventing concurrency issues like dirty reads, non-repeatable reads, and phantom reads.
+- **Connection Pooling**: For production applications, it's highly recommended to use connection pooling to improve performance and resource utilization. Connection pooling involves creating a pool of database connections that can be reused by multiple threads or requests. We'll explore connection pooling in more detail in the next lesson.
+- **Error Handling**: Robust error handling is essential for production applications. You should log errors, provide informative error messages to the user, and handle exceptions gracefully.
+
 #### <a name="chapter17part6.3"></a>Chapter 17 - Part 6.3: Complete InventoryManager Class
+
+Here's the complete InventoryManager class with all the CRUD operations and transaction management:
+
+```java
+import java.sql.*;
+
+public class InventoryManager {
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/inventory_db"; // Replace with your database URL
+    private static final String DB_USER = "your_username"; // Replace with your database username
+    private static final String DB_PASSWORD = "your_password"; // Replace with your database password
+
+    private Connection connection;
+
+    public InventoryManager() throws SQLException {
+        try {
+            // Load the JDBC driver (optional in modern JDBC versions)
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Replace with your driver class name if needed
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            System.out.println("Connected to the database!");
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBC driver not found!");
+            throw new SQLException(e);
+        } catch (SQLException e) {
+            System.err.println("Database connection failed!");
+            throw e;
+        }
+    }
+
+    public void closeConnection() throws SQLException {
+        if (connection != null) {
+            connection.close();
+            System.out.println("Connection closed.");
+        }
+    }
+
+    public void createProduct(String productName, String description, int quantity, double price) throws SQLException {
+        String sql = "INSERT INTO products (product_name, description, quantity, price) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, productName);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, quantity);
+            preparedStatement.setDouble(4, price);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Product created successfully!");
+            } else {
+                System.out.println("Product creation failed.");
+            }
+        }
+    }
+
+    public void getProductById(int productId) throws SQLException {
+        String sql = "SELECT * FROM products WHERE product_id = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, productId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    System.out.println("Product ID: " + resultSet.getInt("product_id"));
+                    System.out.println("Product Name: " + resultSet.getString("product_name"));
+                    System.out.println("Description: " + resultSet.getString("description"));
+                    System.out.println("Quantity: " + resultSet.getInt("quantity"));
+                    System.out.println("Price: " + resultSet.getDouble("price"));
+                } else {
+                    System.out.println("Product not found with ID: " + productId);
+                }
+            }
+        }
+    }
+
+    public void getAllProducts() throws SQLException {
+        String sql = "SELECT * FROM products";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                System.out.println("Product ID: " + resultSet.getInt("product_id"));
+                System.out.println("Product Name: " + resultSet.getString("product_name"));
+                System.out.println("Description: " + resultSet.getString("description"));
+                System.out.println("Quantity: " + resultSet.getInt("quantity"));
+                System.out.println("Price: " + resultSet.getDouble("price"));
+                System.out.println("--------------------");
+            }
+        }
+    }
+
+    public void updateProduct(int productId, String productName, String description, int quantity, double price) throws SQLException {
+        String sql = "UPDATE products SET product_name = ?, description = ?, quantity = ?, price = ? WHERE product_id = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, productName);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, quantity);
+            preparedStatement.setDouble(4, price);
+            preparedStatement.setInt(5, productId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Product updated successfully!");
+            } else {
+                System.out.println("Product not found with ID: " + productId);
+            }
+        }
+    }
+
+    public void deleteProduct(int productId) throws SQLException {
+        String sql = "DELETE FROM products WHERE product_id = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, productId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Product deleted successfully!");
+            } else {
+                System.out.println("Product not found with ID: " + productId);
+            }
+        }
+    }
+
+    public void updateQuantityAndLog(int productId, int newQuantity, String logMessage) throws SQLException {
+        Connection localConnection = null; // Use a local connection for the transaction
+        try {
+            localConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            localConnection.setAutoCommit(false); // Disable auto-commit to start a transaction
+
+            // 1. Update the product quantity
+            String updateSql = "UPDATE products SET quantity = ? WHERE product_id = ?";
+            try (PreparedStatement updateStatement = localConnection.prepareStatement(updateSql)) {
+                updateStatement.setInt(1, newQuantity);
+                updateStatement.setInt(2, productId);
+                updateStatement.executeUpdate();
+            }
+
+            // 2. Log the quantity change
+            String logSql = "INSERT INTO product_log (product_id, log_message, log_time) VALUES (?, ?, NOW())"; // Assuming you have a product_log table
+            try (PreparedStatement logStatement = localConnection.prepareStatement(logSql)) {
+                logStatement.setInt(1, productId);
+                logStatement.setString(2, logMessage);
+                logStatement.executeUpdate();
+            }
+
+            localConnection.commit(); // Commit the transaction if both operations succeed
+            System.out.println("Quantity updated and log entry created successfully!");
+
+        } catch (SQLException e) {
+            if (localConnection != null) {
+                try {
+                    localConnection.rollback(); // Rollback the transaction if any operation fails
+                    System.err.println("Transaction rolled back.  Quantity and log not updated.");
+                } catch (SQLException rollbackException) {
+                    System.err.println("Error rolling back transaction: " + rollbackException.getMessage());
+                }
+            }
+            throw e; // Re-throw the original exception
+        } finally {
+            if (localConnection != null) {
+                try {
+                    localConnection.setAutoCommit(true); // Restore auto-commit
+                    localConnection.close(); // Close the local connection
+                } catch (SQLException closeException) {
+                    System.err.println("Error closing connection: " + closeException.getMessage());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            InventoryManager manager = new InventoryManager();
+
+            // Example usage:
+            //manager.createProduct("Laptop", "High-performance laptop", 10, 1200.00);
+            //manager.getProductById(1);
+            //manager.updateProduct(1, "Laptop Pro", "Updated laptop description", 15, 1300.00);
+            //manager.deleteProduct(1);
+            //manager.updateQuantityAndLog(2, 25, "Quantity increased due to new stock.");
+            manager.getAllProducts();
+
+            manager.closeConnection();
+        } catch (SQLException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Running the Application**
+
+- **Set up your database**: Create a database named inventory_db (or whatever you choose) and the products table using the SQL script provided earlier.
+- **Update the connection details**: Modify the DB_URL, DB_USER, and DB_PASSWORD constants in the InventoryManager class to match your database configuration.
+- **Add the JDBC driver**: Make sure you have the appropriate JDBC driver JAR file in your project's classpath. For MySQL, you'll need the MySQL Connector/J driver.
+- **Compile and run the code**: Compile the InventoryManager.java file and run the main() method. Uncomment the example usage lines in the main() method to test the different CRUD operations.
 
 	
 <!-- URL's -->
