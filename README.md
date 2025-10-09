@@ -30629,7 +30629,7 @@ public class InventoryManager {
 
 ## <a name="appendixa"></a>Appendix A: Useful Java Code Snippet
 
-#### <a name="#appendixapart1"></a>Appendix A - Part 1: Create a Generic Rest Service Caller
+#### <a name="appendixapart1"></a>Appendix A - Part 1: Create a Generic Rest Service Caller
 
 Create a Maven Project and put this dependency
 
