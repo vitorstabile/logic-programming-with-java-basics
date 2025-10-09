@@ -471,6 +471,8 @@
       - [Chapter 17 - Part 6.1: System Requirements and Design](#chapter17part6.1)
       - [Chapter 17 - Part 6.2: Implementing the Inventory Management System](#chapter17part6.2)
       - [Chapter 17 - Part 6.3: Complete InventoryManager Class](#chapter17part6.3)
+18. [Appendix A: Useful Java Code Snippet](#appendixa)
+	- [Appendix A - Part 1: Create a Generic Rest Service Caller](#appendixapart1)
         
    
 |               |                 |                 |                 |                 |                 |                 |                 |                 | 
@@ -30624,5 +30626,201 @@ public class InventoryManager {
 - **Add the JDBC driver**: Make sure you have the appropriate JDBC driver JAR file in your project's classpath. For MySQL, you'll need the MySQL Connector/J driver.
 - **Compile and run the code**: Compile the InventoryManager.java file and run the main() method. Uncomment the example usage lines in the main() method to test the different CRUD operations.
 
+
+## <a name="appendixa"></a>Appendix A: Useful Java Code Snippet
+
+#### <a name="#appendixapart1"></a>Appendix A - Part 1: Create a Generic Rest Service Caller
+
+Create a Maven Project and put this dependency
+
+```xml
+<dependencies>
+	<!-- Jackson Databind para converter JSON ↔ Java -->
+    	<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.16.2</version>
+        </dependency>
+</dependencies>
+```
+
+Create JsonHelper Class, that will be responsible to convert any JSON to his DTO
+
+```java
+package org.example;
+
+import java.util.Optional;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JsonHelper {
+
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    public static <T> Optional<T> convertFromJson(String json, Class<T> clazz) throws JsonProcessingException {
+        return Optional.ofNullable(mapper.readValue(json, clazz));
+    }
+}
+```
+
+Create a Generic Rest Service that you will put the read, delete, update operations. Use the JsonHelper converter
+
+```java
+package org.example;
+import java.lang.reflect.ParameterizedType;
+
+public class GenericRestService<T> {
+
+    public final Class<T> classType;
+
+        protected GenericRestService() {
+        this.classType = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+    public T read(String url) throws Exception {
+        String response = null;
+        try {
+            response = url; //this is for mock propose
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return JsonHelper.convertFromJson(response, classType).orElseThrow(Exception::new);
+    }
+
+}
+```
+
+Create a interface that will create stabilish a contract of implementation
+
+```java
+package org.example;
+
+public interface ProductRestService {
+    Product getProduct() throws Exception;
+}
+```
+
+Create the Implementation of the Product Rest Service, extending the GenericRestService
+
+```java
+package org.example;
+
+public class ProductRestServiceImplementation
+        extends GenericRestService<Product>
+        implements ProductRestService {
+
+    public ProductRestServiceImplementation() {
+    }
+
+    @Override
+    public Product getProduct() throws Exception {
+
+        return super.read(ProductMock.getProductMock());
+
+    }
+}
+```
+
+Create the Product DTO
+
+```java
+package org.example;
+
+import java.util.Objects;
+
+public class Product {
+    private Long id;
+    private String name;
+    private String size;
+
+    public Product() {
+    }
+
+    public Product(Long id, String name, String size) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String description) {
+        this.size = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                '}';
+    }
+}
+```
+
+Create the mock to simulate the call
+
+```java
+package org.example;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ProductMock {
+
+    public static String getProductMock() {
+        return "{ \"id\": 10, \"name\": \"Pants\", " +
+                "\"size\": \"AAA\"}";
+    }
+
+}
+```
+
+Now, test the implementation
+
+```java
+package org.example;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ProductRestServiceImplementation productRestServiceImplementation = new ProductRestServiceImplementation();
+        Product product = productRestServiceImplementation.getProduct();
+        System.out.println(product); // Product{id=10, name='Pants', size='AAA'}
+    }
+}
+```
 	
 <!-- URL's -->
