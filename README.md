@@ -30641,6 +30641,12 @@ Create a Maven Project and put this dependency
             <artifactId>jackson-databind</artifactId>
             <version>2.16.2</version>
         </dependency>
+
+		<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
 </dependencies>
 ```
 
@@ -30661,6 +30667,10 @@ public class JsonHelper {
     public static <T> Optional<T> convertFromJson(String json, Class<T> clazz) throws JsonProcessingException {
         return Optional.ofNullable(mapper.readValue(json, clazz));
     }
+
+    public static <T> String convertToJson(T object) throws JsonProcessingException {
+        return mapper.writeValueAsString(object);
+    }
 }
 ```
 
@@ -30668,19 +30678,28 @@ Create a Generic Rest Service that you will put the read, delete, update operati
 
 ```java
 package org.example;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 
 public class GenericRestService<T> {
 
     public final Class<T> classType;
 
-        protected GenericRestService() {
+    protected GenericRestService() {
         this.classType = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     public T read(String url) throws Exception {
         String response = null;
         try {
+
             response = url; //this is for mock propose
         } catch (Exception e) {
             e.printStackTrace();
@@ -30688,6 +30707,41 @@ public class GenericRestService<T> {
         return JsonHelper.convertFromJson(response, classType).orElseThrow(Exception::new);
     }
 
+    public boolean create(String uri, T resource) {
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+
+            final String jsonBody = JsonHelper.convertToJson(resource);
+
+            HttpPost httpPost = new HttpPost(uri);
+
+            StringEntity entity = new StringEntity(jsonBody, "UTF-8");
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
+
+            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+
+                int statusCode = response.getStatusLine().getStatusCode();
+
+                String responseBody = "";
+                if (response.getEntity() != null) {
+                    responseBody = EntityUtils.toString(response.getEntity());
+                }
+
+                System.out.println("HTTP Status Code Received: " + statusCode);
+                System.out.println("Response Body (for reference): " + responseBody.trim());
+
+                if (statusCode >= 200 && statusCode < 300) {
+                    return statusCode == 201 || statusCode == 200;
+                } else {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
 ```
 
@@ -30698,6 +30752,8 @@ package org.example;
 
 public interface ProductRestService {
     Product getProduct() throws Exception;
+
+    boolean createProduct(String uri, Product resource) throws Exception;
 }
 ```
 
@@ -30715,9 +30771,12 @@ public class ProductRestServiceImplementation
 
     @Override
     public Product getProduct() throws Exception {
-
         return super.read(ProductMock.getProductMock());
+    }
 
+    @Override
+    public boolean createProduct(String uri, Product resource) throws Exception {
+        return super.create(uri, resource);
     }
 }
 ```
@@ -30819,6 +30878,7 @@ public class Main {
         ProductRestServiceImplementation productRestServiceImplementation = new ProductRestServiceImplementation();
         Product product = productRestServiceImplementation.getProduct();
         System.out.println(product); // Product{id=10, name='Pants', size='AAA'}
+		productRestServiceImplementation.create("my_url", product); // will raise a exeption
     }
 }
 ```
